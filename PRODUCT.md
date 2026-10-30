@@ -105,7 +105,8 @@ Ausencias que no se pueden inventar:
 - Sin resultados publicados del experimento público. Mientras el experimento no
   tenga datos, la sección no puede mostrar gráficas ni cifras.
 - La cifra de ejercicios que use el copy debe cuadrar con el catálogo maestro
-  real (4.155), no con estimaciones antiguas.
+  real: 1.667 servidos, 1.631 con vídeo (maestro 1.0.0). En la web va «1.600+»,
+  que sigue siendo cierto aunque el catálogo cambie un poco.
 
 ## Product Principles
 

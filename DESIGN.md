@@ -248,28 +248,24 @@ con `font-display: swap` y precarga.
 Una columna de 1180px como máximo, con 22px de margen lateral en móvil y 40px
 desde 768px. Secciones con `clamp(48px, 6vw, 80px)` de aire (el resto lo pone el hilo),
 sobre un fondo blanco continuo: no hay bandas de color entre secciones, el gris
-vive solo dentro de las tarjetas. Orden: hero → cómo se vuelve tuyo → objetivos
-→ por qué (móvil fijo) → demo → cifras → ¿aún no convencido? → FAQ → beta → pie.
+vive solo dentro de las tarjetas. Orden: hero → objetivos → por qué (móvil
+fijo) → demo → cifras → ¿aún no convencido? → FAQ → beta → pie.
 
 - **Hilo entre secciones (`.bridge`):** una línea azul que se dibuja con el
   scroll, un punto y, casi siempre, una frase de 3 a 6 palabras que enlaza con
-  lo siguiente («Todo empieza por lo que haces.», «Y vale para cualquier
-  meta.»…). Es lo que hace que la página se lea de un tirón y no como bloques.
+  lo siguiente («Todo empieza por tu meta.», «Cada cambio llega con su
+  porqué.»…). Es lo que hace que la página se lea de un tirón y no como bloques.
 - **Hero:** en escritorio, texto a la izquierda y el móvil entero a la derecha,
   dimensionado con el alto del viewport para que se vea completo al cargar
   incluso en un portátil de 720px. En móvil y tablet, texto y formulario
   primero y el móvil debajo. El móvil nunca se recorta ni entra con fundido.
-- **Cómo se vuelve tuyo:** casi sin texto. Tres entradas (Entrenas, Eliges,
-  Hablas) a la izquierda, un cable por cada una y el móvil con «Tu semana» a la
-  derecha. En bucle mientras se ve: se ilumina una entrada, un pulso recorre su
-  cable y aparece la etiqueta del cambio en el día que toca.
 - **Objetivos:** selector segmentado de cuatro opciones y un único panel con el
   plan orientativo en letra grande y su gráfica (carga semanal, tiempo por
   zona, fases hasta la fecha, constancia), que se redibuja al cambiar.
 - **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
   cada paso. Las tres pantallas son HTML con barra de pestañas y cada una es un
   pequeño vídeo en bucle (GSAP). En ≤860px, galería horizontal con flechas.
-- **Cifras:** burbujas que flotan (4.155 ejercicios, 4 objetivos, 3 formas)
+- **Cifras:** burbujas que flotan (1.600+ ejercicios, 4 objetivos, 3 formas)
   rodeadas de burbujas con ilustraciones del catálogo.
 
 Mobile-first de verdad: todo se revisa a 375px antes que a 1440px.
@@ -281,8 +277,7 @@ Entradas lentas y una sola vez: opacidad 0 → 1 y 18–28px de subida, 0,8s,
 `[data-reveal-stagger]`). Sin rebotes ni escalas. El hero no se anima: el
 texto es el LCP y el móvil tiene que verse al cargar. Las piezas que se montan
 solas (`[data-anim]`: gráficas de objetivos, burbujas) cambian con la clase
-`.is-in`. Lo que va en bucle (el flujo de «Cómo se vuelve tuyo» y las
-pantallas de «Por qué») son timelines de GSAP que solo corren mientras están
+`.is-in`. Lo que va en bucle (las pantallas de «Por qué») son timelines de GSAP que solo corren mientras están
 a la vista; antes de reproducirse se ven en su estado final. Si
 `app.js` no arranca en 4s, el `<head>` quita `.js` y todo se ve en su estado
 final. Con `prefers-reduced-motion` no hay ninguna.
@@ -313,16 +308,18 @@ tarjetas pequeñas, 28px para tiles y paneles, 32px para el bloque de la beta,
 Píldora gris con una píldora blanca que se desliza a la opción activa (la demo).
 Funciona con flechas del teclado.
 
-### Tarjetas de objetivo
-Botón con `aria-pressed`; el elegido lleva anillo azul de 2px y el círculo de
-la esquina se rellena con un check. La gráfica de cada una es CSS (sin
-imágenes) y se dibuja al entrar en pantalla. Son orientativas: ninguna lleva
-cifras.
+### Objetivos
+Cuatro pestañas (`role="tab"`) en un selector segmentado y un único panel. Al
+cambiar, el panel cambia el plan orientativo y redibuja su gráfica. Las
+gráficas son CSS, sin imágenes, y se dibujan al entrar en pantalla. Son
+orientativas, así que ninguna lleva cifras.
 
 ### Pantallas de la app
 HTML dentro del marco del móvil, no capturas ni vídeo: nítidas, ligeras y
-traducibles. Las ilustraciones del catálogo llevan `filter: brightness(1.025)`
-para que su fondo #FBFBFB–#FDFDFD quede en blanco. En pantallas estrechas
+traducibles. Las ilustraciones salen de los vídeos del catálogo maestro
+(`assets/ej/`: 16:9, miniatura 3:2 y cuadrada para las burbujas), encuadradas
+en la figura y sin marca de agua. Llevan `filter: brightness(1.025)` para que
+su fondo gris muy claro quede en blanco. Los nombres son los del catálogo. En pantallas estrechas
 (`@container` ≤262px) el hero enseña tres ejercicios en vez de cuatro.
 
 ### Móvil del hero
@@ -343,7 +340,7 @@ plazas: la beta es abierta.
 - **Do** usar un único texto para el botón primario en toda la página.
 - **Do** aplicar cualquier cambio a `/` y a `/en/` en el mismo commit.
 - **Do** mantener todo texto funcional en 11px o más.
-- **Do** usar solo cifras que existen (4.155 ejercicios, 4 objetivos, 3 formas).
+- **Do** usar solo cifras que existen (1.600+ ejercicios con vídeo, 4 objetivos, 3 formas).
 - **Do** unir cada sección con la siguiente con el hilo; nunca bandas de color.
 
 ### Don't:

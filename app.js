@@ -116,37 +116,6 @@ const isEn = document.documentElement.lang === 'en';
     });
   }
 
-  // ===== Cómo se vuelve tuyo: cada entrada viaja al plan y lo reescribe =====
-  // Bucle mientras la sección está en pantalla: se ilumina una entrada, un
-  // pulso recorre su cable y en el móvil aparece el cambio en el día que toca.
-  (function() {
-    var flow = document.querySelector('[data-flow]');
-    if (!flow) return;
-    var items = flow.querySelectorAll('.flow__item');
-    var pulses = flow.querySelectorAll('.flow__pulse');
-    var rows = flow.querySelectorAll('.wk li[data-tag]');
-    function tag(step, on) {
-      rows.forEach(function(r) { if (r.getAttribute('data-tag') === String(step)) r.classList.toggle('is-on', on); });
-    }
-    if (reduceMotion) { rows.forEach(function(r) { r.classList.add('is-on'); }); return; }
-    var tl = gsap.timeline({ repeat: -1, paused: true });
-    [0, 1, 2].forEach(function(step) {
-      tl.call(function() {
-        items.forEach(function(it, j) { it.classList.toggle('is-active', j === step); });
-        var p = pulses[step];
-        if (p) { p.classList.remove('is-go'); void p.getBoundingClientRect(); p.classList.add('is-go'); }
-      }, null, '+=0.3');
-      tl.call(function() { tag(step, true); }, null, '+=0.85');
-      tl.to({}, { duration: 1.5 });
-    });
-    tl.call(function() { items.forEach(function(it) { it.classList.remove('is-active'); }); }, null, '+=0.3');
-    tl.to({}, { duration: 1.6 });
-    tl.call(function() { rows.forEach(function(r) { r.classList.remove('is-on'); }); pulses.forEach(function(p) { p.classList.remove('is-go'); }); });
-    tl.to({}, { duration: 0.5 });
-    ScrollTrigger.create({ trigger: flow, start: 'top 80%', end: 'bottom 15%',
-      onToggle: function(self) { if (self.isActive) tl.play(); else tl.pause(); } });
-  })();
-
   // ===== Pantallas de «Por qué»: cada una es un pequeño vídeo en bucle =====
   // Se crean pausadas; las reproduce el bloque de abajo cuando su pantalla es
   // la visible. Con movimiento reducido no se crean y se ve el estado final.
