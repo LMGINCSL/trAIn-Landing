@@ -261,7 +261,9 @@ fijo) → demo → cifras → ¿aún no convencido? → FAQ → beta → pie.
   primero y el móvil debajo. El móvil nunca se recorta ni entra con fundido.
 - **Objetivos:** selector segmentado de cuatro opciones y un único panel con el
   plan orientativo en letra grande y su gráfica (carga semanal, tiempo por
-  zona, fases hasta la fecha, constancia), que se redibuja al cambiar.
+  zona, fases hasta la fecha, constancia), que se redibuja al cambiar. Debajo,
+  tres ejercicios del catálogo típicos de esa meta: tarjetas en escritorio y
+  filas tipo app en móvil.
 - **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
   cada paso. Las tres pantallas son HTML con barra de pestañas y cada una es un
   pequeño vídeo en bucle (GSAP). En ≤860px, galería horizontal con flechas.
@@ -321,6 +323,11 @@ traducibles. Las ilustraciones salen de los vídeos del catálogo maestro
 en la figura y sin marca de agua. Llevan `filter: brightness(1.025)` para que
 su fondo gris muy claro quede en blanco. Los nombres son los del catálogo. En pantallas estrechas
 (`@container` ≤262px) el hero enseña tres ejercicios en vez de cuatro.
+
+### Pantalla de sustituciones
+Cada caso («¿Sin barras?», «¿Lesión?», «¿Aburrido?») enseña el ejercicio de
+antes y el de ahora con su miniatura del catálogo, y lo que se guarda en el
+perfil.
 
 ### Móvil del hero
 Barra de estado, cabecera "Hoy · Empuje", el "por qué ha cambiado", la lista de

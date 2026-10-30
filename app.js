@@ -447,6 +447,7 @@ const isEn = document.documentElement.lang === 'en';
   var textEl = section.querySelector('#goals-preview-text');
   var descEl = section.querySelector('#goals-desc');
   var vizzes = section.querySelectorAll('[data-viz]');
+  var exs = section.querySelectorAll('[data-ex]');
   if (!tabs.length || !textEl || !panel) return;
 
   var en = document.documentElement.lang === 'en';
@@ -476,6 +477,7 @@ const isEn = document.documentElement.lang === 'en';
     textEl.innerHTML = copy[key];
     if (descEl) descEl.textContent = btn.getAttribute('data-desc') || '';
     vizzes.forEach(function(v) { v.hidden = v.getAttribute('data-viz') !== key; });
+    exs.forEach(function(x) { x.hidden = x.getAttribute('data-ex') !== key; });
     // Vuelve a dibujar la gráfica: se quita el estado final sin transición y
     // se repone en el siguiente fotograma.
     if (panel.classList.contains('is-in')) {
