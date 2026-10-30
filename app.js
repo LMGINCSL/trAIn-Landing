@@ -104,6 +104,97 @@ const isEn = document.documentElement.lang === 'en';
       ScrollTrigger.create({ trigger: group, start: startPos, once: true,
         onEnter: function() { gsap.to(kids, { opacity: 1, y: 0, duration: 0.8, stagger: 0.09, ease: 'power2.out' }); } });
     });
+    // Hilo entre secciones: la línea se dibuja con el scroll (scrub) y la
+    // frase que enlaza con lo siguiente aparece cuando la línea llega.
+    gsap.utils.toArray('.bridge').forEach(function(b) {
+      var line = b.querySelector('.bridge__line');
+      var rest = b.querySelectorAll('.bridge__dot, .bridge__t');
+      if (line) gsap.fromTo(line, { scaleY: 0 }, { scaleY: 1, ease: 'none',
+        scrollTrigger: { trigger: b, start: 'top 92%', end: 'top 55%', scrub: 0.6 } });
+      if (rest.length) gsap.from(rest, { opacity: 0, y: 10, duration: 0.6, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: b, start: 'top 62%', once: true } });
+    });
+  }
+
+  // ===== Cómo se vuelve tuyo: cada entrada viaja al plan y lo reescribe =====
+  // Bucle mientras la sección está en pantalla: se ilumina una entrada, un
+  // pulso recorre su cable y en el móvil aparece el cambio en el día que toca.
+  (function() {
+    var flow = document.querySelector('[data-flow]');
+    if (!flow) return;
+    var items = flow.querySelectorAll('.flow__item');
+    var pulses = flow.querySelectorAll('.flow__pulse');
+    var rows = flow.querySelectorAll('.wk li[data-tag]');
+    function tag(step, on) {
+      rows.forEach(function(r) { if (r.getAttribute('data-tag') === String(step)) r.classList.toggle('is-on', on); });
+    }
+    if (reduceMotion) { rows.forEach(function(r) { r.classList.add('is-on'); }); return; }
+    var tl = gsap.timeline({ repeat: -1, paused: true });
+    [0, 1, 2].forEach(function(step) {
+      tl.call(function() {
+        items.forEach(function(it, j) { it.classList.toggle('is-active', j === step); });
+        var p = pulses[step];
+        if (p) { p.classList.remove('is-go'); void p.getBoundingClientRect(); p.classList.add('is-go'); }
+      }, null, '+=0.3');
+      tl.call(function() { tag(step, true); }, null, '+=0.85');
+      tl.to({}, { duration: 1.5 });
+    });
+    tl.call(function() { items.forEach(function(it) { it.classList.remove('is-active'); }); }, null, '+=0.3');
+    tl.to({}, { duration: 1.6 });
+    tl.call(function() { rows.forEach(function(r) { r.classList.remove('is-on'); }); pulses.forEach(function(p) { p.classList.remove('is-go'); }); });
+    tl.to({}, { duration: 0.5 });
+    ScrollTrigger.create({ trigger: flow, start: 'top 80%', end: 'bottom 15%',
+      onToggle: function(self) { if (self.isActive) tl.play(); else tl.pause(); } });
+  })();
+
+  // ===== Pantallas de «Por qué»: cada una es un pequeño vídeo en bucle =====
+  // Se crean pausadas; las reproduce el bloque de abajo cuando su pantalla es
+  // la visible. Con movimiento reducido no se crean y se ve el estado final.
+  function screenTimeline(sc, idx) {
+    if (reduceMotion || !sc) return null;
+    var tl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 1.4 });
+    if (idx === 0) {
+      var ring = sc.querySelector('.ring__fg'), num = sc.querySelector('.ring__n b');
+      var txt = sc.querySelector('.decision__txt'), chg = sc.querySelectorAll('.chg'), news = sc.querySelectorAll('.chg em'), next = sc.querySelector('.next');
+      var o = { v: 0 };
+      tl.set(ring, { strokeDashoffset: 100 }).set(txt, { opacity: 0, x: -8 }).set(chg, { opacity: 0, y: 10 }).set(news, { opacity: 0, scale: .6 }).set(next, { opacity: 0, y: 12 })
+        .call(function() { num.textContent = '0'; })
+        .to(ring, { strokeDashoffset: 5, duration: 1.4, ease: 'power2.out' }, 0.2)
+        .fromTo(o, { v: 0 }, { v: 95, duration: 1.4, ease: 'power2.out', immediateRender: false, onUpdate: function() { num.textContent = Math.round(o.v); } }, 0.2)
+        .to(txt, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }, 1.0)
+        .to(chg, { opacity: 1, y: 0, duration: 0.45, stagger: 0.18, ease: 'power2.out' }, 1.4)
+        .to(news, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.18, ease: 'back.out(2)' }, 1.8)
+        .to(next, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.5)
+        .to({}, { duration: 2.6 });
+    } else if (idx === 1) {
+      var n = sc.querySelector('.resp__n b'), you = sc.querySelector('.chart__you'), area = sc.querySelector('.chart__area');
+      var dot = sc.querySelector('.chart__dot'), avg = sc.querySelector('.chart__avg'), ok = sc.querySelector('.pill-ok'), how = sc.querySelector('.how');
+      var c = { v: 0 };
+      tl.set(you, { strokeDashoffset: 1 }).set(area, { opacity: 0 }).set(avg, { opacity: 0 }).set(dot, { scale: 0, transformOrigin: '50% 50%' }).set(ok, { opacity: 0, y: 8 }).set(how, { opacity: 0, y: 10 })
+        .call(function() { n.textContent = '0'; })
+        .to(avg, { opacity: 1, duration: 0.5 }, 0.2)
+        .to(you, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.4)
+        .to(area, { opacity: 1, duration: 0.8 }, 1.2)
+        .fromTo(c, { v: 0 }, { v: 10, duration: 1.6, ease: 'power2.inOut', immediateRender: false, onUpdate: function() { n.textContent = Math.round(c.v); } }, 0.4)
+        .to(dot, { scale: 1, duration: 0.4, ease: 'back.out(2.5)' }, 1.95)
+        .to(ok, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 2.2)
+        .to(how, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 2.6)
+        .to({}, { duration: 2.6 });
+    } else if (idx === 2) {
+      // Tres casos seguidos; cada uno deja su línea en «Guardado en tu perfil»
+      var chips = sc.querySelectorAll('.qr span'), swaps = sc.querySelectorAll('.swap'), saved = sc.querySelectorAll('.saved li');
+      tl.set(saved, { opacity: 0, x: -10 });
+      [0, 1, 2].forEach(function(k) {
+        tl.call(function() {
+          chips.forEach(function(ch, j) { ch.classList.toggle('is-on', j === k); });
+          swaps.forEach(function(sw, j) { sw.classList.toggle('is-on', j === k); });
+        }, null, k === 0 ? 0 : '+=0');
+        tl.to(saved[k], { opacity: 1, x: 0, duration: 0.45, ease: 'power2.out' }, '+=0.8');
+        tl.to({}, { duration: 1.9 });
+      });
+      tl.to({}, { duration: 1 });
+    }
+    return tl;
   }
 
   // ===== Por qué: el móvil queda fijo y su pantalla cambia con cada paso =====
@@ -133,12 +224,13 @@ const isEn = document.documentElement.lang === 'en';
         window.addEventListener('resize', syncArrows);
         syncArrows();
       }
-      // Cada pantalla monta sus gráficas cuando entra en la galería
-      screens.forEach(function(sc) {
-        if (reduceMotion || !('IntersectionObserver' in window)) { sc.classList.add('is-live'); return; }
+      // Cada pantalla se reproduce mientras está a la vista en la galería
+      screens.forEach(function(sc, idx) {
+        var tlm = screenTimeline(sc, idx);
+        if (!tlm || !('IntersectionObserver' in window)) return;
         var io = new IntersectionObserver(function(entries) {
-          if (entries[0].isIntersecting) { sc.classList.add('is-live'); io.disconnect(); }
-        }, { threshold: 0.5 });
+          if (entries[0].isIntersecting) tlm.play(); else tlm.pause();
+        }, { threshold: 0.55 });
         io.observe(sc);
       });
       steps.forEach(function(s) { s.classList.add('on'); });
@@ -147,16 +239,19 @@ const isEn = document.documentElement.lang === 'en';
 
     stage.classList.add('js-active');
     var screensD = stage.querySelectorAll('.scr');
+    var tls = Array.prototype.map.call(screensD, function(sc, idx) { return screenTimeline(sc, idx); });
     var current = -1;
-    // is-live monta las gráficas de la pantalla visible; al salir se desmonta
-    // para que vuelva a animarse si el usuario regresa.
+    // La pantalla visible arranca su vídeo desde el principio; las demás se paran.
     function activate(i) {
       if (i === current) return;
       current = i;
       phone.setAttribute('data-screen', String(i));
-      screensD.forEach(function(sc, idx) { sc.classList.toggle('is-live', idx === i); });
+      tls.forEach(function(tl, idx) { if (!tl) return; if (idx === i) tl.restart(); else tl.pause(); });
       steps.forEach(function(s, idx) { s.classList.toggle('on', idx === i); });
     }
+    // Fuera de pantalla no se reproduce nada
+    ScrollTrigger.create({ trigger: stage, start: 'top bottom', end: 'bottom top',
+      onToggle: function(self) { var tl = tls[current]; if (!tl) return; if (self.isActive) tl.play(); else tl.pause(); } });
     steps.forEach(function(step, i) {
       ScrollTrigger.create({ trigger: step, start: 'top center', end: 'bottom center',
         onToggle: function(self) { if (self.isActive) activate(i); } });
@@ -373,33 +468,62 @@ const isEn = document.documentElement.lang === 'en';
   });
 })();
 
-// ===== Objetivos: preview del plan según meta elegida =====
+// ===== Objetivos: el selector cambia el plan orientativo y su gráfica =====
 (function() {
   var section = document.querySelector('#objetivos');
   if (!section) return;
-  var opts = section.querySelectorAll('.goal-opt');
+  var tabs = Array.prototype.slice.call(section.querySelectorAll('.goal-opt'));
+  var bar = section.querySelector('.goals__tabs');
+  var panel = section.querySelector('.goals__panel');
   var textEl = section.querySelector('#goals-preview-text');
-  if (!opts.length || !textEl) return;
+  var descEl = section.querySelector('#goals-desc');
+  var vizzes = section.querySelectorAll('[data-viz]');
+  if (!tabs.length || !textEl || !panel) return;
 
   var en = document.documentElement.lang === 'en';
   var copy = en ? {
     fuerza: 'Push, pull and leg blocks with weekly load progression. Every change in volume or intensity, <strong>explained with your data</strong>.',
     cardio: 'Zone 2 base, controlled intensity days and recovery built in. Conditioning that <strong>fits your week</strong>, not random HIIT.',
-    prueba: 'Toward your race day: specific strength, cardio and event stations — periodized to the date, with <strong>taper when it matters</strong>.',
+    prueba: 'Toward your race day: specific strength, cardio and event stations, periodized to the date, with <strong>taper when it matters</strong>.',
     mantener: 'Sustainable frequency to stay in shape or ease back in. Enough stimulus to progress, <strong>without burning out</strong>.'
   } : {
     fuerza: 'Bloques de empuje, tirón y pierna con progresión de carga. Cada cambio de volumen o intensidad, <strong>explicado con tus datos</strong>.',
     cardio: 'Base Zone 2, días de intensidad controlada y recuperación integrada. Condición que <strong>encaja en tu semana</strong>, no HIIT al azar.',
-    prueba: 'Hacia tu fecha: fuerza útil, cardio y estaciones o disciplinas — periodizado al evento, con <strong>taper cuando toca</strong>.',
+    prueba: 'Hacia tu fecha: fuerza útil, cardio y estaciones o disciplinas, periodizado al evento, con <strong>taper cuando toca</strong>.',
     mantener: 'Frecuencia sostenible para mantener forma o volver con calma. Estímulo suficiente para progresar, <strong>sin quemarte</strong>.'
   };
 
-  opts.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var key = btn.getAttribute('data-goal');
-      if (!key || !copy[key]) return;
-      opts.forEach(function(b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      textEl.innerHTML = copy[key];
+  function select(i, focus) {
+    var btn = tabs[i];
+    var key = btn.getAttribute('data-goal');
+    if (!copy[key]) return;
+    tabs.forEach(function(b, j) {
+      var on = j === i;
+      b.setAttribute('aria-selected', String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    if (bar) bar.style.setProperty('--i', i);
+    panel.setAttribute('aria-labelledby', btn.id);
+    textEl.innerHTML = copy[key];
+    if (descEl) descEl.textContent = btn.getAttribute('data-desc') || '';
+    vizzes.forEach(function(v) { v.hidden = v.getAttribute('data-viz') !== key; });
+    // Vuelve a dibujar la gráfica: se quita el estado final sin transición y
+    // se repone en el siguiente fotograma.
+    if (panel.classList.contains('is-in')) {
+      panel.classList.add('is-reset');
+      panel.classList.remove('is-in');
+      void panel.offsetWidth;
+      panel.classList.remove('is-reset');
+      requestAnimationFrame(function() { panel.classList.add('is-in'); });
+    }
+    if (focus) btn.focus();
+  }
+
+  tabs.forEach(function(btn, i) {
+    btn.addEventListener('click', function() { select(i); });
+    btn.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); select((i + 1) % tabs.length, true); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); select((i - 1 + tabs.length) % tabs.length, true); }
     });
   });
 })();
