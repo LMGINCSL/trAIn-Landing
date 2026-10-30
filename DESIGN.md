@@ -147,9 +147,9 @@ mismo caso (hombro tocado → sesión de empuje sin press vertical) para que lo
 que promete el titular se vea antes de leerlo.
 
 Hay un segundo mundo de color, pequeño y con reglas propias: el **modal de
-éxito** posterior al alta (tokens `--ms-*`), con la escalera de waves, la barra
-de escasez y los botones de compartir. Es la única superficie que puede usar
-verde de confirmación y ámbar de aviso.
+éxito** posterior al alta (tokens `--ms-*`). Con la beta abierta solo confirma
+(«Estás dentro», el acceso llega por email) y ofrece compartir. Es la única
+superficie que puede usar el verde de WhatsApp.
 
 **Key Characteristics:**
 - Blanco de página y gris #F5F5F7 en bandas alternas y tarjetas
@@ -251,13 +251,20 @@ alternando blanco y gris. Orden: hero → lo esencial → cómo se vuelve tuyo �
 objetivos → por qué (móvil fijo) → demo → cifras → ¿aún no convencido? → FAQ →
 beta → pie.
 
-- **Hero:** centrado; eyebrow, titular, entradilla, formulario en píldora y
-  enlace "Ver cómo razona ›". Debajo, el móvil con la app entra desde abajo y
-  se corta contra la banda gris siguiente.
-- **Por qué:** en escritorio, el móvil se queda fijo y los reels cambian con cada
-  paso (ScrollTrigger). En ≤860px es una galería horizontal con scroll-snap y
-  dos flechas redondas.
-- **Objetivos:** bento de cuatro tiles que son a la vez el selector.
+- **Hero:** en escritorio, texto a la izquierda y el móvil entero a la derecha,
+  dimensionado con el alto del viewport para que se vea completo al cargar
+  incluso en un portátil de 720px. En móvil y tablet, texto y formulario
+  primero y el móvil debajo. El móvil nunca se recorta ni entra con fundido.
+- **Cómo se vuelve tuyo:** tres tarjetas (Entrenas, Eliges, Hablas), cada una
+  con el trozo de la app donde pasa. Debajo, un panel azul velo con lo que
+  recuerda (chips) y la semana que reescribe; los días cambiados llevan anillo.
+- **Objetivos:** cuatro tarjetas 2×2 con una gráfica cada una (carga semanal,
+  tiempo por zona, fases hasta la fecha, constancia) que son a la vez el
+  selector.
+- **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
+  cada paso (ScrollTrigger). Las tres pantallas son HTML con los mensajes de
+  los antiguos reels. En ≤860px es una galería horizontal con scroll-snap y dos
+  flechas redondas.
 
 Mobile-first de verdad: todo se revisa a 375px antes que a 1440px.
 
@@ -265,8 +272,12 @@ Mobile-first de verdad: todo se revisa a 375px antes que a 1440px.
 
 Entradas lentas y una sola vez: opacidad 0 → 1 y 18–28px de subida, 0,8s,
 `power2.out`, escalonadas 0,09s en grupos (`[data-reveal]`,
-`[data-reveal-stagger]`). Sin rebotes ni escalas. El texto del hero no se
-anima (es el LCP); el móvil sí. Con `prefers-reduced-motion` no hay ninguna.
+`[data-reveal-stagger]`). Sin rebotes ni escalas. El hero no se anima: el
+texto es el LCP y el móvil tiene que verse al cargar. Las piezas que se montan
+solas (`[data-anim]`: chips y semana, gráficas de objetivos) cambian con la
+clase `.is-in`; las pantallas del móvil de «Por qué», con `.is-live`. Si
+`app.js` no arranca en 4s, el `<head>` quita `.js` y todo se ve en su estado
+final. Con `prefers-reduced-motion` no hay ninguna.
 
 ## Elevation & Depth
 
@@ -286,7 +297,7 @@ tarjetas pequeñas, 28px para tiles y paneles, 32px para el bloque de la beta,
 
 ### Buttons
 - **Primario:** píldora azul, 17px a 600, texto blanco. El texto es siempre
-  «Reservar plaza» / «Reserve a spot».
+  «Unirme a la beta» / «Join the beta».
 - **Gris:** píldora `--control` con texto tinta (Instagram, Rechazar cookies).
 - **Enlace:** azul texto terminado en «›».
 
@@ -294,17 +305,26 @@ tarjetas pequeñas, 28px para tiles y paneles, 32px para el bloque de la beta,
 Píldora gris con una píldora blanca que se desliza a la opción activa (la demo).
 Funciona con flechas del teclado.
 
-### Tiles de objetivo
+### Tarjetas de objetivo
 Botón con `aria-pressed`; el elegido lleva anillo azul de 2px y el círculo de
-la esquina se rellena con un check. Las ilustraciones del catálogo llevan
-`filter: brightness(1.025)` para que su fondo #FBFBFB–#FDFDFD quede en blanco.
+la esquina se rellena con un check. La gráfica de cada una es CSS (sin
+imágenes) y se dibuja al entrar en pantalla. Son orientativas: ninguna lleva
+cifras.
+
+### Pantallas de la app
+HTML dentro del marco del móvil, no capturas ni vídeo: nítidas, ligeras y
+traducibles. Las ilustraciones del catálogo llevan `filter: brightness(1.025)`
+para que su fondo #FBFBFB–#FDFDFD quede en blanco. En pantallas estrechas
+(`@container` ≤262px) el hero enseña tres ejercicios en vez de cuatro.
 
 ### Móvil del hero
-HTML, no imagen: barra de estado, cabecera "Hoy · Empuje", el "por qué ha
-cambiado" y la lista de ejercicios. Es el mismo caso que la demo.
+Barra de estado, cabecera "Hoy · Empuje", el "por qué ha cambiado", la lista de
+ejercicios y "Empezar sesión". Es el mismo caso que la demo.
 
 ### Modal de éxito (segundo mundo)
-Escalera de waves, barra de escasez y compartir, con tokens `--ms-*`.
+Check, «Estás dentro», aviso de que el acceso está en el email y compartir
+(WhatsApp, X, copiar enlace), con tokens `--ms-*`. Sin puesto, waves ni
+plazas: la beta es abierta.
 
 ## Do's and Don'ts
 
@@ -315,7 +335,7 @@ Escalera de waves, barra de escasez y compartir, con tokens `--ms-*`.
 - **Do** usar un único texto para el botón primario en toda la página.
 - **Do** aplicar cualquier cambio a `/` y a `/en/` en el mismo commit.
 - **Do** mantener todo texto funcional en 11px o más.
-- **Do** usar solo cifras que existen (4.155 ejercicios, 100 plazas).
+- **Do** usar solo cifras que existen (4.155 ejercicios, 4 objetivos, 3 formas).
 
 ### Don't:
 - **Don't** volver a poner titulares en mayúsculas ni a peso 800.
@@ -323,4 +343,4 @@ Escalera de waves, barra de escasez y compartir, con tokens `--ms-*`.
 - **Don't** poner bordes a las tarjetas ni sombras a lo que no flota.
 - **Don't** añadir fotos de stock de gimnasio ni gradientes decorativos.
 - **Don't** introducir una segunda familia tipográfica.
-- **Don't** vender con una fecha: la escasez es de plazas.
+- **Don't** vender escasez: la beta es abierta, sin fechas ni plazas contadas.

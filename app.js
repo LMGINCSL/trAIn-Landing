@@ -5,6 +5,7 @@ const isEn = document.documentElement.lang === 'en';
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.matchMedia('(max-width: 767px)').matches;
   gsap.registerPlugin(ScrollTrigger);
+  window.__appReady = true;
   // En móvil, ignorar el resize de la barra de direcciones evita que ScrollTrigger
   // recalcule y provoque saltos/contenido en blanco al hacer scroll.
   ScrollTrigger.config({ ignoreMobileResize: true });
@@ -78,13 +79,19 @@ const isEn = document.documentElement.lang === 'en';
   }
 
   // Animaciones: calmadas y una sola vez. Funden y suben unos pocos píxeles;
-  // sin rebotes ni escalas. El texto del hero no se anima: es el LCP.
-  var heroPhone = document.querySelector('.hero__device .phone');
-  if (!reduceMotion) {
-    if (heroPhone) gsap.fromTo(heroPhone, { opacity: 0, y: 90 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.15, ease: 'power3.out' });
-
+  // sin rebotes ni escalas. El hero no se anima: su texto es el LCP y el móvil
+  // tiene que verse en cuanto carga la página.
+  var startPos = isMobile ? 'top 90%' : 'top 82%';
+  // [data-anim]: la sección se monta sola (gráficas, chips, semana) cuando
+  // entra en pantalla. El CSS pinta el estado final con .is-in.
+  var animEls = gsap.utils.toArray('[data-anim]');
+  if (reduceMotion) {
+    animEls.forEach(function(el) { el.classList.add('is-in'); });
+  } else {
+    animEls.forEach(function(el) {
+      ScrollTrigger.create({ trigger: el, start: startPos, once: true, onEnter: function() { el.classList.add('is-in'); } });
+    });
     var RY = isMobile ? 18 : 28;
-    var startPos = isMobile ? 'top 92%' : 'top 85%';
     gsap.utils.toArray('[data-reveal]').forEach(function(el) {
       gsap.from(el, { y: RY, opacity: 0, duration: 0.8, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: startPos, once: true } });
@@ -97,35 +104,25 @@ const isEn = document.documentElement.lang === 'en';
       ScrollTrigger.create({ trigger: group, start: startPos, once: true,
         onEnter: function() { gsap.to(kids, { opacity: 1, y: 0, duration: 0.8, stagger: 0.09, ease: 'power2.out' }); } });
     });
-  } else if (heroPhone) {
-    heroPhone.style.opacity = 1;
   }
 
-  // ===== Scrollytelling reels: el móvil queda fijo y el reel + el texto cambian al hacer scroll =====
+  // ===== Por qué: el móvil queda fijo y su pantalla cambia con cada paso =====
+  // Escritorio: ScrollTrigger activa el paso que llega al centro y el móvil
+  // enseña su pantalla. ≤860px: galería horizontal (CSS) con flechas.
   (function() {
     var stage = document.querySelector('.reels');
     if (!stage) return;
-    var reels = gsap.utils.toArray('.reels__reel');
-    var strip = stage.querySelector('.reels__strip');
+    var phone = stage.querySelector('.reels__phone');
     var steps = gsap.utils.toArray('.reels__step');
-    if (!steps.length) return;
+    if (!steps.length || !phone) return;
 
-    // Si un reel aún no existe (archivo no subido), se oculta y se ve el placeholder.
-    reels.forEach(function(v) {
-      function hide() { v.style.display = 'none'; }
-      v.addEventListener('error', hide);
-      var s = v.querySelector('source');
-      if (s) s.addEventListener('error', hide);
-    });
-
-    // MÓVIL/TABLET ≤860px: galería horizontal (CSS) con flechas. Sin filmstrip ni ScrollTrigger.
-    // Cada reel (tarjeta) se reproduce solo cuando entra en pantalla, para ahorrar datos.
     if (window.matchMedia('(max-width: 860px)').matches) {
       var grid = stage.querySelector('.reels__grid');
       var prev = stage.querySelector('[data-reels-dir="-1"]');
       var next = stage.querySelector('[data-reels-dir="1"]');
+      var screens = stage.querySelectorAll('.scr');
       if (grid && prev && next) {
-        var stepW = function() { return (reels[0] ? reels[0].getBoundingClientRect().width : grid.clientWidth * 0.8) + 16; };
+        var stepW = function() { return (screens[0] ? screens[0].getBoundingClientRect().width : grid.clientWidth * 0.8) + 16; };
         var syncArrows = function() {
           prev.disabled = grid.scrollLeft < 4;
           next.disabled = grid.scrollLeft + grid.clientWidth > grid.scrollWidth - 4;
@@ -136,46 +133,37 @@ const isEn = document.documentElement.lang === 'en';
         window.addEventListener('resize', syncArrows);
         syncArrows();
       }
-      if ('IntersectionObserver' in window) {
+      // Cada pantalla monta sus gráficas cuando entra en la galería
+      screens.forEach(function(sc) {
+        if (reduceMotion || !('IntersectionObserver' in window)) { sc.classList.add('is-live'); return; }
         var io = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function() {}); }
-            else { try { e.target.pause(); } catch (err) {} }
-          });
-        }, { threshold: 0.4 });
-        reels.forEach(function(v) { io.observe(v); });
-      } else {
-        reels.forEach(function(v) { var p = v.play(); if (p && p.catch) p.catch(function() {}); });
-      }
+          if (entries[0].isIntersecting) { sc.classList.add('is-live'); io.disconnect(); }
+        }, { threshold: 0.5 });
+        io.observe(sc);
+      });
       steps.forEach(function(s) { s.classList.add('on'); });
       return;
     }
 
     stage.classList.add('js-active');
+    var screensD = stage.querySelectorAll('.scr');
     var current = -1;
-    // Filmstrip por pasos (sin hueco): la tira sube un alto completo por vídeo.
-    function setStrip(i) {
-      if (strip) strip.style.transform = 'translateY(' + (-i * 100) + '%)';
-    }
+    // is-live monta las gráficas de la pantalla visible; al salir se desmonta
+    // para que vuelva a animarse si el usuario regresa.
     function activate(i) {
       if (i === current) return;
       current = i;
-      setStrip(i);
-      reels.forEach(function(v, idx) {
-        if (idx === i) { v.classList.add('on'); var p = v.play(); if (p && p.catch) p.catch(function() {}); }
-        else { v.classList.remove('on'); try { v.pause(); } catch (e) {} }
-      });
+      phone.setAttribute('data-screen', String(i));
+      screensD.forEach(function(sc, idx) { sc.classList.toggle('is-live', idx === i); });
       steps.forEach(function(s, idx) { s.classList.toggle('on', idx === i); });
     }
-    // Cuando el texto del paso llega al centro, salta DIRECTO a su vídeo (snap), con su texto centrado.
     steps.forEach(function(step, i) {
-      ScrollTrigger.create({ trigger: step, start: 'center center', end: 'bottom center',
+      ScrollTrigger.create({ trigger: step, start: 'top center', end: 'bottom center',
         onToggle: function(self) { if (self.isActive) activate(i); } });
     });
-
-    // No reproducimos el reel 0 al cargar (está bajo el fold): arranca cuando su paso entra
-    // en el centro del viewport. Solo fijamos la posición inicial de la tira.
-    setStrip(0);
+    // La primera pantalla se monta en cuanto el móvil asoma, sin esperar al centro
+    ScrollTrigger.create({ trigger: stage, start: 'top 60%', once: true, onEnter: function() { if (current === -1) activate(0); } });
+    if (reduceMotion) activate(0);
   })();
 
   // FAQ
@@ -228,126 +216,33 @@ const isEn = document.documentElement.lang === 'en';
   function showModalError(msg) { mError.textContent = msg; mError.style.display = 'block'; }
   function hideModalError() { mError.style.display = 'none'; }
 
-  function animateNumber(target) {
-    if (reduceMotion) { document.getElementById('ms-num').textContent = target; return; }
-    const numEl = document.getElementById('ms-num');
-    const numWrap = document.getElementById('ms-num-wrap');
-    let cur = target + 38;
-    numEl.textContent = cur;
-    numWrap.classList.remove('pop');
-    const step = () => {
-      if (cur <= target) {
-        numEl.textContent = target;
-        requestAnimationFrame(() => { numWrap.classList.add('pop'); });
-        return;
-      }
-      cur -= 1;
-      numEl.textContent = cur;
-      const rem = cur - target;
-      setTimeout(step, rem > 12 ? 28 : rem > 6 ? 55 : 95);
-    };
-    setTimeout(step, 400);
-  }
-
-  let _msStats = null;
-  function animateBar(position) {
-    const fill = document.getElementById('ms-fill');
-    // Ocupación REAL de la wave (nº total de inscritos), NO la posición del usuario.
-    const total = (_msStats && _msStats.total) || position;
-    const locked = (_msStats && _msStats.locked) || 0;
-    const wave = position <= 100 ? 1 : position <= 250 ? 2 : 3;
-    const cap = wave === 1 ? 100 : 150;
-    const base = wave === 1 ? 0 : wave === 2 ? 100 : 250;
-    const waveLabel = isEn ? `WAVE ${wave} SPOTS` : `PLAZAS WAVE ${wave}`;
-    const taken = Math.min(Math.max(total - base, 0), cap);
-    const free = Math.max(cap - taken, 0);
-    const pct = Math.round(taken / cap * 100);
-    const lockedTxt = (wave === 1 && locked > 0) ? (isEn ? ` · ${locked} secured 🔒` : ` · ${locked} aseguradas 🔒`) : '';
-    document.getElementById('ms-wl-text').textContent = waveLabel;
-    document.getElementById('ms-pos-frac').textContent = isEn ? `${free} available` : `${free} libres`;
-    document.getElementById('ms-scarcity-taken').textContent = (isEn ? `${taken} taken` : `${taken} ocupada${taken !== 1 ? 's' : ''}`) + lockedTxt;
-    document.getElementById('ms-scarcity-free').textContent = isEn ? `${free} available →` : `${free} disponible${free !== 1 ? 's' : ''} →`;
-    if (reduceMotion) { fill.style.transition = 'none'; fill.style.transform = 'scaleX(' + (pct / 100) + ')'; return; }
-    setTimeout(() => { fill.style.transform = 'scaleX(' + (pct / 100) + ')'; }, 500);
-  }
-
-  function showModalSuccess(referralCode, position, projection, stats) {
-    position = position || 1;
-    _msStats = stats || {};
+  // Beta abierta: tras el alta solo hay confirmación y compartir. El acceso
+  // llega por email; ya no hay puesto, waves ni plazas que contar.
+  function showModalSuccess(referralCode) {
     const link = referralCode ? `https://2trainapp.com?ref=${referralCode}` : 'https://2trainapp.com';
+    const statusEl = document.querySelector('#modal-success .ms-status');
+    if (statusEl) statusEl.textContent = isEn ? "You're in." : 'Estás dentro.';
 
-    // Determine wave
-    const wave = position <= 100 ? 1 : position <= 250 ? 2 : 3;
-    const waveData = {
-      1: { badge1: 'Wave 1 ⚡', badge2: isEn ? 'Exclusive perks' : 'Ventajas exclusivas', badge3: 'Founding Member' },
-      2: { badge1: 'Wave 2', badge2: isEn ? 'Second batch' : 'Segunda tanda', badge3: isEn ? 'Early access' : 'Acceso anticipado' },
-      3: { badge1: 'Wave 3', badge2: isEn ? 'Before the public' : 'Antes que el público', badge3: isEn ? 'First come first served' : 'Por orden de llegada' },
-    }[wave];
-    document.getElementById('ms-badge-1').textContent = waveData.badge1;
-    document.getElementById('ms-badge-2').textContent = waveData.badge2;
-    document.getElementById('ms-badge-3').textContent = waveData.badge3;
-
-    // Waves card: la tarjeta de escasez la rellena animateBar() con la ocupación real.
-    ['ms-w1', 'ms-w2', 'ms-w3'].forEach((id, i) => {
-      const el = document.getElementById(id);
-      const isActive = i + 1 === wave;
-      el.classList.toggle('active', isActive);
-      if (isActive) el.querySelector('.ms-ss').textContent = isEn ? "You're here" : 'Tú estás aquí';
-    });
-
-    // Share heading: te faltan X referidos para asegurar tu plaza / plaza asegurada 🔒
-    const referrals = (stats && stats.referrals) || 0;
-    const lockedPos = stats && stats.locked_position;
-    const shareH = document.getElementById('ms-share-h');
-    if (lockedPos) {
-      shareH.innerHTML = isEn ? `<span class="ms-b">🔒</span> Spot locked at #${lockedPos}` : `<span class="ms-b">🔒</span> Plaza asegurada en el #${lockedPos}`;
-    } else {
-      const need = Math.max(3 - referrals, 0);
-      shareH.innerHTML = need > 0
-        ? (isEn ? `<span class="ms-b">⚡</span> ${need} more referral${need !== 1 ? 's' : ''} to lock your spot` : `<span class="ms-b">⚡</span> Te falta${need !== 1 ? 'n' : ''} ${need} referido${need !== 1 ? 's' : ''} para asegurar tu plaza`)
-        : (isEn ? `<span class="ms-b">⚡</span> Share to move up the list` : `<span class="ms-b">⚡</span> Comparte para subir en la lista`);
-    }
-
-    // Referral & share links
-    if (referralCode) {
-      document.getElementById('ms-ref').textContent = `2trainapp.com?ref=${referralCode}`;
-      const copyBtn = document.getElementById('ms-copy');
-      copyBtn.onclick = () => {
-        navigator.clipboard.writeText(link).then(() => {
-          copyBtn.textContent = isEn ? '✓ Copied' : '✓ Copiado';
-          setTimeout(() => { copyBtn.textContent = isEn ? 'Copy link' : 'Copiar link'; }, 1600);
-        });
+    document.getElementById('ms-ref').textContent = link.replace('https://', '');
+    const copyBtn = document.getElementById('ms-copy');
+    copyBtn.onclick = () => {
+      const done = () => {
+        copyBtn.textContent = isEn ? '✓ Copied' : '✓ Copiado';
+        setTimeout(() => { copyBtn.textContent = isEn ? 'Copy link' : 'Copiar link'; }, 1600);
       };
-    }
+      if (navigator.clipboard) navigator.clipboard.writeText(link).then(done).catch(() => {});
+    };
     const waMsg = isEn
-      ? encodeURIComponent(`I just reserved my spot on 2trAIn ⚡ An AI personal trainer that explains every decision. Only 100 spots with exclusive perks. Join with my link 👉 ${link}`)
-      : encodeURIComponent(`Acabo de reservar mi plaza en 2trAIn ⚡ Un entrenador personal con IA que te explica cada decisión. Solo 100 plazas con ventajas exclusivas. Entra con mi link 👉 ${link}`);
+      ? encodeURIComponent(`I just joined the 2trAIn beta ⚡ An AI coach that explains every decision in your training, with your own data. Join with my link 👉 ${link}`)
+      : encodeURIComponent(`Me he unido a la beta de 2trAIn ⚡ Un coach con IA que te explica cada decisión de tu entrenamiento con tus propios datos. Entra con mi enlace 👉 ${link}`);
     document.getElementById('ms-wa').href = `https://wa.me/?text=${waMsg}`;
     const twText = isEn
-      ? encodeURIComponent(`I just reserved my spot on 2trAIn ⚡\n\nAI that explains EVERY decision in your training.\nOnly 100 spots with exclusive perks →`)
-      : encodeURIComponent(`Acabo de reservar mi plaza en 2trAIn ⚡\n\nIA que te explica CADA decisión de tu entrenamiento.\nSolo 100 plazas con ventajas exclusivas →`);
+      ? encodeURIComponent(`I just joined the 2trAIn beta ⚡\n\nAn AI coach that explains EVERY decision in your training →`)
+      : encodeURIComponent(`Me he unido a la beta de 2trAIn ⚡\n\nUn coach con IA que te explica CADA decisión de tu entrenamiento →`);
     document.getElementById('ms-x').href = `https://twitter.com/intent/tweet?text=${twText}&url=${encodeURIComponent(link)}`;
 
-    // Show success
     mFormState.classList.add('hidden');
     mSuccess.classList.remove('hidden');
-
-    // Animations
-    animateNumber(position);
-    animateBar(position);
-
-    // Click number to replay
-    const numWrap = document.getElementById('ms-num-wrap');
-    numWrap.style.cursor = 'pointer';
-    numWrap.onclick = () => {
-      const fill = document.getElementById('ms-fill');
-      fill.style.transition = 'none';
-      fill.style.transform = 'scaleX(0)';
-      void fill.offsetWidth;
-      fill.style.transition = '';
-      animateNumber(position);
-      animateBar(position);
-    };
   }
 
   mForm.addEventListener('submit', async e => {
@@ -368,16 +263,16 @@ const isEn = document.documentElement.lang === 'en';
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error desconocido');
-      showModalSuccess(data.referral_code, data.position, data.projection, data);
+      showModalSuccess(data.referral_code);
     } catch (err) {
       console.error('Waitlist error:', err);
       showModalError(isEn ? 'Something went wrong. Try again or contact us.' : 'Algo salió mal. Inténtalo de nuevo o escríbenos.');
-      mBtn.querySelector('.btn-label').textContent = isEn ? 'Reserve a spot' : 'Reservar plaza';
+      mBtn.querySelector('.btn-label').textContent = isEn ? 'Join the beta' : 'Unirme a la beta';
       mBtn.disabled = false; mBtn.style.opacity = '';
     }
   });
 
-  // CTA email "Ver mi posición" → ?spot=CODE abre el modal con la plaza real
+  // Enlace del email (?spot=CODE) → abre el modal ya confirmado, con su enlace para compartir
   if (_spotCode) {
     openModal();
     mFormState.classList.add('hidden');
@@ -396,7 +291,7 @@ const isEn = document.documentElement.lang === 'en';
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Error');
-        showModalSuccess(data.referral_code, data.position, data.projection, data);
+        showModalSuccess(data.referral_code);
         // Limpia ?spot= de la URL sin recargar (evita reabrir al compartir la barra)
         try {
           const u = new URL(window.location.href);
@@ -408,8 +303,8 @@ const isEn = document.documentElement.lang === 'en';
         mSuccess.classList.add('hidden');
         mFormState.classList.remove('hidden');
         showModalError(isEn
-          ? 'We could not find that spot. Join the waitlist below.'
-          : 'No encontramos esa plaza. Apúntate abajo.');
+          ? 'We could not find that link. Sign up below.'
+          : 'No encontramos ese enlace. Apúntate aquí abajo.');
       }
     })();
   }
@@ -421,11 +316,8 @@ const isEn = document.documentElement.lang === 'en';
         mSuccess.classList.add('hidden');
         mForm.reset();
         hideModalError();
-        mBtn.querySelector('.btn-label').textContent = isEn ? 'Reserve a spot' : 'Reservar plaza';
+        mBtn.querySelector('.btn-label').textContent = isEn ? 'Join the beta' : 'Unirme a la beta';
         mBtn.disabled = false; mBtn.style.opacity = '';
-        // Reset bar for next open
-        const fill = document.getElementById('ms-fill');
-        if (fill) { fill.style.transition = 'none'; fill.style.transform = 'scaleX(0)'; }
       }, 50);
     }
   });

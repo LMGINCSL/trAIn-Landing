@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="only light" />
 <meta name="theme-color" content="#FFFFFF" />
 <title>2trAIn · The AI coach that remembers you</title>
-<meta name="description" content="Strength, cardio or a race with a date (Hyrox, triathlon…). What you train and what you tell it rewrite next week, not just today. Free beta for the first 100." />
+<meta name="description" content="Strength, cardio or a race with a date (Hyrox, triathlon…). What you train and what you tell it rewrite next week, not just today. Open beta: access arrives by email." />
 <link rel="canonical" href="https://2trainapp.com/en/" />
 <link rel="alternate" hreflang="es" href="https://2trainapp.com/">
 <link rel="alternate" hreflang="en" href="https://2trainapp.com/en/">
@@ -15,13 +15,13 @@
 <meta property="og:url" content="https://2trainapp.com/en/" />
 <meta property="og:site_name" content="2trAIn" />
 <meta property="og:title" content="2trAIn · The AI coach that remembers you" />
-<meta property="og:description" content="What you train and what you tell it rewrite next week, not just today. Free beta for the first 100." />
+<meta property="og:description" content="What you train and what you tell it rewrite next week, not just today. Open beta." />
 <meta property="og:image" content="https://2trainapp.com/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="2trAIn · The AI coach that remembers you" />
-<meta name="twitter:description" content="What you train and what you tell it rewrite next week, not just today. Free beta for the first 100." />
+<meta name="twitter:description" content="What you train and what you tell it rewrite next week, not just today. Open beta." />
 <meta name="twitter:image" content="https://2trainapp.com/og-image.png" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="es_ES" />
@@ -35,7 +35,7 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2" crossorigin>
 
-<script>document.documentElement.classList.add('js');setTimeout(function(){var p=document.querySelector('.hero__device .phone');if(p&&!p.style.opacity)p.style.opacity=1;},3000);</script>
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
 <link rel="stylesheet" href="/assets/css/landing.css?v=claro1">
 <script src="/assets/js/gsap.min.js" defer></script>
@@ -54,7 +54,7 @@
       { "@type": "Question", "name": "Does it work for Hyrox, triathlon or running races?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You pick the event and date, and it builds a plan toward that day: specific strength, cardio and the stations or disciplines you need, periodised to the event." } },
       { "@type": "Question", "name": "Can I mix strength and cardio?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The plan combines both according to your goal. Not separate apps: same AI, same history, same explanations." } },
       { "@type": "Question", "name": "Is it only for the gym?", "acceptedAnswer": { "@type": "Answer", "text": "No. It covers strength, cardio and race prep. The gym is one setting; the product is the coach that reasons your full training." } },
-      { "@type": "Question", "name": "When do I get access?", "acceptedAnswer": { "@type": "Answer", "text": "The beta opens in waves, starting with Wave 1. When it's your turn, you'll get an email with instructions. The first to sign up get in earlier. Invite friends to move up the queue." } },
+      { "@type": "Question", "name": "When do I get access?", "acceptedAnswer": { "@type": "Answer", "text": "Right away. Sign up with your email and your access arrives by email, no card needed." } },
       { "@type": "Question", "name": "Is my data safe?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your logs are yours. If at some point we use data to improve the model, it will be aggregated and anonymized — and we'll let you know first. You can say no." } },
       { "@type": "Question", "name": "What happens when the beta ends?", "acceptedAnswer": { "@type": "Answer", "text": "Users who took part in the beta get exclusive perks for having been there from the start." } },
       { "@type": "Question", "name": "Is it just another ChatGPT wrapper?", "acceptedAnswer": { "@type": "Answer", "text": "You have to feed a chat the context every time: it doesn't know what you trained yesterday, it doesn't log your sessions, it doesn't show you what each exercise looks like, and it isn't grounded in periodisation or real fatigue. Here you don't supply the context: the plan is built from your history, every exercise comes with its card and its prescription, and what decides is an engine with periodisation and accumulated fatigue. The model only explains it." } }
@@ -79,7 +79,7 @@
     </div>
     <div class="nav-right">
       <a href="/" class="nav-lang" hreflang="es" lang="es">ES</a>
-      <button id="nav-cta" type="button" class="open-modal btn btn--sm">Reserve a spot</button>
+      <button id="nav-cta" type="button" class="open-modal btn btn--sm">Join the beta</button>
       <button id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <span class="nav-bar nav-bar-1"></span>
         <span class="nav-bar nav-bar-2"></span>
@@ -96,7 +96,7 @@
   <a href="#faq" class="mobile-nav-link">FAQ</a>
   <a href="/" class="mobile-nav-link mobile-nav-link--small" hreflang="es" lang="es">Versión en español</a>
   <div class="mobile-menu-cta">
-    <button type="button" class="open-modal btn btn--block">Reserve a spot</button>
+    <button type="button" class="open-modal btn btn--block">Join the beta</button>
   </div>
 </div>
 
@@ -104,52 +104,51 @@
 
 <!-- HERO · the product up front -->
 <section id="hero" class="hero">
-  <div class="max-w-page pad-x">
-    <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Free beta · Only 100 spots</p>
-    <h1 id="hero-headline" class="t-hero hero__title">Your plan remembers <span class="accent">you.</span></h1>
-    <p id="hero-sub" class="hero__sub">Strength, cardio or a race with a date. Every session you log, every limit you set and what it learns about your pace rewrite next week.</p>
+  <div class="max-w-page pad-x hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Open beta</p>
+      <h1 id="hero-headline" class="t-hero hero__title">Your plan remembers <span class="accent">you.</span></h1>
+      <p id="hero-sub" class="hero__sub">Strength, cardio or a race with a date. Every session you log, every limit you set and what it learns about your pace rewrite next week.</p>
 
-    <div id="hero-cta" class="hero__cta">
-      <form id="hero-form" class="hero-form">
-        <input id="hero-email" type="email" name="email" required placeholder="you@email.com" aria-label="Your email" autocomplete="email" />
-        <button type="submit" class="btn" aria-label="Reserve a spot">
-          <span class="btn-label">Reserve a spot</span>
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </form>
-      <div class="hero__meta">
-        <span>No card · Cancel anytime</span>
-        <a href="#demo" class="link">See how it reasons</a>
+      <div id="hero-cta" class="hero__cta">
+        <form id="hero-form" class="hero-form">
+          <input id="hero-email" type="email" name="email" required placeholder="you@email.com" aria-label="Your email" autocomplete="email" />
+          <button type="submit" class="btn" aria-label="Join the beta">
+            <span class="btn-label">Join the beta</span>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div class="hero__meta">
+          <span>No card · Access arrives by email</span>
+          <a href="#demo" class="link">See how it reasons</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- The app: today's session, adapted to a sore shoulder (same case as the demo) -->
-  <div class="hero__device" aria-hidden="true">
-    <div class="phone">
-      <div class="phone-screen phone-screen--light">
-        <div class="app-ui">
-          <div class="app-ui__status">
-            <span>9:41</span>
-            <svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg>
-          </div>
-          <div class="app-ui__head">
-            <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
-            <div>
-              <div class="app-ui__kicker">Today · Push</div>
-              <div class="app-ui__title">Easy on the shoulder</div>
+    <!-- The app: today's session, adapted to a sore shoulder (same case as the demo) -->
+    <div class="hero__device" aria-hidden="true">
+      <div class="phone">
+        <div class="phone-screen phone-screen--light">
+          <div class="app-ui">
+            <div class="app-ui__status"><span>9:41</span><svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg></div>
+            <div class="app-ui__head">
+              <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
+              <div>
+                <div class="app-ui__kicker">Today · Push</div>
+                <div class="app-ui__title">Easy on the shoulder</div>
+              </div>
             </div>
-          </div>
-          <div class="app-ui__why">
-            <b>Why it changed</b>
-            <span>Your right shoulder hurts when you press overhead: no overhead press or dips, and you start by activating the rotator cuff.</span>
-          </div>
-          <div class="app-ui__list">
-            <div class="app-ex"><img src="/assets/demo-ex-calentamiento.jpg" alt="" width="640" height="360" decoding="async"><div><b>Rotator cuff activation</b><span>2×15 · resistance band</span></div></div>
-            <div class="app-ex"><img src="/assets/demo-ex-1.jpg" alt="" width="640" height="360" decoding="async"><div><b>Machine chest press</b><span>4×10 · neutral grip</span></div></div>
-            <div class="app-ex"><img src="/assets/demo-ex-2.jpg" alt="" width="640" height="360" decoding="async"><div><b>Incline dumbbell press</b><span>3×10 · neutral grip</span></div></div>
-            <div class="app-ex"><img src="/assets/demo-ex-3.jpg" alt="" width="640" height="360" decoding="async"><div><b>Cable crossover</b><span>3×12 · controlled</span></div></div>
-            <div class="app-ex"><img src="/assets/demo-ex-4.jpg" alt="" width="640" height="360" decoding="async"><div><b>Close-grip machine press</b><span>3×12 · triceps</span></div></div>
+            <div class="app-ui__why">
+              <b>Why it changed</b>
+              <span>Your right shoulder hurts when you press overhead: no overhead press or dips, and you start by activating the rotator cuff.</span>
+            </div>
+            <div class="app-ui__list">
+              <div class="app-ex"><img src="/assets/demo-ex-calentamiento.jpg" alt="" width="640" height="360" decoding="async"><div><b>Rotator cuff activation</b><span>2×15 · resistance band</span></div></div>
+              <div class="app-ex"><img src="/assets/demo-ex-1.jpg" alt="" width="640" height="360" decoding="async"><div><b>Machine chest press</b><span>4×10 · neutral grip</span></div></div>
+              <div class="app-ex"><img src="/assets/demo-ex-2.jpg" alt="" width="640" height="360" decoding="async"><div><b>Incline dumbbell press</b><span>3×10 · neutral grip</span></div></div>
+              <div class="app-ex"><img src="/assets/demo-ex-3.jpg" alt="" width="640" height="360" decoding="async"><div><b>Cable crossover</b><span>3×12 · controlled</span></div></div>
+            </div>
+            <span class="app-ui__cta">Start session</span>
           </div>
         </div>
       </div>
@@ -179,21 +178,76 @@
       <p class="t-lead">A template app asks you once, and out comes a plan that never changes again. Here you change it yourself, through three different routes, and what you do with it feeds back into next week.</p>
     </div>
 
-    <div class="loop" data-reveal>
-      <div class="loop__flow">
-        <ol class="loop__doors">
-          <li class="loop__door"><b>You train</b><span>Your load and your freshness</span></li>
-          <li class="loop__door"><b>You choose</b><span>Your affinity for certain exercises</span></li>
-          <li class="loop__door"><b>You talk</b><span>Your vetoes, your kit, your injuries</span></li>
-        </ol>
-        <span class="loop__arrow loop__arrow--a" aria-hidden="true"></span>
-        <div class="loop__mem"><span class="loop__step">Stored</span><b>What it remembers about you</b><p>And underneath, periodisation and deloads, running on their own.</p></div>
-        <span class="loop__arrow loop__arrow--b" aria-hidden="true"></span>
-        <div class="loop__plan"><span class="loop__step">Rebuilt</span><b>Your plan this week</b><p>With all of the above already in it.</p></div>
-        <span class="loop__path" aria-hidden="true"></span>
-      </div>
-      <b class="loop__label">And what you do with it feeds into next week</b>
+    <div class="ways" data-reveal-stagger>
+      <article class="way">
+        <div class="way__head">
+          <h3 class="way__t">You train.</h3>
+          <p class="way__s">It reads your load and your freshness on every set.</p>
+        </div>
+        <div class="ui-card" aria-hidden="true">
+          <div class="ui-card__top"><b>Back squat</b><span>Today</span></div>
+          <ol class="sets">
+            <li><span class="sets__n">1</span><span class="sets__w">100 kg × 6</span><span class="sets__rpe">RPE 7</span><span class="sets__ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+            <li><span class="sets__n">2</span><span class="sets__w">100 kg × 6</span><span class="sets__rpe">RPE 8</span><span class="sets__ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+            <li><span class="sets__n">3</span><span class="sets__w">100 kg × 6</span><span class="sets__rpe">RPE 8</span><span class="sets__ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+          </ol>
+        </div>
+      </article>
+      <article class="way">
+        <div class="way__head">
+          <h3 class="way__t">You choose.</h3>
+          <p class="way__s">It learns which exercises you want more of, and which less.</p>
+        </div>
+        <div class="ui-card" aria-hidden="true">
+          <div class="ui-card__top"><b>Your exercises</b><span>Affinity</span></div>
+          <ul class="prefs">
+            <li><span>Incline press</span><span class="pref pref--more">More</span></li>
+            <li><span>Cable row</span><span class="pref pref--more">More</span></li>
+            <li><span>Bulgarian split squat</span><span class="pref pref--less">Less</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="way">
+        <div class="way__head">
+          <h3 class="way__t">You talk.</h3>
+          <p class="way__s">Your vetoes, your kit, your injuries.</p>
+        </div>
+        <div class="ui-card ui-card--chat" aria-hidden="true">
+          <p class="bub bub--me">I'm training at home this week, dumbbells only.</p>
+          <p class="bub">Noted. Dumbbells all week.</p>
+        </div>
+      </article>
     </div>
+
+    <div class="mem" data-anim>
+      <div class="mem__col">
+        <p class="mem__k">Stored</p>
+        <h3 class="mem__t">What it remembers about you</h3>
+        <ul class="mem__chips">
+          <li style="--i:0">Squat: 100 kg × 6 at RPE 8</li>
+          <li style="--i:1">More incline press</li>
+          <li style="--i:2">Less Bulgarian split squat</li>
+          <li style="--i:3">This week, dumbbells only</li>
+          <li style="--i:4" class="is-auto">And underneath, periodisation and deloads, running on their own</li>
+        </ul>
+      </div>
+      <div class="mem__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="mem__col">
+        <p class="mem__k">Rebuilt</p>
+        <h3 class="mem__t">Your plan this week</h3>
+        <ol class="week" aria-label="This week's plan, with the days that changed marked">
+          <li style="--i:0" class="is-new"><b>M</b><span>Push</span><em>+ incline</em></li>
+          <li style="--i:1" class="is-new"><b>T</b><span>Legs</span><em>at home</em></li>
+          <li style="--i:2" class="is-rest"><b>W</b><span>Rest</span></li>
+          <li style="--i:3"><b>T</b><span>Pull</span></li>
+          <li style="--i:4" class="is-new"><b>F</b><span>Legs</span><em>no split squat</em></li>
+          <li style="--i:5"><b>S</b><span>Zone 2</span></li>
+          <li style="--i:6" class="is-rest"><b>S</b><span>Rest</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <p class="loopline" data-reveal><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>And what you do with it feeds into next week.</p>
   </div>
 </section>
 
@@ -206,38 +260,51 @@
       <p class="t-lead">Any of the four is a starting point, not a template. What makes it yours comes after: what you train, what it learns about you, and what you tell it.</p>
     </div>
 
-    <div class="goals-grid" role="group" aria-label="Choose a goal" data-reveal-stagger>
-      <button type="button" class="goal-opt goal-opt--wide" data-goal="fuerza" aria-pressed="true">
-        <span class="goal-opt__text">
-          <span class="goal-opt__title">Strength</span>
-          <span class="goal-opt__desc">Hypertrophy or strength. Weekly progression with the gear you have.</span>
+    <div class="goals-grid" role="group" aria-label="Choose a goal" data-anim>
+      <button type="button" class="goal-opt" data-goal="fuerza" aria-pressed="true">
+        <span class="goal-opt__top">
+          <span class="goal-opt__text"><span class="goal-opt__title">Strength</span><span class="goal-opt__desc">Hypertrophy or strength. Weekly progression with the gear you have.</span></span>
+          <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </span>
-        <span class="goal-opt__img"><img src="/assets/demo-ex-1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
-        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="viz" aria-hidden="true">
+          <span class="viz__bars"><i style="--h:34%;--i:0"></i><i style="--h:42%;--i:1"></i><i style="--h:50%;--i:2"></i><i style="--h:58%;--i:3"></i><i class="is-deload" style="--h:36%;--i:4"></i><i style="--h:56%;--i:5"></i><i style="--h:65%;--i:6"></i><i style="--h:76%;--i:7"></i></span>
+          <span class="viz__cap">Load per week, with its deload</span>
+        </span>
       </button>
       <button type="button" class="goal-opt" data-goal="cardio" aria-pressed="false">
-        <span class="goal-opt__text">
-          <span class="goal-opt__title">Cardio</span>
-          <span class="goal-opt__desc">Conditioning, Zone 2 and aerobic capacity without losing structure.</span>
+        <span class="goal-opt__top">
+          <span class="goal-opt__text"><span class="goal-opt__title">Cardio</span><span class="goal-opt__desc">Conditioning, Zone 2 and aerobic capacity without losing structure.</span></span>
+          <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </span>
-        <span class="goal-opt__img"><img src="/assets/demo-hyrox-skierg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
-        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="viz" aria-hidden="true">
+          <span class="viz__zones"><span style="--w:20%;--i:0"><b>Z1</b><i></i></span><span class="is-key" style="--w:74%;--i:1"><b>Z2</b><i></i></span><span style="--w:14%;--i:2"><b>Z3</b><i></i></span><span style="--w:8%;--i:3"><b>Z4</b><i></i></span><span style="--w:5%;--i:4"><b>Z5</b><i></i></span></span>
+          <span class="viz__cap">Time in each zone: the base, in Zone 2</span>
+        </span>
       </button>
       <button type="button" class="goal-opt" data-goal="prueba" aria-pressed="false">
-        <span class="goal-opt__text">
-          <span class="goal-opt__title">Race</span>
-          <span class="goal-opt__desc">Hyrox, triathlon, 10K… periodisation toward your date.</span>
+        <span class="goal-opt__top">
+          <span class="goal-opt__text"><span class="goal-opt__title">Race</span><span class="goal-opt__desc">Hyrox, triathlon, 10K… periodisation toward your date.</span></span>
+          <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </span>
-        <span class="goal-opt__img"><img src="/assets/demo-hyrox-sled-push.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
-        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="viz" aria-hidden="true">
+          <span class="viz__plan">
+            <span class="viz__now">Today</span>
+            <span class="viz__track"><i style="--w:45%;--i:0"></i><i style="--w:35%;--i:1"></i><i style="--w:20%;--i:2"></i></span>
+            <span class="viz__phases"><b style="--w:45%">Base</b><b style="--w:35%">Build</b><b style="--w:20%">Taper</b></span>
+            <span class="viz__flag"><svg viewBox="0 0 24 24" fill="none"><path d="M5 21V4m0 0h11l-2 4 2 4H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Race day</span>
+          </span>
+          <span class="viz__cap">Periodised toward race day</span>
+        </span>
       </button>
-      <button type="button" class="goal-opt goal-opt--wide" data-goal="mantener" aria-pressed="false">
-        <span class="goal-opt__text">
-          <span class="goal-opt__title">Maintain</span>
-          <span class="goal-opt__desc">Ease back in or stay in shape without burning out.</span>
+      <button type="button" class="goal-opt" data-goal="mantener" aria-pressed="false">
+        <span class="goal-opt__top">
+          <span class="goal-opt__text"><span class="goal-opt__title">Maintain</span><span class="goal-opt__desc">Ease back in or stay in shape without burning out.</span></span>
+          <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </span>
-        <span class="goal-opt__img"><img src="/assets/demo-ex-calentamiento.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
-        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="viz" aria-hidden="true">
+          <span class="viz__dots"><span class="dots__h"><b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b></span><span class="dots__r"><i class="on" style="--i:0"></i><i style="--i:1"></i><i class="on" style="--i:2"></i><i style="--i:3"></i><i class="on" style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i></span><span class="dots__r"><i class="on" style="--i:7"></i><i style="--i:8"></i><i class="on" style="--i:9"></i><i style="--i:10"></i><i class="on" style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i></span><span class="dots__r"><i class="on" style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i class="on" style="--i:17"></i><i style="--i:18"></i><i class="on" style="--i:19"></i><i style="--i:20"></i></span><span class="dots__r"><i class="on" style="--i:21"></i><i style="--i:22"></i><i class="on" style="--i:23"></i><i style="--i:24"></i><i class="on" style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i></span></span>
+          <span class="viz__cap">Consistency you can keep</span>
+        </span>
       </button>
     </div>
 
@@ -251,18 +318,57 @@
   </div>
 </section>
 
-<!-- WHY · pinned phone + reels (desktop) · gallery (mobile) -->
+<!-- WHY · pinned phone with app screens (desktop) · gallery (mobile) -->
 <section id="why" class="reels sec" style="scroll-margin-top: 56px;">
   <div class="max-w-page pad-x">
     <div class="reels__grid">
       <div class="reels__phone-col">
-        <div class="phone reels__phone">
-          <div class="phone-screen">
-            <div class="reels__strip">
-              <video class="reels__reel on" data-reel="0" muted loop playsinline preload="metadata" aria-label="Reel: it explains the why"><source src="/assets/reel-why-en.mp4" type="video/mp4"></video>
-              <video class="reels__reel" data-reel="1" muted loop playsinline preload="none" aria-label="Reel: it improves with you"><source src="/assets/reel-problema-en.mp4" type="video/mp4"></video>
-              <video class="reels__reel" data-reel="2" muted loop playsinline preload="none" aria-label="Reel: smart substitutions"><source src="/assets/reel-solucion-en.mp4" type="video/mp4"></video>
+        <div class="phone reels__phone" data-screen="0">
+          <div class="phone-screen phone-screen--light">
+
+            <div class="app-ui scr scr-0" role="img" aria-label="App screen: more volume this week because your adherence was 95%">
+              <div class="app-ui__status"><span>9:41</span><svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg></div>
+              <div class="app-ui__head"><span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span><div><div class="app-ui__kicker">Week 6 · Adjustments</div><div class="app-ui__title">More volume this week</div></div></div>
+              <div class="app-ui__why"><b>Why</b><span>High volume because your adherence was 95%.</span></div>
+              <div class="kpi">
+                <div class="kpi__row"><span>Adherence, 4 weeks</span><b>95%</b></div>
+                <div class="meter"><i style="--w:95%"></i></div>
+              </div>
+              <div class="app-ui__list">
+                <div class="chg" style="--i:0"><span>Squat</span><b>4 → 5 sets</b></div>
+                <div class="chg" style="--i:1"><span>Bench press</span><b>3 → 4 sets</b></div>
+                <div class="chg" style="--i:2"><span>Deload</span><b>Week 8</b></div>
+              </div>
             </div>
+
+            <div class="app-ui scr scr-1" role="img" aria-label="App screen: your response factor, plus 10% a week against plus 5% for another body, learned in 4 weeks">
+              <div class="app-ui__status"><span>9:41</span><svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg></div>
+              <div class="app-ui__head"><span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span><div><div class="app-ui__kicker">Your progression</div><div class="app-ui__title">Your pace, not the average</div></div></div>
+              <div class="cmp">
+                <p class="cmp__k">Your response factor</p>
+                <div class="cmp__row"><span>Your body</span><b>+10%/wk</b></div>
+                <div class="meter meter--you"><i style="--w:100%"></i></div>
+                <div class="cmp__row"><span>Another body</span><b class="muted">+5%/wk</b></div>
+                <div class="meter meter--avg"><i style="--w:50%"></i></div>
+              </div>
+              <div class="spark">
+                <svg viewBox="0 0 240 92" fill="none" preserveAspectRatio="none"><path class="spark__avg" d="M4 84 L60 76 L118 68 L176 60 L236 52"/><path class="spark__you" d="M4 84 L60 70 L118 52 L176 34 L236 14"/></svg>
+                <span class="spark__l spark__l--you">You</span><span class="spark__l spark__l--avg">Average</span>
+              </div>
+              <p class="app-ui__note">Learned in 4 weeks</p>
+            </div>
+
+            <div class="app-ui scr scr-2" role="img" aria-label="App screen: no barbell, goblet squat; injury, Smith machine; bored, similar variant">
+              <div class="app-ui__status"><span>9:41</span><svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg></div>
+              <div class="app-ui__head"><span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span><div><div class="app-ui__kicker">What you tell it</div><div class="app-ui__title">It stays on your profile</div></div></div>
+              <div class="subs">
+                <div class="sub" style="--i:0"><span class="sub__q"><i><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>No barbell?</span><span class="sub__a">Goblet squat</span></div>
+                <div class="sub" style="--i:1"><span class="sub__q"><i><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>Injury?</span><span class="sub__a">Smith machine</span></div>
+                <div class="sub" style="--i:2"><span class="sub__q"><i><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></i>Bored?</span><span class="sub__a">Similar variant</span></div>
+              </div>
+              <div class="app-ui__why"><b>Saved</b><span>Next week, the plan already comes with this built in.</span></div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -292,10 +398,10 @@
 
     <div class="why-cta" data-reveal>
       <div>
-        <p class="why-cta__t">Want to try it before anyone else?</p>
-        <p class="why-cta__s">Free beta · First 100, exclusive perks.</p>
+        <p class="why-cta__t">Want to try it now?</p>
+        <p class="why-cta__s">Open beta · Access arrives by email.</p>
       </div>
-      <button type="button" class="open-modal btn">Reserve a spot</button>
+      <button type="button" class="open-modal btn">Join the beta</button>
     </div>
   </div>
 </section>
@@ -319,7 +425,7 @@
         </div>
 
         <div class="demo-head__cta">
-          <button type="button" class="open-modal btn">Reserve a spot</button>
+          <button type="button" class="open-modal btn">Join the beta</button>
         </div>
       </div>
 
@@ -416,7 +522,7 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="demo-go open-modal btn">Reserve a spot</button>
+            <button type="button" class="demo-go open-modal btn">Join the beta</button>
           </div>
         </div>
 
@@ -512,7 +618,7 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="demo-go open-modal btn">Reserve a spot</button>
+            <button type="button" class="demo-go open-modal btn">Join the beta</button>
           </div>
         </div>
       </div>
@@ -527,7 +633,7 @@
     <div class="nums" data-reveal-stagger>
       <div><p class="num">4,155</p><p class="num__lab"><b>exercises in the catalogue</b>, each with its card and its prescription.</p></div>
       <div><p class="num">4</p><p class="num__lab"><b>goals, one coach:</b> strength, cardio, a race with a date or maintaining.</p></div>
-      <div><p class="num">100</p><p class="num__lab"><b>spots in Wave 1</b>, with exclusive perks and your name in the credits.</p></div>
+      <div><p class="num">3</p><p class="num__lab"><b>ways to make the plan yours:</b> what you train, what you choose and what you tell it.</p></div>
     </div>
   </div>
 </section>
@@ -671,7 +777,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           Follow on Instagram
         </a>
-        <a href="#beta" class="link">Reserve a spot</a>
+        <a href="#beta" class="link">Join the beta</a>
       </div>
     </div>
   </div>
@@ -717,7 +823,7 @@
           </div>
           <div class="faq-item" data-cat="beta">
             <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-3"><span>When do I get access?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-            <div id="faq-a-3" class="faq-a"><div class="faq-a-inner">The beta opens in waves, starting with Wave 1. When it's your turn, you'll get an email with instructions. The first to sign up get in earlier. Invite friends to move up the queue.</div></div>
+            <div id="faq-a-3" class="faq-a"><div class="faq-a-inner">Right away. Sign up with your email and your access arrives by email, no card needed.</div></div>
           </div>
           <div class="faq-item" data-cat="datos">
             <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-4"><span>Is my data safe?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -742,37 +848,22 @@
   <div class="max-w-page pad-x">
     <div id="beta-block">
       <div>
-        <p class="beta-badge"><span class="live-dot" aria-hidden="true"></span>Only 100 spots · exclusive perks</p>
-        <h2 class="t-h2">Reserve now. <span class="muted">Cancel anytime.</span></h2>
-
-        <!-- What each tier gets. Scarcity on this page is seats, not a date. -->
-        <div id="beta-offer">
-          <ol class="beta-waves" aria-label="What each beta tier gets">
-            <li class="beta-wave beta-wave--now">
-              <span class="beta-wave__n">Wave 1 · 1–100</span>
-              <span class="beta-wave__v">Exclusive perks + Founding Member</span>
-              <span class="beta-wave__s">Open</span>
-            </li>
-            <li class="beta-wave">
-              <span class="beta-wave__n">Wave 2 · 101–250</span>
-              <span class="beta-wave__v">You come in on the second batch</span>
-            </li>
-            <li class="beta-wave">
-              <span class="beta-wave__n">Wave 3 · 251–400</span>
-              <span class="beta-wave__v">You come in before the general public</span>
-            </li>
-          </ol>
-        </div>
-
-        <p id="beta-intro">The first 100 get exclusive perks and are listed as Founding Members in the app credits.</p>
+        <p class="beta-badge"><span class="live-dot" aria-hidden="true"></span>Open beta</p>
+        <h2 class="t-h2">Join now. <span class="muted">Cancel anytime.</span></h2>
+        <ol class="beta-steps" aria-label="How to join the beta">
+          <li><span class="beta-steps__n">1</span><span><b>Leave your email.</b> No card.</span></li>
+          <li><span class="beta-steps__n">2</span><span><b>Your access arrives</b> straight away.</span></li>
+          <li><span class="beta-steps__n">3</span><span><b>Pick your goal</b> and the plan builds with you.</span></li>
+        </ol>
+        <p id="beta-intro">Everyone who takes part in the beta gets exclusive perks when it ends.</p>
       </div>
 
       <div id="beta-card">
-        <p class="beta-card__k">Your spot</p>
-        <p class="beta-card__t">Join the waitlist.</p>
+        <p class="beta-card__k">Your access</p>
+        <p class="beta-card__t">Join the beta.</p>
         <form id="beta-form-2" class="stack" method="post">
           <input id="email-cta" class="field" type="email" name="email" required placeholder="you@email.com" autocomplete="email" aria-label="Your email" />
-          <button type="submit" class="btn btn--block">Reserve a spot</button>
+          <button type="submit" class="btn btn--block">Join the beta</button>
         </form>
         <p class="beta-card__note">No card · Cancel anytime</p>
       </div>
@@ -833,71 +924,30 @@
     <!-- Form state -->
     <div id="modal-form-state">
       <div class="modal-head">
-        <h3 id="modal-title">Reserve your spot</h3>
-        <p>Free beta &middot; First 100, exclusive perks.</p>
+        <h3 id="modal-title">Join the beta</h3>
+        <p>Open beta &middot; Access arrives by email.</p>
       </div>
       <form id="modal-form" class="stack" method="post">
         <input type="text" name="company" id="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
         <input id="email-modal" type="email" name="email" required placeholder="you@email.com" class="field" autocomplete="email" aria-label="Your email" />
-        <button type="submit" class="btn btn--block" id="modal-submit"><span class="btn-label">Reserve a spot</span></button>
+        <button type="submit" class="btn btn--block" id="modal-submit"><span class="btn-label">Join the beta</span></button>
         <p class="modal-note">No card &middot; No spam &middot; Cancel anytime</p>
       </form>
     </div>
 
     <!-- Success state -->
     <div id="modal-success" class="hidden">
-      <div class="ms-head">
-        <h3>Reserve your spot</h3>
-        <p>Free beta &middot; First 100, exclusive perks.</p>
-      </div>
-
       <div class="ms-hero">
         <div class="ms-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>
         </div>
         <p class="ms-status">You're in.</p>
-        <div class="ms-num" id="ms-num-wrap"><span class="ms-h">#</span><span id="ms-num">0</span></div>
-        <div class="ms-badges">
-          <span class="ms-badge primary" id="ms-badge-1">Wave 1 ⚡</span>
-          <span class="ms-badge" id="ms-badge-2">Exclusive perks</span>
-          <span class="ms-badge" id="ms-badge-3">Founding Member</span>
-        </div>
-      </div>
-
-      <div class="ms-waves-card">
-        <div class="ms-waves-h">
-          <span class="ms-wl" id="ms-wl-text">WAVE 1 SPOTS</span>
-          <span class="ms-wr" id="ms-pos-frac">— left</span>
-        </div>
-        <div class="ms-scarcity-labels">
-          <span id="ms-scarcity-taken">0 taken</span>
-          <span id="ms-scarcity-free" class="ms-free-label">— available →</span>
-        </div>
-        <div class="ms-scarcity-bar">
-          <div class="ms-scarcity-fill" id="ms-fill"></div>
-        </div>
-        <div class="ms-wave-grid">
-          <div class="ms-w" id="ms-w1">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 1<span class="ms-rng">1–100</span></div>
-            <div class="ms-vv">Exclusive perks</div>
-            <div class="ms-ss">Immediate access</div>
-          </div>
-          <div class="ms-w ms-w2" id="ms-w2">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 2<span class="ms-rng">101–250</span></div>
-            <div class="ms-vv">Second batch</div>
-            <div class="ms-ss">When Wave 1 closes</div>
-          </div>
-          <div class="ms-w ms-w3" id="ms-w3">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 3<span class="ms-rng">251–400</span></div>
-            <div class="ms-vv">Before the public</div>
-            <div class="ms-ss">First come, first served</div>
-          </div>
-        </div>
+        <p class="ms-sub">Check your email: your beta access is there.</p>
       </div>
 
       <div class="ms-share">
-        <p class="ms-k">Share and move up</p>
-        <h3 class="ms-sh3" id="ms-share-h"><span class="ms-b">⚡</span> With 3 friends you jump to spot #1</h3>
+        <p class="ms-k">Share</p>
+        <h3 class="ms-sh3">Training with someone? Send them the link.</h3>
         <a class="ms-btn-wa" id="ms-wa" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.59-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.34 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24l6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
           Share via WhatsApp
@@ -911,9 +961,7 @@
         </div>
       </div>
 
-      <div class="ms-ref" id="ms-ref">2trainapp.com?ref=…</div>
-
-      <p class="ms-foot">We've also sent the link to your email.</p>
+      <div class="ms-ref" id="ms-ref">2trainapp.com</div>
     </div>
   </div>
 </div>

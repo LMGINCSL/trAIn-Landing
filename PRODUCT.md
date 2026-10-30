@@ -66,9 +66,11 @@ en inglés). Es la promesa temporal central de la página, y está rota en vivo 
 los dos idiomas. Cualquier trabajo sobre esta landing empieza por decidir la
 fecha o retirar la cuenta atrás.
 
-Compromisos de la oferta, tal como están escritos hoy:
-- 100 plazas, "ventajas exclusivas" y figurar como Founding Member en los
-  créditos. El copy dejó deliberadamente de decir "acceso gratis de por vida".
+Compromisos de la oferta, tal como están escritos hoy (2026-10-30):
+- **Beta abierta**, sin tope de plazas. El alta sigue siendo el email de la
+  waitlist y el acceso llega por email al momento.
+- Quien participe en la beta recibe "ventajas exclusivas" cuando termine.
+  Ya no se promete figurar como Founding Member ni hay waves.
 - "Sin tarjeta · Cancela cuando quieras."
 
 Pendiente y sin decidir:
