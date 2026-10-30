@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0A0A0A" />
+<meta name="color-scheme" content="only light" />
+<meta name="theme-color" content="#FFFFFF" />
 <title>2trAIn · El coach con IA que se acuerda de ti</title>
 <meta name="description" content="Fuerza, cardio o una prueba con fecha (Hyrox, triatlón…). Lo que entrenas y lo que le cuentas reescriben la semana siguiente. Beta gratuita para los primeros 100." />
 <link rel="canonical" href="https://2trainapp.com/" />
@@ -32,859 +33,14 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link rel="preload" href="/assets/hero-poster.jpg" as="image" fetchpriority="high">
-<link rel="preload" href="/assets/logo-texto.png" as="image" type="image/png">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2" crossorigin>
 
+<script>document.documentElement.classList.add('js');setTimeout(function(){var p=document.querySelector('.hero__device .phone');if(p&&!p.style.opacity)p.style.opacity=1;},3000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro1">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=spot1" defer></script>
-
-<style>
-  @font-face {
-    font-family: 'TT Firs Neue';
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2') format('woff2');
-  }
-  @font-face {
-    font-family: 'TT Firs Neue';
-    font-style: italic;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url('/assets/fonts/tt-firs-neue/tt-firs-neue-latin-italic.woff2') format('woff2');
-  }
-  :root {
-    --bg: #0A0A0A; --bg-2: #0d0d0d; --bg-3: #111;
-    --fg: #FAFAFA; --muted: #8a8a8a; --muted-2: #808080;
-    --line: #1f1f1f; --line-2: #2a2a2a;
-    --accent: #2A6FDB; --accent-2: #5a8fe3; --accent-soft: rgba(42, 111, 219, 0.12); --accent-text: #5a8fe3;
-    --warm: #FF8A3D; --danger: #ff5555;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  html, body { background: var(--bg); color: var(--fg); font-family: 'TT Firs Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  body { overflow-x: hidden; }
-  ::selection { background: var(--accent); color: #fff; }
-
-  .display { font-family: 'TT Firs Neue', sans-serif; font-weight: 800; letter-spacing: -0.02em; line-height: 0.96; }
-  .display-tight { font-weight: 800; letter-spacing: -0.02em; line-height: 0.86; }
-  /* En FAQ (texto largo/pequeño) relajamos el tracking del display para legibilidad */
-  .faq-q.display { font-family: 'TT Firs Neue', sans-serif; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; }
-  .hairline { border-color: var(--line); }
-  .accent { color: var(--accent-text); } .bg-accent { background: var(--accent); }
-  .text-muted { color: var(--muted); } .text-muted-2 { color: var(--muted-2); }
-  .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
-
-  /* Grain */
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: 0.05; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
-  }
-
-  /* Phone */
-  .phone { width: 260px; will-change: transform, opacity; background: linear-gradient(160deg, #1a1a1a 0%, #050505 50%, #1a1a1a 100%); border-radius: 40px; padding: 8px; position: relative; box-shadow: 0 0 0 1.5px #2e2e2e, inset 0 0 0 1.5px rgba(255,255,255,0.04), 0 60px 120px -30px rgba(42, 111, 219, 0.18), 0 30px 60px -20px rgba(0,0,0,0.8); }
-  .phone::before { display: none; }
-  .phone::after { display: none; }
-  /* La pantalla manda la proporción (9:19.5) → imágenes 9:19.5 encajan sin recortes */
-  .phone-screen { position: relative; width: 100%; aspect-ratio: 9 / 19.5; border-radius: 32px; overflow: hidden; background: var(--bg); box-shadow: inset 0 0 0 1px #000; }
-  .phone-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .phone-screen picture { display: block; width: 100%; height: 100%; }
-  .phone-screen::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 30%, transparent 70%, rgba(255,255,255,0.03) 100%); pointer-events: none; z-index: 5; border-radius: 32px; }
-  .phone-stack { position: relative; width: 420px; height: 572px; }
-  .phone-item { position: absolute; top: 0; left: 0; transform: translateZ(0); }
-
-  .hero-glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(42, 111, 219,0.18) 0%, rgba(255,140,40,0.08) 35%, transparent 70%); filter: blur(40px); pointer-events: none; }
-  .word { display: inline-block; will-change: transform, opacity; }
-  /* Reveal por palabra (fade + subida). Sin overflow:hidden: la máscara recorta a la fuente display
-     (sus métricas llenan la caja-em y colapsan líneas posteriores). El word entra con opacity:0, no hace falta máscara. */
-  .reveal-line { display: block; }
-
-  /* ===== Hero cinematográfico (vídeo de fondo) =====
-     Nota: tamaños/espaciados en CSS propio (NO clases Tailwind tipo text-7xl/mt-9),
-     porque dist/tailwind.css está precompilado y no incluye clases nuevas. */
-  .hero-cine { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-  .hero-cine__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; transform: scale(1.15); }
-  .hero-cine__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transform: scale(1.15); opacity: 0; transition: opacity .8s ease; }
-  .hero-cine__video.is-playing { opacity: 1; }
-  .hero-cine__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background:
-      radial-gradient(130% 105% at 50% 32%, rgba(10,10,10,0.20) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.92) 100%),
-      linear-gradient(to bottom, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.1) 24%, rgba(10,10,10,0.18) 58%, var(--bg) 100%); }
-  .hero-cine__content { position: relative; z-index: 2; width: 100%; max-width: 900px; padding: 96px 24px 0; }
-  .hero-cine__title { color: #fff; text-transform: uppercase; text-shadow: 0 2px 50px rgba(0,0,0,0.55); font-size: clamp(25px, 8vw, 80px); letter-spacing: -0.035em; line-height: 0.92; }
-  .hero-cine__sub { color: rgba(255,255,255,0.82); max-width: 600px; margin: 26px auto 0; font-size: clamp(15px, 2.2vw, 20px); line-height: 1.55; }
-  .hero-cine__cta { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
-  .hero-cine__chevron { position: absolute; bottom: 26px; left: 50%; z-index: 2; color: rgba(255,255,255,0.55); animation: heroChev 2s ease-in-out infinite; }
-  @keyframes heroChev { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 9px); } }
-  @media (max-width: 640px) { .hero-cine__content { padding-top: 80px; } }
-  @media (prefers-reduced-motion: reduce) { .hero-cine__poster, .hero-cine__video { transform: none; } .hero-cine__chevron { animation: none; } }
-
-  /* ===== Secciones VÍDEO + TEXTO (alternando lados) =====
-     Cada sección: un .vsec__media (vídeo) + un .vsec__text. Por defecto vídeo a la izquierda;
-     añade .vsec--reverse al .vsec__inner para ponerlo a la derecha. En móvil se apila (vídeo arriba). */
-  .vsec__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-  .vsec--reverse .vsec__media { order: 2; }
-  .vsec__media { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line-2);
-    background: #0d0d0d; aspect-ratio: 16 / 10; }   /* ← si tu vídeo es vertical, cambia a aspect-ratio: 9 / 16 */
-  .vsec__media video, .vsec__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-  .vsec__placeholder { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 10px; color: var(--muted-2); font-size: 13px; font-weight: 600;
-    letter-spacing: .02em; text-align: center; padding: 16px;
-    background: repeating-linear-gradient(45deg, #0d0d0d, #0d0d0d 12px, #111 12px, #111 24px); }
-  .vsec__text { max-width: 520px; }
-  .vsec__list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; padding: 0; }
-  .vsec__list li { display: flex; gap: 12px; align-items: flex-start; list-style: none; }
-  .vsec__list p { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 0; }
-  .vsec__list strong { color: var(--fg); font-weight: 600; }
-  .vsec__list .n { flex-shrink: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--accent-text);
-    border: 1px solid rgba(42,111,219,0.25); background: var(--accent-soft); border-radius: 999px; padding: 3px 9px; }
-  .vsec__list .x { flex-shrink: 0; color: var(--danger); font-weight: 700; line-height: 1.4; }
-  @media (max-width: 860px) {
-    /* Foto del CTA: en móvil enfoca a la derecha (la persona) para que no se recorte */
-    #cta-foto { object-position: 72% 28% !important; }
-    .vsec__inner { grid-template-columns: 1fr; gap: 28px; }
-    .vsec--reverse .vsec__media { order: 0; }   /* en móvil el vídeo siempre arriba */
-    .vsec__text { max-width: none; }
-  }
-
-  /* ===== SCROLLYTELLING: móvil fijo + reels que cambian al hacer scroll ===== */
-  .reels__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: start; }
-  .reels__phone-col { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; justify-content: center; }
-  .reels__phone { width: 300px; }
-  /* Reels en filmstrip vertical: una tira con los 3 vídeos apilados sin hueco; JS desplaza la tira por pasos. */
-  .reels__strip { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column;
-    transition: transform .5s cubic-bezier(0.76, 0, 0.24, 1); will-change: transform; backface-visibility: hidden; }
-  .reels__reel { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block; }
-  /* Con JS activo y vídeos cargando, el placeholder no debe verse detrás */
-  .reels.js-active .reels__placeholder { display: none; }
-  .reels__placeholder { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 8px; color: var(--muted-2); font-size: 12px; font-weight: 600; text-align: center; padding: 16px; line-height: 1.4;
-    background: repeating-linear-gradient(45deg, #0d0d0d, #0d0d0d 12px, #111 12px, #111 24px); }
-  .reels__steps { display: flex; flex-direction: column; }
-  .reels__step { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; max-width: 460px; }
-  .reels__step h2 { text-transform: uppercase; }
-  .reels.js-active .reels__step { opacity: 0.72; transition: opacity .45s ease; }
-  .reels.js-active .reels__step.on { opacity: 1; }
-  /* TABLET (861–1024px): el filmstrip de escritorio sigue, pero con más aire */
-  @media (min-width: 861px) and (max-width: 1024px) {
-    .reels__grid { gap: 40px; grid-template-columns: 0.9fr 1.1fr; }
-    .reels__phone { width: 248px; }
-    .reels__step { max-width: 420px; }
-  }
-  @media (max-width: 860px) {
-    /* MÓVIL: layout APILADO nativo (sin sticky, sin filmstrip). Cada reel (tarjeta) sobre su texto.
-       Los contenedores pasan a display:contents para intercalar vídeos y textos por grid-row. */
-    .reels { padding-top: 24px; }
-    .reels__grid { display: grid; grid-template-columns: 1fr; gap: 0; align-items: start; }
-    .reels__phone-col,
-    .reels__phone,
-    .reels__phone .phone-screen,
-    .reels__strip,
-    .reels__steps { display: contents; }
-    .reels__placeholder { display: none; }
-    .reels__reel { position: relative; transform: none !important; display: block;
-      width: 100%; max-width: 240px; height: auto; margin: 0 auto;
-      aspect-ratio: 9 / 19.5; object-fit: cover;
-      border-radius: 28px; border: 1px solid var(--line-2); background: #0d0d0d;
-      box-shadow: 0 24px 60px -28px rgba(0,0,0,0.85); }
-    .reels__step { min-height: 0; justify-content: flex-start; align-items: center; max-width: 520px;
-      margin: 0 auto; padding: 18px 4px 52px; text-align: center; opacity: 1 !important; }
-    .reels__reel[data-reel="0"] { grid-row: 1; }
-    .reels__step[data-step="0"] { grid-row: 2; }
-    .reels__reel[data-reel="1"] { grid-row: 3; }
-    .reels__step[data-step="1"] { grid-row: 4; }
-    .reels__reel[data-reel="2"] { grid-row: 5; }
-    .reels__step[data-step="2"] { grid-row: 6; }
-  }
-
-  /* Live dot */
-  .live-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-  .live-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(42, 111, 219, 0.6); animation: pulse 1.8s ease-out infinite; }
-  @keyframes pulse { 0% { transform: scale(0); opacity: 0.6; } 70% { transform: scale(3.5); opacity: 0; } 100% { transform: scale(0); opacity: 0; } }
-
-  /* PRIMARY HERO FORM (email + button) */
-  .hero-form { display: flex; gap: 8px; padding: 6px; background: #161616; border: 1px solid var(--line-2); border-radius: 999px; max-width: 480px; transition: border-color 0.2s; }
-  .hero-form:focus-within { border-color: var(--accent-text); box-shadow: 0 0 0 4px rgba(42, 111, 219,0.1); animation: none; }
-  /* Llama la atención: el input "respira" para que se vea que hay que escribir ahí */
-  .hero-form { box-shadow: 0 0 26px -8px rgba(42, 111, 219, 0.5); }
-  @keyframes heroPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(42, 111, 219, 0); border-color: var(--line-2); }
-    50% { box-shadow: 0 0 0 6px rgba(42, 111, 219, 0.14); border-color: var(--accent-text); }
-  }
-  @media (prefers-reduced-motion: reduce) { .hero-form { animation: none; } }
-  .hero-form input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--fg); padding: 0 18px; font-size: 15px; font-family: inherit; }
-  .hero-form input::placeholder { color: var(--muted); }
-  .hero-form button { background: var(--accent); color: #fff; font-weight: 700; padding: 12px 22px; border-radius: 999px; font-size: 14px; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s, box-shadow 0.2s; flex-shrink: 0; }
-  .hero-form button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(42, 111, 219,0.5); }
-
-  /* Chat-style hero composer */
-  .chat-hint { display: inline-flex; align-items: center; gap: 9px; margin: 0 auto 14px; font-size: 13px; color: var(--muted); max-width: 100%; }
-  .chat-ava { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: #fff; flex-shrink: 0; display: inline-flex; }
-  .chat-ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .chat-hint__txt strong { color: var(--fg); font-weight: 700; }
-  .typing-dots { display: inline-flex; gap: 3px; align-items: center; flex-shrink: 0; }
-  .typing-dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--accent-text); animation: typingBlink 1.4s infinite ease-in-out; }
-  .typing-dots i:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dots i:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes typingBlink { 0%, 60%, 100% { opacity: 0.25; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
-  .hero-form button.hero-send { padding: 0; width: 46px; height: 46px; border-radius: 50%; justify-content: center; gap: 0; }
-
-  /* Trust strip under form */
-  .trust-row { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: center; font-size: 12px; color: var(--muted); margin-top: 14px; }
-  .trust-row .item { display: inline-flex; align-items: center; gap: 6px; }
-  .trust-row svg { color: var(--accent-text); flex-shrink: 0; }
-
-  /* Buttons */
-  @keyframes cta-glow { 0%, 100% { filter: drop-shadow(0 0 0px rgba(42, 111, 219, 0)); } 50% { filter: drop-shadow(0 0 9px rgba(42, 111, 219, 0.5)); } }
-  .btn-accent { background: var(--accent); color: #fff; font-weight: 600; padding: 14px 24px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.15s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; box-shadow: 0 4px 20px -6px rgba(42, 111, 219, 0.5); }
-  .btn-accent::before { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s ease; }
-  .btn-accent:hover::before { transform: translateX(100%); }
-  .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 12px 30px -10px rgba(42, 111, 219,0.5); }
-  .btn-dark { background: #000; color: var(--accent-text); font-weight: 600; padding: 16px 24px; transition: all 0.2s ease; }
-  .btn-dark:hover { background: #1a1a1a; }
-  .btn-ghost { border: 1px solid var(--line-2); color: var(--fg); padding: 13px 22px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s ease; }
-  .btn-ghost:hover { border-color: var(--accent-text); color: var(--accent-text); }
-
-  /* Counter / progress */
-  .progress-track { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
-
-  /* FAQ */
-  .faq-item { border-bottom: 1px solid var(--line); }
-  .faq-q { width: 100%; padding: 22px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; text-align: left; transition: color 0.2s ease; }
-  .faq-q:hover { color: var(--accent-text); }
-  .faq-q .ico { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.3s ease; color: var(--muted); }
-  .faq-item.open .faq-q .ico { transform: rotate(45deg); color: var(--accent-text); }
-  /* grid-template-rows en vez de max-height: no anima una propiedad de
-     layout con reflow por fotograma, y de paso quita el tope de 480px
-     que recortaba cualquier respuesta larga. */
-  .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; }
-  .faq-a > .faq-a-inner { overflow: hidden; min-height: 0; padding-bottom: 0; }
-  /* El aire de debajo va como contenido, no como padding: el padding le fija
-     a la fila un alto minimo y el acordeon se quedaba 24px abierto al cerrar. */
-  .faq-a > .faq-a-inner::after { content: ''; display: block; height: 24px; }
-  .faq-item.open .faq-a { grid-template-rows: 1fr; }
-  @media (prefers-reduced-motion: reduce) { .faq-a { transition: none; } }
-  .faq-a-inner { padding-bottom: 24px; color: var(--muted); line-height: 1.65; max-width: 760px; }
-  /* FAQ filtros */
-  .faq-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
-  .faq-chip { font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; padding: 7px 15px; border-radius: 999px;
-    border: 1px solid var(--line-2); background: transparent; color: var(--muted); cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease; white-space: nowrap; }
-  .faq-chip:hover { color: var(--fg); border-color: var(--muted-2); }
-  .faq-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .faq-item.hidden { display: none; }
-
-  .stat-num { font-feature-settings: 'tnum'; font-variant-numeric: tabular-nums; }
-
-  /* ── Bloque de beta ────────────────────────────────────────────────
-     Texto en blanco sobre --accent: 4,78:1. El negro daba 4,4:1 y no
-     llegaba a AA, y este bloque es el único trabajo de la página.
-     La escalera de waves sustituye a la cuenta atrás: la escasez de
-     esta página es de plazas, no de calendario — una fecha caduca sola
-     y deja la frase rota (pasó con el contador al 1-sep-2026). */
-  #beta-block, #beta-block h2 { color: #fff; }
-  .beta-h2-dim { opacity: 0.62; }
-  .beta-badge__dot { background: #fff; }
-
-  .beta-waves { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px;
-    background: rgba(255,255,255,0.26); border: 1px solid rgba(255,255,255,0.26);
-    border-radius: 12px; overflow: hidden; }
-  /* Dos líneas fijas por fila: identificador + estado arriba, ventaja
-     abajo. En flex el estado se descolgaba solo en la fila más larga y
-     rompía la altura de la escalera. */
-  .beta-wave { display: grid; grid-template-columns: 1fr auto; align-items: baseline;
-    gap: 3px 12px; padding: 11px 14px; background: var(--accent); }
-  /* No es un token nuevo: es --accent oscurecido con el negro de página,
-     la misma técnica derivada que ya usa el sistema. Blanco encima da
-     6,8:1, por encima del 4,8:1 de la fila normal. */
-  .beta-wave--now { background: color-mix(in srgb, var(--accent) 78%, var(--bg)); }
-  .beta-wave__n { grid-column: 1; font-size: 11px; font-weight: 700;
-    letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap; }
-  .beta-wave__s { grid-column: 2; grid-row: 1; font-size: 11px; font-weight: 700;
-    letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
-  .beta-wave__v { grid-column: 1 / -1; font-size: 13px; font-weight: 700; line-height: 1.3; }
-  /* La wave activa se marca por fondo y por marca textual, no solo por color. */
-  .beta-wave--now .beta-wave__n::before { content: '\25B8\00A0'; }
-
-  /* Modal */
-  .modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.82); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
-  .modal-overlay.active { opacity: 1; pointer-events: all; }
-  .modal-card { background: #161616; border: 1px solid rgba(255,255,255,0.1); padding: 0; max-width: 460px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 32px 80px rgba(0,0,0,0.6); border-radius: 14px; }
-  #modal-form-state { padding: 40px 32px 32px; }
-  .modal-overlay.active .modal-card { transform: translateY(0); }
-  #modal-title { text-transform: uppercase; }
-  .modal-close { position: absolute; top: 16px; right: 16px; color: var(--muted); padding: 8px; transition: color 0.2s; }
-  .modal-close:hover { color: white; }
-  .modal-card .field { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.12); color: var(--fg); border-radius: 6px; padding: 14px 16px; font-size: 16px; width: 100%; font-family: inherit; outline: none; transition: border-color 0.2s ease; }
-  .modal-card .field::placeholder { color: var(--muted); }
-  .modal-card .field:focus { border-color: var(--accent-text); }
-
-  /* ── Modal de éxito (nuevo diseño) ─────────────────── */
-  #modal-success {
-    --ms-blue: var(--accent); --ms-blue-2: var(--accent-2);
-    --ms-modal-2: #1d1f22; --ms-line: #2a2d32; --ms-line-2: #33363c;
-    --ms-mute: #9aa0a8; --ms-dim: #5c616a; --ms-green: #22c55e; --ms-amber: #f5b62a;
-  }
-
-  /* Head */
-  #modal-success .ms-head { padding: 24px 22px 8px; }
-  #modal-success .ms-head h3 { margin: 0; font-family: 'TT Firs Neue', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -.01em; line-height: 1.05; text-transform: uppercase; }
-  #modal-success .ms-head p { margin: 6px 0 0; color: var(--ms-mute); font-size: 13.5px; line-height: 1.4; }
-
-  /* Hero */
-  #modal-success .ms-hero { padding: 18px 18px 16px; text-align: center; }
-  #modal-success .ms-check {
-    width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--ms-blue);
-    margin: 0 auto 18px; display: grid; place-items: center; color: var(--ms-blue);
-    position: relative; animation: checkpop .55s cubic-bezier(.2,.7,.2,1) both;
-  }
-  #modal-success .ms-check::before {
-    content: ""; position: absolute; inset: -8px; border-radius: 50%;
-    border: 2px solid var(--ms-blue); opacity: 0;
-  }
-  #modal-success .ms-check svg { width: 22px; height: 22px; animation: checkdraw .5s cubic-bezier(.65,0,.45,1) .25s both; }
-  #modal-success .ms-check svg path { stroke-dasharray: 28; stroke-dashoffset: 28; animation: checkdash .4s cubic-bezier(.65,0,.45,1) .35s forwards; }
-  @keyframes checkpop { 0%{transform:scale(.3);opacity:0} 60%{transform:scale(1.1);opacity:1} 100%{transform:scale(1)} }
-  @keyframes checkring { 0%{transform:scale(.9);opacity:.5} 100%{transform:scale(1.6);opacity:0} }
-  @keyframes checkdash { to{stroke-dashoffset:0} }
-  @keyframes checkdraw { from{opacity:0} to{opacity:1} }
-
-  #modal-success .ms-status { font-family: 'TT Firs Neue', sans-serif; font-weight: 800; font-size: 38px; letter-spacing: -.01em; line-height: 1; margin: 0 0 12px; }
-  #modal-success .ms-num {
-    font-family: 'TT Firs Neue', sans-serif;
-    font-size: 84px; font-weight: 800; line-height: 1; letter-spacing: -.02em;
-    color: var(--ms-blue); font-variant-numeric: tabular-nums; display: inline-block;
-    text-shadow: 0 0 60px rgba(42,111,219,.4);
-  }
-  #modal-success .ms-num .ms-h { opacity: .85; margin-right: 6px; }
-  #modal-success .ms-num.pop { animation: numpop .35s cubic-bezier(.2,.7,.2,1); }
-  @keyframes numpop { 0%{transform:scale(.85);filter:blur(4px)} 60%{transform:scale(1.04);filter:blur(0)} 100%{transform:scale(1)} }
-  #modal-success .ms-badges { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-  #modal-success .ms-badge {
-    padding: 8px 11px; border-radius: 999px; border: 1px solid var(--ms-line);
-    font-size: 12.5px; font-weight: 600; color: var(--fg); background: transparent;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  #modal-success .ms-badge.primary {
-    background: rgba(42,111,219,.15); border-color: rgba(42,111,219,.45); color: var(--ms-blue-2);
-    box-shadow: 0 0 24px rgba(42,111,219,.18);
-  }
-
-  /* Waves card */
-  #modal-success .ms-waves-card {
-    margin: 0 14px 14px; border: 1px solid var(--ms-line); border-radius: 14px;
-    padding: 14px 14px 12px; background: #0f1013;
-  }
-  #modal-success .ms-waves-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
-  #modal-success .ms-waves-h .ms-wl { font-size: 12px; font-weight: 600; color: var(--ms-mute); letter-spacing: .04em; text-transform: uppercase; }
-  #modal-success .ms-waves-h .ms-wr { font-size: 13px; color: var(--ms-amber); font-weight: 800; }
-  /* Scarcity bar */
-  #modal-success .ms-scarcity-bar { height: 10px; border-radius: 6px; background: #1c1e22; overflow: hidden; border: 1px solid var(--ms-line); margin-bottom: 6px; }
-  /* scaleX en vez de width: la barra se compone en GPU y no provoca
-     reflow en cada fotograma de una animacion de 1,4s. */
-  #modal-success .ms-scarcity-fill {
-    height: 100%; border-radius: 6px; width: 100%;
-    transform: scaleX(0); transform-origin: left center;
-    background: linear-gradient(90deg, var(--ms-blue), var(--ms-blue-2));
-    transition: transform 1.4s cubic-bezier(.2,.7,.2,1) .6s;
-  }
-  #modal-success .ms-scarcity-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--ms-mute); margin-bottom: 2px; }
-  #modal-success .ms-free-label { color: var(--ms-amber); font-weight: 700; }
-  #modal-success .ms-wave-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  #modal-success .ms-w { padding: 8px 9px; border-radius: 8px; border: 1px solid var(--ms-line); background: transparent; }
-  #modal-success .ms-w.active { border-color: rgba(42,111,219,.4); background: linear-gradient(180deg,rgba(42,111,219,.10),rgba(42,111,219,.02)); }
-  #modal-success .ms-w .ms-ww { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: var(--ms-mute); letter-spacing: .04em; text-transform: uppercase; }
-  #modal-success .ms-w.active .ms-ww { color: var(--ms-blue-2); }
-  #modal-success .ms-w .ms-sw { width: 8px; height: 8px; border-radius: 2px; background: var(--ms-mute); flex-shrink: 0; }
-  #modal-success .ms-w.active .ms-sw { background: var(--ms-blue); box-shadow: 0 0 8px var(--ms-blue); }
-  #modal-success .ms-w.ms-w2 .ms-sw { background: #5c616a; }
-  #modal-success .ms-w.ms-w3 .ms-sw { background: #3a3d42; }
-  #modal-success .ms-w .ms-vv { margin-top: 5px; font-size: 12px; font-weight: 700; color: var(--fg); line-height: 1.2; }
-  #modal-success .ms-w .ms-ss { margin-top: 2px; font-size: 12px; color: var(--ms-mute); }
-
-  /* Share card */
-  #modal-success .ms-share {
-    margin: 0 14px 14px; border: 1px solid var(--ms-line); border-radius: 14px;
-    padding: 16px 16px 14px; background: var(--ms-modal-2);
-  }
-  #modal-success .ms-share .ms-k { font-size: 11px; font-weight: 700; color: var(--ms-mute); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 6px; }
-  #modal-success .ms-share .ms-sh3 {
-    margin: 0 0 14px; font-size: 15.5px; font-weight: 800; letter-spacing: -.01em; line-height: 1.25;
-    display: flex; align-items: center; gap: 8px;
-  }
-  #modal-success .ms-share .ms-sh3 .ms-b {
-    display: inline-grid; place-items: center;
-    background: rgba(245,182,42,.16); color: var(--ms-amber);
-    width: 24px; height: 24px; border-radius: 6px; font-size: 14px; flex-shrink: 0;
-  }
-  #modal-success .ms-btn-wa {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; padding: 14px; border-radius: 10px; background: var(--ms-green); color: #fff;
-    border: none; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
-    text-decoration: none; transition: transform .15s ease, filter .15s ease;
-  }
-  #modal-success .ms-btn-wa:hover { transform: translateY(-1px); filter: brightness(1.06); }
-  #modal-success .ms-btn-wa svg { width: 18px; height: 18px; }
-  #modal-success .ms-btn-row { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  #modal-success .ms-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 700;
-    cursor: pointer; border: 1px solid var(--ms-line); background: transparent; color: var(--fg);
-    text-decoration: none; transition: background .15s ease, border-color .15s ease;
-  }
-  #modal-success .ms-btn:hover { background: rgba(255,255,255,.04); border-color: var(--ms-line-2); }
-  #modal-success .ms-btn.ms-x-btn { background: #000; border-color: #000; }
-  #modal-success .ms-btn svg { width: 14px; height: 14px; }
-
-  /* Ref & foot */
-  #modal-success .ms-ref {
-    margin: 0 14px 12px; padding: 10px 12px;
-    background: #0a0b0d; border: 1px solid var(--ms-line); border-radius: 10px;
-    font-family: ui-monospace, monospace; font-size: 11.5px; color: var(--ms-mute);
-    text-align: center; user-select: all; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  #modal-success .ms-foot { padding: 0 22px 22px; text-align: center; color: var(--ms-dim); font-size: 11.5px; }
-
-  /* Layout */
-  section { padding-top: 64px; padding-bottom: 64px; }
-  @media (min-width: 768px) { section { padding-top: 96px; padding-bottom: 96px; } }
-  .max-w-page { max-width: 1240px; margin-left: auto; margin-right: auto; }
-  .pad-x { padding-left: 20px; padding-right: 20px; }
-  @media (min-width: 768px) { .pad-x { padding-left: 32px; padding-right: 32px; } }
-
-  /* ── PHABLET / TABLET vertical (< 1024px) ─────────── */
-  @media (max-width: 1023px) {
-    .hero-phone-wrapper { order: 1; display: flex !important; justify-content: center; }
-    .hero-text-col { order: 2; text-align: center; }
-    .hero-text-col .badge-row { justify-content: center; }
-  }
-
-  /* ── TABLET (768–1023px) ────────────────────────────── */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .phone { width: 220px; border-radius: 34px; padding: 7px; }
-    .phone-screen { border-radius: 27px; }
-    .phone-stack { width: 370px; height: 530px; }
-    .hero-phone-wrapper { margin-bottom: 24px; }
-  }
-
-  /* ── MOBILE (< 768px) ───────────────────────────────── */
-  @media (max-width: 767px) {
-    /* Texto + formulario primero, móvil arriba del todo sin scroll */
-    .hero-text-col     { order: 1; text-align: center; }
-    .hero-phone-wrapper { order: 2; }
-    /* Phone carousel */
-    .phone { width: 188px; border-radius: 32px; padding: 6px; }
-    .phone-screen { border-radius: 27px; }
-    .phone-stack { width: 330px; height: 402px; }
-    .hero-phone-wrapper { margin: 14px 0 0 !important; }
-
-    /* Hero goal form — más compacto para que el placeholder no se corte */
-    .hero-form { gap: 6px; padding: 5px; }
-    .hero-form input { font-size: 14px; padding: 0 12px; text-overflow: ellipsis; }
-    .hero-form button { padding: 11px 16px; font-size: 13px; }
-    .hero-form button.hero-send { width: 42px; height: 42px; padding: 0; }
-    .chat-hint { font-size: 12px; }
-
-    /* Hero text — compactado para que el formulario quede visible sin scroll */
-    .hero-text-col .badge-row { justify-content: center; margin-bottom: 14px !important; }
-    .hero-text-col .hero-form { margin-top: 18px !important; }
-
-    /* Hide second badge pill on very small screens to avoid clutter */
-    .badge-row .badge-context { display: none; }
-
-    /* CTA form: barra única tipo píldora con botón circular de flecha */
-    .hero-form { gap: 6px; padding: 5px; max-width: 380px; margin-left: auto; margin-right: auto; }
-    .hero-form input { padding: 0 16px; font-size: 16px; }
-    .hero-form button { width: 46px; height: 46px; min-width: 46px; padding: 0; border-radius: 50%; justify-content: center; gap: 0; }
-    .hero-form .btn-label { display: none; }
-    .hero-form button svg { width: 17px; height: 17px; }
-    .trust-row { justify-content: center; }
-
-    /* Body & section spacing */
-    section { padding-top: 48px; padding-bottom: 48px; }
-
-    /* Beta CTA — ligeramente compactado, manteniendo la legibilidad */
-    #beta { padding-top: 40px; padding-bottom: 40px; }
-    #beta-block { padding: 32px 24px !important; }
-    #beta-block > .grid { gap: 30px !important; }
-    #beta-block h2 { font-size: 2rem !important; }
-    #beta-offer { margin-top: 26px !important; }
-    #beta-intro { margin-top: 24px !important; }
-    #beta-card { padding: 24px !important; }
-    /* Todo el texto de la última sección centrado en móvil */
-    #beta-block { text-align: center; }
-    #beta .beta-badge { justify-content: center; }
-    /* Ocultar el punto decorativo: descolocado al centrar el texto en 2 líneas */
-    #beta .beta-badge span:first-child { display: none; }
-    #beta-offer { margin-left: auto !important; margin-right: auto !important; }
-    /* La escalera de waves se lee mejor alineada a la izquierda aunque el
-       resto del bloque esté centrado en móvil: son datos, no un eslogan. */
-    #beta-offer .beta-waves { text-align: left; }
-    #beta-intro { margin-left: auto; margin-right: auto; }
-
-    /* Comparison table: smaller padding */
-    .cmp-cell { padding-left: 12px !important; padding-right: 12px !important; }
-
-    /* FAQ: tighter padding */
-    .faq-q { padding: 16px 0; }
-    .faq-a > .faq-a-inner::after { height: 16px; }
-
-    /* Modal: full-screen friendly */
-    .modal-card { padding: 0; }
-    #modal-form-state { padding: 28px 20px 24px; }
-
-    /* ── Success modal: compactar para que entre sin scroll en móvil ── */
-    #modal-success .ms-head { padding: 14px 18px 4px; }
-    #modal-success .ms-head h3 { font-size: 20px; }
-    #modal-success .ms-head p { margin-top: 4px; font-size: 12.5px; line-height: 1.35; }
-
-    #modal-success .ms-hero { padding: 8px 16px 6px; }
-    #modal-success .ms-check { width: 36px; height: 36px; margin: 0 auto 6px; }
-    #modal-success .ms-check svg { width: 16px; height: 16px; }
-    #modal-success .ms-status { font-size: 24px; margin: 0 0 4px; }
-    #modal-success .ms-num { font-size: 52px; }
-    #modal-success .ms-num .ms-h { margin-right: 4px; }
-    #modal-success .ms-badges { margin-top: 8px; gap: 5px; }
-    #modal-success .ms-badge { padding: 5px 9px; font-size: 11.5px; gap: 5px; }
-
-    #modal-success .ms-waves-card { margin: 0 14px 8px; padding: 10px 12px 8px; }
-    #modal-success .ms-waves-h { margin-bottom: 6px; }
-    #modal-success .ms-scarcity-bar { height: 8px; margin-bottom: 4px; }
-    #modal-success .ms-wave-grid { margin-top: 8px; gap: 4px; }
-    #modal-success .ms-w { padding: 6px 7px; }
-    #modal-success .ms-w .ms-vv { margin-top: 4px; font-size: 11.5px; }
-    #modal-success .ms-w .ms-ss { font-size: 12px; }
-
-    #modal-success .ms-share { margin: 0 14px 8px; padding: 10px 14px 12px; }
-    #modal-success .ms-share .ms-k { margin: 0 0 4px; }
-    #modal-success .ms-share .ms-sh3 { margin: 0 0 8px; font-size: 14.5px; line-height: 1.2; }
-    #modal-success .ms-share .ms-sh3 .ms-b { width: 22px; height: 22px; font-size: 13px; }
-    #modal-success .ms-btn-wa { padding: 11px; font-size: 13.5px; }
-    #modal-success .ms-btn-row { margin-top: 6px; gap: 8px; }
-    #modal-success .ms-btn { padding: 10px; font-size: 12.5px; }
-
-    #modal-success .ms-ref { margin: 0 14px 6px; padding: 8px 12px; font-size: 11px; }
-    #modal-success .ms-foot { padding: 0 18px 12px; font-size: 11px; }
-
-    /* Footer */
-    .footer-grid { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
-    .footer-brand { grid-column: span 1 !important; }
-  }
-
-  /* ── Pantallas cortas: recortar aún más el modal de éxito ── */
-  @media (max-height: 730px) {
-    #modal-success .ms-head { padding: 12px 18px 4px; }
-    #modal-success .ms-hero { padding: 8px 16px 6px; }
-    #modal-success .ms-check { width: 38px; height: 38px; margin: 0 auto 6px; }
-    #modal-success .ms-status { font-size: 25px; margin: 0 0 4px; }
-    #modal-success .ms-num { font-size: 54px; }
-    #modal-success .ms-badges { margin-top: 6px; }
-    #modal-success .ms-waves-card { margin: 0 14px 6px; padding: 8px 12px 7px; }
-    #modal-success .ms-share { margin: 0 14px 6px; }
-    #modal-success .ms-btn-wa { padding: 10px; }
-    #modal-success .ms-foot { padding: 0 18px 10px; }
-  }
-
-
-  /* ── Cómo se vuelve tuyo: el bucle de adaptación ──────────────────
-     Diagrama en HTML/CSS, no en SVG: tiene que reflowear de tres
-     columnas a una sola en móvil sin duplicar el contenido ni perder
-     el texto real. Separación por hairline, un solo azul, radios y
-     tamaños de los pasos documentados en DESIGN.md. */
-  .loop { position: relative; }
-  .loop__flow { position: relative; display: grid; gap: 14px; margin-top: 34px; padding-left: 36px; }
-  .loop__doors { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  .loop__door { border: 1px solid var(--line-2); border-radius: 14px; padding: 13px 15px;
-    background: var(--bg-2); display: grid; gap: 3px; }
-  .loop__door b { font-size: 16px; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
-  .loop__door span { font-size: 13px; color: var(--muted); line-height: 1.4; }
-  .loop__mem, .loop__plan { border-radius: 14px; padding: 15px 17px 16px; display: grid;
-    gap: 4px; align-content: center; }
-  .loop__mem { border: 1px solid var(--accent); background: var(--accent-soft); }
-  .loop__plan { border: 1px solid var(--line-2); background: var(--bg-2); }
-  .loop__mem b, .loop__plan b { font-size: 16px; font-weight: 700; color: var(--fg); letter-spacing: -0.01em; }
-  .loop__mem p, .loop__plan p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.4; }
-  .loop__step { font-size: 11px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase;
-    color: var(--accent-text); }
-  .loop__arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--accent); }
-  .loop__arrow::before { content: ''; width: 1px; height: 26px; background: currentColor; }
-  .loop__arrow::after { content: ''; width: 0; height: 0; margin-top: -1px;
-    border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid currentColor; }
-
-  /* El camino de vuelta. En vertical (movil) es un rail que sube por la
-     izquierda desde el plan hasta las tres puertas: en un flujo apilado, una
-     caja al pie no se lee como retorno, se lee como pie de pagina. Sus
-     extremos van anclados al contenedor del flujo, asi que no dependen de
-     cuanto ocupe la etiqueta. */
-  .loop__path { position: absolute; left: 0; top: 14px; bottom: 14px; width: 26px;
-    border: 1px dashed var(--accent); border-right: 0; border-radius: 14px 0 0 14px; }
-  .loop__path::before { content: ''; position: absolute; right: -7px; top: -5px; width: 0; height: 0;
-    border-top: 5.5px solid transparent; border-bottom: 5.5px solid transparent;
-    border-left: 8px solid var(--accent); }
-  .loop__label { display: block; margin: 16px 0 0; padding-left: 36px; font-size: 12.5px;
-    font-weight: 600; color: var(--accent-text); line-height: 1.4; }
-
-  @media (min-width: 900px) {
-    .loop { padding-bottom: 92px; }
-    .loop__flow { grid-template-columns: 1fr 44px 1.15fr 44px 1fr; align-items: center; gap: 0; padding-left: 0; }
-    .loop__doors { grid-column: 1; }
-    .loop__mem { grid-column: 3; min-height: 112px; }
-    .loop__plan { grid-column: 5; min-height: 112px; }
-    .loop__arrow { flex-direction: row; }
-    .loop__arrow::before { width: 26px; height: 1px; }
-    .loop__arrow::after { margin-top: 0; margin-left: -1px;
-      border-top: 5px solid transparent; border-bottom: 5px solid transparent;
-      border-left: 7px solid currentColor; border-right: 0; }
-    .loop__arrow--a { grid-column: 2; }
-    .loop__arrow--b { grid-column: 4; }
-    /* En horizontal el mismo camino se convierte en una U por debajo. */
-    .loop__path { top: calc(100% + 20px); bottom: auto; left: 0; right: 0; width: auto; height: 58px;
-      border: 1px dashed var(--accent); border-top: 0; border-radius: 0 0 16px 16px; }
-    .loop__path::before { right: auto; left: -5.5px; top: -3px;
-      border-left: 5.5px solid transparent; border-right: 5.5px solid transparent;
-      border-bottom: 8px solid var(--accent); border-top: 0; }
-    .loop__label { position: absolute; left: 50%; bottom: 42px; transform: translateX(-50%);
-      margin: 0; padding: 0; white-space: nowrap; }
-  }
-
-  /* Navbar — degradado oscuro que se funde con el contenido al hacer scroll */
-  #nav { background: linear-gradient(180deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.82) 58%, rgba(10,10,10,0.55) 100%); }
-  #nav::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 52px; background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 100%); pointer-events: none; }
-  #nav.nav-open { background: #0d0d0d; }
-
-  /* ===== Navbar: compacto al cargar (pill con el logo) -> se despliega al hacer scroll y se queda =====
-     Todo el movimiento va por transform y opacity. Antes se animaban max-width,
-     height, margin-top y padding a la vez: cuatro propiedades de layout en el
-     mismo tick. Ahora el pill no es la caja de #nav-inner sino un ::before que
-     se desvanece, y el logo y la hamburguesa viajan con translate.
-     El desplazamiento es simetrico porque el pill y la barra estan los dos
-     centrados: basta una variable y su negativo. */
-  :root { --nav-pill-w: 148px; --nav-pill-pad: 14px; --nav-pad-x: 20px; }
-  @media (min-width: 768px)  { :root { --nav-pad-x: 32px; } }
-  @media (min-width: 1024px) { :root { --nav-pill-w: 68px; } }
-  #nav { transition: background-color .4s ease; }
-  #nav::after { transition: opacity .4s ease; }
-  #nav-inner { position: relative; }
-  #nav-inner > * { position: relative; z-index: 1; }
-  #nav-inner::before {
-    content: ''; position: absolute; z-index: 0; top: 12px; left: 50%;
-    width: var(--nav-pill-w); height: 52px; margin-left: calc(var(--nav-pill-w) / -2);
-    border-radius: 999px; background: rgba(13,13,13,0.5);
-    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.10);
-    box-shadow: 0 10px 30px -14px rgba(0,0,0,0.7);
-    opacity: 0; transform: scale(.92); pointer-events: none;
-    transition: opacity .35s ease, transform .45s cubic-bezier(.4,0,.2,1);
-  }
-  #nav-inner > a, #nav-toggle { transition: transform .55s cubic-bezier(.4,0,.2,1); }
-  #nav-links, #nav .nav-lang, #nav-cta { transition: opacity .3s ease .15s; }
-  #nav.nav-compact { background: transparent; }
-  #nav.nav-compact::after { opacity: 0; }
-  #nav.nav-compact #nav-inner::before { opacity: 1; transform: none; }
-  /* Del borde de la barra al borde del pill. +6px en vertical porque el pill
-     (top 12, alto 52) esta centrado 6px mas abajo que la barra (top 0, alto 64). */
-  #nav.nav-compact #nav-inner > a {
-    transform: translate(var(--nav-shift), 6px);
-  }
-  #nav.nav-compact #nav-toggle {
-    transform: translate(calc(-1 * var(--nav-shift)), 6px);
-  }
-  :root {
-    --nav-shift: calc(min(1240px, 100vw) / 2 - var(--nav-pill-w) / 2 + var(--nav-pill-pad) - var(--nav-pad-x));
-  }
-  /* Logo: hexagono cuando el navbar esta colapsado, wordmark cuando esta expandido */
-  .nav-hex { display: none; }
-  #nav.nav-compact .nav-hex  { display: block; }
-  #nav.nav-compact .nav-word { display: none; }
-  #nav.nav-compact #nav-links,
-  #nav.nav-compact .nav-lang,
-  #nav.nav-compact #nav-cta { opacity: 0; pointer-events: none; }  /* en flujo pero invisibles -> aparecen con fade, sin pop */
-  #nav.no-nav-anim, #nav.no-nav-anim #nav-inner, #nav.no-nav-anim #nav-inner::before,
-  #nav.no-nav-anim #nav-inner > a, #nav.no-nav-anim #nav-toggle, #nav.no-nav-anim #nav-links,
-  #nav.no-nav-anim .nav-lang, #nav.no-nav-anim #nav-cta { transition: none !important; }
-  @media (prefers-reduced-motion: reduce) {
-    #nav-inner::before, #nav-inner > a, #nav-toggle { transition: none; }
-  }
-
-  /* Nav responsive — hamburger visible below 1024px, desktop links above */
-  #nav-links { display: none; }
-  #nav-cta   { display: none; }
-  #nav-toggle { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 44px; height: 44px; margin-right: -10px; background: none; border: none; cursor: pointer; padding: 0; flex-shrink: 0; }
-  @media (min-width: 1024px) {
-    #nav-links  { display: flex; }
-    #nav-cta    { display: inline-flex; }
-    #nav-toggle { display: none; }
-  }
-  .nav-bar { display: block; width: 20px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; transform-origin: center; }
-  #nav.nav-open .nav-bar-1 { transform: translateY(7px) rotate(45deg); }
-  #nav.nav-open .nav-bar-2 { opacity: 0; transform: scaleX(0); }
-  #nav.nav-open .nav-bar-3 { transform: translateY(-7px) rotate(-45deg); }
-
-  /* Mobile menu panel */
-  #mobile-menu { position: fixed; top: 64px; left: 0; right: 0; z-index: 49; background: #0d0d0d; border-bottom: 1px solid var(--line); transform: translateY(-6px); opacity: 0; pointer-events: none; visibility: hidden; transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s linear 0.25s; }
-  #mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; visibility: visible; transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s linear 0s; }
-  .mobile-nav-link { display: flex; align-items: center; padding: 0 20px; font-size: 18px; font-weight: 500; color: var(--muted); border-bottom: 1px solid var(--line); text-decoration: none; min-height: 56px; transition: color 0.2s ease, background 0.2s ease; }
-  .mobile-nav-link:hover, .mobile-nav-link:focus-visible { color: var(--fg); background: rgba(255,255,255,0.03); outline: none; }
-  .mobile-menu-cta { padding: 16px 20px; }
-  .nav-lang { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s; text-transform: uppercase; }
-  .nav-lang:hover { border-color: var(--accent-text); color: var(--accent-text); }
-
-  /* ===== OBJETIVOS: elige tu meta → plan para ti ===== */
-  #objetivos { scroll-margin-top: 80px; background: var(--bg); }
-  .goals-head { max-width: 640px; }
-  .goals-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
-  @media (min-width: 900px) { .goals-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; } }
-  .goal-opt {
-    display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-align: left;
-    padding: 22px 20px; border-radius: 16px; border: 1px solid var(--line-2); background: transparent;
-    color: var(--fg); cursor: pointer; font-family: inherit; transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    min-height: 100%;
-  }
-  .goal-opt:hover { border-color: rgba(42,111,219,0.45); background: rgba(42,111,219,0.04); }
-  .goal-opt[aria-pressed="true"] {
-    border-color: rgba(42,111,219,0.65); background: rgba(42,111,219,0.1);
-    box-shadow: inset 0 0 0 1px rgba(42,111,219,0.25);
-  }
-  .goal-opt__kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-text); }
-  .goal-opt__title { font-family: 'TT Firs Neue', sans-serif; font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.15; text-transform: uppercase; }
-  .goal-opt__desc { font-size: 13.5px; line-height: 1.5; color: var(--muted); }
-  .goals-preview {
-    margin-top: 28px; padding: 20px 22px; border-radius: 16px; border: 1px solid rgba(42,111,219,0.22);
-    background: linear-gradient(135deg, rgba(42,111,219,0.1), rgba(42,111,219,0.02));
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  @media (min-width: 768px) { .goals-preview { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; } }
-  .goals-preview__label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-text); }
-  .goals-preview__text { font-size: 15px; line-height: 1.5; color: var(--fg); max-width: 720px; }
-  .goals-preview__text strong { font-weight: 700; }
-  .goals-preview__hint { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
-
-  /* ===== DEMO "Míralo pensar": conversación que razona con tus datos ===== */
-  .demo-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
-  .demo-head { max-width: 460px; }
-  .demo-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-  .demo-tab {
-    font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; padding: 8px 14px; border-radius: 999px;
-    border: 1px solid var(--line-2); background: transparent; color: var(--muted); cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease; white-space: nowrap;
-  }
-  .demo-tab:hover { color: var(--fg); border-color: var(--muted-2); }
-  .demo-tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
-  /* Más específico que .demo-chat para que el tab oculte de verdad el otro escenario */
-  .demo-chat.demo-scenario { display: none !important; }
-  .demo-chat.demo-scenario.on { display: flex !important; flex-direction: column; gap: 12px; }
-  .demo-scenarios { min-width: 0; }
-  .demo-head .demo-sub { color: var(--muted); font-size: 15px; line-height: 1.6; margin-top: 18px; }
-  .demo-head .demo-note { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-size: 12px; color: var(--muted-2); }
-  .demo-head .demo-note svg { color: var(--accent-text); flex-shrink: 0; }
-
-  .demo-chat { background: #0d0d0d; border: 1px solid var(--line-2); border-radius: 22px; padding: 22px; box-shadow: 0 28px 70px rgba(0,0,0,0.45); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-  /* Modo secuencia (lo activa el JS): tamaño fijo; el razonamiento se colapsa para que quepa todo. */
-  .demo-chat--seq { height: 610px; overflow: hidden; }
-  .demo-chat--seq.is-open { overflow-y: auto; overflow-x: hidden; }
-  .demo-chat--seq::-webkit-scrollbar { width: 6px; }
-  .demo-chat--seq::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 999px; }
-  .demo-pending { display: none !important; }
-  .demo-chat__bar { display: flex; align-items: center; gap: 9px; padding-bottom: 14px; margin-bottom: 4px; border-bottom: 1px solid var(--line); }
-  .demo-chat__ava { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: #fff; flex-shrink: 0; display: inline-flex; }
-  .demo-chat__ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .demo-chat__name { font-size: 13px; font-weight: 700; color: var(--fg); }
-  .demo-chat__status { font-size: 11px; color: var(--accent-text); display: flex; align-items: center; gap: 5px; }
-  .demo-chat__status-text { transition: opacity 0.25s ease; }
-
-  .demo-step { opacity: 1; }
-  .demo-bubble { max-width: 88%; padding: 11px 15px; border-radius: 16px; font-size: 13.5px; line-height: 1.5; }
-  .demo-bubble strong { color: var(--fg); font-weight: 700; }
-  .demo-bubble--user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
-  .demo-bubble--ai { align-self: flex-start; background: #161616; border: 1px solid var(--line-2); color: var(--muted); border-bottom-left-radius: 5px; }
-
-  .demo-reason { align-self: flex-start; max-width: 92%; background: rgba(42,111,219,0.06); border: 1px solid rgba(42,111,219,0.22); border-radius: 16px; border-bottom-left-radius: 5px; padding: 12px 14px; }
-  /* Cabecera = toggle. Razonando (puntos) durante el "pensar"; ✓ Razonado + chevron al colapsar. */
-  .demo-reason__toggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0; margin: 0; background: none; border: 0; font-family: inherit; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-text); text-align: left; cursor: default; }
-  .demo-reason.is-interactive .demo-reason__toggle { cursor: pointer; }
-  .demo-reason__check { display: none; width: 15px; height: 15px; flex-shrink: 0; color: var(--accent-text); }
-  .demo-reason.is-interactive .demo-reason__dots { display: none; }
-  .demo-reason.is-interactive .demo-reason__check { display: inline-flex; }
-  .demo-reason__count { display: none; font-weight: 600; letter-spacing: 0.02em; text-transform: none; color: var(--muted-2); }
-  .demo-reason.is-interactive .demo-reason__count { display: inline; }
-  .demo-reason__chev { display: none; width: 16px; height: 16px; margin-left: auto; flex-shrink: 0; transition: transform 0.3s ease; }
-  .demo-reason.is-interactive .demo-reason__chev { display: inline-flex; }
-  .demo-reason.is-interactive:not(.is-collapsed) .demo-reason__chev { transform: rotate(180deg); }
-  .demo-reason__body { overflow: hidden; }
-  .demo-reason__list { display: flex; flex-direction: column; gap: 7px; margin-top: 9px; }
-  .demo-reason__line { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
-  .demo-reason__line strong { color: var(--fg); font-weight: 600; }
-  .demo-reason__line .tick { flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; color: var(--accent-text); }
-
-  .demo-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
-  .demo-chip { font-size: 12px; font-weight: 600; color: var(--fg); background: #161616; border: 1px solid var(--line-2); border-radius: 999px; padding: 5px 11px; }
-  .demo-chip .demo-chip__hl { color: var(--accent-text); }
-
-  /* Sesión generada · carrusel dentro del chat (aparece tras "pensar") */
-  .demo-gen { margin-top: 2px; min-width: 0; }
-  .demo-gen__head { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-text); margin-bottom: 12px; }
-  .demo-gen__head svg { flex-shrink: 0; }
-
-  /* Scroll manual con snap en vez de marquee. El bucle anterior desplazaba
-     -50% sobre una pista de 6 tarjetas SIN duplicar, asi que la segunda mitad
-     de cada vuelta ensenaba hueco antes de saltar; y en movil, que es el 70-80%
-     del trafico, no habia hover con el que pausarlo. */
-  .demo-carousel { min-width: 0; overflow-x: auto; overflow-y: hidden;
-    scroll-snap-type: x proximity; scroll-padding-left: 2px; overscroll-behavior-x: contain;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
-  .demo-carousel::-webkit-scrollbar { height: 4px; }
-  .demo-carousel::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 999px; }
-  .demo-carousel:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-  .demo-carousel__track { display: flex; gap: 12px; width: max-content; }
-  .demo-ex { scroll-snap-align: start; }
-  .demo-ex { flex-shrink: 0; width: 150px; height: 208px; display: flex; flex-direction: column; background: #161616; border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease; }
-  .demo-ex:hover { transform: translateY(-3px); border-color: var(--accent-text); }
-  .demo-ex--warm { border-color: rgba(42,111,219,0.45); background: rgba(42,111,219,0.06); }
-  .demo-ex__media { position: relative; height: 114px; flex-shrink: 0; background: linear-gradient(135deg,#1c1c1c,#0e0e0e); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted-2); }
-  .demo-ex__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .demo-ex__media svg { width: 28px; height: 28px; opacity: 0.4; }
-  .demo-ex__ph { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; }
-  .demo-ex__body { padding: 10px 12px 12px; flex: 1; min-height: 0; }
-  .demo-ex__tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-2); margin-bottom: 5px; }
-  .demo-ex--warm .demo-ex__tag { color: var(--accent-text); }
-  .demo-ex__name { font-size: 13px; font-weight: 600; color: var(--fg); line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .demo-ex__meta { font-size: 11px; color: var(--muted-2); margin-top: 4px; }
-
-  /* Botón · ir al entrenamiento de hoy */
-  .demo-go { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 13px 20px; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; border-radius: 12px; text-decoration: none; transition: transform 0.15s, box-shadow 0.2s; }
-  .demo-go:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -10px rgba(42,111,219,0.6); }
-
-  /* CTA · Pruébalo ya mismo (columna izquierda, bajo el badge) */
-  .demo-head__cta { margin-top: 28px; }
-  .demo-head__cta .chat-hint { margin: 0 0 12px; }
-  .demo-head__cta .hero-form { max-width: 420px; }
-
-
-  @media (max-width: 860px) {
-    .demo-grid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
-    .demo-head { max-width: none; }
-    .demo-bubble, .demo-reason { max-width: 92%; }
-    /* En móvil el chat crece de forma natural (altura auto); overflow hidden evita que el
-       carrusel desborde en horizontal y rompa el chat. */
-    .demo-chat--seq { height: auto; overflow: hidden; }
-    .demo-chat { padding: 16px; border-radius: 18px; }
-    /* CTA a todo el ancho y alineado a la izquierda; en móvil va tras el chat (lo coloca el JS). */
-    .demo-head__cta { margin-top: 24px; }
-    .demo-head__cta .chat-hint { margin: 0 0 10px; }
-    .demo-head__cta .hero-form { max-width: 100%; margin-left: 0; margin-right: 0; }
-  }
-
-  @media (max-width: 480px) {
-    .demo-carousel__track { gap: 10px; }
-    .demo-reason__toggle { letter-spacing: 0.08em; }
-    .demo-go { padding: 12px 18px; font-size: 13.5px; margin-top: 18px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto !important; } }
-</style>
+<script src="/app.js?v=claro1" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -909,24 +65,22 @@
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
-
 <!-- NAV -->
-<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors nav-compact" aria-label="Navegación principal">
-  <div id="nav-inner" class="max-w-page pad-x h-16 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2">
-      <img class="nav-hex" src="/assets/hexagono.svg" alt="2trAIn" width="28" height="28" style="height:28px;width:28px;">
-      <picture class="nav-word"><img src="/assets/logo-texto.png" alt="2trAIn" width="908" height="132" fetchpriority="high" decoding="async" style="height:16px;width:auto;"></picture>
+<nav id="nav" class="nav-compact" aria-label="Navegación principal">
+  <div id="nav-inner" class="max-w-page pad-x">
+    <a href="#" aria-label="2trAIn, inicio">
+      <img class="nav-hex" src="/assets/hexagono.svg" alt="" width="26" height="26">
+      <img class="nav-word" src="/assets/logo-texto-claro.png" alt="2trAIn" width="908" height="132" decoding="async">
     </a>
-    <div id="nav-links" class="items-center gap-8 text-sm text-muted">
-      <a href="#objetivos" class="hover:text-white transition-colors">Objetivos</a>
-      <a href="#como" class="hover:text-white transition-colors">Funcionalidades</a>
-      <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+    <div id="nav-links">
+      <a href="#objetivos">Objetivos</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#faq">Preguntas</a>
     </div>
-    <div class="flex items-center gap-3">
-      <a href="/en/" class="nav-lang">EN</a>
-      <button id="nav-cta" class="open-modal btn-accent text-sm" style="padding: 9px 18px;">Reservar plaza</button>
-      <button id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+    <div class="nav-right">
+      <a href="/en/" class="nav-lang" hreflang="en" lang="en">EN</a>
+      <button id="nav-cta" type="button" class="open-modal btn btn--sm">Reservar plaza</button>
+      <button id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
         <span class="nav-bar nav-bar-1"></span>
         <span class="nav-bar nav-bar-2"></span>
         <span class="nav-bar nav-bar-3"></span>
@@ -935,80 +89,108 @@
   </div>
 </nav>
 
-<!-- Mobile menu -->
+<!-- Menú móvil -->
 <div id="mobile-menu" aria-hidden="true">
   <a href="#objetivos" class="mobile-nav-link">Objetivos</a>
-  <a href="#como" class="mobile-nav-link">Funcionalidades</a>
-  <a href="#faq" class="mobile-nav-link">FAQ</a>
-  <a href="/en/" class="mobile-nav-link" style="font-size:0.875rem;color:var(--muted-2);">English version →</a>
+  <a href="#como" class="mobile-nav-link">Cómo funciona</a>
+  <a href="#faq" class="mobile-nav-link">Preguntas</a>
+  <a href="/en/" class="mobile-nav-link mobile-nav-link--small" hreflang="en" lang="en">English version</a>
   <div class="mobile-menu-cta">
-    <button class="open-modal btn-accent w-full justify-center" style="padding: 14px 24px;">
-      Reservar plaza
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
-    </button>
+    <button type="button" class="open-modal btn btn--block">Reservar plaza</button>
   </div>
 </div>
+
 <main id="main-content">
 
-<!-- HERO (vídeo cinematográfico) -->
-<section id="hero" class="hero-cine">
-  <img class="hero-cine__poster" src="/assets/hero-poster.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
-  <video class="hero-cine__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-    <source src="/assets/prueba_header.mp4" type="video/mp4">
-  </video>
-  <div class="hero-cine__scrim"></div>
+<!-- HERO · el producto delante -->
+<section id="hero" class="hero">
+  <div class="max-w-page pad-x">
+    <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Beta gratuita · Solo 100 plazas</p>
+    <h1 id="hero-headline" class="t-hero hero__title">Tu plan se acuerda <span class="accent">de ti.</span></h1>
+    <p id="hero-sub" class="hero__sub">Fuerza, cardio o una prueba con fecha. Cada sesión que registras, cada límite que le pones y lo que aprende de tu ritmo reescriben la semana siguiente.</p>
 
-  <div class="hero-cine__content">
-
-    <h1 id="hero-headline" class="display display-tight hero-cine__title">
-      <span class="reveal-line"><span class="word">Tu</span> <span class="word">plan</span></span>
-      <span class="reveal-line"><span class="word">se</span> <span class="word">acuerda</span></span>
-      <span class="reveal-line"><span class="word accent">de</span> <span class="word accent">ti.</span></span>
-    </h1>
-
-    <p id="hero-sub" class="hero-cine__sub">
-      Fuerza, cardio o una prueba con fecha (Hyrox, triatlón…). Cada sesión que registras, cada límite que le pones y lo que aprende de <span class="text-white">tu ritmo</span> reescriben la semana siguiente — no solo la de hoy.
-    </p>
-
-    <div id="hero-cta" class="hero-cine__cta">
-      <div class="chat-hint">
-        <span class="chat-ava"><img src="/assets/hexagono.svg" alt="2trAIn" width="24" height="24" /></span>
-        <span class="chat-hint__txt"><strong>Únete a la lista de espera</strong> · Beta gratuita, ventajas exclusivas para los primeros 100</span>
-      </div>
-      <form id="hero-form" class="hero-form" style="margin: 0 auto; width: 100%;">
+    <div id="hero-cta" class="hero__cta">
+      <form id="hero-form" class="hero-form">
         <input id="hero-email" type="email" name="email" required placeholder="tu@email.com" aria-label="Tu correo electrónico" autocomplete="email" />
-        <button type="submit" aria-label="Unirme a la lista de espera">
-          <span class="btn-label">Unirme</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+        <button type="submit" class="btn" aria-label="Reservar plaza">
+          <span class="btn-label">Reservar plaza</span>
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </form>
+      <div class="hero__meta">
+        <span>Sin tarjeta · Cancela cuando quieras</span>
+        <a href="#demo" class="link">Ver cómo razona</a>
+      </div>
     </div>
   </div>
 
-  <a href="#objetivos" class="hero-cine__chevron" aria-label="Desplázate hacia abajo">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
+  <!-- La app: la sesión de hoy, adaptada a un hombro tocado (el mismo caso de la demo) -->
+  <div class="hero__device" aria-hidden="true">
+    <div class="phone">
+      <div class="phone-screen phone-screen--light">
+        <div class="app-ui">
+          <div class="app-ui__status">
+            <span>9:41</span>
+            <svg width="66" height="12" viewBox="0 0 66 12" fill="#1D1D1F"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/><path d="M29 3.2a7.6 7.6 0 0 1 10 0l-1.3 1.3a5.8 5.8 0 0 0-7.4 0zM31.5 5.8a4.2 4.2 0 0 1 5 0L34 8.3z"/><rect x="43.5" y=".5" width="20" height="11" rx="3.2" fill="none" stroke="#1D1D1F" opacity=".4"/><rect x="45.5" y="2.5" width="14" height="7" rx="1.6"/><rect x="64.5" y="4" width="1.5" height="4" rx=".7" opacity=".4"/></svg>
+          </div>
+          <div class="app-ui__head">
+            <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
+            <div>
+              <div class="app-ui__kicker">Hoy · Empuje</div>
+              <div class="app-ui__title">Sin forzar el hombro</div>
+            </div>
+          </div>
+          <div class="app-ui__why">
+            <b>Por qué ha cambiado</b>
+            <span>Te duele el hombro derecho al presionar por encima de la cabeza: fuera press militar y fondos, y empiezas activando el manguito.</span>
+          </div>
+          <div class="app-ui__list">
+            <div class="app-ex"><img src="/assets/demo-ex-calentamiento.jpg" alt="" width="640" height="360" decoding="async"><div><b>Activación de manguito rotador</b><span>2×15 · banda elástica</span></div></div>
+            <div class="app-ex"><img src="/assets/demo-ex-1.jpg" alt="" width="640" height="360" decoding="async"><div><b>Press de pecho en máquina</b><span>4×10 · agarre neutro</span></div></div>
+            <div class="app-ex"><img src="/assets/demo-ex-2.jpg" alt="" width="640" height="360" decoding="async"><div><b>Press inclinado con mancuernas</b><span>3×10 · agarre neutro</span></div></div>
+            <div class="app-ex"><img src="/assets/demo-ex-3.jpg" alt="" width="640" height="360" decoding="async"><div><b>Cruce de poleas</b><span>3×12 · controlado</span></div></div>
+            <div class="app-ex"><img src="/assets/demo-ex-4.jpg" alt="" width="640" height="360" decoding="async"><div><b>Press cerrado en máquina</b><span>3×12 · tríceps</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LO ESENCIAL -->
+<section class="sec band" aria-labelledby="esencial-t">
+  <div class="max-w-page pad-x">
+    <h2 id="esencial-t" class="vh">Lo esencial</h2>
+    <div class="keys" data-reveal-stagger>
+      <p><b>Fuerza, cardio o una prueba con fecha.</b> Todo en el mismo plan.</p>
+      <p><b>4.155 ejercicios</b>, cada uno con su ficha y su prescripción.</p>
+      <p>Cada cambio de volumen, <b>justificado con tus datos.</b></p>
+      <p><b>Lo que le cuentas se queda:</b> tus vetos, tu material, tus lesiones.</p>
+    </div>
+  </div>
 </section>
 
 <!-- CÓMO SE VUELVE TUYO -->
-<section id="adaptacion" class="border-t hairline pad-x">
-  <div class="max-w-page">
-    <span class="label block mb-3">Cómo se vuelve tuyo</span>
-    <h2 class="display text-3xl md:text-5xl">3 formas de personalizar<br><span class="accent">tu entrenamiento.</span></h2>
-    <p class="text-muted text-base leading-relaxed mt-5 max-w-xl">Una app de plantilla te pregunta una vez y de ahí sale un plan que ya no cambia. Aquí lo cambias tú por tres caminos distintos, y lo que hagas con él vuelve a entrar en la semana siguiente.</p>
+<section id="adaptacion" class="sec">
+  <div class="max-w-page pad-x">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Cómo se vuelve tuyo</p>
+      <h2 class="t-h2">3 formas de personalizar <span class="accent">tu entrenamiento.</span></h2>
+      <p class="t-lead">Una app de plantilla te pregunta una vez y de ahí sale un plan que ya no cambia. Aquí lo cambias tú por tres caminos distintos, y lo que hagas con él vuelve a entrar en la semana siguiente.</p>
+    </div>
 
-    <div class="loop">
+    <div class="loop" data-reveal>
       <div class="loop__flow">
-      <ol class="loop__doors">
-        <li class="loop__door"><b>Entrenas</b><span>Tu carga y tu frescura</span></li>
-        <li class="loop__door"><b>Eliges</b><span>Tu afinidad por unos ejercicios</span></li>
-        <li class="loop__door"><b>Hablas</b><span>Tus vetos, tu material, tus lesiones</span></li>
-      </ol>
-      <span class="loop__arrow loop__arrow--a" aria-hidden="true"></span>
-      <div class="loop__mem"><span class="loop__step">Se guarda</span><b>Lo que recuerda de ti</b><p>Y por debajo, la periodización y la descarga, que corren solas.</p></div>
-      <span class="loop__arrow loop__arrow--b" aria-hidden="true"></span>
-      <div class="loop__plan"><span class="loop__step">Se reconstruye</span><b>Tu plan de esta semana</b><p>Con todo lo anterior ya puesto.</p></div>
-      <span class="loop__path" aria-hidden="true"></span>
+        <ol class="loop__doors">
+          <li class="loop__door"><b>Entrenas</b><span>Tu carga y tu frescura</span></li>
+          <li class="loop__door"><b>Eliges</b><span>Tu afinidad por unos ejercicios</span></li>
+          <li class="loop__door"><b>Hablas</b><span>Tus vetos, tu material, tus lesiones</span></li>
+        </ol>
+        <span class="loop__arrow loop__arrow--a" aria-hidden="true"></span>
+        <div class="loop__mem"><span class="loop__step">Se guarda</span><b>Lo que recuerda de ti</b><p>Y por debajo, la periodización y la descarga, que corren solas.</p></div>
+        <span class="loop__arrow loop__arrow--b" aria-hidden="true"></span>
+        <div class="loop__plan"><span class="loop__step">Se reconstruye</span><b>Tu plan de esta semana</b><p>Con todo lo anterior ya puesto.</p></div>
+        <span class="loop__path" aria-hidden="true"></span>
       </div>
       <b class="loop__label">Y lo que hagas con él entra en la semana siguiente</b>
     </div>
@@ -1016,34 +198,46 @@
 </section>
 
 <!-- OBJETIVOS · elige tu meta → plan para ti -->
-<section id="objetivos" class="border-t hairline">
+<section id="objetivos" class="sec band">
   <div class="max-w-page pad-x">
-    <div class="goals-head">
-      <span class="label">Tu objetivo</span>
-      <h2 class="display text-3xl md:text-5xl mt-3">Elige la meta. <span class="text-muted">El plan lo construye contigo.</span></h2>
-      <p class="text-muted text-base leading-relaxed mt-5">Cualquiera de las cuatro es un punto de partida, no una plantilla. Lo que lo vuelve tuyo viene después: lo que entrenas, lo que aprende de ti y lo que le dices.</p>
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">Tu objetivo</p>
+      <h2 class="t-h2">Elige la meta. <span class="muted">El plan lo construye contigo.</span></h2>
+      <p class="t-lead">Cualquiera de las cuatro es un punto de partida, no una plantilla. Lo que lo vuelve tuyo viene después: lo que entrenas, lo que aprende de ti y lo que le dices.</p>
     </div>
 
-    <div class="goals-grid" role="group" aria-label="Elige un objetivo">
-      <button type="button" class="goal-opt" data-goal="fuerza" aria-pressed="true">
-        <span class="goal-opt__kicker">01</span>
-        <span class="goal-opt__title">Fuerza</span>
-        <span class="goal-opt__desc">Hipertrofia o fuerza. Progresión semanal con el material que tengas.</span>
+    <div class="goals-grid" role="group" aria-label="Elige un objetivo" data-reveal-stagger>
+      <button type="button" class="goal-opt goal-opt--wide" data-goal="fuerza" aria-pressed="true">
+        <span class="goal-opt__text">
+          <span class="goal-opt__title">Fuerza</span>
+          <span class="goal-opt__desc">Hipertrofia o fuerza. Progresión semanal con el material que tengas.</span>
+        </span>
+        <span class="goal-opt__img"><img src="/assets/demo-ex-1.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
+        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
       <button type="button" class="goal-opt" data-goal="cardio" aria-pressed="false">
-        <span class="goal-opt__kicker">02</span>
-        <span class="goal-opt__title">Cardio</span>
-        <span class="goal-opt__desc">Condición, Zone 2 y capacidad aeróbica sin perder estructura.</span>
+        <span class="goal-opt__text">
+          <span class="goal-opt__title">Cardio</span>
+          <span class="goal-opt__desc">Condición, Zone 2 y capacidad aeróbica sin perder estructura.</span>
+        </span>
+        <span class="goal-opt__img"><img src="/assets/demo-hyrox-skierg.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
+        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
       <button type="button" class="goal-opt" data-goal="prueba" aria-pressed="false">
-        <span class="goal-opt__kicker">03</span>
-        <span class="goal-opt__title">Prueba</span>
-        <span class="goal-opt__desc">Hyrox, triatlón, 10K… periodización hacia tu fecha.</span>
+        <span class="goal-opt__text">
+          <span class="goal-opt__title">Prueba</span>
+          <span class="goal-opt__desc">Hyrox, triatlón, 10K… periodización hacia tu fecha.</span>
+        </span>
+        <span class="goal-opt__img"><img src="/assets/demo-hyrox-sled-push.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
+        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
-      <button type="button" class="goal-opt" data-goal="mantener" aria-pressed="false">
-        <span class="goal-opt__kicker">04</span>
-        <span class="goal-opt__title">Mantener</span>
-        <span class="goal-opt__desc">Volver a entrenar o sostener forma sin quemarte.</span>
+      <button type="button" class="goal-opt goal-opt--wide" data-goal="mantener" aria-pressed="false">
+        <span class="goal-opt__text">
+          <span class="goal-opt__title">Mantener</span>
+          <span class="goal-opt__desc">Volver a entrenar o sostener forma sin quemarte.</span>
+        </span>
+        <span class="goal-opt__img"><img src="/assets/demo-ex-calentamiento.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"></span>
+        <span class="goal-opt__check" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
     </div>
 
@@ -1057,76 +251,65 @@
   </div>
 </section>
 
-<!-- ░░░ FEATURES · móvil fijo + reels que cambian al hacer scroll (scrollytelling) ░░░ -->
-<section id="why" class="reels border-t hairline" style="background: var(--bg-2); scroll-margin-top: 60px;">
+<!-- POR QUÉ · móvil fijo + reels (escritorio) · galería (móvil) -->
+<section id="why" class="reels sec" style="scroll-margin-top: 56px;">
   <div class="max-w-page pad-x">
     <div class="reels__grid">
-
-      <!-- ===== MÓVIL FIJO con los 3 reels (uno por funcionalidad) =====
-           ▼▼ Arrastra tus 3 reels verticales (9:16) a /assets/. Cada uno se sincroniza con su paso:
-              reel-why.mp4 → 01 Te explica el porqué · reel-problema.mp4 → 02 Mejora contigo · reel-solucion.mp4 → 03 Sustituciones ▼▼ -->
       <div class="reels__phone-col">
         <div class="phone reels__phone">
           <div class="phone-screen">
             <div class="reels__strip">
-              <video class="reels__reel on" data-reel="0" muted loop playsinline preload="metadata"><source src="/assets/reel-why.mp4" type="video/mp4"></video>
-              <video class="reels__reel"    data-reel="1" muted loop playsinline preload="none"><source src="/assets/reel-problema.mp4" type="video/mp4"></video>
-              <video class="reels__reel"    data-reel="2" muted loop playsinline preload="none"><source src="/assets/reel-solucion.mp4" type="video/mp4"></video>
+              <video class="reels__reel on" data-reel="0" muted loop playsinline preload="metadata" aria-label="Reel: te explica el porqué"><source src="/assets/reel-why.mp4" type="video/mp4"></video>
+              <video class="reels__reel" data-reel="1" muted loop playsinline preload="none" aria-label="Reel: mejora contigo"><source src="/assets/reel-problema.mp4" type="video/mp4"></video>
+              <video class="reels__reel" data-reel="2" muted loop playsinline preload="none" aria-label="Reel: sustituciones inteligentes"><source src="/assets/reel-solucion.mp4" type="video/mp4"></video>
             </div>
-            <span class="reels__placeholder"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>Reels verticales 9:16<br>/assets/reel-*.mp4</span>
           </div>
         </div>
       </div>
 
-      <!-- ===== TEXTO que cambia con el scroll · una funcionalidad por paso (sincronizado con su reel) ===== -->
       <div class="reels__steps">
-        <!-- ▼ FUNCIONALIDAD 01 -->
         <div class="reels__step on" id="como" data-step="0">
-          <span class="label" style="color: var(--accent-text);">Lo que entrenas</span>
-          <h2 class="display text-3xl md:text-5xl mt-3">Te explica <span class="accent">el porqué.</span></h2>
-          <p class="text-muted text-base leading-relaxed mt-5">Registras la sesión y el motor lee tu carga y tu frescura: sube o baja el volumen de la semana siguiente y adelanta la descarga si hace falta. Y te dice con qué dato tuyo lo ha decidido.</p>
+          <p class="eyebrow">Lo que entrenas</p>
+          <h2 class="t-h2">Te explica <span class="accent">el porqué.</span></h2>
+          <p class="t-lead">Registras la sesión y el motor lee tu carga y tu frescura: sube o baja el volumen de la semana siguiente y adelanta la descarga si hace falta. <b>Y te dice con qué dato tuyo lo ha decidido.</b></p>
         </div>
-        <!-- ▼ FUNCIONALIDAD 02 -->
         <div class="reels__step" data-step="1">
-          <span class="label" style="color: var(--accent-text);">Lo que aprende de ti</span>
-          <h2 class="display text-3xl md:text-5xl mt-3">Mejora <span class="accent">contigo.</span></h2>
-          <p class="text-muted text-base leading-relaxed mt-5">Dos personas con el mismo plan no progresan igual. Aprende a qué ritmo respondes tú —en fuerza y en cardio— y ajusta la progresión a ese ritmo, no al de la media.</p>
+          <p class="eyebrow">Lo que aprende de ti</p>
+          <h2 class="t-h2">Mejora <span class="accent">contigo.</span></h2>
+          <p class="t-lead">Dos personas con el mismo plan no progresan igual. <b>Aprende a qué ritmo respondes tú</b>, en fuerza y en cardio, y ajusta la progresión a ese ritmo, no al de la media.</p>
         </div>
-        <!-- ▼ FUNCIONALIDAD 03 -->
         <div class="reels__step" data-step="2">
-          <span class="label" style="color: var(--accent-text);">Lo que le dices</span>
-          <h2 class="display text-3xl md:text-5xl mt-3">Sustituciones <span class="accent">inteligentes.</span></h2>
-          <p class="text-muted text-base leading-relaxed mt-5">«Odio la sentadilla», «hombro tocado», «esta semana entreno en casa». No es un parche de un día: se queda en tu perfil, y la semana siguiente el plan ya viene con eso puesto.</p>
+          <p class="eyebrow">Lo que le dices</p>
+          <h2 class="t-h2">Sustituciones <span class="accent">inteligentes.</span></h2>
+          <p class="t-lead">«Odio la sentadilla», «hombro tocado», «esta semana entreno en casa». No es un parche de un día: <b>se queda en tu perfil</b>, y la semana siguiente el plan ya viene con eso puesto.</p>
         </div>
       </div>
     </div>
+    <div class="reels__nav">
+      <button type="button" class="circ" data-reels-dir="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="circ" data-reels-dir="1" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
 
-    <!-- Repeated CTA -->
-    <div class="mt-12 p-6 md:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-5" style="background: var(--accent-soft); border: 1px solid rgba(42, 111, 219,0.18);">
+    <div class="why-cta" data-reveal>
       <div>
-        <div class="display text-xl md:text-2xl">¿LO QUIERES PROBAR ANTES QUE NADIE?</div>
-        <div class="text-muted text-sm mt-1">Beta gratuita · Primeros 100, ventajas exclusivas.</div>
+        <p class="why-cta__t">¿Lo quieres probar antes que nadie?</p>
+        <p class="why-cta__s">Beta gratuita · Primeros 100, ventajas exclusivas.</p>
       </div>
-      <button class="open-modal btn-accent flex-shrink-0">
-        Reservar mi plaza
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
-      </button>
+      <button type="button" class="open-modal btn">Reservar plaza</button>
     </div>
   </div>
 </section>
 
 <!-- DEMO · "Míralo pensar": la IA razona con tus datos -->
-<section id="demo" class="border-t hairline" style="background: var(--bg-2);">
+<section id="demo" class="sec band">
   <div class="max-w-page pad-x">
     <div class="demo-grid">
-
-      <!-- Texto -->
-      <div class="demo-head">
-        <span class="label">Míralo pensar</span>
-        <h2 class="display text-3xl md:text-5xl mt-3">CUÉNTALE QUÉ NECESITAS. <span class="text-muted">VE CÓMO RAZONA.</span></h2>
-        <p class="demo-sub">Dolor de hoy o una prueba con fecha. Antes de cambiarte nada, te enseña el razonamiento: qué retira, qué mantiene y por qué. Sin cajas negras.</p>
+      <div class="demo-head" data-reveal>
+        <p class="eyebrow">Míralo pensar</p>
+        <h2 class="t-h2">Cuéntale qué necesitas. <span class="muted">Ve cómo razona.</span></h2>
+        <p class="t-lead">Dolor de hoy o una prueba con fecha. Antes de cambiarte nada, te enseña el razonamiento: qué retira, qué mantiene y por qué. Sin cajas negras.</p>
         <span class="demo-note">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2-6.3-4.6L5.7 21l2.3-7.2-6-4.4h7.6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2-6.3-4.6L5.7 21l2.3-7.2-6-4.4h7.6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
           Conversación real con el modelo
         </span>
 
@@ -1135,20 +318,16 @@
           <button type="button" class="demo-tab" role="tab" id="demo-tab-race" data-scenario="race" aria-selected="false" aria-controls="demo-scenario-race">Prueba con fecha</button>
         </div>
 
-        <!-- CTA · Reserva tu plaza (waitlist) -->
         <div class="demo-head__cta">
-          <button class="open-modal btn-accent">
-            Reservar mi plaza
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
-          </button>
+          <button type="button" class="open-modal btn">Reservar plaza</button>
         </div>
       </div>
 
       <div class="demo-scenarios">
         <!-- Escenario 1 · dolor / sesión de hoy -->
-        <div class="demo-scenario on demo-chat" id="demo-scenario-pain" role="tabpanel" aria-labelledby="demo-tab-pain" data-scenario="pain" aria-label="Demo: adaptar sesión por dolor">
+        <div class="demo-scenario on demo-chat" id="demo-scenario-pain" role="tabpanel" aria-labelledby="demo-tab-pain" data-scenario="pain">
           <div class="demo-chat__bar">
-            <span class="demo-chat__ava"><img src="/assets/hexagono.svg" alt="" width="34" height="34" /></span>
+            <span class="demo-chat__ava"><img src="/assets/hexagono.svg" alt="" width="22" height="22" /></span>
             <div>
               <div class="demo-chat__name">2trAIn</div>
               <div class="demo-chat__status"><span class="live-dot"></span><span class="demo-chat__status-text">Razonando con tus datos</span></div>
@@ -1167,11 +346,11 @@
             </button>
             <div class="demo-reason__body" id="demo-reason-body-pain">
               <div class="demo-reason__list">
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Hoy en tu plan: <strong>empuje (pecho · hombro · tríceps).</strong></span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dolor reportado: <strong>hombro derecho en press vertical.</strong></span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Press militar y fondos estresan el manguito → <strong>los retiro hoy.</strong></span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mantengo el estímulo de empuje con <strong>ángulos seguros</strong> para el hombro.</span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Añado <strong>activación de manguito rotador</strong> antes de empezar para prevenir.</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Hoy en tu plan: <strong>empuje (pecho · hombro · tríceps).</strong></span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dolor reportado: <strong>hombro derecho en press vertical.</strong></span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Press militar y fondos estresan el manguito → <strong>los retiro hoy.</strong></span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mantengo el estímulo de empuje con <strong>ángulos seguros</strong> para el hombro.</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Añado <strong>activación de manguito rotador</strong> antes de empezar para prevenir.</span></div>
               </div>
             </div>
           </div>
@@ -1182,15 +361,13 @@
 
           <div class="demo-gen">
             <div class="demo-gen__head">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 9h2v6H4zM18 9h2v6h-2zM6 11h12v2H6z" fill="currentColor"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h2v6H4zM18 9h2v6h-2zM6 11h12v2H6z" fill="currentColor"/></svg>
               Sesión de hoy · empuje sin forzar el hombro
             </div>
             <div class="demo-carousel" tabindex="0" role="group" aria-label="Sesión de empuje adaptada al hombro">
               <div class="demo-carousel__track">
                 <div class="demo-ex demo-ex--warm">
-                  <div class="demo-ex__media">
-                    <img src="/assets/demo-ex-calentamiento.jpg" alt="Activación de manguito rotador" width="640" height="360" loading="lazy" decoding="async">
-                  </div>
+                  <div class="demo-ex__media"><img src="/assets/demo-ex-calentamiento.jpg" alt="Activación de manguito rotador" width="640" height="360" loading="lazy" decoding="async"></div>
                   <div class="demo-ex__body">
                     <span class="demo-ex__tag">Calentamiento</span>
                     <div class="demo-ex__name">Activación de manguito rotador</div>
@@ -1239,17 +416,14 @@
                 </div>
               </div>
             </div>
-            <a class="demo-go open-modal" href="#" role="button">
-              Reserva tu plaza gratis
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            <button type="button" class="demo-go open-modal btn">Reservar plaza</button>
           </div>
         </div>
 
         <!-- Escenario 2 · prueba con fecha (Hyrox) -->
-        <div class="demo-scenario demo-chat" id="demo-scenario-race" role="tabpanel" aria-labelledby="demo-tab-race" data-scenario="race" aria-label="Demo: plan hacia Hyrox">
+        <div class="demo-scenario demo-chat" id="demo-scenario-race" role="tabpanel" aria-labelledby="demo-tab-race" data-scenario="race">
           <div class="demo-chat__bar">
-            <span class="demo-chat__ava"><img src="/assets/hexagono.svg" alt="" width="34" height="34" /></span>
+            <span class="demo-chat__ava"><img src="/assets/hexagono.svg" alt="" width="22" height="22" /></span>
             <div>
               <div class="demo-chat__name">2trAIn</div>
               <div class="demo-chat__status"><span class="live-dot"></span><span class="demo-chat__status-text">Razonando con tus datos</span></div>
@@ -1268,11 +442,11 @@
             </button>
             <div class="demo-reason__body" id="demo-reason-body-race">
               <div class="demo-reason__list">
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Objetivo: <strong>Hyrox · 15 marzo · 3 días/semana.</strong></span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Base sólida en fuerza · <strong>cardio limitado</strong> en el historial.</span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Combino <strong>fuerza útil + Zone 2 + estaciones</strong> (sled, wall balls…).</span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Periodizo hacia la fecha: más volumen ahora, <strong>taper cerca del evento</strong>.</span></div>
-                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mantengo <strong>1 día de fuerza</strong> para no perder lo ganado.</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Objetivo: <strong>Hyrox · 15 marzo · 3 días/semana.</strong></span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Base sólida en fuerza · <strong>cardio limitado</strong> en el historial.</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Combino <strong>fuerza útil + Zone 2 + estaciones</strong> (sled, wall balls…).</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Periodizo hacia la fecha: más volumen ahora, <strong>taper cerca del evento</strong>.</span></div>
+                <div class="demo-reason__line"><svg class="tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mantengo <strong>1 día de fuerza</strong> para no perder lo ganado.</span></div>
               </div>
             </div>
           </div>
@@ -1283,7 +457,7 @@
 
           <div class="demo-gen">
             <div class="demo-gen__head">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 9h2v6H4zM18 9h2v6h-2zM6 11h12v2H6z" fill="currentColor"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h2v6H4zM18 9h2v6h-2zM6 11h12v2H6z" fill="currentColor"/></svg>
               Semana tipo · camino a Hyrox
             </div>
             <div class="demo-carousel" tabindex="0" role="group" aria-label="Sesión mixta hacia Hyrox">
@@ -1338,14 +512,22 @@
                 </div>
               </div>
             </div>
-            <a class="demo-go open-modal" href="#" role="button">
-              Reserva tu plaza gratis
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
+            <button type="button" class="demo-go open-modal btn">Reservar plaza</button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
+<!-- EN CIFRAS · solo cifras que existen -->
+<section class="sec" aria-labelledby="cifras-t">
+  <div class="max-w-page pad-x">
+    <h2 id="cifras-t" class="vh">En cifras</h2>
+    <div class="nums" data-reveal-stagger>
+      <div><p class="num">4.155</p><p class="num__lab"><b>ejercicios en el catálogo</b>, cada uno con su ficha y su prescripción.</p></div>
+      <div><p class="num">4</p><p class="num__lab"><b>objetivos con el mismo coach:</b> fuerza, cardio, una prueba con fecha o mantener.</p></div>
+      <div><p class="num">100</p><p class="num__lab"><b>plazas en la Wave 1</b>, con ventajas exclusivas y tu nombre en los créditos.</p></div>
     </div>
   </div>
 </section>
@@ -1477,35 +659,34 @@
 </section>
 -->
 
-<!-- SECONDARY CTA -->
-<section class="border-t hairline" style="position: relative; overflow: hidden; background: var(--bg);">
-  <img id="cta-foto" src="/assets/no-convencido.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; z-index: 0;">
-  <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,10,0.75), rgba(10,10,10,0.7));"></div>
-  <div class="max-w-page pad-x text-center" style="position: relative; z-index: 2; padding-top: 96px; padding-bottom: 96px;">
-    <span class="label block mb-3" style="color: var(--fg);">¿Aún no convencido?</span>
-    <p class="text-base max-w-md mx-auto" style="color: #f2f2f2; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">Sin problema. Sígueme construyéndola en público y decides cuando estés listo.</p>
-    <div class="flex gap-4 justify-center mt-6 flex-wrap">
-      <a href="https://www.instagram.com/2trainapp/" target="_blank" rel="noopener noreferrer" class="btn-ghost text-sm">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Seguir en Instagram
-      </a>
-      <button class="open-modal btn-accent text-sm" style="padding: 13px 22px;">
-        O reserva tu plaza →
-      </button>
+<!-- ¿AÚN NO CONVENCIDO? -->
+<section class="sec--tight band">
+  <div class="max-w-page pad-x">
+    <div class="follow" data-reveal>
+      <p class="eyebrow">¿Aún no convencido?</p>
+      <h2 class="t-h2">Sígueme construyéndola en público.</h2>
+      <p class="t-lead">Sin problema. Decides cuando estés listo.</p>
+      <div class="follow__actions">
+        <a href="https://www.instagram.com/2trainapp/" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Seguir en Instagram
+        </a>
+        <a href="#beta" class="link">Reservar plaza</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="border-t hairline">
+<section id="faq" class="sec">
   <div class="max-w-page pad-x">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-      <div class="lg:col-span-4">
-        <span class="label">Preguntas frecuentes</span>
-        <h2 class="display text-3xl md:text-4xl mt-3">LO QUE <span class="text-muted">TODO EL MUNDO PREGUNTA.</span></h2>
-        <p class="text-muted mt-5 text-sm">¿Otra cosa? Escríbeme cuando entres a la beta. Lo leo yo.</p>
+    <div class="faq-grid">
+      <div class="faq-head" data-reveal>
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 class="t-h2">Lo que <span class="muted">todo el mundo pregunta.</span></h2>
+        <p class="t-lead">¿Otra cosa? Escríbeme cuando entres a la beta. Lo leo yo.</p>
       </div>
-      <div class="lg:col-span-8">
+      <div data-reveal>
         <div class="faq-filters" role="group" aria-label="Filtrar preguntas">
           <button type="button" class="faq-chip active" data-filter="all">Todas</button>
           <button type="button" class="faq-chip" data-filter="uso">Entreno</button>
@@ -1513,41 +694,41 @@
           <button type="button" class="faq-chip" data-filter="datos">Datos</button>
           <button type="button" class="faq-chip" data-filter="producto">Producto</button>
         </div>
-        <div class="border-t hairline">
+        <div class="faq-list">
           <div class="faq-item" data-cat="uso">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-1"><span>¿Necesito reloj o material especial?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-1"><span>¿Necesito reloj o material especial?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-1" class="faq-a"><div class="faq-a-inner">No. Solo tu móvil. Si tienes mancuernas, barras o máquinas, perfecto — los usa. Si solo tienes tu peso corporal, también funciona. El plan se adapta exactamente a lo que tienes.</div></div>
           </div>
           <div class="faq-item" data-cat="uso">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-2"><span>¿Sirve si entreno en casa / sin gimnasio?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-2"><span>¿Sirve si entreno en casa / sin gimnasio?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-2" class="faq-a"><div class="faq-a-inner">Sí. Al configurar tu perfil le dices el material disponible y si entrenas en casa o en gym. El plan se construye exactamente con lo que tienes, sin ejercicios que no puedas hacer.</div></div>
           </div>
           <div class="faq-item" data-cat="uso">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-7"><span>¿Sirve para Hyrox, triatlón o carrera?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-7"><span>¿Sirve para Hyrox, triatlón o carrera?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-7" class="faq-a"><div class="faq-a-inner">Sí. Eliges la prueba y la fecha, y construye un plan hacia ese día: fuerza específica, cardio y estaciones o disciplinas que necesites, periodizado hasta el evento.</div></div>
           </div>
           <div class="faq-item" data-cat="uso">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-8"><span>¿Puedo mezclar fuerza y cardio?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-8"><span>¿Puedo mezclar fuerza y cardio?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-8" class="faq-a"><div class="faq-a-inner">Sí. El plan combina ambas según tu objetivo. No son apps separadas: misma IA, mismo historial, mismas justificaciones.</div></div>
           </div>
           <div class="faq-item" data-cat="producto">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-9"><span>¿Es solo gimnasio?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-9"><span>¿Es solo gimnasio?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-9" class="faq-a"><div class="faq-a-inner">No. Cubre fuerza, cardio y preparación de pruebas. El gym es un escenario; el producto es el coach que razona tu entrenamiento completo.</div></div>
           </div>
           <div class="faq-item" data-cat="beta">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-3"><span>¿Cuándo recibo acceso?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-3"><span>¿Cuándo recibo acceso?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-3" class="faq-a"><div class="faq-a-inner">La beta abre por oleadas, empezando por la Wave 1. Cuando te toque, recibes un email con instrucciones. Los primeros en apuntarse entran antes. Invitando amigos subes puestos en la cola.</div></div>
           </div>
           <div class="faq-item" data-cat="datos">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-4"><span>¿Mis datos están seguros?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-4"><span>¿Mis datos están seguros?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-4" class="faq-a"><div class="faq-a-inner">Sí. Tus logs son tuyos. Si en algún momento usamos datos para mejorar el modelo, serán agregados y anonimizados — y te avisaremos antes. Puedes decir que no.</div></div>
           </div>
           <div class="faq-item" data-cat="beta">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-5"><span>¿Qué pasa cuando termina la beta?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-5"><span>¿Qué pasa cuando termina la beta?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-5" class="faq-a"><div class="faq-a-inner">Los usuarios que hayan participado en la beta reciben ventajas exclusivas por haber estado desde el principio.</div></div>
           </div>
           <div class="faq-item" data-cat="producto">
-            <button type="button" class="faq-q display text-base md:text-lg" aria-expanded="false" aria-controls="faq-a-6"><span>¿Es solo otra envoltura de ChatGPT?</span><svg class="ico" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-6"><span>¿Es solo otra envoltura de ChatGPT?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-6" class="faq-a"><div class="faq-a-inner">A un chat le tienes que dar el contexto cada vez: no sabe qué entrenaste ayer, no registra tus sesiones, no te enseña cómo es cada ejercicio y no se apoya en periodización ni en fatiga real. Aquí el contexto no lo pones tú: el plan se construye con tu historial, cada ejercicio llega con su ficha y su prescripción, y quien decide es un motor con periodización y fatiga acumulada. El modelo solo te lo explica.</div></div>
           </div>
         </div>
@@ -1556,59 +737,44 @@
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section id="beta" class="pad-x">
-  <div class="max-w-page">
-    <div class="bg-accent p-8 md:p-14 lg:p-16 relative overflow-hidden rounded-2xl" id="beta-block">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-7">
-          <div class="beta-badge text-xs uppercase tracking-[0.12em] font-bold mb-5 flex items-center gap-3">
-            <span class="beta-badge__dot w-2 h-2 rounded-full"></span>
-            <span>Solo 100 plazas · ventajas exclusivas</span>
-          </div>
-          <h2 class="display text-4xl md:text-5xl lg:text-6xl">
-            RESERVA AHORA. <br>
-            <span class="beta-h2-dim">CANCELA CUANDO QUIERAS.</span>
-          </h2>
+<!-- BETA · cierre -->
+<section id="beta" class="sec">
+  <div class="max-w-page pad-x">
+    <div id="beta-block">
+      <div>
+        <p class="beta-badge"><span class="live-dot" aria-hidden="true"></span>Solo 100 plazas · ventajas exclusivas</p>
+        <h2 class="t-h2">Reserva ahora. <span class="muted">Cancela cuando quieras.</span></h2>
 
-          <!-- Qué recibe cada tramo. Sustituye a la cuenta atrás: lo que
-               escasea son las plazas, no el tiempo. -->
-          <div id="beta-offer" class="mt-8 max-w-md">
-            <ol class="beta-waves" aria-label="Qué recibe cada tramo de la beta">
-              <li class="beta-wave beta-wave--now">
-                <span class="beta-wave__n">Wave 1 · 1–100</span>
-                <span class="beta-wave__v">Ventajas exclusivas + Founding Member</span>
-                <span class="beta-wave__s">Abierta</span>
-              </li>
-              <li class="beta-wave">
-                <span class="beta-wave__n">Wave 2 · 101–250</span>
-                <span class="beta-wave__v">Entras en la segunda tanda</span>
-              </li>
-              <li class="beta-wave">
-                <span class="beta-wave__n">Wave 3 · 251–400</span>
-                <span class="beta-wave__v">Entras antes que el público general</span>
-              </li>
-            </ol>
-          </div>
-
-          <p id="beta-intro" class="text-base md:text-lg mt-8 max-w-lg leading-relaxed">
-            Los primeros 100 reciben ventajas exclusivas y figuran como Founding Members en los créditos de la app.
-          </p>
+        <!-- Qué recibe cada tramo. La escasez de esta página son las plazas, no una fecha. -->
+        <div id="beta-offer">
+          <ol class="beta-waves" aria-label="Qué recibe cada tramo de la beta">
+            <li class="beta-wave beta-wave--now">
+              <span class="beta-wave__n">Wave 1 · 1–100</span>
+              <span class="beta-wave__v">Ventajas exclusivas + Founding Member</span>
+              <span class="beta-wave__s">Abierta</span>
+            </li>
+            <li class="beta-wave">
+              <span class="beta-wave__n">Wave 2 · 101–250</span>
+              <span class="beta-wave__v">Entras en la segunda tanda</span>
+            </li>
+            <li class="beta-wave">
+              <span class="beta-wave__n">Wave 3 · 251–400</span>
+              <span class="beta-wave__v">Entras antes que el público general</span>
+            </li>
+          </ol>
         </div>
 
-        <div class="lg:col-span-5">
-          <div id="beta-card" class="bg-black text-white p-7 rounded-xl">
-            <div class="text-xs uppercase tracking-[0.12em] font-bold mb-3 accent">Tu plaza</div>
-            <form id="beta-form-2" class="space-y-3" method="post">
-              <input id="email-cta" type="email" name="email" required placeholder="tu@email.com" autocomplete="email" aria-label="Tu correo electrónico" style="background: #0d0d0d; border: 1px solid var(--line-2); color: var(--fg); padding: 15px 16px; font-size: 16px; width: 100%; outline: none; border-radius: 12px;" />
-              <button type="submit" class="btn-accent w-full justify-center" style="padding: 16px; border-radius: 12px;">
-                Reservar mi plaza gratis
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
-              </button>
-            </form>
-            <div class="text-xs text-muted text-center mt-4">Sin tarjeta · Cancela cuando quieras</div>
-          </div>
-        </div>
+        <p id="beta-intro">Los primeros 100 reciben ventajas exclusivas y figuran como Founding Members en los créditos de la app.</p>
+      </div>
+
+      <div id="beta-card">
+        <p class="beta-card__k">Tu plaza</p>
+        <p class="beta-card__t">Entra en la lista de espera.</p>
+        <form id="beta-form-2" class="stack" method="post">
+          <input id="email-cta" class="field" type="email" name="email" required placeholder="tu@email.com" autocomplete="email" aria-label="Tu correo electrónico" />
+          <button type="submit" class="btn btn--block">Reservar plaza</button>
+        </form>
+        <p class="beta-card__note">Sin tarjeta · Cancela cuando quieras</p>
       </div>
     </div>
   </div>
@@ -1616,43 +782,43 @@
 
 </main>
 
-<!-- FOOTER -->
-<footer class="border-t hairline pt-14 pb-10 px-5 md:px-8" style="padding-top: 56px; padding-bottom: 40px;">
-  <div class="max-w-page">
-    <div class="footer-grid grid grid-cols-2 md:grid-cols-12 gap-8 mb-10">
-      <div class="footer-brand col-span-2 md:col-span-6">
-        <picture><img src="/assets/logo-texto.png" alt="2trAIn" width="908" height="132" loading="lazy" decoding="async" style="height:28px;width:auto;" class="mb-4"></picture>
-        <div class="text-muted max-w-sm text-sm leading-relaxed">La única app de fitness que te explica por qué.</div>
-        <div class="text-xs text-muted-2 mt-3">2trAIn es un servicio de LMGINC SL.</div>
+<!-- PIE -->
+<footer class="footer">
+  <div class="max-w-page pad-x">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/logo-texto-claro.png" alt="2trAIn" width="908" height="132" loading="lazy" decoding="async">
+        <p>La única app de fitness que te explica por qué.</p>
+        <p>2trAIn es un servicio de LMGINC SL.</p>
       </div>
-      <div class="md:col-span-2">
-        <div class="text-xs text-muted-2 uppercase tracking-[0.1em] font-semibold mb-4">Producto</div>
-        <ul class="space-y-2 text-sm">
-          <li><a href="#como" class="text-muted hover:text-white">Cómo funciona</a></li>
-          <li><a href="#fundador" class="text-muted hover:text-white">Nosotros</a></li>
-          <li><a href="#faq" class="text-muted hover:text-white">FAQ</a></li>
+      <div>
+        <h3>Producto</h3>
+        <ul>
+          <li><a href="#como">Cómo funciona</a></li>
+          <li><a href="#objetivos">Objetivos</a></li>
+          <li><a href="#faq">Preguntas</a></li>
         </ul>
       </div>
-      <div class="md:col-span-2">
-        <div class="text-xs text-muted-2 uppercase tracking-[0.1em] font-semibold mb-4">Legal</div>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/privacidad" class="text-muted hover:text-white">Privacidad</a></li>
-          <li><a href="/terminos" class="text-muted hover:text-white">Términos</a></li>
-          <li><a href="/aviso-legal" class="text-muted hover:text-white">Aviso legal</a></li>
+      <div>
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="/privacidad">Privacidad</a></li>
+          <li><a href="/terminos">Términos</a></li>
+          <li><a href="/aviso-legal">Aviso legal</a></li>
         </ul>
       </div>
-      <div class="md:col-span-2">
-        <div class="text-xs text-muted-2 uppercase tracking-[0.1em] font-semibold mb-4">Contacto</div>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/soporte" class="text-muted hover:text-white">Soporte</a></li>
-          <li><a href="mailto:contact@2trainapp.com" class="text-muted hover:text-white">contact@2trainapp.com</a></li>
-          <li><a href="https://www.instagram.com/2trainapp/" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-white">Instagram</a></li>
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li><a href="/soporte">Soporte</a></li>
+          <li><a href="mailto:contact@2trainapp.com">contact@2trainapp.com</a></li>
+          <li><a href="https://www.instagram.com/2trainapp/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t hairline pt-6 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-2">
-      <div>© 2026 LMGINC SL · CIF B93905438 · Calle Lagasca 95, 28001 Madrid</div>
-      <div>Construyendo en público</div>
+    <div class="footer-legal">
+      <span>© 2026 LMGINC SL · CIF B93905438 · Calle Lagasca 95, 28001 Madrid</span>
+      <span>Construyendo en público</span>
     </div>
   </div>
 </footer>
@@ -1660,30 +826,26 @@
 <!-- MODAL -->
 <div id="beta-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
-    <button class="modal-close" id="modal-close" aria-label="Cerrar">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+    <button type="button" class="modal-close" id="modal-close" aria-label="Cerrar">
+      <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
 
     <!-- Estado formulario -->
     <div id="modal-form-state">
-      <div class="mb-6">
-        <h3 id="modal-title" class="display text-2xl">Reserva tu plaza</h3>
-        <p class="text-muted text-sm mt-2">Beta gratuita &middot; Primeros 100, ventajas exclusivas.</p>
+      <div class="modal-head">
+        <h3 id="modal-title">Reserva tu plaza</h3>
+        <p>Beta gratuita &middot; Primeros 100, ventajas exclusivas.</p>
       </div>
-      <form id="modal-form" class="space-y-4" method="post">
+      <form id="modal-form" class="stack" method="post">
         <input type="text" name="company" id="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
         <input id="email-modal" type="email" name="email" required placeholder="tu@email.com" class="field" autocomplete="email" aria-label="Tu correo electrónico" />
-        <button type="submit" class="btn-dark text-sm font-bold flex items-center justify-center gap-3 w-full rounded-md" id="modal-submit">
-          <span class="btn-label">Entrar a la beta</span>
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L8.5 3.5M13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
-        </button>
-        <div class="text-xs text-muted text-center pt-1">Sin tarjeta &middot; Sin spam &middot; Cancela cuando quieras</div>
+        <button type="submit" class="btn btn--block" id="modal-submit"><span class="btn-label">Reservar plaza</span></button>
+        <p class="modal-note">Sin tarjeta &middot; Sin spam &middot; Cancela cuando quieras</p>
       </form>
     </div>
 
-    <!-- Estado éxito (nuevo diseño) -->
+    <!-- Estado éxito -->
     <div id="modal-success" class="hidden">
-
       <div class="ms-head">
         <h3>Reserva tu plaza</h3>
         <p>Beta gratuita &middot; Primeros 100, ventajas exclusivas.</p>
@@ -1716,17 +878,17 @@
         </div>
         <div class="ms-wave-grid">
           <div class="ms-w" id="ms-w1">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 1 &middot; 1–100</div>
+            <div class="ms-ww"><span class="ms-sw"></span>Wave 1<span class="ms-rng">1–100</span></div>
             <div class="ms-vv">Ventajas exclusivas</div>
             <div class="ms-ss">Acceso inmediato</div>
           </div>
           <div class="ms-w ms-w2" id="ms-w2">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 2 &middot; 101–250</div>
+            <div class="ms-ww"><span class="ms-sw"></span>Wave 2<span class="ms-rng">101–250</span></div>
             <div class="ms-vv">Segunda tanda</div>
             <div class="ms-ss">Cuando cierre la Wave 1</div>
           </div>
           <div class="ms-w ms-w3" id="ms-w3">
-            <div class="ms-ww"><span class="ms-sw"></span>Wave 3 &middot; 251–400</div>
+            <div class="ms-ww"><span class="ms-sw"></span>Wave 3<span class="ms-rng">251–400</span></div>
             <div class="ms-vv">Antes que el público</div>
             <div class="ms-ss">Por orden de llegada</div>
           </div>
@@ -1737,15 +899,15 @@
         <p class="ms-k">Comparte y sube posiciones</p>
         <h3 class="ms-sh3" id="ms-share-h"><span class="ms-b">⚡</span> Con 3 amigos subes al puesto #1</h3>
         <a class="ms-btn-wa" id="ms-wa" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.59-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.34 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24l6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.59-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.34 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24l6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
           Compartir por WhatsApp
         </a>
         <div class="ms-btn-row">
           <a class="ms-btn ms-x-btn" id="ms-x" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             X / Twitter
           </a>
-          <button class="ms-btn" id="ms-copy">Copiar link</button>
+          <button type="button" class="ms-btn" id="ms-copy">Copiar link</button>
         </div>
       </div>
 
@@ -1754,15 +916,14 @@
       <p class="ms-foot">Te hemos enviado el link por email también.</p>
     </div>
   </div>
-</div></div>
+</div>
 
-
-<!-- Cookie consent banner -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:#0A0A0A;border-top:1px solid #1f1f1f;padding:14px 20px;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-  <p style="margin:0;font-size:13px;color:#8a8a8a;max-width:640px;line-height:1.5;">Usamos cookies de analítica para mejorar la app. Puedes aceptar o rechazarlas.</p>
-  <div style="display:flex;gap:8px;flex-shrink:0;">
-    <button id="cookie-reject" style="padding:8px 16px;border-radius:999px;border:1px solid #2a2a2a;background:transparent;color:#8a8a8a;font-size:13px;font-family:inherit;cursor:pointer;">Rechazar</button>
-    <button id="cookie-accept" style="padding:8px 16px;border-radius:999px;border:none;background:#2A6FDB;color:#fff;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;">Aceptar</button>
+<!-- Aviso de cookies -->
+<div id="cookie-banner" class="cookie" role="region" aria-label="Aviso de cookies">
+  <p>Usamos cookies de analítica para mejorar la app. Puedes aceptarlas o rechazarlas.</p>
+  <div class="cookie__actions">
+    <button id="cookie-reject" type="button" class="btn btn--sm btn--ghost">Rechazar</button>
+    <button id="cookie-accept" type="button" class="btn btn--sm">Aceptar</button>
   </div>
 </div>
 <script>
@@ -1770,7 +931,7 @@
   function getCookie(name) { return document.cookie.split('; ').find(function(r){return r.startsWith(name+'=');}); }
   function setCookie(name, value, days) { var d = new Date(); d.setTime(d.getTime() + days*864e5); document.cookie = name+'='+value+';expires='+d.toUTCString()+';path=/;SameSite=Lax'; }
   var banner = document.getElementById('cookie-banner');
-  if (!getCookie('cookie_consent')) { banner.style.cssText += ';display:flex;'; }
+  if (!getCookie('cookie_consent')) { banner.style.display = 'flex'; }
   document.getElementById('cookie-accept').addEventListener('click', function() { setCookie('cookie_consent','accepted',365); banner.style.display='none'; });
   document.getElementById('cookie-reject').addEventListener('click', function() { setCookie('cookie_consent','rejected',365); banner.style.display='none'; });
 })();

@@ -4,8 +4,8 @@
   "description": "The AI coach that remembers you: your plan is rebuilt every week from what you train, choose and tell it.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0A0A0A",
-  "theme_color": "#0A0A0A",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "/favicon.png",

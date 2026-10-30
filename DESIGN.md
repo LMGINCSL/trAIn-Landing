@@ -1,389 +1,326 @@
 ---
 name: 2trAIn
-description: La landing oscura del coach con IA que razona — tipografía propia, un solo azul y un carrusel de sesión real como argumento de venta.
+description: La landing clara del coach con IA que se acuerda de ti — tipografía propia a peso medio, un solo azul y el móvil con la app como protagonista.
 colors:
-  bg: "#0A0A0A"
-  bg-2: "#0d0d0d"
-  bg-3: "#111111"
-  fg: "#FAFAFA"
+  bg: "#FFFFFF"
+  bg-2: "#F5F5F7"
+  surface: "#F5F5F7"
+  surface-2: "#FFFFFF"
+  control: "#E8E8ED"
+  fg: "#1D1D1F"
+  fg-2: "#424245"
+  muted: "#6E6E73"
+  line: "#D2D2D7"
+  line-soft: "rgba(0, 0, 0, 0.08)"
   accent: "#2A6FDB"
-  accent-2: "#5A8FE3"
-  accent-soft: "rgba(42, 111, 219, 0.12)"
-  muted: "#8A8A8A"
-  muted-2: "#808080"
-  line: "#1F1F1F"
-  line-2: "#2A2A2A"
-  danger: "#FF5555"
-  modal-green: "#22C55E"
-  modal-amber: "#F5B62A"
-  modal-mute: "#9AA0A8"
-  modal-dim: "#5C616A"
-  modal-line: "#2A2D32"
-  modal-line-2: "#33363C"
-  modal-surface: "#1D1F22"
-  modal-dim-2: "#3A3D42"
-  wave-active: "#2359AD"
-  ink-black: "#000000"
-  hero-warm: "rgba(255, 140, 40, 0.08)"
+  accent-hover: "#1F5FC8"
+  accent-text: "#2563D0"
+  accent-soft: "rgba(42, 111, 219, 0.09)"
+  ok: "#15803D"
+  warn: "#A16207"
+  danger: "#D70015"
+  glass: "rgba(255, 255, 255, 0.72)"
+  device: "#111113"
 typography:
-  display:
-    fontFamily: "TT Firs Neue, system-ui, sans-serif"
-    fontSize: "clamp(25px, 8vw, 80px)"
-    fontWeight: 800
-    lineHeight: 0.96
-    letterSpacing: "-0.02em"
-  display-tight:
-    fontFamily: "{typography.display.fontFamily}"
-    fontWeight: 800
-    lineHeight: 0.86
-    letterSpacing: "-0.02em"
   hero:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "84px"
-    fontWeight: 800
-    lineHeight: 0.96
+    fontFamily: "TT Firs Neue, -apple-system, system-ui, sans-serif"
+    fontSize: "clamp(44px, 7.4vw, 88px)"
+    fontWeight: 600
+    lineHeight: 1.03
+    letterSpacing: "-0.034em"
   section:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "52px"
-    fontWeight: 800
-    lineHeight: 1.0
-  headline:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "38px"
-    fontWeight: 800
-    lineHeight: 1.1
-    letterSpacing: "-0.01em"
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(34px, 5.2vw, 60px)"
+    fontWeight: 600
+    lineHeight: 1.06
+    letterSpacing: "-0.028em"
+  keys:
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(23px, 3.1vw, 36px)"
+    fontWeight: 600
+    lineHeight: 1.18
+    letterSpacing: "-0.022em"
   title:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "26px"
-    fontWeight: 800
-    lineHeight: 1.2
-  subtitle:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "18px"
-    fontWeight: 700
-    lineHeight: 1.35
-  body:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "16px"
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(22px, 2.4vw, 28px)"
+    fontWeight: 600
+    lineHeight: 1.16
+    letterSpacing: "-0.018em"
+  lead:
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(17px, 1.7vw, 21px)"
     fontWeight: 400
-    lineHeight: 1.5
-  body-sm:
-    fontFamily: "{typography.display.fontFamily}"
+    lineHeight: 1.47
+    letterSpacing: "-0.01em"
+  eyebrow:
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(15px, 1.4vw, 17px)"
+    fontWeight: 600
+    letterSpacing: "-0.01em"
+  body:
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "17px"
+    fontWeight: 400
+    lineHeight: 1.47
+  small:
+    fontFamily: "{typography.hero.fontFamily}"
     fontSize: "14px"
     fontWeight: 400
-    lineHeight: 1.5
-  caption:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "13px"
-    fontWeight: 400
     lineHeight: 1.45
-  goal:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "21.6px"
-    fontWeight: 800
-    lineHeight: 1.15
-    letterSpacing: "-0.02em"
   micro:
-    fontFamily: "{typography.display.fontFamily}"
+    fontFamily: "{typography.hero.fontFamily}"
     fontSize: "12px"
     fontWeight: 400
     lineHeight: 1.4
-  label:
-    fontFamily: "{typography.display.fontFamily}"
-    fontSize: "11px"
-    fontWeight: 700
-    letterSpacing: "0.15em"
-  mono:
-    fontFamily: "ui-monospace, monospace"
+  num:
+    fontFamily: "{typography.hero.fontFamily}"
+    fontSize: "clamp(64px, 8.6vw, 116px)"
+    fontWeight: 600
+    lineHeight: 0.95
+    letterSpacing: "-0.045em"
 rounded:
-  xs: "2px"
-  sm: "6px"
-  md: "12px"
-  lg: "16px"
-  card: "14px"
-  panel: "22px"
-  pill-sm: "10px"
-  xl: "32px"
-  full: "999px"
+  card: "18px"
+  tile: "28px"
+  block: "32px"
+  device: "56px"
+  pill: "980px"
   circle: "50%"
 components:
   button-primary:
     backgroundColor: "{colors.accent}"
-    textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    padding: "14px 28px"
+    textColor: "#FFFFFF"
+    rounded: "{rounded.pill}"
+    padding: "15px 28px"
+    typography: "17px / 600"
   button-primary-hover:
-    backgroundColor: "{colors.accent-2}"
-    textColor: "{colors.bg}"
-    rounded: "{rounded.full}"
-  card:
-    backgroundColor: "{colors.bg-2}"
+    backgroundColor: "{colors.accent-hover}"
+    textColor: "#FFFFFF"
+    rounded: "{rounded.pill}"
+  button-ghost:
+    backgroundColor: "{colors.control}"
     textColor: "{colors.fg}"
-    rounded: "{rounded.lg}"
-    padding: "20px"
+    rounded: "{rounded.pill}"
+  link:
+    textColor: "{colors.accent-text}"
+    suffix: "›"
+  tile:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.tile}"
+    padding: "30px"
   input-email:
-    backgroundColor: "{colors.bg-3}"
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.fg}"
-    rounded: "{rounded.full}"
-    padding: "14px 20px"
-  label-eyebrow:
-    textColor: "{colors.muted}"
-    typography: "{typography.label}"
-  chip-objetivo:
-    backgroundColor: "{colors.accent-soft}"
-    textColor: "{colors.accent-2}"
-    rounded: "{rounded.full}"
-    padding: "4px 12px"
+    rounded: "{rounded.pill}"
+    focusRing: "inset 0 0 0 1.5px {colors.accent}, 0 0 0 4px rgba(42,111,219,.14)"
+  nav:
+    backgroundColor: "{colors.glass}"
+    backdropFilter: "saturate(180%) blur(20px)"
+    height: "56px"
+  segmented:
+    backgroundColor: "{colors.control}"
+    thumb: "#FFFFFF"
+    rounded: "{rounded.pill}"
 ---
 
 # Design System: 2trAIn
 
 ## Overview
 
-**Creative North Star: "La Sala de Control"** *(propuesto — dilo y lo cambio)*
+**Creative North Star: "El producto delante"**
 
-Negro de instrumento, un solo azul de señal y tipografía propia apretada hasta
-que las palabras se tocan. La página no vende entusiasmo, vende lectura de
-datos: el visitante entra a un puesto de mando donde cada decisión aparece
-explicada, no celebrada. Es lo contrario del gimnasio iluminado y sonriente que
-usa la categoría — el rechazo es explícito y es el posicionamiento.
+Blanco de página, un solo azul y la tipografía propia a peso medio. La página
+habla poco y enseña mucho: el hero es un titular corto y el móvil con la sesión
+de hoy ya adaptada, y el scroll va contando el producto con el teléfono fijo
+mientras el texto pasa. La referencia es la manera en que Apple presenta un
+producto, aplicada a una marca que no vende entusiasmo sino criterio.
 
-La pieza que sostiene todo es el **carrusel de la sesión**: la IA razona en el
-chat y escupe una sesión real, ejercicio a ejercicio, con su foto y su
-prescripción. No es una promesa de producto, es el producto resolviendo un caso
-delante del visitante.
+El sistema es **siempre claro**. Todas las páginas declaran
+`<meta name="color-scheme" content="only light">` y
+`:root { color-scheme: only light }`: ni el modo oscuro del sistema ni el
+oscurecimiento automático de Chrome o Samsung Internet invierten la página.
+No hay variante oscura que mantener.
 
-Hay un segundo mundo de color, más pequeño y con reglas propias: el **modal de
-éxito** posterior al alta (los tokens `--ms-*`, de *modal success*), donde viven
-la escalera de waves, la barra de escasez y los botones de compartir. Es la única
-superficie de la página que llega después de convertir, y por eso puede permitirse
-verde de confirmación y ámbar de aviso que el resto del sitio no usa.
+La pieza que sostiene todo sigue siendo **el razonamiento visible**: el chat
+de la demo que piensa con tus datos y la sesión que genera, ejercicio a
+ejercicio, con su imagen y su prescripción. El hero enseña el resultado de ese
+mismo caso (hombro tocado → sesión de empuje sin press vertical) para que lo
+que promete el titular se vea antes de leerlo.
 
-Lo demás se aparta: sin fotos de stock, sin gradientes decorativos, sin
-gamificación, sin testimonios inventados. La densidad es alta en el hero y se
-abre hacia abajo.
+Hay un segundo mundo de color, pequeño y con reglas propias: el **modal de
+éxito** posterior al alta (tokens `--ms-*`), con la escalera de waves, la barra
+de escasez y los botones de compartir. Es la única superficie que puede usar
+verde de confirmación y ámbar de aviso.
 
 **Key Characteristics:**
-- Fondo negro casi absoluto con tres niveles de superficie muy próximos
-- Un único azul de señal, más su versión clara para texto
-- Tipografía propia y variable, con tracking negativo agresivo en display
-- Paleta separada y acotada para el modal posterior al alta
-- Todo en pill: la forma por defecto es completamente redondeada
+- Blanco de página y gris #F5F5F7 en bandas alternas y tarjetas
+- Una tarjeta se separa de su fondo por tono, nunca por borde ni sombra pesada
+- Un único azul: relleno para el botón, `--accent-text` para texto
+- Titulares en frase, con punto final, a peso 600
+- Un botón primario por pantalla y siempre con el mismo texto
+- El móvil (marco oscuro) es el único objeto oscuro de la página
 
 ## Colors
 
-Casi todo es negro y gris; el azul aparece donde hay que actuar o donde el
-sistema está razonando.
-
 ### Primary
-- **Azul Señal** (`#2A6FDB`): CTA, foco, selección, y el hilo conductor de todo
-  el razonamiento del producto. Sobre negro es el único color que reclama.
-- **Azul Legible** (`#5A8FE3`): la versión que sí se puede leer como texto sobre
-  el fondo oscuro. El azul señal se reserva para rellenos y halos; en texto se
-  usa este.
-- **Azul Velo** (`rgba(42,111,219,0.12)`): fondo de chips, filas destacadas de la
-  comparativa y estados seleccionados.
-
-### Secondary
-- **Verde Confirmación** (`#22C55E`): las marcas ✓ de la comparativa y el botón
-  de WhatsApp del modal de éxito. No es un color de marca, es un semáforo.
-- **Ámbar Aviso** (`#F5B62A`): avisos dentro del modal de éxito.
-- **Rojo Error** (`#FF5555`): errores de formulario y nada más.
+- **Azul Señal** (`#2A6FDB`): relleno del botón primario, selección, anillos de
+  foco, el punto vivo. Con texto blanco da 4,8:1.
+- **Azul Profundo** (`#1F5FC8`): hover del botón.
+- **Azul Texto** (`#2563D0`): todo texto azul sobre claro (eyebrows, enlaces,
+  la palabra acentuada del titular, las cifras). Da 5,6:1 sobre blanco y 5,1:1
+  sobre gris.
+- **Azul Velo** (`rgba(42,111,219,0.09)`): fondo del razonamiento, del "por qué
+  ha cambiado" y de los chips activos.
 
 ### Neutral
-- **Negro Instrumento** (`#0A0A0A`): el fondo de página.
-- **Negro Panel** (`#0D0D0D`) y **Negro Elevado** (`#111111`): las dos
-  superficies por encima del fondo. La distancia entre los tres es
-  deliberadamente pequeña.
-- **Blanco Papel** (`#FAFAFA`): todo el texto principal.
-- **Gris Apagado** (`#8A8A8A`) y **Gris Sordo** (`#808080`): texto secundario,
-  labels y microcopy.
-- **Línea** (`#1F1F1F`) y **Línea Fuerte** (`#2A2A2A`): divisores y bordes.
+- **Blanco Página** (`#FFFFFF`) y **Gris Banda** (`#F5F5F7`): las dos superficies.
+  Las secciones alternan entre ellas; una tarjeta usa la otra.
+- **Gris Control** (`#E8E8ED`): fondo de controles segmentados y botones grises.
+- **Tinta** (`#1D1D1F`) y **Tinta 2** (`#424245`): texto principal y texto de
+  apoyo fuerte.
+- **Gris Texto** (`#6E6E73`): texto secundario. 5,1:1 sobre blanco y 4,7:1 sobre
+  gris: vale para texto pequeño.
+- **Línea** (`#D2D2D7`) y **Línea suave** (`rgba(0,0,0,.08)`): divisores de la
+  FAQ, del pie y de la barra translúcida.
+
+### Secondary (solo estado)
+- **Verde** (`#15803D`): el botón de WhatsApp del modal de éxito (5,0:1 con
+  blanco).
+- **Ámbar** (`#A16207`): avisos de plazas libres en el modal (4,9:1).
+- **Rojo** (`#D70015`): errores de formulario y nada más.
 
 ### Named Rules
 
-**La Regla del Azul que se Lee.** El azul de relleno (`#2A6FDB`) y el azul de
-texto (`#5A8FE3`) no son intercambiables. Poner texto en el azul de relleno
-sobre negro es el fallo de contraste más fácil de cometer en este sistema.
+**La Regla del Azul que se Lee.** El azul de relleno (`#2A6FDB`) lleva texto
+blanco; el texto azul sobre fondo claro es siempre `#2563D0`. Sobre el gris
+#F5F5F7 el azul de relleno como texto se queda en 4,4:1 y no llega a AA.
+
+**La Regla del Tono, no del Borde.** Sobre claro, una tarjeta se distingue del
+fondo porque es un tono distinto (blanco sobre gris o gris sobre blanco). No se
+le pone borde; la sombra solo existe en lo que flota (modal, formulario de la
+beta, chat de la demo).
 
 **La Regla del Después.** Los tokens `--ms-*` pertenecen al modal de éxito y no
-salen de él. Son el vocabulario de lo que pasa *después* de convertir —
-confirmación, cola, compartir— y sacarlos a la página de venta gasta antes de
-tiempo señales que solo significan algo una vez dentro.
+salen de él.
 
-**La Regla de la Paleta Única.** Las páginas secundarias (legales, eliminar
-cuenta, `/app/`) heredan la paleta de la principal; no redefinen tokens por su
-cuenta. Cada bloque `:root` duplicado es una deriva esperando a pasar: así fue
-como `--muted-2` acabó en `#5A5A5A` (2,9:1) en ocho ficheros mientras la
-principal usaba `#808080` (5,0:1).
+**La Regla del Semáforo Mudo.** Verde, ámbar y rojo solo comunican estado.
 
-**La Regla del Semáforo Mudo.** Verde, ámbar y rojo solo comunican estado. Nunca
-decoran, nunca son acento, nunca aparecen en un titular.
+**La Regla de la Paleta Única.** Landing ES y EN comparten
+`assets/css/landing.css`. Las páginas secundarias (legales, soporte, borrado de
+cuenta, `/app/`) declaran los mismos valores en su `:root`; si cambia uno, se
+cambia en todas en el mismo commit.
 
 ## Typography
 
-**Display Font:** TT Firs Neue (variable 100–900, self-hosted, con `system-ui`, sans-serif)
-**Body Font:** TT Firs Neue — la misma
-**Label/Mono Font:** `ui-monospace` para cifras y datos del modal de éxito
+**Familia:** TT Firs Neue (variable 100–900, self-hosted). Es la única familia.
 
-**Character:** una grotesca contemporánea, propia y de peso alto, que en display
-se aprieta hasta `-0.02em` de tracking y `0.96` de interlineado — las líneas se
-apilan como un bloque compacto. Es la única señal de personalidad tipográfica
-del sitio, y es la razón por la que la fuente se sirve local y no por CDN.
+**Carácter:** la misma grotesca propia, ahora a peso 600 en display. El tamaño
+impone; el grosor no. El tracking negativo vive solo en tamaños grandes y se
+relaja al bajar.
 
 ### Hierarchy
-- **Display** (800, `clamp(25px, 8vw, 80px)`, 0.96, `-0.02em`): titulares de
-  hero y de sección; sus extremos reales son 84px y 52px.
-- **Display Tight** (800, 0.86, `-0.02em`): la variante de bloque, cuando dos o
-  tres líneas tienen que leerse como una masa.
-- **Headline** (800, 38px, 1.1, `-0.01em`) y **Title** (800, 26px, 1.2): titulares
-  intermedios. En la FAQ el tracking se relaja a propósito cuando el texto es
-  largo y pequeño; apretarlo lo haría ilegible.
-- **Subtitle** (700, 18px, 1.35): entradillas y titulares de tarjeta.
-- **Body** (400, 16px, 1.5) y **Body sm** (400, 14px): todo el texto de lectura.
-- **Caption** (400, 13px) y **Micro** (400, 12px): microcopy y datos densos.
-- **Goal** (800, 21,6px, 1.15, `-0.02em`, mayúsculas): exclusivo de los títulos
-  de las cuatro tarjetas de objetivo (Fuerza · Cardio · Prueba · Mantener).
-  Está fuera de la progresión a propósito: es el único paso que existe para
-  que esas cuatro palabras llenen su tarjeta sin partirse.
-- **Label** (700, 11px, `0.15em`, mayúsculas): eyebrows y etiquetas, en gris
-  apagado. **11px es el suelo**: por debajo, el texto funcional deja de leerse.
+- **Hero** (600, `clamp(44px, 7.4vw, 88px)`, 1.03, `-0.034em`)
+- **Section** (600, `clamp(34px, 5.2vw, 60px)`, 1.06, `-0.028em`): titulares de
+  sección, con la segunda frase en gris (`.muted`) o la palabra clave en azul.
+- **Keys** (600, `clamp(23px, 3.1vw, 36px)`, 1.18): la lista de claves bajo el
+  hero, en gris con 3–5 palabras en tinta.
+- **Num** (600, `clamp(64px, 8.6vw, 116px)`, 0.95, `-0.045em`): cifras reales en
+  azul texto.
+- **Title** (600, `clamp(22px, 2.4vw, 28px)`): titulares de tarjeta.
+- **Lead** (400, `clamp(17px, 1.7vw, 21px)`, gris): entradillas.
+- **Eyebrow** (600, 15–17px, azul texto, en frase): nombra la sección.
+- **Body** (17px) · **Small** (14px) · **Micro** (12px).
+- **11px es el suelo** para cualquier texto funcional, también dentro del móvil
+  del hero.
 
 ### Named Rules
 
-**La Regla del Tracking que Cede.** El tracking negativo es para tamaños
-grandes. Por debajo de ~24px se relaja o se elimina: la compacidad es un efecto
-de display, no un rasgo de la fuente.
+**La Regla de la Frase.** Ningún titular va en mayúsculas. Frase normal y punto
+final. Dos frases cortas que se contestan funcionan mejor que una larga.
 
-**La Regla de la Escala Corta.** La escala de arriba es la que documenta este
-sistema, pero **no es la que el código usa hoy**: `index.html` carga 24 tamaños
-de fuente distintos y 17 radios, con pasos de medio píxel (11,5 / 12,5 / 13,5 /
-14,5 / 15,5px) que delatan ajuste a ojo, no escala. Cada valor que el detector
-marque como fuera de rampa es uno de esos one-offs. Consolidarlos es trabajo
-pendiente y deliberadamente no hecho en el refinamiento de 2026-09-02: tocaba
-todas las secciones a la vez. Mientras tanto, **una pieza nueva se ciñe a los
-pasos de arriba** y no añade uno más.
+**La Regla del Tracking que Cede.** Negativo en display, cero o casi cero por
+debajo de 24px.
 
 **La Regla de la Fuente Local.** TT Firs Neue se sirve desde `/assets/fonts/`
-con `font-display: swap` y precarga. No se sustituye por una de Google Fonts ni
-se carga por CDN: es identidad y es rendimiento a la vez.
+con `font-display: swap` y precarga.
 
 ## Layout
 
-Composición de una sola columna centrada con secciones de altura generosa,
-encadenadas por scroll: siete bloques con ancla (`hero`, `objetivos`, `why`,
-`demo`, `fundador`, `faq`, `beta`). El hero es el único que va a pantalla
-completa y coloca texto y formulario por encima del pliegue.
+Una columna de 1180px como máximo, con 22px de margen lateral en móvil y 40px
+desde 768px. Secciones con `clamp(88px, 11vw, 144px)` de aire arriba y abajo,
+alternando blanco y gris. Orden: hero → lo esencial → cómo se vuelve tuyo →
+objetivos → por qué (móvil fijo) → demo → cifras → ¿aún no convencido? → FAQ →
+beta → pie.
 
-Mobile-first de verdad, no de discurso: por debajo de 768px el orden se
-reescribe para que el texto y el formulario queden arriba del todo sin scroll, y
-el teléfono del hero baja. El resto del sitio se apoya en las utilidades de
-Tailwind compiladas en `dist/tailwind.css`, no en clases inventadas.
+- **Hero:** centrado; eyebrow, titular, entradilla, formulario en píldora y
+  enlace "Ver cómo razona ›". Debajo, el móvil con la app entra desde abajo y
+  se corta contra la banda gris siguiente.
+- **Por qué:** en escritorio, el móvil se queda fijo y los reels cambian con cada
+  paso (ScrollTrigger). En ≤860px es una galería horizontal con scroll-snap y
+  dos flechas redondas.
+- **Objetivos:** bento de cuatro tiles que son a la vez el selector.
 
-La animación de scroll está construida sobre GSAP + ScrollTrigger servidos en
-local (ver `GSAP_SCROLL.md`), no sobre CSS puro. Todo cambio de estructura tiene
-que revisar los triggers, no solo la maquetación.
+Mobile-first de verdad: todo se revisa a 375px antes que a 1440px.
+
+## Motion
+
+Entradas lentas y una sola vez: opacidad 0 → 1 y 18–28px de subida, 0,8s,
+`power2.out`, escalonadas 0,09s en grupos (`[data-reveal]`,
+`[data-reveal-stagger]`). Sin rebotes ni escalas. El texto del hero no se
+anima (es el LCP); el móvil sí. Con `prefers-reduced-motion` no hay ninguna.
 
 ## Elevation & Depth
 
-No hay una escala de sombras neutra: la profundidad se consigue con **capas de
-negro muy próximas** y con **halos azules**. Una tarjeta se separa del fondo por
-un salto de superficie de dos o tres puntos de luminosidad más una hairline, no
-por una sombra.
-
-### Shadow Vocabulary
-- **Halo de foco** (`box-shadow: 0 0 0 4px rgba(42, 111, 219, 0.1)`): anillo de
-  foco en inputs y controles.
-- **Halo de CTA** (`box-shadow: 0 12px 28px -10px rgba(42, 111, 219, 0.6)`): el
-  botón primario proyecta su propio color hacia abajo.
-- **Profundidad de escena** (`box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.85)`):
-  la carcasa del teléfono del hero y las piezas que deben flotar sobre la página.
-
-### Named Rules
-
-**La Regla de la Hairline.** Sobre negro, un borde de 1px en `#1F1F1F` separa
-mejor que cualquier sombra. Si una tarjeta no se distingue, se sube la línea
-antes que añadir sombra.
+- **Flotante** (`--shadow-card`): chat de la demo, tarjeta del formulario de
+  beta, tiles al pasar el ratón.
+- **Dispositivo** (`--shadow-float`): el móvil.
+- **Cristal**: barra de navegación, píldora compacta del logo, aviso de cookies.
+  `rgba(255,255,255,.72)` con `saturate(180%) blur(20px)`.
 
 ## Shapes
 
-El panel de la demo usa `22px`, su propio paso: es la superficie más grande
-del sitio con esquina redondeada y a `16px` se leía como una tarjeta más.
-Fuera de él, el pill (`999px`) es la forma por defecto: botones, inputs, chips, badges y
-etiquetas. Las superficies mayores usan `16px`, los bloques envolventes `32px`,
-y los detalles pequeños `6px`. Los avatares y puntos de estado van a `50%`. No
-hay esquinas vivas.
+Píldora (980px) para botones, inputs del hero, chips y selectores. 18px para
+tarjetas pequeñas, 28px para tiles y paneles, 32px para el bloque de la beta,
+56px para el marco del móvil. No hay esquinas vivas.
 
 ## Components
 
 ### Buttons
-- **Shape:** pill completo (`999px`).
-- **Primary:** relleno en azul señal, texto en blanco papel, con el halo azul
-  proyectado hacia abajo.
-- **Hover / Focus:** pasa al azul legible; el foco añade el anillo de
-  `rgba(42,111,219,0.1)`.
+- **Primario:** píldora azul, 17px a 600, texto blanco. El texto es siempre
+  «Reservar plaza» / «Reserve a spot».
+- **Gris:** píldora `--control` con texto tinta (Instagram, Rechazar cookies).
+- **Enlace:** azul texto terminado en «›».
 
-### Inputs / Fields
-- **Style:** fondo en negro elevado, hairline, pill completo.
-- **Focus:** anillo azul de 4px, sin desplazamiento del layout.
-- **Error:** borde y mensaje en rojo error; el campo de email del hero es el
-  único control crítico de toda la página.
+### Selector segmentado
+Píldora gris con una píldora blanca que se desliza a la opción activa (la demo).
+Funciona con flechas del teclado.
 
-### Cards / Containers
-- **Corner Style:** `16px`.
-- **Background:** negro panel sobre negro instrumento.
-- **Border:** hairline en línea; línea fuerte cuando la tarjeta es interactiva.
-- **Internal Padding:** 20px de base.
+### Tiles de objetivo
+Botón con `aria-pressed`; el elegido lleva anillo azul de 2px y el círculo de
+la esquina se rellena con un check. Las ilustraciones del catálogo llevan
+`filter: brightness(1.025)` para que su fondo #FBFBFB–#FDFDFD quede en blanco.
 
-### Chips (objetivos)
-Pastillas numeradas (01–04: Fuerza, Cardio, Prueba, Mantener) sobre azul velo,
-texto en azul legible. Son el mapa de entrada al producto: cada una promete el
-mismo razonamiento aplicado a una meta distinta.
-
-### Navigation
-Nav que se compacta al hacer scroll y se despliega en un menú a pantalla
-completa en móvil, con la marca en `logo-texto.png` precargado.
-
-### Carrusel de sesión (componente distintivo)
-Tarjetas de 150×208 con foto real del ejercicio, nombre y prescripción
-(`2×15 · banda elástica`), encadenadas después del razonamiento del chat. Es el
-activo de venta central de la página: sustituye a la captura de pantalla y a la
-ilustración, y es lo que convierte «te explica el porqué» en algo verificable.
-Cualquier cambio en el catálogo que lo desactualice convierte el mejor argumento
-del sitio en el peor.
+### Móvil del hero
+HTML, no imagen: barra de estado, cabecera "Hoy · Empuje", el "por qué ha
+cambiado" y la lista de ejercicios. Es el mismo caso que la demo.
 
 ### Modal de éxito (segundo mundo)
-La superficie posterior al alta: escalera de waves, barra de escasez y botones de
-compartir, con la paleta `--ms-*` y su propia escala de líneas. Su trabajo no es
-convertir —eso ya pasó— sino convertir un email en alguien implicado, así que es
-el único sitio donde el semáforo de estado y el verde de WhatsApp tienen sentido.
+Escalera de waves, barra de escasez y compartir, con tokens `--ms-*`.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar el azul legible (`#5A8FE3`) para texto y el azul señal (`#2A6FDB`)
-  para rellenos, halos y foco.
-- **Do** separar superficies con una hairline antes que con una sombra.
-- **Do** relajar el tracking negativo en cuanto el texto baja de tamaño de
-  display.
-- **Do** mantener la paleta `--ms-*` dentro del modal de éxito.
-- **Do** heredar la paleta de la página principal en las secundarias, en vez de
-  redeclarar `:root` en cada una.
-- **Do** aplicar cualquier cambio de estructura o copy a `/` y a `/en/` en el
-  mismo commit.
+- **Do** usar `#2563D0` para texto azul y `#2A6FDB` para rellenos.
+- **Do** separar una tarjeta de su fondo por tono.
+- **Do** escribir los titulares en frase y con punto final.
+- **Do** usar un único texto para el botón primario en toda la página.
+- **Do** aplicar cualquier cambio a `/` y a `/en/` en el mismo commit.
 - **Do** mantener todo texto funcional en 11px o más.
-- **Do** servir fuentes y librerías en local, como ya se hace con TT Firs Neue,
-  GSAP y ScrollTrigger.
+- **Do** usar solo cifras que existen (4.155 ejercicios, 100 plazas).
 
 ### Don't:
-- **Don't** poner texto en `#2A6FDB` sobre el fondo negro.
-- **Don't** usar el verde, el ámbar o el rojo como color de marca o de titular.
-- **Don't** volver a cargar Tailwind desde el CDN de desarrollo:
-  `dist/tailwind.css` está compilado y commiteado a propósito.
-- **Don't** añadir gradientes decorativos ni fotos de stock de gimnasio.
+- **Don't** volver a poner titulares en mayúsculas ni a peso 800.
+- **Don't** añadir una variante oscura ni quitar `color-scheme: only light`.
+- **Don't** poner bordes a las tarjetas ni sombras a lo que no flota.
+- **Don't** añadir fotos de stock de gimnasio ni gradientes decorativos.
 - **Don't** introducir una segunda familia tipográfica.
-- **Don't** vender con una fecha. La escasez de esta página es de plazas
-  (100, contadas en vivo), no de calendario: una fecha caduca sola y deja la
-  frase rota, que es exactamente lo que pasó con la cuenta atrás al 1-sep-2026.
-- **Don't** bajar texto funcional de 11px.
+- **Don't** vender con una fecha: la escasez es de plazas.

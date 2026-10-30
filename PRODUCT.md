@@ -122,7 +122,6 @@ Ausencias que no se pueden inventar:
 
 Bilingüe ES/EN con hreflang correcto. La cuenta atrás ya expone `aria-label`.
 Objetivo a mantener: Lighthouse accesibilidad alta en móvil, contraste AA sobre
-el fondo oscuro (hoy hay 12 avisos de contraste medidos, ver el informe de
-hallazgos) y ningún texto de interfaz por debajo del mínimo legible — 44 avisos
-de texto infradimensionado medidos, la familia de hallazgos más numerosa del
-sitio.
+el fondo claro (la paleta de DESIGN.md está medida para ello: el texto gris da
+5,1:1 sobre blanco y el azul de texto 5,6:1) y ningún texto de interfaz por
+debajo de 11px. La web es siempre clara (`color-scheme: only light`).

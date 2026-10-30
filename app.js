@@ -9,26 +9,6 @@ const isEn = document.documentElement.lang === 'en';
   // recalcule y provoque saltos/contenido en blanco al hacer scroll.
   ScrollTrigger.config({ ignoreMobileResize: true });
 
-  // Hero video: arranca al cargar (autoplay). El póster <img> es el LCP (pinta al instante)
-  // y el vídeo aparece con un fundido en cuanto puede reproducirse.
-  (function() {
-    var hv = document.querySelector('.hero-cine__video');
-    if (!hv) return;
-    if (reduceMotion) { try { hv.pause(); } catch (e) {} return; } // se queda el póster estático
-    function revealVideo() { hv.classList.add('is-playing'); }
-    hv.addEventListener('playing', revealVideo);
-    hv.addEventListener('loadeddata', revealVideo);
-    function tryPlay() {
-      var p = hv.play();
-      if (p && p.then) p.then(revealVideo).catch(function() { /* autoplay bloqueado: se queda el póster */ });
-    }
-    if (hv.readyState >= 2) tryPlay();
-    else {
-      hv.addEventListener('canplay', tryPlay, { once: true });
-      tryPlay();
-    }
-  })();
-
   // Modal
   const modal = document.getElementById('beta-modal');
   function openModal(prefilledEmail) {
@@ -67,7 +47,7 @@ const isEn = document.documentElement.lang === 'en';
       const href = a.getAttribute('href');
       if (href.length > 1) {
         const t = document.querySelector(href);
-        if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 60, behavior: 'smooth' }); }
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 64, behavior: reduceMotion ? 'auto' : 'smooth' }); }
       }
     });
   });
@@ -97,49 +77,28 @@ const isEn = document.documentElement.lang === 'en';
     }, { passive: true });
   }
 
-  // Animations
+  // Animaciones: calmadas y una sola vez. Funden y suben unos pocos píxeles;
+  // sin rebotes ni escalas. El texto del hero no se anima: es el LCP.
+  var heroPhone = document.querySelector('.hero__device .phone');
   if (!reduceMotion) {
-    // --- Hero cinematográfico ---
-    gsap.from('#hero-headline .word', { y: 80, opacity: 0, duration: 0.95, stagger: 0.1, ease: 'power3.out', delay: 0.15 });
-    gsap.from('#hero-sub', { y: 24, opacity: 0, duration: 0.8, delay: 0.6, ease: 'power3.out' });
-    gsap.from('#hero-cta', { y: 20, opacity: 0, duration: 0.8, delay: 0.85, ease: 'power3.out' });
-    // Parallax sutil del vídeo de fondo (scale 1.15 en CSS deja overscan; el desplazamiento ±4% nunca descubre el borde)
-    gsap.fromTo('.hero-cine__video', { yPercent: -4, scale: 1.15 }, { yPercent: 4, scale: 1.15, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.5 } });
+    if (heroPhone) gsap.fromTo(heroPhone, { opacity: 0, y: 90 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.15, ease: 'power3.out' });
 
-    gsap.from('#beta-block', { scale: 0.96, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: '#beta-block', start: 'top 85%' } });
-
-    // --- Reveal de secciones al hacer scroll ---
-    // Desplazamiento más corto y disparo más temprano en móvil → menos sensación de tirón / blanco.
-    var RY = isMobile ? 18 : 40;
-    var startPos = isMobile ? 'top 94%' : 'top 86%';
-    // Etiquetas y títulos de sección: fade-up individual (las .vsec tienen su propio reveal abajo)
-    gsap.utils.toArray('section:not(#hero):not(.vsec):not(.reels) :is(.label, h2.display)').forEach(function(el) {
-      gsap.from(el, { y: isMobile ? 16 : 32, opacity: 0, duration: 0.6, ease: 'power3.out',
+    var RY = isMobile ? 18 : 28;
+    var startPos = isMobile ? 'top 92%' : 'top 85%';
+    gsap.utils.toArray('[data-reveal]').forEach(function(el) {
+      gsap.from(el, { y: RY, opacity: 0, duration: 0.8, ease: 'power2.out',
         scrollTrigger: { trigger: el, start: startPos, once: true } });
     });
-    // Tarjetas y bloques: fade-up escalonado por grupo (set inicial evita el parpadeo de batch)
-    ['section:not(#hero) .grid > div',
-     'section:not(#hero) .max-w-xl',
-     'section:not(#hero) table',
-     'section:not(#hero) .faq-item'].forEach(function(sel) {
-      var els = gsap.utils.toArray(sel);
-      if (!els.length) return;
-      gsap.set(els, { opacity: 0, y: RY });
-      ScrollTrigger.batch(els, { start: startPos, once: true,
-        onEnter: function(batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 0.55, stagger: isMobile ? 0.06 : 0.1, ease: 'power3.out' }); } });
+    // Grupos: los hijos entran escalonados (set inicial evita el parpadeo)
+    gsap.utils.toArray('[data-reveal-stagger]').forEach(function(group) {
+      var kids = gsap.utils.toArray(group.children);
+      if (!kids.length) return;
+      gsap.set(kids, { opacity: 0, y: RY });
+      ScrollTrigger.create({ trigger: group, start: startPos, once: true,
+        onEnter: function() { gsap.to(kids, { opacity: 1, y: 0, duration: 0.8, stagger: 0.09, ease: 'power2.out' }); } });
     });
-
-    // Secciones VÍDEO + TEXTO: el vídeo entra desde su lado y el texto en cascada
-    gsap.utils.toArray('.vsec').forEach(function(sec) {
-      var media = sec.querySelector('.vsec__media');
-      var textKids = sec.querySelectorAll('.vsec__text > *');
-      var reverse = !!sec.querySelector('.vsec--reverse');
-      var fromX = isMobile ? 0 : (reverse ? 60 : -60);
-      if (media) gsap.from(media, { x: fromX, y: isMobile ? 28 : 0, opacity: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: sec, start: startPos, once: true } });
-      if (textKids.length) gsap.from(textKids, { y: isMobile ? 18 : 28, opacity: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out',
-        scrollTrigger: { trigger: sec, start: startPos, once: true } });
-    });
+  } else if (heroPhone) {
+    heroPhone.style.opacity = 1;
   }
 
   // ===== Scrollytelling reels: el móvil queda fijo y el reel + el texto cambian al hacer scroll =====
@@ -159,9 +118,24 @@ const isEn = document.documentElement.lang === 'en';
       if (s) s.addEventListener('error', hide);
     });
 
-    // MÓVIL/TABLET ≤860px: layout apilado nativo (CSS). Sin filmstrip ni ScrollTrigger.
+    // MÓVIL/TABLET ≤860px: galería horizontal (CSS) con flechas. Sin filmstrip ni ScrollTrigger.
     // Cada reel (tarjeta) se reproduce solo cuando entra en pantalla, para ahorrar datos.
     if (window.matchMedia('(max-width: 860px)').matches) {
+      var grid = stage.querySelector('.reels__grid');
+      var prev = stage.querySelector('[data-reels-dir="-1"]');
+      var next = stage.querySelector('[data-reels-dir="1"]');
+      if (grid && prev && next) {
+        var stepW = function() { return (reels[0] ? reels[0].getBoundingClientRect().width : grid.clientWidth * 0.8) + 16; };
+        var syncArrows = function() {
+          prev.disabled = grid.scrollLeft < 4;
+          next.disabled = grid.scrollLeft + grid.clientWidth > grid.scrollWidth - 4;
+        };
+        prev.addEventListener('click', function() { grid.scrollBy({ left: -stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); });
+        next.addEventListener('click', function() { grid.scrollBy({ left: stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); });
+        grid.addEventListener('scroll', syncArrows, { passive: true });
+        window.addEventListener('resize', syncArrows);
+        syncArrows();
+      }
       if ('IntersectionObserver' in window) {
         var io = new IntersectionObserver(function(entries) {
           entries.forEach(function(e) {
@@ -202,73 +176,6 @@ const isEn = document.documentElement.lang === 'en';
     // No reproducimos el reel 0 al cargar (está bajo el fold): arranca cuando su paso entra
     // en el centro del viewport. Solo fijamos la posición inicial de la tira.
     setStrip(0);
-  })();
-
-  // 3-phone carousel — los 3 móviles SIEMPRE se posicionan y se ven;
-  // el giro automático solo se activa si no se pide movimiento reducido.
-  (function() {
-    var phones = [
-      document.getElementById('ph0'),
-      document.getElementById('ph1'),
-      document.getElementById('ph2')
-    ];
-    if (phones.some(function(p) { return !p; })) return;
-
-    var _w = window.innerWidth;
-    var POS = _w < 768 ? [
-      { x: 71,  y: 0,  rotation: 3,  scale: 1,    opacity: 1,    zIndex: 3 },
-      { x: 132, y: 34, rotation: 8,  scale: 0.82, opacity: 0.4,  zIndex: 1 },
-      { x: 10,  y: 34, rotation: -8, scale: 0.82, opacity: 0.4,  zIndex: 2 }
-    ] : _w < 1024 ? [
-      { x: 70,  y: 0,  rotation: 3,  scale: 1,    opacity: 1,    zIndex: 3 },
-      { x: 165, y: 48, rotation: 9,  scale: 0.82, opacity: 0.45, zIndex: 1 },
-      { x: -20, y: 44, rotation: -9, scale: 0.82, opacity: 0.45, zIndex: 2 }
-    ] : [
-      { x: 80,  y: 0,  rotation: 3,  scale: 1,    opacity: 1,    zIndex: 3 },
-      { x: 190, y: 55, rotation: 9,  scale: 0.82, opacity: 0.45, zIndex: 1 },
-      { x: -25, y: 50, rotation: -9, scale: 0.82, opacity: 0.45, zIndex: 2 }
-    ];
-
-    // Posiciones iniciales (invisibles hasta que las imágenes decodifiquen)
-    var posIdx = [0, 1, 2];
-    phones.forEach(function(ph, i) {
-      gsap.set(ph, Object.assign({}, POS[posIdx[i]], { opacity: 0, force3D: true }));
-    });
-
-    function startCarousel() {
-      // Fade in escalonado: los 3 móviles quedan visibles
-      phones.forEach(function(ph, i) {
-        gsap.to(ph, { opacity: POS[posIdx[i]].opacity, duration: 0.6, delay: i * 0.08, ease: 'power2.out' });
-      });
-
-      // Sin animación de giro si el usuario pide movimiento reducido
-      if (reduceMotion) return;
-
-      var floatTl = null;
-      function startFloat(ph) {
-        if (floatTl) floatTl.kill();
-        floatTl = gsap.timeline({ repeat: -1, yoyo: true });
-        floatTl.to(ph, { y: '-=7', duration: 3.2, ease: 'sine.inOut' });
-      }
-      setTimeout(function() { startFloat(phones[0]); }, 800);
-
-      setInterval(function() {
-        floatTl.kill();
-        posIdx = posIdx.map(function(p) { return (p + 1) % 3; });
-        phones.forEach(function(ph, i) {
-          gsap.to(ph, Object.assign({}, POS[posIdx[i]], { duration: 0.85, ease: 'power3.inOut' }));
-        });
-        var frontPh = phones[posIdx.indexOf(0)];
-        setTimeout(function() { startFloat(frontPh); }, 900);
-      }, 3600);
-    }
-
-    // Esperar a que las imágenes decodifiquen antes de mostrar
-    var imgs = Array.from(document.querySelectorAll('#hero-phone img'));
-    Promise.all(imgs.map(function(img) {
-      if (img.complete && img.naturalWidth) return Promise.resolve();
-      return img.decode ? img.decode().catch(function() {}) : new Promise(function(res) { img.onload = res; img.onerror = res; });
-    })).then(startCarousel);
   })();
 
   // FAQ
@@ -313,7 +220,8 @@ const isEn = document.documentElement.lang === 'en';
   if (!mError) {
     mError = document.createElement('p');
     mError.id = 'modal-error';
-    mError.style.cssText = 'color:#f87171;font-size:13px;text-align:center;margin-top:8px;display:none;';
+    mError.setAttribute('role', 'alert');
+    mError.style.cssText = 'font-size:14px;text-align:center;margin:4px 0 0;display:none;';
     mForm.appendChild(mError);
   }
 
@@ -464,7 +372,7 @@ const isEn = document.documentElement.lang === 'en';
     } catch (err) {
       console.error('Waitlist error:', err);
       showModalError(isEn ? 'Something went wrong. Try again or contact us.' : 'Algo salió mal. Inténtalo de nuevo o escríbenos.');
-      mBtn.querySelector('.btn-label').textContent = isEn ? 'Join the beta' : 'Entrar a la beta';
+      mBtn.querySelector('.btn-label').textContent = isEn ? 'Reserve a spot' : 'Reservar plaza';
       mBtn.disabled = false; mBtn.style.opacity = '';
     }
   });
@@ -513,7 +421,7 @@ const isEn = document.documentElement.lang === 'en';
         mSuccess.classList.add('hidden');
         mForm.reset();
         hideModalError();
-        mBtn.querySelector('.btn-label').textContent = isEn ? 'Join the beta' : 'Entrar a la beta';
+        mBtn.querySelector('.btn-label').textContent = isEn ? 'Reserve a spot' : 'Reservar plaza';
         mBtn.disabled = false; mBtn.style.opacity = '';
         // Reset bar for next open
         const fill = document.getElementById('ms-fill');
@@ -616,24 +524,13 @@ const isEn = document.documentElement.lang === 'en';
   var activeTl = null;
   var hasStarted = false;
 
-  function ensureLoop(track) {
-    if (!track || track.dataset.looped === '1') return;
-    var clone = track.cloneNode(true);
-    clone.querySelectorAll('*').forEach(function(el) { el.setAttribute('aria-hidden', 'true'); });
-    while (clone.firstChild) track.appendChild(clone.firstChild);
-    track.dataset.looped = '1';
-  }
-
+  // El carrusel es de scroll manual con snap (no marquee): al generar la
+  // sesión solo se vuelve al primer ejercicio. Antes se duplicaba la pista
+  // para un bucle que ya no existe y salían las 6 tarjetas dos veces.
   function restartMarquee(chat) {
-    var track = chat && chat.querySelector('.demo-carousel__track');
-    if (!track) return;
-    ensureLoop(track);
-    track.style.animation = 'none';
-    void track.offsetWidth;
-    track.style.animation = 'demoMarquee 40s linear infinite';
+    var carousel = chat && chat.querySelector('.demo-carousel');
+    if (carousel) carousel.scrollLeft = 0;
   }
-
-  section.querySelectorAll('.demo-carousel__track').forEach(ensureLoop);
 
   var phrasesByScenario = {
     pain: demoEN ? [
@@ -670,8 +567,12 @@ const isEn = document.documentElement.lang === 'en';
       sc.classList.toggle('on', on);
       sc.setAttribute('aria-hidden', String(!on));
     });
-    tabs.forEach(function(t) {
-      t.setAttribute('aria-selected', String(t.getAttribute('data-scenario') === key));
+    tabs.forEach(function(t, i) {
+      var on = t.getAttribute('data-scenario') === key;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      // La píldora blanca del selector segmentado se desliza a la pestaña activa
+      if (on && t.parentNode) t.parentNode.style.setProperty('--i', i);
     });
     return section.querySelector('.demo-scenario.on');
   }
@@ -815,12 +716,19 @@ const isEn = document.documentElement.lang === 'en';
   });
   showOnly('pain');
 
-  tabs.forEach(function(tab) {
+  tabs.forEach(function(tab, i) {
     tab.addEventListener('click', function() {
       var key = tab.getAttribute('data-scenario');
-      if (!key) return;
+      if (!key || tab.getAttribute('aria-selected') === 'true') return;
       var chat = showOnly(key);
       requestAnimationFrame(function() { playChat(chat); });
+    });
+    tab.addEventListener('keydown', function(e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var to = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      to.focus();
+      to.click();
     });
   });
 

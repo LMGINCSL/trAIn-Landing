@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#0A0A0A" />
+<meta name="color-scheme" content="only light" />
+<meta name="theme-color" content="#FFFFFF" />
 <title>Soporte · 2trAIn</title>
 <meta name="description" content="Ayuda y soporte de 2trAIn: cómo contactar con nosotros, qué información enviarnos y respuestas a las dudas más frecuentes." />
 <link rel="canonical" href="https://2trainapp.com/soporte" />
@@ -33,38 +34,40 @@
     src: url('/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2') format('woff2');
   }
   :root {
-    --bg: #0A0A0A; --bg-2: #0d0d0d;
-    --fg: #FAFAFA; --muted: #8a8a8a; --muted-2: #5a5a5a;
-    --line: #1f1f1f; --line-2: #2a2a2a;
-    --accent: #2A6FDB;
+    --bg: #FFFFFF; --bg-2: #F5F5F7;
+    --fg: #1D1D1F; --muted: #6E6E73; --muted-2: #6E6E73;
+    --line: #D2D2D7; --line-2: #C7C7CC;
+    --accent: #2A6FDB; --accent-text: #2563D0;
+  color-scheme: only light;
   }
   html, body { background: var(--bg); color: var(--fg); font-family: 'TT Firs Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  ::selection { background: var(--accent); color: #fff; }
+  ::selection { background: rgba(42, 111, 219, 0.2); color: var(--fg); }
   .hairline { border-color: var(--line); }
-  .prose h2 { font-size: 1.125rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 0.75rem; color: #fff; }
-  .prose h3 { font-size: 0.9375rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; color: #ddd; }
+  .prose h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; margin-top: 2.5rem; margin-bottom: 0.75rem; color: var(--fg); }
+  .prose h3 { font-size: 0.9375rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; color: var(--fg); }
   .prose p { margin-bottom: 1rem; line-height: 1.7; color: var(--muted); font-size: 0.9375rem; }
   .prose ul { margin-bottom: 1rem; padding-left: 1.25rem; list-style: disc; color: var(--muted); font-size: 0.9375rem; line-height: 1.7; }
   .prose ul li { margin-bottom: 0.35rem; }
-  .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .prose strong { color: #e5e5e5; font-weight: 600; }
+  .prose a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+  .prose strong { color: var(--fg); font-weight: 600; }
+  .hover-fg:hover { color: var(--fg) !important; }
   .badge { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted-2); }
-  .card { border: 1px solid var(--line); background: var(--bg-2); border-radius: 16px; padding: 24px; margin: 1.5rem 0; }
+  .card { border: 0; background: var(--bg-2); border-radius: 16px; padding: 24px; margin: 1.5rem 0; }
   .card p { margin-bottom: 0; }
-  .card-mail { display: inline-block; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: #fff !important; text-decoration: none !important; margin: 0.5rem 0 0.5rem; }
-  .card-mail:hover { color: var(--accent) !important; }
+  .card-mail { display: inline-block; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; color: var(--fg) !important; text-decoration: none !important; margin: 0.5rem 0 0.5rem; }
+  .card-mail:hover { color: var(--accent-text) !important; }
   .footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav style="border-bottom: 1px solid var(--line); background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);" class="sticky top-0 z-50">
+<nav style="border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.8); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);" class="sticky top-0 z-50">
   <div class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2.5">
-      <picture><img src="/assets/logo-texto.png" alt="2trAIn logo" style="height:20px;width:auto;"></picture>
+      <picture><img src="/assets/logo-texto-claro.png" alt="2trAIn logo" style="height:20px;width:auto;"></picture>
     </a>
-    <a href="/" style="color: var(--muted); font-size: 0.8125rem;" class="hover:text-white transition-colors flex items-center gap-1.5">
+    <a href="/" style="color: var(--muted); font-size: 0.8125rem;" class="hover-fg transition-colors flex items-center gap-1.5">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
       Volver al inicio
     </a>
@@ -75,7 +78,7 @@
 <main class="max-w-3xl mx-auto px-6 py-16 pb-24">
   <div class="mb-10">
     <span class="badge">Soporte</span>
-    <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-top: 0.75rem; color: #fff;">Soporte</h1>
+    <h1 style="font-size: 2rem; font-weight: 600; letter-spacing: -0.025em; margin-top: 0.75rem; color: var(--fg);">Soporte</h1>
     <p style="color: var(--muted-2); font-size: 0.875rem; margin-top: 0.5rem;">Ayuda con 2trAIn y con la app 2trAIn Cliente</p>
   </div>
 
@@ -118,12 +121,12 @@
   <div class="max-w-3xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-4" style="font-size: 0.75rem; color: var(--muted-2);">
     <div>© 2026 LMGINC SL · CIF B93905438 · Calle Lagasca 95, 28001 Madrid</div>
     <div class="footer-links">
-      <a href="/privacidad" class="hover:text-white transition-colors">Privacidad</a>
-      <a href="/terminos" class="hover:text-white transition-colors">Términos</a>
-      <a href="/aviso-legal" class="hover:text-white transition-colors">Aviso legal</a>
-      <a href="/soporte" style="color: var(--accent);">Soporte</a>
-      <a href="/en/support/" class="hover:text-white transition-colors">EN</a>
-      <a href="mailto:contact@2trainapp.com" class="hover:text-white transition-colors">contact@2trainapp.com</a>
+      <a href="/privacidad" class="hover-fg transition-colors">Privacidad</a>
+      <a href="/terminos" class="hover-fg transition-colors">Términos</a>
+      <a href="/aviso-legal" class="hover-fg transition-colors">Aviso legal</a>
+      <a href="/soporte" style="color: var(--accent-text);">Soporte</a>
+      <a href="/en/support/" class="hover-fg transition-colors">EN</a>
+      <a href="mailto:contact@2trainapp.com" class="hover-fg transition-colors">contact@2trainapp.com</a>
     </div>
   </div>
 </footer>
