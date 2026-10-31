@@ -246,10 +246,14 @@ con `font-display: swap` y precarga.
 ## Layout
 
 Una columna de 1180px como máximo, con 22px de margen lateral en móvil y 40px
-desde 768px. Secciones con `clamp(48px, 6vw, 80px)` de aire (el resto lo pone el hilo),
+desde 768px. Todas las secciones con `clamp(48px, 6vw, 80px)` de aire arriba y abajo
+(el resto lo pone el hilo), y del título de cada sección a su contenido siempre
+`--head-gap` (24px en móvil, 36px en escritorio),
 sobre un fondo blanco continuo: no hay bandas de color entre secciones, el gris
 vive solo dentro de las tarjetas. Orden: hero → objetivos → por qué (móvil
-fijo) → demo → cifras → ¿aún no convencido? → FAQ → foto ancha → beta → pie.
+fijo) → demo → lo que la hace distinta → ¿aún no convencido? → FAQ → foto ancha →
+beta → pie. En móvil no hay ningún scroll lateral: lo que no cabe va en un
+carrusel automático.
 
 - **Hilo entre secciones (`.bridge`):** una línea azul que se dibuja con el
   scroll, un punto y, casi siempre, una frase de 3 a 6 palabras que enlaza con
@@ -268,9 +272,11 @@ fijo) → demo → cifras → ¿aún no convencido? → FAQ → foto ancha → b
   el panel no cambia de alto al cambiar de pestaña.
 - **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
   cada paso. Las tres pantallas son HTML con barra de pestañas y cada una es un
-  pequeño vídeo en bucle (GSAP). En ≤860px, galería horizontal con flechas.
-- **Cifras:** burbujas que flotan (1.600+ ejercicios, 4 objetivos, 3 formas)
-  rodeadas de burbujas con ilustraciones del catálogo.
+  pequeño vídeo en bucle (GSAP). En ≤860px, carrusel automático con puntos.
+- **Lo que la hace distinta:** burbujas que flotan. La grande, 1.600+ ejercicios
+  con vídeo; las otras, diferenciales reales en dos líneas (cada semana un plan
+  nuevo, cada cambio con su porqué, decide un motor y no un chat, recuerda
+  lesiones, material y vetos). Alrededor, ilustraciones del catálogo.
 
 Mobile-first de verdad: todo se revisa a 375px antes que a 1440px.
 
@@ -308,6 +314,13 @@ tarjetas pequeñas, 28px para tiles y paneles, 32px para el bloque de la beta,
 - **Gris:** píldora `--control` con texto tinta (Instagram, Rechazar cookies).
 - **Enlace:** azul texto terminado en «›».
 
+### Carrusel automático
+`autoCarousel()` en `app.js`: sin scroll lateral a mano. Avanza solo y en bucle
+mientras está a la vista, se para al pasar el ratón o al enfocarlo, y debajo
+lleva puntos para saltar. Tocar un punto, deslizar o usar las flechas del
+teclado cambia de tarjeta y lo deja quieto. Con movimiento reducido no avanza
+solo. Lo usan la galería de «Por qué» en móvil y los carruseles de la demo.
+
 ### Selector segmentado
 Píldora gris con una píldora blanca que se desliza a la opción activa (la demo).
 Funciona con flechas del teclado.
@@ -327,17 +340,19 @@ su fondo gris muy claro quede en blanco. Los nombres son los del catálogo. En p
 (`@container` ≤262px) el hero enseña tres ejercicios en vez de cuatro.
 
 ### Fotos
-Fotos reales, luminosas y con luz natural, sin logos ni marcas a la vista y
-sin texto encima. Van como bloques propios, nunca de fondo detrás del texto.
+Fotos reales y aspiracionales, de nivel atleta (a lo que todos quieren llegar),
+luminosas y con luz natural, sin logos grandes ni marcas protagonistas y sin
+texto encima. Van como bloques propios, nunca de fondo detrás del texto.
 WebP en `assets/fotos/` en dos tamaños con `srcset`, con resolución de sobra
 para pantallas Retina (el `sizes` cuenta con el recorte de `object-fit: cover`). Licencias de Unsplash
 (uso comercial gratis, sin atribución obligatoria; no dar a entender que las
 personas recomiendan 2trAIn):
-- Foto ancha: corredor en la niebla, Lucas Canino (unsplash.com/photos/MFCzJQoFXzc).
-- Fuerza: sentadilla con entrenador, Vitaly Gariev (unsplash.com/photos/qbktVctZKL4).
-- Cardio: carrera por un camino, Jenny Hill (unsplash.com/photos/Io2Zgb3_kdk).
+- Foto ancha: corredor en la cumbre, Alessio Soggetti (unsplash.com/photos/GYr9A2CPMhY).
+- Fuerza: press con barra, John Arano (unsplash.com/photos/h4i9G-de7Po). Se ven
+  restos de «ROGUE» en el rack y una marca pequeña en el top.
+- Cardio: atleta en pista, Hannah Coleman (unsplash.com/photos/UFs5bKHgo4U).
 - Prueba: ciclista de triatlón, Beau Runsten (unsplash.com/photos/mR-N67XjTHg).
-- Mantener: plancha en casa, Vitaly Gariev (unsplash.com/photos/7C_Ri-7kyXc).
+- Mantener: cuerdas de batalla, Karsten Winegeart (unsplash.com/photos/eGSBVVtVCCw).
 
 ### Pantalla de sustituciones
 Cada caso («¿Sin barras?», «¿Lesión?», «¿Aburrido?») enseña el ejercicio de
@@ -362,7 +377,8 @@ plazas: la beta es abierta.
 - **Do** usar un único texto para el botón primario en toda la página.
 - **Do** aplicar cualquier cambio a `/` y a `/en/` en el mismo commit.
 - **Do** mantener todo texto funcional en 11px o más.
-- **Do** usar solo cifras que existen (1.600+ ejercicios con vídeo, 4 objetivos, 3 formas).
+- **Do** usar solo cifras y diferenciales que existen (1.600+ ejercicios con vídeo,
+  plan reescrito cada semana, cambios explicados, motor que decide, memoria).
 - **Do** unir cada sección con la siguiente con el hilo; nunca bandas de color.
 
 ### Don't:

@@ -1,6 +1,85 @@
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ydXpqdHFld2pha2Z3c2hmYWd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MjAyMzcsImV4cCI6MjA5NDQ5NjIzN30.GC0IRyXF1QppjbvQJNoYhe_FbWIAa6mjOZQkplrEbfM';
 const isEn = document.documentElement.lang === 'en';
 
+// ===== Carrusel automático: nada de scroll lateral a mano =====
+// Avanza solo y en bucle mientras está a la vista; se para al pasar el ratón o
+// al enfocarlo. Tocar un punto, deslizar el dedo o usar las flechas del teclado
+// cambia de tarjeta y desde ahí manda la persona (deja de avanzar solo). Con
+// movimiento reducido no avanza solo.
+function autoCarousel(el, opts) {
+  if (!el || el._auto) return el && el._auto;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0, timer = null, inView = false, held = false, stopped = reduce;
+  function items() { return Array.prototype.filter.call(el.querySelectorAll(opts.item), function(n) { return n.offsetWidth > 0; }); }
+  // Posiciones de parada distintas: las últimas tarjetas comparten el final
+  function stops() {
+    var max = el.scrollWidth - el.clientWidth, pad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0, out = [];
+    items().forEach(function(n) {
+      var p = Math.round(Math.max(0, Math.min(max, n.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft - pad)));
+      if (!out.length || p - out[out.length - 1] > 2) out.push(p);
+    });
+    return out;
+  }
+  var dots = document.createElement('div');
+  dots.className = 'cdots';
+  if (opts.dotsIn) opts.dotsIn.appendChild(dots); else el.insertAdjacentElement('afterend', dots);
+  function renderDots() {
+    var n = stops().length;
+    if (dots.children.length !== n) {
+      dots.innerHTML = '';
+      for (var i = 0; i < n; i++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', (isEn ? 'Show card ' : 'Ver tarjeta ') + (i + 1));
+        b.addEventListener('click', (function(i) { return function() { stop(); go(i); }; })(i));
+        dots.appendChild(b);
+      }
+    }
+    dots.hidden = n < 2;
+    Array.prototype.forEach.call(dots.children, function(b, i) { b.setAttribute('aria-current', String(i === current)); });
+  }
+  function go(i, instant) {
+    var s = stops();
+    if (!s.length) return;
+    current = (i + s.length) % s.length;
+    el.scrollTo({ left: s[current], behavior: instant || reduce ? 'auto' : 'smooth' });
+    renderDots();
+  }
+  function sync() {
+    clearInterval(timer);
+    timer = null;
+    if (!stopped && inView && !held && !document.hidden) timer = setInterval(function() { go(current + 1); }, opts.delay || 3000);
+  }
+  function stop() { stopped = true; sync(); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(e) { inView = e[0].isIntersecting; if (inView) renderDots(); sync(); }, { threshold: 0.5 }).observe(el);
+  } else inView = true;
+  el.addEventListener('mouseenter', function() { held = true; sync(); });
+  el.addEventListener('mouseleave', function() { held = false; sync(); });
+  el.addEventListener('focusin', function() { held = true; sync(); });
+  el.addEventListener('focusout', function() { held = false; sync(); });
+  el.addEventListener('keydown', function(e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    stop();
+    go(current + (e.key === 'ArrowRight' ? 1 : -1));
+  });
+  document.addEventListener('visibilitychange', sync);
+  var x0 = null, y0 = 0;
+  el.addEventListener('touchstart', function(e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  el.addEventListener('touchend', function(e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { stop(); go(current + (dx < 0 ? 1 : -1)); }
+  }, { passive: true });
+  window.addEventListener('resize', function() { renderDots(); go(current, true); });
+  renderDots();
+  sync();
+  el._auto = { reset: function() { current = 0; go(0, true); } };
+  return el._auto;
+}
+
 (function() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.matchMedia('(max-width: 767px)').matches;
@@ -173,7 +252,7 @@ const isEn = document.documentElement.lang === 'en';
 
   // ===== Por qué: el móvil queda fijo y su pantalla cambia con cada paso =====
   // Escritorio: ScrollTrigger activa el paso que llega al centro y el móvil
-  // enseña su pantalla. ≤860px: galería horizontal (CSS) con flechas.
+  // enseña su pantalla. ≤860px: galería automática con puntos.
   (function() {
     var stage = document.querySelector('.reels');
     if (!stage) return;
@@ -183,21 +262,9 @@ const isEn = document.documentElement.lang === 'en';
 
     if (window.matchMedia('(max-width: 860px)').matches) {
       var grid = stage.querySelector('.reels__grid');
-      var prev = stage.querySelector('[data-reels-dir="-1"]');
-      var next = stage.querySelector('[data-reels-dir="1"]');
       var screens = stage.querySelectorAll('.scr');
-      if (grid && prev && next) {
-        var stepW = function() { return (screens[0] ? screens[0].getBoundingClientRect().width : grid.clientWidth * 0.8) + 16; };
-        var syncArrows = function() {
-          prev.disabled = grid.scrollLeft < 4;
-          next.disabled = grid.scrollLeft + grid.clientWidth > grid.scrollWidth - 4;
-        };
-        prev.addEventListener('click', function() { grid.scrollBy({ left: -stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); });
-        next.addEventListener('click', function() { grid.scrollBy({ left: stepW(), behavior: reduceMotion ? 'auto' : 'smooth' }); });
-        grid.addEventListener('scroll', syncArrows, { passive: true });
-        window.addEventListener('resize', syncArrows);
-        syncArrows();
-      }
+      // Galería automática: una pantalla cada pocos segundos, con puntos debajo
+      autoCarousel(grid, { item: '.scr', delay: 6000, dotsIn: stage.querySelector('.reels__nav') });
       // Cada pantalla se reproduce mientras está a la vista en la galería
       screens.forEach(function(sc, idx) {
         var tlm = screenTimeline(sc, idx);
@@ -514,12 +581,13 @@ const isEn = document.documentElement.lang === 'en';
   var activeTl = null;
   var hasStarted = false;
 
-  // El carrusel es de scroll manual con snap (no marquee): al generar la
-  // sesión solo se vuelve al primer ejercicio. Antes se duplicaba la pista
-  // para un bucle que ya no existe y salían las 6 tarjetas dos veces.
+  // El carrusel avanza solo (autoCarousel), sin scroll lateral a mano: al
+  // generar la sesión vuelve al primer ejercicio y arranca desde ahí.
   function restartMarquee(chat) {
     var carousel = chat && chat.querySelector('.demo-carousel');
-    if (carousel) carousel.scrollLeft = 0;
+    if (!carousel) return;
+    // Carrusel automático: avanza una tarjeta cada pocos segundos
+    autoCarousel(carousel, { item: '.demo-ex', delay: 2800 }).reset();
   }
 
   var phrasesByScenario = {

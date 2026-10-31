@@ -1,0 +1,34 @@
+# 2trAIn
+
+> 2trAIn es una app de entrenamiento con IA. Crea tu plan de fuerza, de cardio o para preparar una prueba con fecha (Hyrox, triatlón, 10K, media maratón o maratón), lo reescribe cada semana con lo que entrenas y lo que le cuentas, y explica cada cambio con tus datos. Está en beta abierta: te apuntas con tu email y el acceso llega al momento, sin tarjeta.
+
+2trAIn is an AI training app. It builds your strength, cardio or race-prep plan (Hyrox, triathlon, 10K, half marathon or marathon), rewrites it every week from what you train and what you tell it, and explains every change with your data. Open beta: sign up with your email and get access right away, no card needed.
+
+## Qué la hace distinta
+
+- Decide un motor con periodización y fatiga acumulada; el modelo de lenguaje solo explica la decisión. No es una envoltura de ChatGPT.
+- El plan se construye con tu historial y se reescribe cada semana, no solo la sesión de hoy.
+- Cada cambio de volumen o intensidad llega con su porqué, basado en tus datos.
+- Recuerda tu material, tus lesiones y los ejercicios que vetas.
+- Sustituye ejercicios al momento: sin barras, con una molestia o por aburrimiento, y lo guarda en tu perfil.
+- Aprende a qué ritmo respondes tú al entrenamiento, no la media.
+- Más de 1.600 ejercicios, cada uno con vídeo y ficha técnica.
+- Funciona en casa o en el gimnasio, con el material que tengas. No hace falta reloj.
+
+## Para quién
+
+- Quien quiere ganar fuerza o músculo con un plan que progresa solo.
+- Quien prepara una prueba con fecha: Hyrox, triatlón, 10K, media maratón o maratón.
+- Quien quiere mezclar fuerza y cardio en un mismo plan.
+- Quien vuelve a entrenar o quiere mantener la forma sin quemarse.
+
+## Enlaces
+
+- [Inicio (español)](https://2trainapp.com/): qué es, cómo razona, preguntas frecuentes y acceso a la beta.
+- [Home (English)](https://2trainapp.com/en/): the same page in English.
+- [Soporte](https://2trainapp.com/soporte): ayuda y contacto.
+- [Privacidad](https://2trainapp.com/privacidad) y [términos](https://2trainapp.com/terminos).
+
+## Empresa
+
+2trAIn es un producto de LMGINC SL (CIF B93905438), Calle Lagasca 95, 28001 Madrid (España). Contacto: contact@2trainapp.com. Instagram: https://www.instagram.com/2trainapp/

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="color-scheme" content="only light" />
 <meta name="theme-color" content="#FFFFFF" />
-<title>2trAIn · The AI coach that remembers you</title>
-<meta name="description" content="Strength, cardio or a race with a date (Hyrox, triathlon…). What you train and what you tell it rewrite next week, not just today. Open beta: access arrives by email." />
+<title>2trAIn · AI training app for strength, cardio and Hyrox</title>
+<meta name="description" content="AI training app: your strength, cardio, Hyrox, triathlon or 10K plan adapts every week and explains every change with your data. Open beta." />
 <link rel="canonical" href="https://2trainapp.com/en/" />
 <link rel="alternate" hreflang="es" href="https://2trainapp.com/">
 <link rel="alternate" hreflang="en" href="https://2trainapp.com/en/">
@@ -37,29 +37,188 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro5">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro7">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro5" defer></script>
+<script src="/app.js?v=claro7" defer></script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
-    { "@type": "Organization", "@id": "https://2trainapp.com/#organization", "name": "2trAIn", "legalName": "LMGINC SL", "taxID": "B93905438", "url": "https://2trainapp.com/", "logo": "https://2trainapp.com/og-image.png", "email": "contact@2trainapp.com", "address": { "@type": "PostalAddress", "streetAddress": "Calle Lagasca 95", "postalCode": "28001", "addressLocality": "Madrid", "addressCountry": "ES" }, "sameAs": ["https://www.instagram.com/2trainapp/"] },
-    { "@type": "WebSite", "@id": "https://2trainapp.com/en/#website", "name": "2trAIn", "url": "https://2trainapp.com/en/", "inLanguage": "en", "publisher": { "@id": "https://2trainapp.com/#organization" } },
-    { "@type": "SoftwareApplication", "name": "2trAIn", "applicationCategory": "HealthApplication", "operatingSystem": "iOS, Android", "description": "AI coach for strength, cardio and race prep. The plan is built from your history and rebuilt every week from what you train, choose and tell it.", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" } },
-    { "@type": "FAQPage", "mainEntity": [
-      { "@type": "Question", "name": "Do I need a watch or special gear?", "acceptedAnswer": { "@type": "Answer", "text": "No. Just your phone. If you have dumbbells, barbells or machines, great — it uses them. If you only have your bodyweight, it works too. The plan adapts to exactly what you have." } },
-      { "@type": "Question", "name": "Does it work if I train at home / without a gym?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. When you set up your profile you tell it what equipment you have and whether you train at home or at the gym. The plan is built with exactly what you have, no exercises you can't do." } },
-      { "@type": "Question", "name": "Does it work for Hyrox, triathlon or running races?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You pick the event and date, and it builds a plan toward that day: specific strength, cardio and the stations or disciplines you need, periodised to the event." } },
-      { "@type": "Question", "name": "Can I mix strength and cardio?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The plan combines both according to your goal. Not separate apps: same AI, same history, same explanations." } },
-      { "@type": "Question", "name": "Is it only for the gym?", "acceptedAnswer": { "@type": "Answer", "text": "No. It covers strength, cardio and race prep. The gym is one setting; the product is the coach that reasons your full training." } },
-      { "@type": "Question", "name": "When do I get access?", "acceptedAnswer": { "@type": "Answer", "text": "Right away. Sign up with your email and your access arrives by email, no card needed." } },
-      { "@type": "Question", "name": "Is my data safe?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your logs are yours. If at some point we use data to improve the model, it will be aggregated and anonymized — and we'll let you know first. You can say no." } },
-      { "@type": "Question", "name": "What happens when the beta ends?", "acceptedAnswer": { "@type": "Answer", "text": "Users who took part in the beta get exclusive perks for having been there from the start." } },
-      { "@type": "Question", "name": "Is it just another ChatGPT wrapper?", "acceptedAnswer": { "@type": "Answer", "text": "You have to feed a chat the context every time: it doesn't know what you trained yesterday, it doesn't log your sessions, it doesn't show you what each exercise looks like, and it isn't grounded in periodisation or real fatigue. Here you don't supply the context: the plan is built from your history, every exercise comes with its card and its prescription, and what decides is an engine with periodisation and accumulated fatigue. The model only explains it." } }
-    ] }
-  ]
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://2trainapp.com/#organization",
+   "name": "2trAIn",
+   "alternateName": [
+    "2train",
+    "2Train",
+    "2trAIn app"
+   ],
+   "legalName": "LMGINC SL",
+   "taxID": "B93905438",
+   "url": "https://2trainapp.com/",
+   "logo": "https://2trainapp.com/android-chrome-512x512.png",
+   "description": "LMGINC SL builds 2trAIn, an AI training app made in Madrid.",
+   "email": "contact@2trainapp.com",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle Lagasca 95",
+    "postalCode": "28001",
+    "addressLocality": "Madrid",
+    "addressCountry": "ES"
+   },
+   "sameAs": [
+    "https://www.instagram.com/2trainapp/"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://2trainapp.com/en/#website",
+   "name": "2trAIn",
+   "url": "https://2trainapp.com/en/",
+   "inLanguage": "en",
+   "publisher": {
+    "@id": "https://2trainapp.com/#organization"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://2trainapp.com/en/#webpage",
+   "url": "https://2trainapp.com/en/",
+   "name": "2trAIn · AI training app for strength, cardio and Hyrox",
+   "inLanguage": "en",
+   "isPartOf": {
+    "@id": "https://2trainapp.com/en/#website"
+   },
+   "about": {
+    "@id": "https://2trainapp.com/#app"
+   },
+   "primaryImageOfPage": "https://2trainapp.com/og-image.png"
+  },
+  {
+   "@type": "MobileApplication",
+   "@id": "https://2trainapp.com/#app",
+   "name": "2trAIn",
+   "alternateName": "2train",
+   "url": "https://2trainapp.com/en/",
+   "applicationCategory": "HealthApplication",
+   "applicationSubCategory": "AI personal training",
+   "operatingSystem": "iOS, Android",
+   "inLanguage": [
+    "es",
+    "en"
+   ],
+   "description": "AI training app for strength, cardio and race prep (Hyrox, triathlon, 10K, half marathon and marathon). It builds the plan from your history, rewrites it every week from what you train, choose and tell it, and explains every change with your data.",
+   "featureList": [
+    "Strength, cardio or race-prep plans toward a date (Hyrox, triathlon, 10K, half marathon, marathon)",
+    "The plan is rewritten every week from what you train and what you tell it",
+    "Every change in volume or intensity comes explained with your data",
+    "A periodisation and accumulated-fatigue engine decides; the language model only explains",
+    "Remembers your equipment, your injuries and the exercises you veto",
+    "Instant substitutions: no barbell, a niggle or boredom",
+    "Learns how fast you respond, not the average",
+    "1,600+ exercises, each with video and a technique card",
+    "Works at home or in the gym, with whatever equipment you have"
+   ],
+   "isAccessibleForFree": true,
+   "image": "https://2trainapp.com/og-image.png",
+   "publisher": {
+    "@id": "https://2trainapp.com/#organization"
+   },
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "category": "beta"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://2trainapp.com/en/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is 2trAIn?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "2trAIn is an AI training app. It builds your strength, cardio or race-prep plan (Hyrox, triathlon, 10K, half marathon or marathon) and adjusts it every week based on what you train and what you tell it. Every change comes explained with your data."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need a watch or special gear?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Just your phone. If you have dumbbells, barbells or machines, great — it uses them. If you only have your bodyweight, it works too. The plan adapts to exactly what you have."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it work if I train at home / without a gym?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. When you set up your profile you tell it what equipment you have and whether you train at home or at the gym. The plan is built with exactly what you have, no exercises you can't do."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does it work for Hyrox, triathlon or running races?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. You pick the event (Hyrox, triathlon, 10K, half marathon or marathon) and the date, and it builds a plan toward that day: specific strength, cardio and the stations or disciplines you need, periodised to the event."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I mix strength and cardio?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The plan combines both according to your goal. Not separate apps: same AI, same history, same explanations."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it only for the gym?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. It covers strength, cardio and race prep. The gym is one setting; the product is the coach that reasons your full training."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "When do I get access?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Right away. Sign up with your email and your access arrives by email, no card needed."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is my data safe?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Your logs are yours. If at some point we use data to improve the model, it will be aggregated and anonymized — and we'll let you know first. You can say no."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens when the beta ends?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Users who took part in the beta get exclusive perks for having been there from the start."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it just another ChatGPT wrapper?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You have to feed a chat the context every time: it doesn't know what you trained yesterday, it doesn't log your sessions, it doesn't show you what each exercise looks like, and it isn't grounded in periodisation or real fatigue. Here you don't supply the context: the plan is built from your history, every exercise comes with its card and its prescription, and what decides is an engine with periodisation and accumulated fatigue. The model only explains it."
+     }
+    }
+   ]
+  }
+ ]
 }
 </script>
 </head>
@@ -106,7 +265,7 @@
 <section id="hero" class="hero">
   <div class="max-w-page pad-x hero__grid">
     <div class="hero__copy">
-      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Open beta</p>
+      <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span>AI training coach · Open beta</p>
       <h1 id="hero-headline" class="t-hero hero__title">Your plan remembers <span class="accent">you.</span></h1>
       <p id="hero-sub" class="hero__sub">Strength, cardio or a race with a date. Every session you log, every limit you set and what it learns about your pace rewrite next week.</p>
 
@@ -180,10 +339,10 @@
 
       <div class="goals__panel" id="g-panel" role="tabpanel" aria-labelledby="g-tab-fuerza" aria-live="polite" data-anim>
         <div class="goals__photo" aria-hidden="true">
-          <img data-photo="fuerza" src="/assets/fotos/obj-fuerza-1000.webp" srcset="/assets/fotos/obj-fuerza-1000.webp 1000w, /assets/fotos/obj-fuerza-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 45% 50%">
-          <img data-photo="cardio" src="/assets/fotos/obj-cardio-1000.webp" srcset="/assets/fotos/obj-cardio-1000.webp 1000w, /assets/fotos/obj-cardio-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1331" loading="lazy" decoding="async" style="--pos: 62% 30%" hidden>
+          <img data-photo="fuerza" src="/assets/fotos/obj-fuerza-1000.webp" srcset="/assets/fotos/obj-fuerza-1000.webp 1000w, /assets/fotos/obj-fuerza-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1335" loading="lazy" decoding="async" style="--pos: 50% 35%">
+          <img data-photo="cardio" src="/assets/fotos/obj-cardio-1000.webp" srcset="/assets/fotos/obj-cardio-1000.webp 1000w, /assets/fotos/obj-cardio-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1333" loading="lazy" decoding="async" style="--pos: 63% 55%" hidden>
           <img data-photo="prueba" src="/assets/fotos/obj-prueba-1000.webp" srcset="/assets/fotos/obj-prueba-1000.webp 1000w, /assets/fotos/obj-prueba-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1500" loading="lazy" decoding="async" style="--pos: 50% 60%" hidden>
-          <img data-photo="mantener" src="/assets/fotos/obj-mantener-1000.webp" srcset="/assets/fotos/obj-mantener-1000.webp 1000w, /assets/fotos/obj-mantener-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 56% 60%" hidden>
+          <img data-photo="mantener" src="/assets/fotos/obj-mantener-1000.webp" srcset="/assets/fotos/obj-mantener-1000.webp 1000w, /assets/fotos/obj-mantener-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1336" loading="lazy" decoding="async" style="--pos: 74% 58%" hidden>
         </div>
         <div class="goals__copy">
           <p class="goals__k">Indicative plan</p>
@@ -293,8 +452,6 @@
       </div>
     </div>
     <div class="reels__nav">
-      <button type="button" class="circ" data-reels-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button type="button" class="circ" data-reels-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
 
     <div class="why-cta" data-reveal>
@@ -536,25 +693,25 @@
 <!-- Thread -->
 <div class="bridge" aria-hidden="false">
   <span class="bridge__line"></span><span class="bridge__dot"></span>
-  <p class="bridge__t">Behind it, <b>a real catalogue.</b></p>
+  <p class="bridge__t">And what <b>sets it apart.</b></p>
 </div>
 
-<!-- IN NUMBERS · only numbers that exist -->
+<!-- WHAT SETS IT APART · only things the app really does -->
 <section class="sec sec--nums" aria-labelledby="cifras-t">
   <div class="max-w-page pad-x">
-    <h2 id="cifras-t" class="vh">In numbers</h2>
+    <h2 id="cifras-t" class="vh">What makes 2trAIn different</h2>
     <div class="bubbles" data-anim>
-      <div class="bb bb--xl" style="--x:47%;--y:47%;--mx:50%;--my:38%;--d:-1s;--i:0"><b class="stat-num">1,600+</b><span>exercises, each with its video and its card</span></div>
-      <div class="bb bb--md" style="--x:22%;--y:56%;--mx:28%;--my:69%;--d:-3s;--i:1"><b class="stat-num">4</b><span>goals, one coach</span></div>
-      <div class="bb bb--md bb--soft" style="--x:74%;--y:60%;--mx:72%;--my:72%;--d:-2s;--i:2"><b class="stat-num">3</b><span>ways to make the plan yours</span></div>
-      <span class="bb bb--img" style="--x:12%;--y:22%;--s:108px;--mx:14%;--my:9%;--ms:76px;--d:0s;--i:3"><img src="/assets/ej/sentadilla-barra-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:30%;--y:84%;--s:92px;--mx:22%;--my:93%;--ms:70px;--d:-2s;--i:4"><img src="/assets/ej/empuje-trineo-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:6%;--y:62%;--s:74px;--mx:6%;--my:52%;--ms:58px;--d:-4s;--i:5"><img src="/assets/ej/plancha-lateral-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:72%;--y:12%;--s:84px;--mx:86%;--my:24%;--ms:64px;--d:-1s;--i:6"><img src="/assets/ej/swing-kettlebell-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:93%;--y:40%;--s:100px;--mx:90%;--my:58%;--ms:70px;--d:-3s;--i:7"><img src="/assets/ej/dominada-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:88%;--y:86%;--s:78px;--mx:74%;--my:95%;--ms:60px;--d:-5s;--i:8"><img src="/assets/ej/ski-erg-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:58%;--y:93%;--s:66px;--mx:50%;--my:82%;--ms:54px;--d:-2.5s;--i:9"><img src="/assets/ej/peso-muerto-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
-      <span class="bb bb--img" style="--x:40%;--y:8%;--s:70px;--mx:46%;--my:4%;--ms:56px;--d:-1.5s;--i:10"><img src="/assets/ej/hip-thrust-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <div class="bb bb--xl" style="--x:50%;--y:50%;--mx:50%;--my:42%;--d:-1s;--i:0"><b class="stat-num">1,600+</b><span>exercises, each with its video and its card</span></div>
+      <div class="bb bb--md bb--claim" style="--x:20%;--y:26%;--mx:27%;--my:12%;--d:-3s;--i:1"><b>Every week</b><span>a new plan, rewritten from what you train</span></div>
+      <div class="bb bb--md bb--claim bb--soft" style="--x:80%;--y:26%;--mx:73%;--my:15%;--d:-2s;--i:2"><b>With its why</b><span>every change, explained with your data</span></div>
+      <div class="bb bb--md bb--claim bb--soft" style="--x:22%;--y:76%;--mx:27%;--my:75%;--d:-4s;--i:3"><b>Not a chatbot</b><span>a periodisation and fatigue engine decides</span></div>
+      <div class="bb bb--md bb--claim" style="--x:78%;--y:76%;--mx:73%;--my:72%;--d:-1.5s;--i:4"><b>Remembers you</b><span>injuries, kit and vetoes, no need to repeat</span></div>
+      <span class="bb bb--img" style="--x:6%;--y:54%;--s:80px;--mx:8%;--my:30%;--ms:50px;--d:0s;--i:5"><img src="/assets/ej/sentadilla-barra-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <span class="bb bb--img" style="--x:93%;--y:50%;--s:88px;--mx:92%;--my:58%;--ms:50px;--d:-3s;--i:6"><img src="/assets/ej/dominada-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <span class="bb bb--img" style="--x:50%;--y:8%;--s:72px;--mx:50%;--my:89%;--ms:58px;--d:-5s;--i:7"><img src="/assets/ej/ski-erg-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <span class="bb bb--img" style="--x:35%;--y:10%;--s:70px;--mx:14%;--my:95%;--ms:54px;--d:-2s;--i:8"><img src="/assets/ej/empuje-trineo-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <span class="bb bb--img" style="--x:64%;--y:92%;--s:70px;--mx:86%;--my:95%;--ms:54px;--d:-1s;--i:9"><img src="/assets/ej/swing-kettlebell-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
+      <span class="bb bb--img bb--wide" style="--x:50%;--y:92%;--s:66px;--mx:50%;--my:92%;--ms:54px;--d:-2.5s;--i:10"><img src="/assets/ej/peso-muerto-sq.jpg" alt="" width="240" height="240" loading="lazy" decoding="async"></span>
     </div>
   </div>
 </section>
@@ -732,6 +889,10 @@
           <button type="button" class="faq-chip" data-filter="producto">Product</button>
         </div>
         <div class="faq-list">
+          <div class="faq-item" data-cat="producto">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-10"><span>What is 2trAIn?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div id="faq-a-10" class="faq-a"><div class="faq-a-inner">2trAIn is an AI training app. It builds your strength, cardio or race-prep plan (Hyrox, triathlon, 10K, half marathon or marathon) and adjusts it every week based on what you train and what you tell it. Every change comes explained with your data.</div></div>
+          </div>
           <div class="faq-item" data-cat="uso">
             <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-1"><span>Do I need a watch or special gear?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
             <div id="faq-a-1" class="faq-a"><div class="faq-a-inner">No. Just your phone. If you have dumbbells, barbells or machines, great — it uses them. If you only have your bodyweight, it works too. The plan adapts to exactly what you have.</div></div>
@@ -742,7 +903,7 @@
           </div>
           <div class="faq-item" data-cat="uso">
             <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-7"><span>Does it work for Hyrox, triathlon or running races?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-            <div id="faq-a-7" class="faq-a"><div class="faq-a-inner">Yes. You pick the event and date, and it builds a plan toward that day: specific strength, cardio and the stations or disciplines you need, periodised to the event.</div></div>
+            <div id="faq-a-7" class="faq-a"><div class="faq-a-inner">Yes. You pick the event (Hyrox, triathlon, 10K, half marathon or marathon) and the date, and it builds a plan toward that day: specific strength, cardio and the stations or disciplines you need, periodised to the event.</div></div>
           </div>
           <div class="faq-item" data-cat="uso">
             <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-a-8"><span>Can I mix strength and cardio?</span><svg class="ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-8-8h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -776,7 +937,7 @@
 
 <!-- Foto ancha: una pausa antes de entrar -->
 <div class="band" aria-hidden="true">
-  <img src="/assets/fotos/banda-correr-1600.webp" srcset="/assets/fotos/banda-correr-1600.webp 1600w, /assets/fotos/banda-correr-3200.webp 3200w" sizes="100vw" alt="" width="3200" height="2000" loading="lazy" decoding="async">
+  <img src="/assets/fotos/banda-correr-1600.webp" srcset="/assets/fotos/banda-correr-1600.webp 1600w, /assets/fotos/banda-correr-3200.webp 3200w" sizes="100vw" alt="" width="3200" height="2136" loading="lazy" decoding="async">
 </div>
 
 <!-- Thread -->
