@@ -261,10 +261,11 @@ fijo) → demo → cifras → ¿aún no convencido? → FAQ → foto ancha → b
   primero y el móvil debajo. El móvil nunca se recorta ni entra con fundido.
 - **Objetivos:** selector segmentado de cuatro opciones y un único panel con el
   plan orientativo en letra grande y su gráfica (carga semanal, tiempo por
-  zona, fases hasta la fecha, constancia), que se redibuja al cambiar. Arriba,
-  una foto real de esa meta de borde a borde del panel; debajo,
-  tres ejercicios del catálogo típicos de esa meta: tarjetas en escritorio y
-  filas tipo app en móvil.
+  zona, fases hasta la fecha, constancia), que se redibuja al cambiar. En
+  escritorio, la foto real de esa meta ocupa la mitad izquierda del panel de
+  borde a borde, y el plan y la gráfica van a la derecha; en móvil, la foto va
+  arriba. Título, pestañas y panel caben juntos en un portátil de 1440×790, y
+  el panel no cambia de alto al cambiar de pestaña.
 - **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
   cada paso. Las tres pantallas son HTML con barra de pestañas y cada una es un
   pequeño vídeo en bucle (GSAP). En ≤860px, galería horizontal con flechas.
@@ -328,7 +329,8 @@ su fondo gris muy claro quede en blanco. Los nombres son los del catálogo. En p
 ### Fotos
 Fotos reales, luminosas y con luz natural, sin logos ni marcas a la vista y
 sin texto encima. Van como bloques propios, nunca de fondo detrás del texto.
-WebP en `assets/fotos/` en dos tamaños con `srcset`. Licencias de Unsplash
+WebP en `assets/fotos/` en dos tamaños con `srcset`, con resolución de sobra
+para pantallas Retina (el `sizes` cuenta con el recorte de `object-fit: cover`). Licencias de Unsplash
 (uso comercial gratis, sin atribución obligatoria; no dar a entender que las
 personas recomiendan 2trAIn):
 - Foto ancha: corredor en la niebla, Lucas Canino (unsplash.com/photos/MFCzJQoFXzc).

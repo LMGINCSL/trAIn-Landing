@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro4">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro5">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro4" defer></script>
+<script src="/app.js?v=claro5" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -172,23 +172,22 @@
 
     <div class="goals" data-reveal>
       <div class="goals__tabs" role="tablist" aria-label="Goal">
-        <button type="button" role="tab" id="g-tab-fuerza" class="goal-opt" data-goal="fuerza" data-desc="Hypertrophy or strength. Weekly progression with the gear you have." aria-selected="true" aria-controls="g-panel">Strength</button>
-        <button type="button" role="tab" id="g-tab-cardio" class="goal-opt" data-goal="cardio" data-desc="Conditioning, Zone 2 and aerobic capacity without losing structure." aria-selected="false" aria-controls="g-panel" tabindex="-1">Cardio</button>
-        <button type="button" role="tab" id="g-tab-prueba" class="goal-opt" data-goal="prueba" data-desc="Hyrox, triathlon, 10K… periodisation toward your date." aria-selected="false" aria-controls="g-panel" tabindex="-1">Race</button>
-        <button type="button" role="tab" id="g-tab-mantener" class="goal-opt" data-goal="mantener" data-desc="Ease back in or stay in shape without burning out." aria-selected="false" aria-controls="g-panel" tabindex="-1">Maintain</button>
+        <button type="button" role="tab" id="g-tab-fuerza" class="goal-opt" data-goal="fuerza" aria-selected="true" aria-controls="g-panel">Strength</button>
+        <button type="button" role="tab" id="g-tab-cardio" class="goal-opt" data-goal="cardio" aria-selected="false" aria-controls="g-panel" tabindex="-1">Cardio</button>
+        <button type="button" role="tab" id="g-tab-prueba" class="goal-opt" data-goal="prueba" aria-selected="false" aria-controls="g-panel" tabindex="-1">Race</button>
+        <button type="button" role="tab" id="g-tab-mantener" class="goal-opt" data-goal="mantener" aria-selected="false" aria-controls="g-panel" tabindex="-1">Maintain</button>
       </div>
 
       <div class="goals__panel" id="g-panel" role="tabpanel" aria-labelledby="g-tab-fuerza" aria-live="polite" data-anim>
         <div class="goals__photo" aria-hidden="true">
-          <img data-photo="fuerza" src="/assets/fotos/obj-fuerza-1000.webp" srcset="/assets/fotos/obj-fuerza-1000.webp 1000w, /assets/fotos/obj-fuerza-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 40% 30%">
-          <img data-photo="cardio" src="/assets/fotos/obj-cardio-1000.webp" srcset="/assets/fotos/obj-cardio-1000.webp 1000w, /assets/fotos/obj-cardio-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1331" loading="lazy" decoding="async" style="--pos: 60% 8%" hidden>
-          <img data-photo="prueba" src="/assets/fotos/obj-prueba-1000.webp" srcset="/assets/fotos/obj-prueba-1000.webp 1000w, /assets/fotos/obj-prueba-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1500" loading="lazy" decoding="async" style="--pos: 50% 62%" hidden>
-          <img data-photo="mantener" src="/assets/fotos/obj-mantener-1000.webp" srcset="/assets/fotos/obj-mantener-1000.webp 1000w, /assets/fotos/obj-mantener-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 50% 66%" hidden>
+          <img data-photo="fuerza" src="/assets/fotos/obj-fuerza-1000.webp" srcset="/assets/fotos/obj-fuerza-1000.webp 1000w, /assets/fotos/obj-fuerza-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 45% 50%">
+          <img data-photo="cardio" src="/assets/fotos/obj-cardio-1000.webp" srcset="/assets/fotos/obj-cardio-1000.webp 1000w, /assets/fotos/obj-cardio-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1331" loading="lazy" decoding="async" style="--pos: 62% 30%" hidden>
+          <img data-photo="prueba" src="/assets/fotos/obj-prueba-1000.webp" srcset="/assets/fotos/obj-prueba-1000.webp 1000w, /assets/fotos/obj-prueba-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1500" loading="lazy" decoding="async" style="--pos: 50% 60%" hidden>
+          <img data-photo="mantener" src="/assets/fotos/obj-mantener-1000.webp" srcset="/assets/fotos/obj-mantener-1000.webp 1000w, /assets/fotos/obj-mantener-2000.webp 2000w" sizes="(min-width: 861px) 780px, 100vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 56% 60%" hidden>
         </div>
         <div class="goals__copy">
           <p class="goals__k">Indicative plan</p>
           <p class="goals__t" id="goals-preview-text">Push, pull and leg blocks with weekly load progression. Every change in volume or intensity, <strong>explained with your data</strong>.</p>
-          <p class="goals__d" id="goals-desc">Hypertrophy or strength. Weekly progression with the gear you have.</p>
         </div>
         <div class="goals__viz" aria-hidden="true">
           <span class="viz" data-viz="fuerza"><span class="viz__bars"><i style="--h:34%;--i:0"></i><i style="--h:42%;--i:1"></i><i style="--h:50%;--i:2"></i><i style="--h:58%;--i:3"></i><i class="is-deload" style="--h:36%;--i:4"></i><i style="--h:56%;--i:5"></i><i style="--h:65%;--i:6"></i><i style="--h:76%;--i:7"></i></span><span class="viz__cap">Load per week, with its deload</span></span>
@@ -196,26 +195,6 @@
           <span class="viz" data-viz="prueba" hidden><span class="viz__plan"><span class="viz__now">Today</span><span class="viz__track"><i style="--w:45%;--i:0"></i><i style="--w:35%;--i:1"></i><i style="--w:20%;--i:2"></i></span><span class="viz__phases"><b style="--w:45%">Base</b><b style="--w:35%">Build</b><b style="--w:20%">Taper</b></span><span class="viz__flag"><svg viewBox="0 0 24 24" fill="none"><path d="M5 21V4m0 0h11l-2 4 2 4H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Race day</span></span><span class="viz__cap">Periodised toward race day</span></span>
           <span class="viz" data-viz="mantener" hidden><span class="viz__dots"><span class="dots__h"><b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b></span><span class="dots__r"><i class="on" style="--i:0"></i><i style="--i:1"></i><i class="on" style="--i:2"></i><i style="--i:3"></i><i class="on" style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i></span><span class="dots__r"><i class="on" style="--i:7"></i><i style="--i:8"></i><i class="on" style="--i:9"></i><i style="--i:10"></i><i class="on" style="--i:11"></i><i style="--i:12"></i><i style="--i:13"></i></span><span class="dots__r"><i class="on" style="--i:14"></i><i style="--i:15"></i><i style="--i:16"></i><i class="on" style="--i:17"></i><i style="--i:18"></i><i class="on" style="--i:19"></i><i style="--i:20"></i></span><span class="dots__r"><i class="on" style="--i:21"></i><i style="--i:22"></i><i class="on" style="--i:23"></i><i style="--i:24"></i><i class="on" style="--i:25"></i><i style="--i:26"></i><i style="--i:27"></i></span></span><span class="viz__cap">Consistency you can keep</span></span>
         </div>
-        <ul class="goals__ex" data-ex="fuerza">
-          <li style="--i:0"><img src="/assets/ej/sentadilla-barra.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Barbell full squat</b><span>4×6 · heavy</span></li>
-          <li style="--i:1"><img src="/assets/ej/peso-muerto.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Barbell deadlift</b><span>3×5 · clean technique</span></li>
-          <li style="--i:2"><img src="/assets/ej/dominada.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Wide-grip pull-up</b><span>4×8 · pull</span></li>
-        </ul>
-        <ul class="goals__ex" data-ex="cardio" hidden>
-          <li style="--i:0"><img src="/assets/ej/remoergometro.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Rowing machine, steady pace</b><span>20 min · Zone 2</span></li>
-          <li style="--i:1"><img src="/assets/ej/trote-cinta.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Treadmill jog</b><span>30 min · Zone 2</span></li>
-          <li style="--i:2"><img src="/assets/ej/swing-kettlebell.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Kettlebell swing</b><span>5×15 · intervals</span></li>
-        </ul>
-        <ul class="goals__ex" data-ex="prueba" hidden>
-          <li style="--i:0"><img src="/assets/ej/empuje-trineo.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Sled push</b><span>6×20 m · moderate load</span></li>
-          <li style="--i:1"><img src="/assets/ej/paseo-granjero.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Dumbbell farmer walk</b><span>5×40 m · strong grip</span></li>
-          <li style="--i:2"><img src="/assets/ej/sentadilla-balon.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Med ball front squat</b><span>4×15 · 6/9 kg</span></li>
-        </ul>
-        <ul class="goals__ex" data-ex="mantener" hidden>
-          <li style="--i:0"><img src="/assets/ej/zancada-mancuernas.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Dumbbell alternating lunge</b><span>3×10 · per leg</span></li>
-          <li style="--i:1"><img src="/assets/ej/hip-thrust.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Barbell hip thrust</b><span>3×10 · controlled</span></li>
-          <li style="--i:2"><img src="/assets/ej/plancha-lateral.jpg" alt="" width="640" height="360" loading="lazy" decoding="async"><b>Side plank</b><span>3×30 s · per side</span></li>
-        </ul>
       </div>
     </div>
   </div>
@@ -797,7 +776,7 @@
 
 <!-- Foto ancha: una pausa antes de entrar -->
 <div class="band" aria-hidden="true">
-  <img src="/assets/fotos/banda-correr-1280.webp" srcset="/assets/fotos/banda-correr-1280.webp 1280w, /assets/fotos/banda-correr-2400.webp 2400w" sizes="100vw" alt="" width="2400" height="1500" loading="lazy" decoding="async">
+  <img src="/assets/fotos/banda-correr-1600.webp" srcset="/assets/fotos/banda-correr-1600.webp 1600w, /assets/fotos/banda-correr-3200.webp 3200w" sizes="100vw" alt="" width="3200" height="2000" loading="lazy" decoding="async">
 </div>
 
 <!-- Thread -->

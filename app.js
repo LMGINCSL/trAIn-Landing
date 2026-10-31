@@ -116,7 +116,7 @@ const isEn = document.documentElement.lang === 'en';
     });
     // Foto ancha: se acerca un poco mientras cruza la pantalla.
     gsap.utils.toArray('.band img').forEach(function(img) {
-      gsap.fromTo(img, { scale: 1.12 }, { scale: 1, ease: 'none',
+      gsap.fromTo(img, { scale: 1.06 }, { scale: 1, ease: 'none',
         scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
   }
@@ -450,9 +450,7 @@ const isEn = document.documentElement.lang === 'en';
   var bar = section.querySelector('.goals__tabs');
   var panel = section.querySelector('.goals__panel');
   var textEl = section.querySelector('#goals-preview-text');
-  var descEl = section.querySelector('#goals-desc');
   var vizzes = section.querySelectorAll('[data-viz]');
-  var exs = section.querySelectorAll('[data-ex]');
   var photos = section.querySelectorAll('[data-photo]');
   if (!tabs.length || !textEl || !panel) return;
 
@@ -481,9 +479,7 @@ const isEn = document.documentElement.lang === 'en';
     if (bar) bar.style.setProperty('--i', i);
     panel.setAttribute('aria-labelledby', btn.id);
     textEl.innerHTML = copy[key];
-    if (descEl) descEl.textContent = btn.getAttribute('data-desc') || '';
     vizzes.forEach(function(v) { v.hidden = v.getAttribute('data-viz') !== key; });
-    exs.forEach(function(x) { x.hidden = x.getAttribute('data-ex') !== key; });
     photos.forEach(function(p) { p.hidden = p.getAttribute('data-photo') !== key; });
     // Vuelve a dibujar la gráfica: se quita el estado final sin transición y
     // se repone en el siguiente fotograma.

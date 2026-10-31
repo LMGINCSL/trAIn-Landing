@@ -344,27 +344,29 @@ img, video { max-width: 100%; }
 
 /* ── Objetivos: un selector claro y un panel grande con el plan y su gráfica ── */
 #objetivos { scroll-margin-top: 72px; }
-.goals { display: grid; justify-items: center; gap: 28px; }
+#objetivos .sec-head { gap: 10px; margin-bottom: 24px; }
+.goals { display: grid; justify-items: center; gap: 22px; }
 .goals__tabs { --i: 0; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: min(560px, 100%); padding: 4px; border-radius: var(--r-pill); background: var(--control); }
 .goals__tabs::before { content: ''; position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 4); border-radius: var(--r-pill); background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 6px 14px -6px rgba(0, 0, 0, 0.2); transform: translateX(calc(var(--i) * 100%)); transition: transform .4s var(--ease); }
 .goals__tabs .goal-opt { position: relative; z-index: 1; padding: 11px 6px; border: 0; border-radius: var(--r-pill); background: none; font-family: inherit; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #515154; cursor: pointer; transition: color .25s; }
 .goals__tabs .goal-opt[aria-selected="true"] { color: var(--fg); }
-.goals__panel { --pp: clamp(26px, 4.5vw, 56px); --pr: 32px; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3vw, 36px) clamp(28px, 5vw, 64px); padding: var(--pp); border-radius: var(--pr); background: var(--surface); }
-/* La foto de cada meta ocupa la parte de arriba del panel, de borde a borde */
-.goals__photo { grid-column: 1 / -1; position: relative; aspect-ratio: 21 / 8; margin: calc(var(--pp) * -1) calc(var(--pp) * -1) 0; border-radius: var(--pr) var(--pr) 0 0; overflow: hidden; background: var(--control); }
+.goals__panel { --pp: clamp(26px, 3vw, 40px); --pr: 32px; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "photo copy" "photo viz"; gap: 22px clamp(28px, 4vw, 52px); padding: var(--pp); border-radius: var(--pr); background: var(--surface); }
+/* La foto de cada meta ocupa la mitad izquierda del panel, de borde a borde */
+.goals__photo { grid-area: photo; position: relative; min-height: 340px; margin: calc(var(--pp) * -1) 0 calc(var(--pp) * -1) calc(var(--pp) * -1); border-radius: var(--pr) 0 0 var(--pr); overflow: hidden; background: var(--control); }
+.goals__copy { grid-area: copy; align-self: end; }
+@media (min-width: 861px) { .goals__panel { min-height: 460px; } }
 .goals__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transition: opacity .7s var(--ease), transform 1.4s var(--ease); }
 .goals__photo img[hidden] { display: none; }
 .js .goals__panel:not(.is-in) .goals__photo img { opacity: 0; transform: scale(1.05); }
 .goals__k { margin: 0; font-size: 15px; font-weight: 600; color: var(--accent-text); }
-.goals__t { margin: 10px 0 0; font-size: clamp(24px, 2.8vw, 34px); font-weight: 600; letter-spacing: -0.024em; line-height: 1.2; color: var(--fg); text-wrap: pretty; }
+.goals__t { margin: 10px 0 0; font-size: clamp(22px, 1.9vw, 26px); font-weight: 600; letter-spacing: -0.024em; line-height: 1.2; color: var(--fg); text-wrap: pretty; }
 .goals__t strong { font-weight: 600; color: var(--accent-text); }
-.goals__d { margin: 16px 0 0; font-size: 17px; line-height: 1.45; color: var(--muted); }
-.goals__viz { display: grid; min-height: 270px; align-content: end; padding: 28px; border-radius: 24px; background: #fff; }
+.goals__viz { grid-area: viz; align-self: start; display: grid; align-content: end; height: 200px; padding: 20px 24px; border-radius: 22px; background: #fff; }
 .viz { display: grid; gap: 14px; }
 .viz[hidden] { display: none; }
 .viz__cap { font-size: 14px; color: var(--muted); }
 /* Fuerza: carga por semana, con la descarga en tono claro */
-.viz__bars { height: 170px; display: flex; align-items: flex-end; gap: 10px; border-bottom: 1px solid var(--line); }
+.viz__bars { height: 120px; display: flex; align-items: flex-end; gap: 10px; border-bottom: 1px solid var(--line); }
 .viz__bars i { flex: 1; height: var(--h); border-radius: 8px 8px 2px 2px; background: var(--accent); transform-origin: bottom; transition: transform .8s var(--ease); transition-delay: calc(var(--i) * 70ms); }
 .viz__bars i.is-deload { background: #B7CFF3; }
 /* Cardio: tiempo por zona, la base en Zona 2 */
@@ -388,25 +390,10 @@ img, video { max-width: 100%; }
 .viz__flag svg { width: 16px; height: 16px; }
 /* Mantener: constancia semana a semana */
 .viz__dots { display: grid; gap: 9px; width: max-content; }
-.viz__dots span { display: grid; grid-template-columns: repeat(7, 24px); gap: 10px; }
+.viz__dots span { display: grid; grid-template-columns: repeat(7, 20px); gap: 8px; }
 .dots__h b { font-size: 12px; font-weight: 600; color: var(--muted); text-align: center; }
-.viz__dots i { width: 24px; height: 24px; border-radius: 50%; background: var(--control); transition: transform .4s var(--ease); transition-delay: calc(var(--i) * 18ms); }
+.viz__dots i { width: 20px; height: 20px; border-radius: 50%; background: var(--control); transition: transform .4s var(--ease); transition-delay: calc(var(--i) * 18ms); }
 .viz__dots i.on { background: var(--accent); }
-/* Tres ejercicios del catálogo típicos de cada meta (cambian con la pestaña) */
-.goals__ex { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.goals__ex[hidden] { display: none; }
-.goals__ex li { display: grid; align-content: start; gap: 3px; padding: 8px 8px 16px; border-radius: 22px; background: #fff; transition: opacity .5s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--i) * 80ms); }
-.goals__ex img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 10px; border-radius: 15px; filter: brightness(1.025); }
-.goals__ex b { padding: 0 8px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
-.goals__ex span { padding: 0 8px; font-size: 14px; color: var(--muted); }
-.js .goals__panel:not(.is-in) .goals__ex li { opacity: 0; transform: translateY(12px); }
-@media (max-width: 640px) {
-  .goals__ex { grid-template-columns: 1fr; gap: 8px; }
-  .goals__ex li { grid-template-columns: 78px minmax(0, 1fr); column-gap: 12px; row-gap: 1px; align-items: center; padding: 6px 12px 6px 6px; border-radius: 16px; }
-  .goals__ex img { grid-row: span 2; width: 78px; height: 52px; margin: 0; border-radius: 11px; }
-  .goals__ex b { align-self: end; padding: 0; font-size: 14px; }
-  .goals__ex span { align-self: start; padding: 0; font-size: 12px; }
-}
 /* Antes de entrar en pantalla, y al cambiar de objetivo, la gráfica se redibuja */
 .js .goals__panel:not(.is-in) .viz__bars i { transform: scaleY(0); }
 .js .goals__panel:not(.is-in) .viz__zones i, .js .goals__panel:not(.is-in) .viz__track i { transform: scaleX(0); }
@@ -414,10 +401,11 @@ img, video { max-width: 100%; }
 .js .goals__panel:not(.is-in) .viz__now { opacity: 0; }
 .goals__panel.is-reset * { transition: none !important; }
 @media (max-width: 860px) {
-  .goals__panel { --pr: 26px; grid-template-columns: 1fr; }
-  .goals__photo { aspect-ratio: 16 / 10; }
-  .goals__viz { min-height: 0; padding: 22px; }
-  .viz__bars { height: 120px; gap: 7px; }
+  .goals__panel { --pr: 26px; grid-template-columns: 1fr; grid-template-areas: "photo" "copy" "viz"; }
+  .goals__photo { min-height: 0; aspect-ratio: 16 / 10; margin: calc(var(--pp) * -1) calc(var(--pp) * -1) 0; border-radius: var(--pr) var(--pr) 0 0; }
+  .goals__copy { align-self: start; }
+  .goals__viz { height: auto; padding: 22px; }
+  .viz__bars { gap: 7px; }
   .viz__dots span { grid-template-columns: repeat(7, 20px); gap: 8px; }
   .viz__dots i { width: 20px; height: 20px; }
 }
