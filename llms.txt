@@ -26,6 +26,7 @@
 
 - [Inicio (español)](https://2trainapp.com/): qué es, cómo razona, preguntas frecuentes y acceso a la beta.
 - [Home (English)](https://2trainapp.com/en/): the same page in English.
+- [Preparar HYROX](https://2trainapp.com/hyrox): formato de la prueba, cómo la prepara 2trAIn, una semana tipo y preguntas frecuentes. En inglés: [HYROX training](https://2trainapp.com/en/hyrox/).
 - [Soporte](https://2trainapp.com/soporte): ayuda y contacto.
 - [Privacidad](https://2trainapp.com/privacidad) y [términos](https://2trainapp.com/terminos).
 
