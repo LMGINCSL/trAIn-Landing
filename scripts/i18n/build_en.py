@@ -58,6 +58,7 @@ PAIRS = [
     ('<b>Con su porqué</b><span>cada cambio, explicado con tus datos</span>', '<b>With its why</b><span>every change, explained with your data</span>'),
     ('<b>No es un chat</b><span>decide un motor de periodización y fatiga</span>', '<b>Not a chatbot</b><span>a periodisation and fatigue engine decides</span>'),
     ('<b>Te recuerda</b><span>lesiones, material y vetos, sin repetírselo</span>', '<b>Remembers you</b><span>injuries, kit and vetoes, no need to repeat</span>'),
+    ('<li><a href="/hyrox">Preparar HYROX</a></li>', '<li><a href="/en/hyrox/">HYROX training</a></li>'),
     # Objetivos: ejercicios típicos de cada meta
     ('Sentadilla completa con barra', 'Barbell full squat'),
     ('4×6 · pesada', '4×6 · heavy'),
