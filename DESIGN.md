@@ -249,7 +249,7 @@ Una columna de 1180px como máximo, con 22px de margen lateral en móvil y 40px
 desde 768px. Secciones con `clamp(48px, 6vw, 80px)` de aire (el resto lo pone el hilo),
 sobre un fondo blanco continuo: no hay bandas de color entre secciones, el gris
 vive solo dentro de las tarjetas. Orden: hero → objetivos → por qué (móvil
-fijo) → demo → cifras → ¿aún no convencido? → FAQ → beta → pie.
+fijo) → demo → cifras → ¿aún no convencido? → FAQ → foto ancha → beta → pie.
 
 - **Hilo entre secciones (`.bridge`):** una línea azul que se dibuja con el
   scroll, un punto y, casi siempre, una frase de 3 a 6 palabras que enlaza con
@@ -261,7 +261,8 @@ fijo) → demo → cifras → ¿aún no convencido? → FAQ → beta → pie.
   primero y el móvil debajo. El móvil nunca se recorta ni entra con fundido.
 - **Objetivos:** selector segmentado de cuatro opciones y un único panel con el
   plan orientativo en letra grande y su gráfica (carga semanal, tiempo por
-  zona, fases hasta la fecha, constancia), que se redibuja al cambiar. Debajo,
+  zona, fases hasta la fecha, constancia), que se redibuja al cambiar. Arriba,
+  una foto real de esa meta de borde a borde del panel; debajo,
   tres ejercicios del catálogo típicos de esa meta: tarjetas en escritorio y
   filas tipo app en móvil.
 - **Por qué:** en escritorio, el móvil se queda fijo y su pantalla cambia con
@@ -323,6 +324,18 @@ traducibles. Las ilustraciones salen de los vídeos del catálogo maestro
 en la figura y sin marca de agua. Llevan `filter: brightness(1.025)` para que
 su fondo gris muy claro quede en blanco. Los nombres son los del catálogo. En pantallas estrechas
 (`@container` ≤262px) el hero enseña tres ejercicios en vez de cuatro.
+
+### Fotos
+Fotos reales, luminosas y con luz natural, sin logos ni marcas a la vista y
+sin texto encima. Van como bloques propios, nunca de fondo detrás del texto.
+WebP en `assets/fotos/` en dos tamaños con `srcset`. Licencias de Unsplash
+(uso comercial gratis, sin atribución obligatoria; no dar a entender que las
+personas recomiendan 2trAIn):
+- Foto ancha: corredor en la niebla, Lucas Canino (unsplash.com/photos/MFCzJQoFXzc).
+- Fuerza: sentadilla con entrenador, Vitaly Gariev (unsplash.com/photos/qbktVctZKL4).
+- Cardio: carrera por un camino, Jenny Hill (unsplash.com/photos/Io2Zgb3_kdk).
+- Prueba: ciclista de triatlón, Beau Runsten (unsplash.com/photos/mR-N67XjTHg).
+- Mantener: plancha en casa, Vitaly Gariev (unsplash.com/photos/7C_Ri-7kyXc).
 
 ### Pantalla de sustituciones
 Cada caso («¿Sin barras?», «¿Lesión?», «¿Aburrido?») enseña el ejercicio de

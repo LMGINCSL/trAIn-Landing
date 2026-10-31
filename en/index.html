@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro3">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro4">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro3" defer></script>
+<script src="/app.js?v=claro4" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -179,6 +179,12 @@
       </div>
 
       <div class="goals__panel" id="g-panel" role="tabpanel" aria-labelledby="g-tab-fuerza" aria-live="polite" data-anim>
+        <div class="goals__photo" aria-hidden="true">
+          <img data-photo="fuerza" src="/assets/fotos/obj-fuerza-1000.webp" srcset="/assets/fotos/obj-fuerza-1000.webp 1000w, /assets/fotos/obj-fuerza-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 40% 30%">
+          <img data-photo="cardio" src="/assets/fotos/obj-cardio-1000.webp" srcset="/assets/fotos/obj-cardio-1000.webp 1000w, /assets/fotos/obj-cardio-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1331" loading="lazy" decoding="async" style="--pos: 60% 8%" hidden>
+          <img data-photo="prueba" src="/assets/fotos/obj-prueba-1000.webp" srcset="/assets/fotos/obj-prueba-1000.webp 1000w, /assets/fotos/obj-prueba-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1500" loading="lazy" decoding="async" style="--pos: 50% 62%" hidden>
+          <img data-photo="mantener" src="/assets/fotos/obj-mantener-1000.webp" srcset="/assets/fotos/obj-mantener-1000.webp 1000w, /assets/fotos/obj-mantener-2000.webp 2000w" sizes="(min-width: 1180px) 1100px, 94vw" alt="" width="2000" height="1125" loading="lazy" decoding="async" style="--pos: 50% 66%" hidden>
+        </div>
         <div class="goals__copy">
           <p class="goals__k">Indicative plan</p>
           <p class="goals__t" id="goals-preview-text">Push, pull and leg blocks with weekly load progression. Every change in volume or intensity, <strong>explained with your data</strong>.</p>
@@ -788,6 +794,11 @@
     </div>
   </div>
 </section>
+
+<!-- Foto ancha: una pausa antes de entrar -->
+<div class="band" aria-hidden="true">
+  <img src="/assets/fotos/banda-correr-1280.webp" srcset="/assets/fotos/banda-correr-1280.webp 1280w, /assets/fotos/banda-correr-2400.webp 2400w" sizes="100vw" alt="" width="2400" height="1500" loading="lazy" decoding="async">
+</div>
 
 <!-- Thread -->
 <div class="bridge" aria-hidden="false">

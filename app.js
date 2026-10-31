@@ -114,6 +114,11 @@ const isEn = document.documentElement.lang === 'en';
       if (rest.length) gsap.from(rest, { opacity: 0, y: 10, duration: 0.6, stagger: 0.12, ease: 'power2.out',
         scrollTrigger: { trigger: b, start: 'top 62%', once: true } });
     });
+    // Foto ancha: se acerca un poco mientras cruza la pantalla.
+    gsap.utils.toArray('.band img').forEach(function(img) {
+      gsap.fromTo(img, { scale: 1.12 }, { scale: 1, ease: 'none',
+        scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
   }
 
   // ===== Pantallas de «Por qué»: cada una es un pequeño vídeo en bucle =====
@@ -448,6 +453,7 @@ const isEn = document.documentElement.lang === 'en';
   var descEl = section.querySelector('#goals-desc');
   var vizzes = section.querySelectorAll('[data-viz]');
   var exs = section.querySelectorAll('[data-ex]');
+  var photos = section.querySelectorAll('[data-photo]');
   if (!tabs.length || !textEl || !panel) return;
 
   var en = document.documentElement.lang === 'en';
@@ -478,6 +484,7 @@ const isEn = document.documentElement.lang === 'en';
     if (descEl) descEl.textContent = btn.getAttribute('data-desc') || '';
     vizzes.forEach(function(v) { v.hidden = v.getAttribute('data-viz') !== key; });
     exs.forEach(function(x) { x.hidden = x.getAttribute('data-ex') !== key; });
+    photos.forEach(function(p) { p.hidden = p.getAttribute('data-photo') !== key; });
     // Vuelve a dibujar la gráfica: se quita el estado final sin transición y
     // se repone en el siguiente fotograma.
     if (panel.classList.contains('is-in')) {

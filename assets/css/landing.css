@@ -338,6 +338,10 @@ img, video { max-width: 100%; }
 .bridge__t { margin: 22px 0 0; max-width: 22em; font-size: clamp(20px, 2.4vw, 28px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; color: var(--muted); text-wrap: balance; }
 .bridge__t b { font-weight: 600; color: var(--fg); }
 
+/* ── Foto ancha: una pausa de borde a borde, sin texto encima ── */
+.band { height: clamp(280px, 44vw, 640px); margin-top: clamp(24px, 4vw, 48px); overflow: hidden; background: var(--surface); }
+.band img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 64%; transform-origin: 50% 70%; }
+
 /* ── Objetivos: un selector claro y un panel grande con el plan y su gráfica ── */
 #objetivos { scroll-margin-top: 72px; }
 .goals { display: grid; justify-items: center; gap: 28px; }
@@ -345,7 +349,12 @@ img, video { max-width: 100%; }
 .goals__tabs::before { content: ''; position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 4); border-radius: var(--r-pill); background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 6px 14px -6px rgba(0, 0, 0, 0.2); transform: translateX(calc(var(--i) * 100%)); transition: transform .4s var(--ease); }
 .goals__tabs .goal-opt { position: relative; z-index: 1; padding: 11px 6px; border: 0; border-radius: var(--r-pill); background: none; font-family: inherit; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #515154; cursor: pointer; transition: color .25s; }
 .goals__tabs .goal-opt[aria-selected="true"] { color: var(--fg); }
-.goals__panel { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3vw, 36px) clamp(28px, 5vw, 64px); padding: clamp(26px, 4.5vw, 56px); border-radius: 32px; background: var(--surface); }
+.goals__panel { --pp: clamp(26px, 4.5vw, 56px); --pr: 32px; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3vw, 36px) clamp(28px, 5vw, 64px); padding: var(--pp); border-radius: var(--pr); background: var(--surface); }
+/* La foto de cada meta ocupa la parte de arriba del panel, de borde a borde */
+.goals__photo { grid-column: 1 / -1; position: relative; aspect-ratio: 21 / 8; margin: calc(var(--pp) * -1) calc(var(--pp) * -1) 0; border-radius: var(--pr) var(--pr) 0 0; overflow: hidden; background: var(--control); }
+.goals__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transition: opacity .7s var(--ease), transform 1.4s var(--ease); }
+.goals__photo img[hidden] { display: none; }
+.js .goals__panel:not(.is-in) .goals__photo img { opacity: 0; transform: scale(1.05); }
 .goals__k { margin: 0; font-size: 15px; font-weight: 600; color: var(--accent-text); }
 .goals__t { margin: 10px 0 0; font-size: clamp(24px, 2.8vw, 34px); font-weight: 600; letter-spacing: -0.024em; line-height: 1.2; color: var(--fg); text-wrap: pretty; }
 .goals__t strong { font-weight: 600; color: var(--accent-text); }
@@ -405,7 +414,8 @@ img, video { max-width: 100%; }
 .js .goals__panel:not(.is-in) .viz__now { opacity: 0; }
 .goals__panel.is-reset * { transition: none !important; }
 @media (max-width: 860px) {
-  .goals__panel { grid-template-columns: 1fr; border-radius: 26px; }
+  .goals__panel { --pr: 26px; grid-template-columns: 1fr; }
+  .goals__photo { aspect-ratio: 16 / 10; }
   .goals__viz { min-height: 0; padding: 22px; }
   .viz__bars { height: 120px; gap: 7px; }
   .viz__dots span { grid-template-columns: repeat(7, 20px); gap: 8px; }
