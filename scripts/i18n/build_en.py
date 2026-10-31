@@ -59,6 +59,8 @@ PAIRS = [
     ('<b>No es un chat</b><span>decide un motor de periodización y fatiga</span>', '<b>Not a chatbot</b><span>a periodisation and fatigue engine decides</span>'),
     ('<b>Te recuerda</b><span>lesiones, material y vetos, sin repetírselo</span>', '<b>Remembers you</b><span>injuries, kit and vetoes, no need to repeat</span>'),
     ('<li><a href="/hyrox">Preparar HYROX</a></li>', '<li><a href="/en/hyrox/">HYROX training</a></li>'),
+    ('<h3>Planes</h3>\n        <ul>\n          <li><a href="/hyrox">HYROX</a></li>\n          <li><a href="/triatlon">Triatlón</a></li>\n          <li><a href="/10k">10K</a></li>\n          <li><a href="/maraton">Maratón y media</a></li>\n          <li><a href="/fuerza">Fuerza</a></li>',
+     '<h3>Plans</h3>\n        <ul>\n          <li><a href="/en/hyrox/">HYROX</a></li>\n          <li><a href="/en/triathlon/">Triathlon</a></li>\n          <li><a href="/en/10k/">10K</a></li>\n          <li><a href="/en/marathon/">Marathon and half</a></li>\n          <li><a href="/en/strength/">Strength</a></li>'),
     # Objetivos: ejercicios típicos de cada meta
     ('Sentadilla completa con barra', 'Barbell full squat'),
     ('4×6 · pesada', '4×6 · heavy'),

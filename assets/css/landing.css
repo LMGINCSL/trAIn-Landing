@@ -254,7 +254,7 @@ img, video { max-width: 100%; }
 .tabbar span { display: grid; justify-items: center; gap: 2px; font-size: 11px; font-weight: 500; color: var(--muted); }
 .tabbar span.is-on { color: var(--accent-text); }
 .tabbar svg { width: 20px; height: 20px; }
-@media (max-width: 767px) { .app-ui { --px: 13px; --pb: 14px; padding-top: 48px; gap: 10px; } .app-ui__title { font-size: 17px; } .app-ex img { width: 50px; height: 34px; } }
+@media (max-width: 767px) { .app-ui { --px: 13px; --pb: 14px; padding-top: 48px; gap: 10px; } .app-ui__title { font-size: 17px; } .app-ex img, .app-ex .app-ex__day { width: 50px; height: 34px; } }
 /* En pantallas estrechas (portátiles bajos, móviles) el texto parte en más
    líneas: se enseñan tres ejercicios para que el botón quepa entero. */
 .phone-screen { container-type: inline-size; }
@@ -596,6 +596,8 @@ img, video { max-width: 100%; }
 .race-week { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .race-week .demo-ex { width: auto; }
 .race-week .demo-ex__media { height: auto; aspect-ratio: 16 / 9; }
+.race-format--days .race-format__n { font-size: 11px; letter-spacing: 0.02em; }
+.app-ex .app-ex__day { width: 58px; height: 38px; flex-shrink: 0; margin: 0; display: grid; place-items: center; border-radius: 9px; background: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: var(--accent-text); }
 .race-legal { max-width: 760px; margin: 0 auto; padding: 8px var(--gut) 40px; font-size: 13px; line-height: 1.5; color: var(--muted); text-align: center; }
 @media (max-width: 760px) {
   .race-format, .race-tiles { grid-template-columns: 1fr; }
@@ -653,7 +655,7 @@ img, video { max-width: 100%; }
 
 /* ── Pie ──────────────────────────────────────────────────────────────── */
 .footer { background: var(--bg-2); padding: 56px 0 max(40px, env(safe-area-inset-bottom, 0px)); font-size: 13px; color: var(--muted); }
-.footer-grid { display: grid; grid-template-columns: minmax(0, 1fr) repeat(3, max-content); gap: 32px clamp(40px, 5vw, 72px); padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.footer-grid { display: grid; grid-template-columns: minmax(0, 1fr) repeat(4, max-content); gap: 32px clamp(40px, 5vw, 72px); padding-bottom: 32px; border-bottom: 1px solid var(--line); }
 .footer-brand img { height: 22px; width: auto; display: block; margin-bottom: 14px; }
 .footer-brand p { margin: 0; max-width: 24em; line-height: 1.5; }
 .footer-brand p + p { margin-top: 8px; }
@@ -661,7 +663,7 @@ img, video { max-width: 100%; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .footer a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .footer-legal { padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
-@media (max-width: 1023px) { .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; } .footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 1023px) { .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; } .footer-brand { grid-column: 1 / -1; } }
 @media (max-width: 767px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-grid > :last-child { grid-column: 1 / -1; } }
 
 /* ── Modal de alta ───────────────────────────────────────────────────── */

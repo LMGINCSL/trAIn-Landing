@@ -27,6 +27,10 @@
 - [Inicio (español)](https://2trainapp.com/): qué es, cómo razona, preguntas frecuentes y acceso a la beta.
 - [Home (English)](https://2trainapp.com/en/): the same page in English.
 - [Preparar HYROX](https://2trainapp.com/hyrox): formato de la prueba, cómo la prepara 2trAIn, una semana tipo y preguntas frecuentes. En inglés: [HYROX training](https://2trainapp.com/en/hyrox/).
+- [Preparar un triatlón](https://2trainapp.com/triatlon): distancias (sprint, olímpico, media y larga), cómo lo prepara 2trAIn y una semana tipo. En inglés: [Triathlon training](https://2trainapp.com/en/triathlon/).
+- [Preparar un 10K](https://2trainapp.com/10k): primer 10K o mejor marca, con rodajes, series y fuerza. En inglés: [10K training](https://2trainapp.com/en/10k/).
+- [Preparar un maratón o una media](https://2trainapp.com/maraton): tiradas largas, ritmos y fuerza hacia tu fecha. En inglés: [Marathon training](https://2trainapp.com/en/marathon/).
+- [Entrenamiento de fuerza](https://2trainapp.com/fuerza): hipertrofia o fuerza con progresión de carga explicada. En inglés: [Strength training](https://2trainapp.com/en/strength/).
 - [Soporte](https://2trainapp.com/soporte): ayuda y contacto.
 - [Privacidad](https://2trainapp.com/privacidad) y [términos](https://2trainapp.com/terminos).
 

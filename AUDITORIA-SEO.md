@@ -145,7 +145,8 @@ palabras clave; aquí no hay cifras inventadas):
 1. Publicar la rama y dar de alta Search Console y Bing Webmaster, con el sitemap.
 2. Montar la medición de altas del lado del servidor y el registro de UTM.
 3. Decidir qué pasa con el aviso de cookies.
-4. Crear las páginas por intención. `/hyrox` y `/en/hyrox/` ya están hechas con
-   `scripts/pages/build_race.py`; faltan triatlón, 10K, maratón y fuerza.
+4. ~~Páginas por intención~~: hechas `/hyrox`, `/triatlon`, `/10k`, `/maraton` y
+   `/fuerza` (y sus versiones en inglés) con `scripts/pages/build_race.py`. Tras
+   publicar, vigilar en Search Console qué búsquedas traen y ampliar su contenido.
 5. Ficha en las tiendas y primeras menciones externas.
 6. Confirmar las plataformas (iOS o Android) en los datos estructurados.
