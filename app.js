@@ -1,6 +1,36 @@
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ydXpqdHFld2pha2Z3c2hmYWd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MjAyMzcsImV4cCI6MjA5NDQ5NjIzN30.GC0IRyXF1QppjbvQJNoYhe_FbWIAa6mjOZQkplrEbfM';
 const isEn = document.documentElement.lang === 'en';
 
+// ===== Origen del alta: UTM, clic de anuncio y página de entrada =====
+// Se lee de la URL al cargar y viaja con el alta a join-waitlist. Solo se
+// guarda en el navegador (90 días, para no perderlo al cambiar de página) si
+// la persona ha aceptado las cookies; si no, vale para esta visita. Una visita
+// con UTM o gclid nueva sustituye a la anterior (último clic de campaña).
+var ATTR_STORE = '2t_attr';
+var ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+var attribution = (function() {
+  var q = new URLSearchParams(window.location.search), now = {}, campaign = false;
+  ATTR_KEYS.forEach(function(k) { var v = q.get(k); if (v) { now[k] = v.slice(0, 255); campaign = true; } });
+  now.landing_path = window.location.pathname;
+  try {
+    var ref = document.referrer && new URL(document.referrer).hostname;
+    if (ref && ref !== window.location.hostname) now.referrer_host = ref;
+  } catch (_) {}
+  var consent = /(?:^|; )cookie_consent=accepted/.test(document.cookie);
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(ATTR_STORE) || 'null'); } catch (_) {}
+  if (saved && Date.now() - (saved.t || 0) > 90 * 864e5) saved = null;
+  var keep = saved && !campaign ? saved.a : now;
+  if (consent && keep === now) { try { localStorage.setItem(ATTR_STORE, JSON.stringify({ t: Date.now(), a: now })); } catch (_) {} }
+  return keep;
+})();
+function attributionForSignup() {
+  var a = {};
+  Object.keys(attribution).forEach(function(k) { a[k] = attribution[k]; });
+  a.signup_path = window.location.pathname;
+  return a;
+}
+
 // ===== Carrusel automático: nada de scroll lateral a mano =====
 // Avanza solo y en bucle mientras está a la vista; se para al pasar el ratón o
 // al enfocarlo. Tocar un punto, deslizar el dedo o usar las flechas del teclado
@@ -395,7 +425,7 @@ function autoCarousel(el, opts) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         },
-        body: JSON.stringify({ email, referred_by: _refCode, lang: isEn ? 'en' : 'es', hp: (mForm.querySelector('input[name="company"]') || {}).value || '' }),
+        body: JSON.stringify({ email, referred_by: _refCode, lang: isEn ? 'en' : 'es', hp: (mForm.querySelector('input[name="company"]') || {}).value || '', attribution: attributionForSignup() }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error desconocido');

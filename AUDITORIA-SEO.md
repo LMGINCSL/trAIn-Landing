@@ -21,8 +21,8 @@ robots abierto, imágenes con `alt`, una sola H1), pero tenía cuatro problemas:
    (`script-src 'self'`) bloquearía las etiquetas de Google Ads o Meta. Sin esto,
    no tiene sentido invertir en SEM.
 
-Los tres primeros están arreglados en esta rama. El cuarto necesita decisiones
-tuyas (abajo).
+Los cuatro están resueltos en esta rama. La medición de altas está montada en
+código, pero falta publicarla: ver la sección 3.
 
 ## 1. SEO técnico
 
@@ -92,18 +92,46 @@ en una plataforma, hay que cambiarlo en `scripts/i18n/seo_ld.py`.
 
 ## 3. SEM (anuncios de pago)
 
-**Antes de gastar un euro: medir.**
-1. **Conversión del lado del servidor.** Que la función `join-waitlist` de
-   Supabase envíe el alta a GA4 (Measurement Protocol) o a Google Ads como
-   conversión offline. No necesita cookies ni toca la CSP.
-2. **Guardar el origen.** Guardar `utm_source`, `utm_medium`, `utm_campaign` y
-   `gclid` junto al email en la tabla de la waitlist, para saber qué campaña trae
-   cada alta.
-3. **Aviso de cookies.** O se instala una analítica real con consentimiento, o se
-   cambia el texto. Ahora promete cookies de analítica que no existen (revisar
-   también la política de privacidad).
-4. **Alternativa sencilla:** Vercel Web Analytics, sin cookies y servido desde el
-   propio dominio, así que entra en la CSP.
+**Medición de altas (hecha en código, falta publicarla).** Cada alta guarda de
+dónde viene, sin herramientas de terceros ni cambios en la CSP:
+
+- **Qué se guarda** junto al email: `utm_source`, `utm_medium`, `utm_campaign`,
+  `utm_term`, `utm_content`, `gclid` (Google Ads), `fbclid` (Meta), la página de
+  entrada, la web de procedencia y la página donde se apuntó.
+- **En el navegador**, `app.js` lo lee de la URL. Solo lo guarda (90 días) si la
+  persona aceptó las cookies; si no, vale para esa visita. Una visita nueva con
+  UTM sustituye a la anterior.
+- **En el servidor**, `join-waitlist` lo limpia (`attribution.ts`) y lo guarda
+  solo en el primer alta. Si la migración aún no está aplicada, el alta sigue
+  funcionando sin esos campos.
+- **Para verlo**, la vista `waitlist_by_source` agrupa por semana, origen,
+  medio, campaña y página. Sin UTM, el origen es «referido», la web de
+  procedencia o «(directo)». Desde el editor SQL de Supabase:
+
+```sql
+select * from waitlist_by_source order by semana desc, altas desc;
+-- Altas de Google Ads con gclid, para importarlas como conversión offline
+select email, gclid, created_at from waitlist where gclid is not null order by created_at desc;
+```
+
+**Para publicarlo, en este orden:**
+1. Aplicar `supabase/migrations/20261101090000_waitlist_attribution.sql`.
+2. Desplegar la función: `supabase functions deploy join-waitlist`.
+3. Publicar la web.
+4. Añadir a la política de privacidad que, con el email, se guarda el origen de
+   la visita (campaña, anuncio y páginas) para medir qué canales funcionan.
+
+**Cómo nombrar las campañas** (siempre en minúsculas):
+`utm_source` = google, instagram, meta, newsletter…; `utm_medium` = cpc,
+social, email…; `utm_campaign` = `{prueba}_{idioma}_{mes}`, por ejemplo
+`hyrox_es_2026-11`. Enlace de ejemplo:
+`https://2trainapp.com/hyrox?utm_source=google&utm_medium=cpc&utm_campaign=hyrox_es_2026-11`.
+En Google Ads basta con activar el etiquetado automático: añade `gclid` solo.
+
+**Pendiente:** el aviso de cookies promete «cookies de analítica», pero solo se
+usa el almacenamiento del origen descrito arriba. Conviene ajustar el texto.
+Para contar visitas (no solo altas), la opción más sencilla es Vercel Web
+Analytics: no usa cookies, se sirve desde el propio dominio y entra en la CSP.
 
 **Estructura de campañas** (volúmenes y pujas por validar en el Planificador de
 palabras clave; aquí no hay cifras inventadas):
@@ -143,7 +171,7 @@ palabras clave; aquí no hay cifras inventadas):
 ## 5. Próximos pasos
 
 1. Publicar la rama y dar de alta Search Console y Bing Webmaster, con el sitemap.
-2. Montar la medición de altas del lado del servidor y el registro de UTM.
+2. Publicar la medición de altas (migración, función y política de privacidad).
 3. Decidir qué pasa con el aviso de cookies.
 4. ~~Páginas por intención~~: hechas `/hyrox`, `/triatlon`, `/10k`, `/maraton` y
    `/fuerza` (y sus versiones en inglés) con `scripts/pages/build_race.py`. Tras

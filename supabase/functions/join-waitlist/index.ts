@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { buildEmail } from './email-template.ts'
+import { cleanAttribution } from './attribution.ts'
 
 const ALLOWED_ORIGINS = new Set([
   'https://2trainapp.com',
@@ -87,7 +88,7 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json()
-    const { email, referred_by, lang, hp, referral_code: spotCode } = body
+    const { email, referred_by, lang, hp, referral_code: spotCode, attribution } = body
     const isEn = lang === 'en'
 
     // Honeypot: campo oculto que solo rellenan los bots → respondemos OK sin registrar nada.
@@ -131,12 +132,24 @@ Deno.serve(async (req) => {
     const limited = await rateLimitOrReject(supabase, req, isEn, corsHeaders)
     if (limited) return limited
 
-    // Insert — if duplicate, fetch existing record
-    const { data: inserted, error: insertError } = await supabase
+    // Insert — if duplicate, fetch existing record. El origen (UTM, gclid…)
+    // solo se guarda en el primer alta. Si la migración de atribución aún no
+    // está aplicada (columna inexistente, 42703), se repite sin esos campos
+    // para que el alta nunca falle por ello.
+    const row = { email, referred_by: referred_by || null, ...cleanAttribution(attribution) }
+    let { data: inserted, error: insertError } = await supabase
       .from('waitlist')
-      .insert({ email, referred_by: referred_by || null })
+      .insert(row)
       .select('referral_code')
       .single()
+    if (insertError?.code === '42703') {
+      console.warn('waitlist sin columnas de atribución: falta aplicar 20261101090000_waitlist_attribution.sql')
+      ;({ data: inserted, error: insertError } = await supabase
+        .from('waitlist')
+        .insert({ email, referred_by: referred_by || null })
+        .select('referral_code')
+        .single())
+    }
 
     let referralCode: string
     let alreadyRegistered = false
