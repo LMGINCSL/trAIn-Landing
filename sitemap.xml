@@ -156,4 +156,78 @@
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
+  <!-- BLOG -->
+  <url>
+    <loc>https://2trainapp.com/blog</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/en/blog/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/blog/semana-entrenamiento-hyrox</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-entrenamiento-hyrox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/hyrox-training-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-entrenamiento-hyrox"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/en/blog/hyrox-training-week/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-entrenamiento-hyrox"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/hyrox-training-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-entrenamiento-hyrox"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/blog/semana-entrenamiento-maraton</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-entrenamiento-maraton"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/marathon-training-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-entrenamiento-maraton"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/en/blog/marathon-training-week/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-entrenamiento-maraton"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/marathon-training-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-entrenamiento-maraton"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/blog/semana-de-descarga</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-de-descarga"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/deload-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-de-descarga"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://2trainapp.com/en/blog/deload-week/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://2trainapp.com/blog/semana-de-descarga"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://2trainapp.com/en/blog/deload-week/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://2trainapp.com/blog/semana-de-descarga"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- /BLOG -->
 </urlset>

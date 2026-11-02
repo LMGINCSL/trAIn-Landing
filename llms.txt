@@ -34,6 +34,13 @@
 - [Soporte](https://2trainapp.com/soporte): ayuda y contacto.
 - [Privacidad](https://2trainapp.com/privacidad) y [términos](https://2trainapp.com/terminos).
 
+## Blog
+
+- [Blog (español)](https://2trainapp.com/blog): guías con semanas reales generadas por 2trAIn. En inglés: [Blog](https://2trainapp.com/en/blog/).
+- [Cómo entrenar para HYROX: una semana real, sesión a sesión](https://2trainapp.com/blog/semana-entrenamiento-hyrox): Qué entrenar para HYROX y cómo repartirlo en la semana: fuerza, carrera y gestos de la prueba. Con una semana real generada por 2trAIn, día a día. En inglés: [How to train for HYROX: a real week, session by session](https://2trainapp.com/en/blog/hyrox-training-week/).
+- [Plan de maratón y media maratón: así es una semana real](https://2trainapp.com/blog/semana-entrenamiento-maraton): Cómo se reparte una semana para maratón o media: rodajes suaves, series, tirada larga y descanso. Con dos semanas reales generadas por 2trAIn, sesión a sesión. En inglés: [Marathon and half marathon training: what a real week looks like](https://2trainapp.com/en/blog/marathon-training-week/).
+- [Semana de descarga: qué es, cuándo hacerla y cómo es una de verdad](https://2trainapp.com/blog/semana-de-descarga): Qué es una semana de descarga en el entrenamiento de fuerza, las señales de que la necesitas y cómo se hace. Con la semana real que generó 2trAIn tras una semana al límite. En inglés: [Deload week: what it is, when to do it and what a real one looks like](https://2trainapp.com/en/blog/deload-week/).
+
 ## Empresa
 
 2trAIn es un producto de LMGINC SL (CIF B93905438), Calle Lagasca 95, 28001 Madrid (España). Contacto: contact@2trainapp.com. Instagram: https://www.instagram.com/2trainapp/

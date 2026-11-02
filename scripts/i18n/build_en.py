@@ -476,6 +476,9 @@ PAIRS = [
     ('Compartir por WhatsApp', 'Share via WhatsApp'),
     ('Copiar link', 'Copy link'),
     ('Te hemos enviado el link por email también.', "We've also sent the link to your email."),
+    # Blog
+    ('<li><a href="/blog">Blog</a></li>', '<li><a href="/en/blog/">Blog</a></li>'),
+    ('<a href="/blog" class="mobile-nav-link">Blog</a>', '<a href="/en/blog/" class="mobile-nav-link">Blog</a>'),
     # Cookies
     ('<!-- Aviso de cookies -->', '<!-- Cookie notice -->'),
     ('aria-label="Aviso de cookies"', 'aria-label="Cookie notice"'),

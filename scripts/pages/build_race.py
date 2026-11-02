@@ -477,6 +477,15 @@ WEEKS = {
                                 ("Deadlift and legs", "Clean, technical sets with room to spare."),
                                 ("Military press and single-leg work", "Controlled legs and stable shoulders.")]}}],
 }
+# Artículo del blog que explica la semana de cada página
+ARTICULO = {
+    "hyrox": {"es": ("/blog/semana-entrenamiento-hyrox", "Por qué está montada así, sesión a sesión"),
+              "en": ("/en/blog/hyrox-training-week/", "Why it's built this way, session by session")},
+    "maraton": {"es": ("/blog/semana-entrenamiento-maraton", "Por qué está montada así, sesión a sesión"),
+                "en": ("/en/blog/marathon-training-week/", "Why it's built this way, session by session")},
+    "fuerza": {"es": ("/blog/semana-de-descarga", "Qué es una semana de descarga y cómo se hace"),
+               "en": ("/en/blog/deload-week/", "What a deload week is and how to do one")},
+}
 DIAS = {"es": ["LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB", "DOM"], "en": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]}
 DIAS_1 = {"es": "LMXJVSD", "en": "MTWTFSS"}
 DIA_N = {"Lunes": 0, "Martes": 1, "Miércoles": 2, "Jueves": 3, "Viernes": 4, "Sábado": 5, "Domingo": 6}
@@ -701,6 +710,9 @@ def sections(slug, c, k):
 </section>
 '''
     body = week_html(slug, lang)
+    if slug in ARTICULO:
+        href, label = ARTICULO[slug][lang]
+        body += f'\n    <p class="wk-link"><a class="link" href="{href}">{esc(label)}</a></p>'
     wk = f'''<section id="semana" class="sec">
   <div class="max-w-page pad-x">
     <div class="sec-head sec-head--center" data-reveal>
@@ -753,29 +765,30 @@ def jsonld(c, k, lang):
     return '<script type="application/ld+json">\n' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1) + "\n</script>"
 
 
-def build(slug, lang):
-    c, k = PAGES[slug][lang], COMMON[lang]
-    other_lang = "en" if lang == "es" else "es"
-    es_url, en_url = PAGES[slug]["es"]["url"], PAGES[slug]["en"]["url"]
+def shell(lang, title, desc, url, es_url, en_url, other, ld, body, legal=None, og_type=None):
+    """Página completa con la home como plantilla: cabecera, menú, alta a la beta,
+    pie, modal y cookies salen tal cual; en medio va `body`. También la usa el blog."""
     home_path = "/" if lang == "es" else "/en/"
     home_url = BASE if lang == "es" else BASE + "en/"
     tpl = (ROOT / ("index.html" if lang == "es" else "en/index.html")).read_text(encoding="utf-8")
 
     def rep(s, a, b, n=1):
-        assert s.count(a) == n, (slug, lang, a[:70], s.count(a))
+        assert s.count(a) == n, (url, a[:70], s.count(a))
         return s.replace(a, b)
 
-    s = re.sub(r"<title>.*?</title>", f"<title>{esc(c['title'])}</title>", tpl, count=1)
-    s = re.sub(r'<meta name="description" content="[^"]*" />', f'<meta name="description" content="{esc(c["desc"])}" />', s, count=1)
-    s = rep(s, f'<link rel="canonical" href="{home_url}" />', f'<link rel="canonical" href="{c["url"]}" />')
+    s = re.sub(r"<title>.*?</title>", f"<title>{esc(title)}</title>", tpl, count=1)
+    s = re.sub(r'<meta name="description" content="[^"]*" />', f'<meta name="description" content="{esc(desc)}" />', s, count=1)
+    s = rep(s, f'<link rel="canonical" href="{home_url}" />', f'<link rel="canonical" href="{url}" />')
     s = rep(s, '<link rel="alternate" hreflang="es" href="https://2trainapp.com/">', f'<link rel="alternate" hreflang="es" href="{es_url}">')
     s = rep(s, '<link rel="alternate" hreflang="en" href="https://2trainapp.com/en/">', f'<link rel="alternate" hreflang="en" href="{en_url}">')
     s = rep(s, '<link rel="alternate" hreflang="x-default" href="https://2trainapp.com/">', f'<link rel="alternate" hreflang="x-default" href="{es_url}">')
-    s = rep(s, f'<meta property="og:url" content="{home_url}" />', f'<meta property="og:url" content="{c["url"]}" />')
-    for attr, prop, val in (("property", "og:title", c["title"]), ("name", "twitter:title", c["title"]),
-                            ("property", "og:description", c["desc"]), ("name", "twitter:description", c["desc"])):
+    s = rep(s, f'<meta property="og:url" content="{home_url}" />', f'<meta property="og:url" content="{url}" />')
+    if og_type:
+        s = re.sub(r'<meta property="og:type" content="[^"]*" />', f'<meta property="og:type" content="{og_type}" />', s, count=1)
+    for attr, prop, val in (("property", "og:title", title), ("name", "twitter:title", title),
+                            ("property", "og:description", desc), ("name", "twitter:description", desc)):
         s = re.sub(rf'<meta {attr}="{prop}" content="[^"]*" />', f'<meta {attr}="{prop}" content="{esc(val)}" />', s, count=1)
-    s, n = re.subn(r'<script type="application/ld\+json">.*?</script>', lambda m: jsonld(c, k, lang), s, count=1, flags=re.S)
+    s, n = re.subn(r'<script type="application/ld\+json">.*?</script>', lambda m: ld, s, count=1, flags=re.S)
     assert n == 1
 
     a = s.index('<section id="hero"')
@@ -785,19 +798,26 @@ def build(slug, lang):
     label = "inicio" if lang == "es" else "home"
     head = rep(head, f'<a href="#" aria-label="2trAIn, {label}">', f'<a href="{home_path}" aria-label="2trAIn, {label}">')
     switch = "/en/" if lang == "es" else "/"
-    head = rep(head, f'href="{switch}" class="nav-lang"', f'href="{c["other"]}" class="nav-lang"')
-    head = re.sub(rf'href="{re.escape(switch)}"( class="mobile-nav-link)', rf'href="{c["other"]}"\1', head)
+    head = rep(head, f'href="{switch}" class="nav-lang"', f'href="{other}" class="nav-lang"')
+    head = re.sub(rf'href="{re.escape(switch)}"( class="mobile-nav-link)', rf'href="{other}"\1', head)
     tail = re.sub(r'href="#(objetivos|como|faq|demo)"', rf'href="{home_path}#\1"', tail)
-    if c.get("legal"):
+    if legal:
         fb = tail.index("<footer")
-        tail = tail[:fb] + f'<p class="race-legal">{esc(c["legal"])}</p>\n\n' + tail[fb:]
-    out = head + sections(slug, c, k) + "\n" + tail
+        tail = tail[:fb] + f'<p class="race-legal">{esc(legal)}</p>\n\n' + tail[fb:]
+    return head + body + "\n" + tail
+
+
+def build(slug, lang):
+    c, k = PAGES[slug][lang], COMMON[lang]
+    out = shell(lang, c["title"], c["desc"], c["url"], PAGES[slug]["es"]["url"], PAGES[slug]["en"]["url"],
+                c["other"], jsonld(c, k, lang), sections(slug, c, k), c.get("legal"))
     dest = ROOT / c["path"]
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(out, encoding="utf-8")
     print("ok", c["path"])
 
 
-for slug in PAGES:
-    for lang in ("es", "en"):
-        build(slug, lang)
+if __name__ == "__main__":
+    for slug in PAGES:
+        for lang in ("es", "en"):
+            build(slug, lang)
