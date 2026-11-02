@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro14">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro13" defer></script>
+<script src="/app.js?v=claro14" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -280,17 +280,22 @@
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">A real week</p>
       <h2 class="t-h2">What <span class="accent">a week looks like.</span></h2>
-      <p class="t-lead">The second week 2trAIn generated for a 38-year-old triathlete who trains 6 days. Yours comes from your history and your date.</p>
+      <p class="t-lead">Session by session, exactly as 2trAIn generated it. Yours comes from your history and your date.</p>
     </div>
-    <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">MON</span><span><b>Bike with tempo</b><small>20 min steady, without pushing at the end</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">TUE</span><span><b>Continuous swim</b><small>Zone 2</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">WED</span><span><b>Run with strides</b><small>6 short strides at the end</small></span><span class="race-format__d">63 min</span></li>
-      <li><span class="race-format__n">THU</span><span><b>Easy bike</b><small>Zone 2</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">FRI</span><span><b>Rest</b><small>To absorb the load</small></span><span class="race-format__d">—</span></li>
-      <li><span class="race-format__n">SAT</span><span><b>Swim with tempo</b><small>15-min continuous block, steady pace</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">SUN</span><span><b>Long run</b><small>Zone 2</small></span><span class="race-format__d">85 min</span></li>
-    </ol>
+    <div class="wk" data-wk>
+      <div class="wk-panel" data-anim>
+        <p class="wk-who">Profile: woman, 38 · triathlon · 6 days a week · week 2</p>
+        <div class="wk-sum"><p class="wk-stats"><b>6</b> sessions · <b>6 h 28 min</b></p><div class="wk-strip" aria-hidden="true"><span class="wk-strip__d"><i class="z3" style="--h:71%"></i><b>M</b></span><span class="wk-strip__d"><i class="z2" style="--h:71%"></i><b>T</b></span><span class="wk-strip__d"><i class="z4" style="--h:74%"></i><b>W</b></span><span class="wk-strip__d"><i class="z2" style="--h:71%"></i><b>T</b></span><span class="wk-strip__d is-rest"><i></i><b>F</b></span><span class="wk-strip__d"><i class="z3" style="--h:71%"></i><b>S</b></span><span class="wk-strip__d"><i class="z2" style="--h:100%"></i><b>S</b></span></div><p class="wk-legend" aria-hidden="true"><span>Intensity <i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i> Z1–Z4</span></p></div>
+        <ol class="wk-days">
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">MON</span><div class="wk-day__t"><span class="wk-chip">Bike · Zone 3</span><b>Bike with tempo</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 20 min at tempo, steady, without pushing at the end."><i class="z1" style="--g:600"></i><i class="z3" style="--g:1200"></i><i class="z2" style="--g:1500"></i><i class="z1" style="--g:300"></i></div><p class="wk-day__sum">20 min at tempo, steady, without pushing at the end.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">TUE</span><div class="wk-day__t"><span class="wk-chip">Swim · Zone 2</span><b>Continuous swim</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 55 min non-stop in Zone 2."><i class="z2" style="--g:3300"></i><i class="z1" style="--g:300"></i></div><p class="wk-day__sum">55 min non-stop in Zone 2.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">WED</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 4</span><b>Run with strides</b></div><span class="wk-day__min">63<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 47 easy minutes and 6 × 20 s strides at the end."><i class="z1" style="--g:300"></i><i class="z2" style="--g:2820"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:40"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:40"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:40"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:40"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:40"></i><i class="z4" style="--g:20"></i><i class="z1" style="--g:340"></i></div><p class="wk-day__sum">47 easy minutes and 6 × 20 s strides at the end.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">THU</span><div class="wk-day__t"><span class="wk-chip">Bike · Zone 2</span><b>Easy bike</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 50 min in Zone 2."><i class="z1" style="--g:300"></i><i class="z2" style="--g:3000"></i><i class="z1" style="--g:300"></i></div><p class="wk-day__sum">50 min in Zone 2.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">SAT</span><div class="wk-day__t"><span class="wk-chip">Swim · Zone 3</span><b>Swim with tempo</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 15-min continuous block at a steady pace."><i class="z1" style="--g:600"></i><i class="z3" style="--g:900"></i><i class="z2" style="--g:1800"></i><i class="z1" style="--g:300"></i></div><p class="wk-day__sum">15-min continuous block at a steady pace.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">SUN</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 2</span><b>Long run</b></div><span class="wk-day__min">85<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 75 min in Zone 2."><i class="z1" style="--g:300"></i><i class="z2" style="--g:4500"></i><i class="z1" style="--g:300"></i></div><p class="wk-day__sum">75 min in Zone 2.</p></li>
+        </ol>
+      </div>
+    </div>
   </div>
 </section>
 

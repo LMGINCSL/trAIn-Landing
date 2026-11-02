@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro14">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro13" defer></script>
+<script src="/app.js?v=claro14" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -279,14 +279,20 @@
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">Una semana real</p>
       <h2 class="t-h2">Así se ve <span class="accent">una semana.</span></h2>
-      <p class="t-lead">La segunda semana que 2trAIn generó para un corredor de 40 años que prepara un 10K con 4 días. La tuya sale de tu historial y de tu fecha.</p>
+      <p class="t-lead">Sesión a sesión, tal como la generó 2trAIn. La tuya sale de tu historial y de tu fecha.</p>
     </div>
-    <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">LUN</span><span><b>Rodaje suave y core</b><small>4 bloques en Zona 2 y core al terminar</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">MIÉ</span><span><b>Calidad: ritmo sostenido</b><small>25 min continuos y constantes</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">VIE</span><span><b>Calidad: umbral</b><small>Vuelve tras el cansancio, más contenido</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">DOM</span><span><b>Tirada larga</b><small>Termina sintiendo que podrías seguir</small></span><span class="race-format__d">78 min</span></li>
-    </ol>
+    <div class="wk" data-wk>
+      <div class="wk-panel" data-anim>
+        <p class="wk-who">Perfil: hombre de 40 años · 10K · 4 días por semana · semana 2</p>
+        <div class="wk-sum"><p class="wk-stats"><b>4</b> sesiones · <b>4 h 18 min</b></p><div class="wk-strip" aria-hidden="true"><span class="wk-strip__d"><i class="z2" style="--h:77%"></i><b>L</b></span><span class="wk-strip__d is-rest"><i></i><b>M</b></span><span class="wk-strip__d"><i class="z3" style="--h:77%"></i><b>X</b></span><span class="wk-strip__d is-rest"><i></i><b>J</b></span><span class="wk-strip__d"><i class="z4" style="--h:77%"></i><b>V</b></span><span class="wk-strip__d is-rest"><i></i><b>S</b></span><span class="wk-strip__d"><i class="z2" style="--h:100%"></i><b>D</b></span></div><p class="wk-legend" aria-hidden="true"><span>Intensidad <i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i> Z1–Z4</span></p></div>
+        <ol class="wk-days">
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">LUN</span><div class="wk-day__t"><span class="wk-chip">Carrera · Zona 2</span><b>Rodaje suave y core</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Intensidad de la sesión por tramos: 4 bloques de 13 min en Zona 2 y dead bug al terminar."><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i></div><p class="wk-day__sum">4 bloques de 13 min en Zona 2 y dead bug al terminar.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">MIÉ</span><div class="wk-day__t"><span class="wk-chip">Carrera · Zona 3</span><b>Calidad: ritmo sostenido</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Intensidad de la sesión por tramos: 25 min continuos en Zona 3."><i class="z1" style="--g:600"></i><i class="z3" style="--g:1500"></i><i class="z2" style="--g:900"></i><i class="z1" style="--g:600"></i></div><p class="wk-day__sum">25 min continuos en Zona 3.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">VIE</span><div class="wk-day__t"><span class="wk-chip">Carrera · Zona 4</span><b>Calidad: umbral</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Intensidad de la sesión por tramos: 15 min en Zona 4 y 2 bloques más: vuelve, más contenido, tras el cansancio."><i class="z1" style="--g:900"></i><i class="z4" style="--g:900"></i><i class="z4" style="--g:570"></i><i class="z1" style="--g:60"></i><i class="z4" style="--g:570"></i><i class="z1" style="--g:600"></i></div><p class="wk-day__sum">15 min en Zona 4 y 2 bloques más: vuelve, más contenido, tras el cansancio.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">DOM</span><div class="wk-day__t"><span class="wk-chip">Carrera · Zona 2</span><b>Tirada larga</b></div><span class="wk-day__min">78<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Intensidad de la sesión por tramos: 5 bloques de 14 min. Termina sintiendo que podrías seguir."><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i></div><p class="wk-day__sum">5 bloques de 14 min. Termina sintiendo que podrías seguir.</p></li>
+        </ol>
+      </div>
+    </div>
   </div>
 </section>
 

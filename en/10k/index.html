@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro14">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro13" defer></script>
+<script src="/app.js?v=claro14" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -279,14 +279,20 @@
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">A real week</p>
       <h2 class="t-h2">What <span class="accent">a week looks like.</span></h2>
-      <p class="t-lead">The second week 2trAIn generated for a 40-year-old runner preparing a 10K on 4 days. Yours comes from your history and your date.</p>
+      <p class="t-lead">Session by session, exactly as 2trAIn generated it. Yours comes from your history and your date.</p>
     </div>
-    <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">MON</span><span><b>Easy run and core</b><small>4 Zone 2 blocks, core at the end</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">WED</span><span><b>Quality: steady pace</b><small>25 min continuous and even</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">FRI</span><span><b>Quality: threshold</b><small>Back after the tiredness, more contained</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">SUN</span><span><b>Long run</b><small>Finish feeling you could keep going</small></span><span class="race-format__d">78 min</span></li>
-    </ol>
+    <div class="wk" data-wk>
+      <div class="wk-panel" data-anim>
+        <p class="wk-who">Profile: man, 40 · 10K · 4 days a week · week 2</p>
+        <div class="wk-sum"><p class="wk-stats"><b>4</b> sessions · <b>4 h 18 min</b></p><div class="wk-strip" aria-hidden="true"><span class="wk-strip__d"><i class="z2" style="--h:77%"></i><b>M</b></span><span class="wk-strip__d is-rest"><i></i><b>T</b></span><span class="wk-strip__d"><i class="z3" style="--h:77%"></i><b>W</b></span><span class="wk-strip__d is-rest"><i></i><b>T</b></span><span class="wk-strip__d"><i class="z4" style="--h:77%"></i><b>F</b></span><span class="wk-strip__d is-rest"><i></i><b>S</b></span><span class="wk-strip__d"><i class="z2" style="--h:100%"></i><b>S</b></span></div><p class="wk-legend" aria-hidden="true"><span>Intensity <i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i> Z1–Z4</span></p></div>
+        <ol class="wk-days">
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">MON</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 2</span><b>Easy run and core</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 4 × 13 min in Zone 2, dead bugs at the end."><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:810"></i></div><p class="wk-day__sum">4 × 13 min in Zone 2, dead bugs at the end.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">WED</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 3</span><b>Quality: steady pace</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 25 min continuous in Zone 3."><i class="z1" style="--g:600"></i><i class="z3" style="--g:1500"></i><i class="z2" style="--g:900"></i><i class="z1" style="--g:600"></i></div><p class="wk-day__sum">25 min continuous in Zone 3.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">FRI</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 4</span><b>Quality: threshold</b></div><span class="wk-day__min">60<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 15 min in Zone 4 and 2 more blocks: back, more contained, after the tiredness."><i class="z1" style="--g:900"></i><i class="z4" style="--g:900"></i><i class="z4" style="--g:570"></i><i class="z1" style="--g:60"></i><i class="z4" style="--g:570"></i><i class="z1" style="--g:600"></i></div><p class="wk-day__sum">15 min in Zone 4 and 2 more blocks: back, more contained, after the tiredness.</p></li>
+        <li class="wk-day wk-day--cardio"><div class="wk-day__head"><span class="wk-day__d">SUN</span><div class="wk-day__t"><span class="wk-chip">Run · Zone 2</span><b>Long run</b></div><span class="wk-day__min">78<small>min</small></span></div><div class="wk-prof" role="img" aria-label="Session intensity by segment: 5 × 14 min blocks. Finish feeling you could keep going."><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i><i class="z1" style="--g:120"></i><i class="z2" style="--g:840"></i></div><p class="wk-day__sum">5 × 14 min blocks. Finish feeling you could keep going.</p></li>
+        </ol>
+      </div>
+    </div>
   </div>
 </section>
 

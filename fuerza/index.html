@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro14">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro13" defer></script>
+<script src="/app.js?v=claro14" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -279,22 +279,19 @@
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">Una semana real</p>
       <h2 class="t-h2">Así se ve <span class="accent">una semana.</span></h2>
-      <p class="t-lead">La semana de descarga que 2trAIn generó para una usuaria de powerlifting de 27 años después de una semana al límite. La tuya sale de tu historial, tu objetivo y tu material.</p>
+      <p class="t-lead">Sesión a sesión, tal como la generó 2trAIn. La tuya sale de tu historial, tu objetivo y tu material.</p>
     </div>
-    <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">LUN</span><span><b>Sentadilla y banca</b><small>Deja 2-3 repeticiones en reserva</small></span><span class="race-format__d">85 min</span></li>
-      <li><span class="race-format__n">MAR</span><span><b>Banca con pausa y tirón</b><small>Pausa controlada en el pecho, sin llegar al fallo</small></span><span class="race-format__d">76 min</span></li>
-      <li><span class="race-format__n">JUE</span><span><b>Peso muerto y pierna</b><small>Series técnicas y limpias, con margen</small></span><span class="race-format__d">80 min</span></li>
-      <li><span class="race-format__n">SÁB</span><span><b>Press militar y pierna unilateral</b><small>Pierna controlada y hombro estable</small></span><span class="race-format__d">76 min</span></li>
-    </ol>
-    <h3 class="race-week__t" data-reveal>Los básicos de esa semana</h3>
-    <div class="race-week" data-reveal-stagger>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-47108.jpg" alt="Sentadilla con barra baja" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Lunes</span><div class="demo-ex__name">Sentadilla con barra baja</div><div class="demo-ex__meta">4×5</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-1476.jpg" alt="Press de banca con barra" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Martes</span><div class="demo-ex__name">Press de banca con barra</div><div class="demo-ex__meta">4×4 · con pausa</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-339.jpg" alt="Dominada" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Martes</span><div class="demo-ex__name">Dominada</div><div class="demo-ex__meta">3×8</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-1483.jpg" alt="Peso muerto con barra" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Jueves</span><div class="demo-ex__name">Peso muerto con barra</div><div class="demo-ex__meta">4×3</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-292.jpg" alt="Hip thrust con barra" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Jueves</span><div class="demo-ex__name">Hip thrust con barra</div><div class="demo-ex__meta">3×8</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-2593.jpg" alt="Press militar de pie con barra" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Sábado</span><div class="demo-ex__name">Press militar de pie con barra</div><div class="demo-ex__meta">4×6</div></div></div>
+    <div class="wk" data-wk>
+      <div class="wk-panel" data-anim>
+        <p class="wk-who">Perfil: mujer de 27 años · powerlifting · 4 días · semana de descarga tras una semana al límite</p>
+        <div class="wk-sum"><p class="wk-stats"><b>4</b> sesiones · <b>5 h 17 min</b></p><div class="wk-strip" aria-hidden="true"><span class="wk-strip__d"><i class="gym" style="--h:100%"></i><b>L</b></span><span class="wk-strip__d"><i class="gym" style="--h:89%"></i><b>M</b></span><span class="wk-strip__d is-rest"><i></i><b>X</b></span><span class="wk-strip__d"><i class="gym" style="--h:94%"></i><b>J</b></span><span class="wk-strip__d is-rest"><i></i><b>V</b></span><span class="wk-strip__d"><i class="gym" style="--h:89%"></i><b>S</b></span><span class="wk-strip__d is-rest"><i></i><b>D</b></span></div><p class="wk-legend" aria-hidden="true"><span><i class="gym"></i>Fuerza</span></p></div>
+        <ol class="wk-days">
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">LUN</span><div class="wk-day__t"><span class="wk-chip">Fuerza</span><b>Sentadilla y banca</b></div><span class="wk-day__min">85<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-47108-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Sentadilla con barra baja</b><small>4×5</small></span></li><li><img src="/assets/ej/c-1476-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Press de banca con barra</b><small>3×5</small></span></li><li><img src="/assets/ej/c-1494-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Sentadilla completa con barra</b><small>3×8</small></span></li><li><img src="/assets/ej/c-3462-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Peso muerto rumano con mancuernas</b><small>3×10</small></span></li></ul><p class="wk-more">+3 ejercicios más</p><p class="wk-day__sum">Descarga: deja 2-3 repeticiones en reserva.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">MAR</span><div class="wk-day__t"><span class="wk-chip">Fuerza</span><b>Banca con pausa y tirón</b></div><span class="wk-day__min">76<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-1476-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Press de banca con barra</b><small>4×4</small></span></li><li><img src="/assets/ej/c-339-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Dominada</b><small>3×8</small></span></li><li><img src="/assets/ej/c-47666-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Remo sentado con polea</b><small>3×10</small></span></li><li><img src="/assets/ej/c-117-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Press de banca con mancuernas</b><small>3×10</small></span></li></ul><p class="wk-more">+3 ejercicios más</p><p class="wk-day__sum">Pausa controlada en el pecho, sin llegar al fallo.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">JUE</span><div class="wk-day__t"><span class="wk-chip">Fuerza</span><b>Peso muerto y pierna</b></div><span class="wk-day__min">80<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-1483-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Peso muerto con barra</b><small>4×3</small></span></li><li><img src="/assets/ej/c-1493-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Sentadilla frontal con barra</b><small>3×6</small></span></li><li><img src="/assets/ej/c-292-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Hip thrust con barra</b><small>3×8</small></span></li><li><img src="/assets/ej/c-500731-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Curl femoral tumbado en máquina</b><small>3×10</small></span></li></ul><p class="wk-more">+2 ejercicios más</p><p class="wk-day__sum">Series técnicas y limpias, con margen.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">SÁB</span><div class="wk-day__t"><span class="wk-chip">Fuerza</span><b>Press militar y pierna unilateral</b></div><span class="wk-day__min">76<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-2593-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Press militar de pie con barra</b><small>4×6</small></span></li><li><img src="/assets/ej/c-4763-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Sentadilla búlgara dividida</b><small>3×8</small></span></li><li><img src="/assets/ej/c-86-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Jalón</b><small>3×8</small></span></li><li><img src="/assets/ej/c-1536-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Peso muerto rumano con barra</b><small>3×8</small></span></li></ul><p class="wk-more">+3 ejercicios más</p><p class="wk-day__sum">Pierna controlada y hombro estable.</p></li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>

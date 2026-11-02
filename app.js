@@ -362,6 +362,32 @@ function autoCarousel(el, opts) {
     if (reduceMotion) activate(0);
   })();
 
+  // Semana real (páginas por objetivo): pestañas entre semanas (maratón / media).
+  // El panel que se enseña vuelve a montar sus gráficas.
+  document.querySelectorAll('.wk-tabs').forEach(function(bar) {
+    var tabs = Array.prototype.slice.call(bar.querySelectorAll('[role="tab"]'));
+    function select(i, focus) {
+      bar.style.setProperty('--i', i);
+      tabs.forEach(function(t, idx) {
+        var on = idx === i, panel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panel.hidden = !on;
+        if (on) {
+          panel.classList.remove('is-in');
+          requestAnimationFrame(function() { requestAnimationFrame(function() { panel.classList.add('is-in'); }); });
+        }
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function(t, i) {
+      t.addEventListener('click', function() { select(i); });
+      t.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); select((i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true); }
+      });
+    });
+  });
+
   // FAQ
   document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => {
     const isOpen = q.closest('.faq-item').classList.toggle('open');

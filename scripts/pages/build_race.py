@@ -33,7 +33,7 @@ COMMON = {
            "faq_price": ("¿Cuánto cuesta?", "2trAIn está en beta abierta: te apuntas con tu email y el acceso te llega al momento, sin tarjeta."),
            "faq_watch": "No. Solo tu móvil.",
            "viz_plan": {"now": "Hoy", "flag": "Tu carrera", "phases": ["Base", "Construcción", "Afinado"], "cap": "Periodizado hacia el día de la carrera"},
-           "viz_bars": "Carga por semana, con su descarga", "week_note": "Orientativa: la tuya sale de tu historial y de tu fecha."},
+           "viz_bars": "Carga por semana, con su descarga", "week_note": "Sesión a sesión, tal como la generó 2trAIn. La tuya sale de tu historial y de tu fecha."},
     "en": {"placeholder": "you@email.com", "email_label": "Your email", "cta": "Join the beta",
            "meta": "No card · Access arrives by email", "faq_eyebrow": "FAQ",
            "bridge3": 'Got a date? <b>Start today.</b>', "start": "Start session",
@@ -43,7 +43,7 @@ COMMON = {
            "faq_price": ("How much does it cost?", "2trAIn is in open beta: sign up with your email and access arrives right away, no card needed."),
            "faq_watch": "No. Just your phone.",
            "viz_plan": {"now": "Today", "flag": "Your race", "phases": ["Base", "Build", "Taper"], "cap": "Periodised toward race day"},
-           "viz_bars": "Weekly load, with its deload", "week_note": "Indicative: yours comes from your history and your date."},
+           "viz_bars": "Weekly load, with its deload", "week_note": "Session by session, exactly as 2trAIn generated it. Yours comes from your history and your date."},
 }
 
 PAGES = {
@@ -75,19 +75,6 @@ PAGES = {
             "tiles": ["peak", ("Carrera, estaciones y fuerza", "Zona 2 para la base, estaciones con técnica y carga, y al menos un día de fuerza para no perder lo ganado."),
                       "adjust", ("Con tu material", "¿Tu gimnasio no tiene trineo ni SkiErg? Lo cambia por alternativas con lo que tengas y lo recuerda.")],
             "week_eyebrow": "Una semana real", "week_h2": 'Así se ve <span class="accent">una semana.</span>',
-            "week_note": "La que 2trAIn generó para un usuario de 29 años con HYROX en marzo, 5 días por semana. La tuya sale de tu historial y de tu fecha.",
-            "days": [("LUN", "Pierna y tirón con AMRAP", "Sentadilla, dominada, peso muerto rumano y granjero", "64 min"),
-                     ("MAR", "Empuje, remo y trineo", "Press de banca, remo, zancada y arrastre de trineo", "64 min"),
-                     ("MIÉ", "Carrera de ritmo", "3 bloques firmes de 10 min", "60 min"),
-                     ("VIE", "Tirada larga con prueba de ritmo", "30 min de prueba suave y 30 min más", "70 min"),
-                     ("SÁB", "Gestos de prueba y AMRAP", "Peso muerto, sentadilla frontal, trineo y burpees", "65 min")],
-            "cards_title": "Algunos ejercicios de esa semana",
-            "cards": [("c-1494", "Lunes", "Sentadilla completa con barra", "4×8"),
-                      ("c-500349", "Lunes", "Paseo del granjero con mancuernas", "2 × 40 s"),
-                      ("c-500472", "Lunes · final", "Remoergómetro a ritmo normal", "60 s"),
-                      ("c-500523", "Martes · final", "Arrastre de trineo con saco pesado", "40 s"),
-                      ("c-47985", "Martes · final", "Golpe con balón medicinal", "6 rep."),
-                      ("c-293", "Sábado", "Burpee", "40 s")],
             "faq_h2": 'Preparar HYROX, <span class="muted">sin dudas.</span>',
             "faq": [("¿Con cuánto tiempo tengo que empezar a preparar un HYROX?", "Cuanto antes, más progresivo. Le dices la fecha y el plan reparte las semanas que haya entre base, construcción y afinado. Si hay poco margen, se adapta a esas semanas."),
                     ("¿Necesito trineo, SkiErg o remo en mi gimnasio?", "No. Si te falta algo, lo cambia por alternativas con el material que tengas y lo recuerda para las semanas siguientes."),
@@ -124,19 +111,6 @@ PAGES = {
             "tiles": ["peak", ("Running, stations and strength", "Zone 2 for the base, stations with technique and load, and at least one strength day so you keep what you've built."),
                       "adjust", ("With your equipment", "No sled or SkiErg at your gym? It swaps them for alternatives with what you have and remembers it.")],
             "week_eyebrow": "A real week", "week_h2": 'What <span class="accent">a week looks like.</span>',
-            "week_note": "The one 2trAIn generated for a 29-year-old user with a HYROX in March, 5 days a week. Yours comes from your history and your date.",
-            "days": [("MON", "Legs and pull with AMRAP", "Squat, pull-up, Romanian deadlift and farmer walk", "64 min"),
-                     ("TUE", "Push, row and sled", "Bench press, row, lunge and sled drag", "64 min"),
-                     ("WED", "Tempo run", "3 steady 10-min blocks", "60 min"),
-                     ("FRI", "Long run with a pace test", "30-min easy test and 30 min more", "70 min"),
-                     ("SAT", "Race movements and AMRAP", "Deadlift, front squat, sled and burpees", "65 min")],
-            "cards_title": "Some exercises from that week",
-            "cards": [("c-1494", "Monday", "Barbell full squat", "4×8"),
-                      ("c-500349", "Monday", "Dumbbell farmer walk", "2 × 40 s"),
-                      ("c-500472", "Monday · finisher", "Rowing machine, steady pace", "60 s"),
-                      ("c-500523", "Tuesday · finisher", "Heavy sandbag sled drag", "40 s"),
-                      ("c-47985", "Tuesday · finisher", "Medicine ball slam", "6 reps"),
-                      ("c-293", "Saturday", "Burpee", "40 s")],
             "faq_h2": 'HYROX prep, <span class="muted">answered.</span>',
             "faq": [("How early should I start preparing for a HYROX?", "The earlier, the more gradual. Tell it the date and the plan spreads the weeks you have across base, build and taper. If time is short, it adapts to those weeks."),
                     ("Do I need a sled, SkiErg or rower at my gym?", "No. If something is missing, it swaps it for alternatives with the equipment you have and remembers it for the following weeks."),
@@ -173,14 +147,6 @@ PAGES = {
             "tiles": ["peak", ("Natación, bici y carrera", "Las tres repartidas en tus días, con descanso para asimilar la carga."),
                       "adjust", ("Encaja en tu semana", "Le dices cuántos días entrenas y el plan reparte las sesiones en esos días.")],
             "week_eyebrow": "Una semana real", "week_h2": 'Así se ve <span class="accent">una semana.</span>',
-            "week_note": "La segunda semana que 2trAIn generó para una triatleta de 38 años que entrena 6 días. La tuya sale de tu historial y de tu fecha.",
-            "days": [("LUN", "Bici con tempo", "20 min continuos y estables, sin apretar al final", "60 min"),
-                     ("MAR", "Natación continua", "Zona 2", "60 min"),
-                     ("MIÉ", "Rodaje con progresivos", "6 progresivos cortos al final", "63 min"),
-                     ("JUE", "Bici suave", "Zona 2", "60 min"),
-                     ("VIE", "Descanso", "Para asimilar la carga", "—"),
-                     ("SÁB", "Natación con tempo", "15 min de bloque continuo, ritmo estable", "60 min"),
-                     ("DOM", "Tirada larga", "Zona 2", "85 min")],
             "faq_h2": 'Preparar un triatlón, <span class="muted">sin dudas.</span>',
             "faq": [("¿Sirve para mi primer triatlón?", "Sí. El plan parte de lo que ya haces. Si vienes de correr, refuerza natación y bici; si vienes de nadar, la carrera."),
                     ("¿Qué distancias puedo preparar?", "Sprint, olímpico, media o larga distancia. Le dices la prueba y la fecha, y el plan se construye hacia ese día."),
@@ -213,14 +179,6 @@ PAGES = {
             "tiles": ["peak", ("Swim, bike and run", "All three spread across your days, with rest to absorb the load."),
                       "adjust", ("Fits your week", "Tell it how many days you train and the plan spreads the sessions across those days.")],
             "week_eyebrow": "A real week", "week_h2": 'What <span class="accent">a week looks like.</span>',
-            "week_note": "The second week 2trAIn generated for a 38-year-old triathlete who trains 6 days. Yours comes from your history and your date.",
-            "days": [("MON", "Bike with tempo", "20 min steady, without pushing at the end", "60 min"),
-                     ("TUE", "Continuous swim", "Zone 2", "60 min"),
-                     ("WED", "Run with strides", "6 short strides at the end", "63 min"),
-                     ("THU", "Easy bike", "Zone 2", "60 min"),
-                     ("FRI", "Rest", "To absorb the load", "—"),
-                     ("SAT", "Swim with tempo", "15-min continuous block, steady pace", "60 min"),
-                     ("SUN", "Long run", "Zone 2", "85 min")],
             "faq_h2": 'Triathlon prep, <span class="muted">answered.</span>',
             "faq": [("Does it work for my first triathlon?", "Yes. The plan starts from what you already do. If you come from running, it builds your swim and bike; if you come from swimming, your run."),
                     ("Which distances can I prepare for?", "Sprint, Olympic, middle or long distance. Tell it the race and the date, and the plan builds toward that day."),
@@ -255,11 +213,6 @@ PAGES = {
             "tiles": ["peak", ("Aprende tu ritmo", "Mide cómo respondes tú a cada semana y ajusta la progresión a tu ritmo, no al de la media."),
                       "adjust", ("Fuerza en el mismo plan", "Un día de fuerza que encaja con la carrera, sin tener que montarlo tú aparte.")],
             "week_eyebrow": "Una semana real", "week_h2": 'Así se ve <span class="accent">una semana.</span>',
-            "week_note": "La segunda semana que 2trAIn generó para un corredor de 40 años que prepara un 10K con 4 días. La tuya sale de tu historial y de tu fecha.",
-            "days": [("LUN", "Rodaje suave y core", "4 bloques en Zona 2 y core al terminar", "60 min"),
-                     ("MIÉ", "Calidad: ritmo sostenido", "25 min continuos y constantes", "60 min"),
-                     ("VIE", "Calidad: umbral", "Vuelve tras el cansancio, más contenido", "60 min"),
-                     ("DOM", "Tirada larga", "Termina sintiendo que podrías seguir", "78 min")],
             "faq_h2": 'Preparar un 10K, <span class="muted">sin dudas.</span>',
             "faq": [("¿Con cuánto tiempo tengo que empezar a preparar un 10K?", "Cuanto antes, más progresivo. Le dices la fecha y el plan reparte las semanas que haya entre base, construcción y afinado. Si hay poco margen, se adapta a esas semanas."),
                     ("¿Sirve si nunca he corrido 10 km?", "Sí. El plan parte de lo que ya haces y sube el volumen poco a poco hasta la distancia."),
@@ -292,11 +245,6 @@ PAGES = {
             "tiles": ["peak", ("Learns your pace", "It measures how you respond each week and adjusts the progression to you, not the average."),
                       "adjust", ("Strength in the same plan", "One strength day that fits around your running, without you building it separately.")],
             "week_eyebrow": "A real week", "week_h2": 'What <span class="accent">a week looks like.</span>',
-            "week_note": "The second week 2trAIn generated for a 40-year-old runner preparing a 10K on 4 days. Yours comes from your history and your date.",
-            "days": [("MON", "Easy run and core", "4 Zone 2 blocks, core at the end", "60 min"),
-                     ("WED", "Quality: steady pace", "25 min continuous and even", "60 min"),
-                     ("FRI", "Quality: threshold", "Back after the tiredness, more contained", "60 min"),
-                     ("SUN", "Long run", "Finish feeling you could keep going", "78 min")],
             "faq_h2": '10K prep, <span class="muted">answered.</span>',
             "faq": [("How early should I start preparing for a 10K?", "The earlier, the more gradual. Tell it the date and the plan spreads the weeks you have across base, build and taper. If time is short, it adapts to those weeks."),
                     ("Does it work if I've never run 10 km?", "Yes. The plan starts from what you already do and raises the volume gradually up to the distance."),
@@ -329,14 +277,6 @@ PAGES = {
             "tiles": [("Tiradas largas con descarga", "El volumen sube poco a poco y con semanas de descarga, según cómo lo absorbes."),
                       "peak", "adjust", ("Fuerza en el mismo plan", "Un día de fuerza que encaja con la carrera, sin tener que montarlo tú aparte.")],
             "week_eyebrow": "Una semana real", "week_h2": 'Así se ve <span class="accent">una semana.</span>',
-            "week_note": "La segunda semana que 2trAIn generó para un corredor de 45 años que prepara un maratón con 5 días. La tuya sale de tu historial y de tu fecha.",
-            "days": [("LUN", "Series cortas", "11 × 90 s fuertes pero controladas", "60 min"),
-                     ("MAR", "Rodaje suave y core", "Zona 2 por bloques, core al terminar", "60 min"),
-                     ("MIÉ", "Descanso", "", "—"),
-                     ("JUE", "Series de 2 minutos", "7 series con el mismo esfuerzo", "60 min"),
-                     ("VIE", "Descanso", "", "—"),
-                     ("SÁB", "Tirada larga", "Zona 2 por bloques", "86 min"),
-                     ("DOM", "Rodaje de recuperación", "Zona 2, muy suave", "60 min")],
             "faq_h2": 'Preparar un maratón, <span class="muted">sin dudas.</span>',
             "faq": [("¿Sirve para mi primer maratón?", "Sí. El plan parte de lo que ya haces y sube el volumen poco a poco, con semanas de descarga."),
                     ("¿Prepara también la media maratón?", "Sí. Le dices si preparas media o maratón y la fecha, y el plan se construye hacia ese día."),
@@ -367,14 +307,6 @@ PAGES = {
             "tiles": [("Long runs with deloads", "Volume rises gradually, with deload weeks, depending on how you absorb it."),
                       "peak", "adjust", ("Strength in the same plan", "One strength day that fits around your running, without you building it separately.")],
             "week_eyebrow": "A real week", "week_h2": 'What <span class="accent">a week looks like.</span>',
-            "week_note": "The second week 2trAIn generated for a 45-year-old runner preparing a marathon on 5 days. Yours comes from your history and your date.",
-            "days": [("MON", "Short intervals", "11 × 90 s, hard but controlled", "60 min"),
-                     ("TUE", "Easy run and core", "Zone 2 in blocks, core at the end", "60 min"),
-                     ("WED", "Rest", "", "—"),
-                     ("THU", "2-minute intervals", "7 reps at the same effort", "60 min"),
-                     ("FRI", "Rest", "", "—"),
-                     ("SAT", "Long run", "Zone 2 in blocks", "86 min"),
-                     ("SUN", "Recovery run", "Zone 2, very easy", "60 min")],
             "faq_h2": 'Marathon prep, <span class="muted">answered.</span>',
             "faq": [("Does it work for my first marathon?", "Yes. The plan starts from what you already do and raises the volume gradually, with deload weeks."),
                     ("Does it prepare the half marathon too?", "Yes. Tell it whether it's a half or a full and the date, and the plan builds toward that day."),
@@ -413,18 +345,7 @@ PAGES = {
                       ("Más de 1.600 ejercicios", "Cada uno con vídeo y ficha técnica, y sustituciones al momento si te falta material."),
                       ("Recuerda lo tuyo", "Lesiones, material y vetos: se lo dices una vez y no vuelve a proponerlo.")],
             "week_eyebrow": "Una semana real", "week_h2": 'Así se ve <span class="accent">una semana.</span>',
-            "days": [("LUN", "Sentadilla y banca", "Deja 2-3 repeticiones en reserva", "85 min"),
-                     ("MAR", "Banca con pausa y tirón", "Pausa controlada en el pecho, sin llegar al fallo", "76 min"),
-                     ("JUE", "Peso muerto y pierna", "Series técnicas y limpias, con margen", "80 min"),
-                     ("SÁB", "Press militar y pierna unilateral", "Pierna controlada y hombro estable", "76 min")],
-            "cards_title": "Los básicos de esa semana",
-            "cards": [("c-47108", "Lunes", "Sentadilla con barra baja", "4×5"),
-                      ("c-1476", "Martes", "Press de banca con barra", "4×4 · con pausa"),
-                      ("c-339", "Martes", "Dominada", "3×8"),
-                      ("c-1483", "Jueves", "Peso muerto con barra", "4×3"),
-                      ("c-292", "Jueves", "Hip thrust con barra", "3×8"),
-                      ("c-2593", "Sábado", "Press militar de pie con barra", "4×6")],
-            "week_note": "La semana de descarga que 2trAIn generó para una usuaria de powerlifting de 27 años después de una semana al límite. La tuya sale de tu historial, tu objetivo y tu material.",
+            "week_lead": "Sesión a sesión, tal como la generó 2trAIn. La tuya sale de tu historial, tu objetivo y tu material.",
             "faq_h2": 'Entrenar fuerza, <span class="muted">sin dudas.</span>',
             "faq": [("¿Sirve para ganar músculo o solo fuerza?", "Para las dos. Eliges hipertrofia o fuerza y el plan ajusta el volumen y las repeticiones a ese objetivo."),
                     ("¿Puedo entrenar en casa?", "Sí. Le dices el material que tienes y el plan se construye con eso, sin ejercicios que no puedas hacer."),
@@ -462,18 +383,7 @@ PAGES = {
                       ("1,600+ exercises", "Each with video and a technique card, and instant swaps if you're missing equipment."),
                       ("Remembers what's yours", "Injuries, equipment and vetoes: tell it once and it won't suggest them again.")],
             "week_eyebrow": "A real week", "week_h2": 'What <span class="accent">a week looks like.</span>',
-            "days": [("MON", "Squat and bench", "Leave 2-3 reps in reserve", "85 min"),
-                     ("TUE", "Paused bench and pull", "Controlled pause on the chest, never to failure", "76 min"),
-                     ("THU", "Deadlift and legs", "Clean, technical sets with room to spare", "80 min"),
-                     ("SAT", "Military press and single-leg work", "Controlled legs and stable shoulders", "76 min")],
-            "cards_title": "That week's main lifts",
-            "cards": [("c-47108", "Monday", "Barbell low-bar squat", "4×5"),
-                      ("c-1476", "Tuesday", "Barbell bench press", "4×4 · paused"),
-                      ("c-339", "Tuesday", "Chin-up", "3×8"),
-                      ("c-1483", "Thursday", "Barbell deadlift", "4×3"),
-                      ("c-292", "Thursday", "Barbell hip thrust", "3×8"),
-                      ("c-2593", "Saturday", "Barbell standing military press", "4×6")],
-            "week_note": "The deload week 2trAIn generated for a 27-year-old powerlifter after a week at her limit. Yours comes from your history, your goal and your equipment.",
+            "week_lead": "Session by session, exactly as 2trAIn generated it. Yours comes from your history, your goal and your equipment.",
             "faq_h2": 'Strength training, <span class="muted">answered.</span>',
             "faq": [("Does it work for building muscle or just strength?", "Both. Pick hypertrophy or strength and the plan adjusts volume and reps to that goal."),
                     ("Can I train at home?", "Yes. Tell it what equipment you have and the plan is built with that, no exercises you can't do."),
@@ -483,6 +393,100 @@ PAGES = {
                     "price"],
         },
     },
+}
+
+# Semana real de cada página (semanas.json, sacada de la revisión de la LLM con
+# scripts/pages/extraer_semanas.py). Aquí solo van los textos: por sesión, título
+# y una línea de resumen, en el orden de los días entrenados. «picks» elige qué
+# ejercicios enseñar en los días de gimnasio (por defecto, los cuatro primeros).
+SEMANAS = json.loads((pathlib.Path(__file__).with_name("semanas.json")).read_text(encoding="utf-8"))
+WEEKS = {
+    "hyrox": [{"src": ("hyrox", "hyrox"),
+               "picks": {0: ["1494", "339", "500349", "4536"], 1: ["1476", "4", "500523", "47985"], 4: ["1483", "1493", "500524", "293"]},
+               "es": {"note": "Perfil: hombre de 29 años · HYROX el 14 de marzo · 5 días por semana",
+                      "days": [("Pierna y tirón con AMRAP", "Pierna y tirón pesados; cierra con granjero, thruster y remoergómetro."),
+                               ("Empuje, remo y trineo", "Press, remo y zancada; al final, arrastre de trineo y golpes con balón."),
+                               ("Carrera de ritmo", "3 × 10 min en Zona 4, recuperando 2 min."),
+                               ("Tirada larga con prueba de ritmo", "30 min de prueba a ritmo de conversación y 30 min más."),
+                               ("Gestos de prueba y AMRAP", "Peso muerto y sentadilla frontal; acaba con trineo y burpees.")]},
+               "en": {"note": "Profile: man, 29 · HYROX on March 14 · 5 days a week",
+                      "days": [("Legs and pull with AMRAP", "Heavy legs and pull; finishes with farmer walk, thrusters and the rower."),
+                               ("Push, row and sled", "Press, row and lunge; then sled drag and med ball slams."),
+                               ("Tempo run", "3 × 10 min in Zone 4, 2 min easy between."),
+                               ("Long run with a pace test", "30-min conversational pace test, then 30 more."),
+                               ("Race movements and AMRAP", "Deadlift and front squat; ends with sled and burpees.")]}}],
+    "triatlon": [{"src": ("triatlon", "triatlon"),
+                  "es": {"note": "Perfil: mujer de 38 años · triatlón · 6 días por semana · semana 2",
+                         "days": [("Bici con tempo", "20 min a tempo, estable y sin apretar al final."),
+                                  ("Natación continua", "55 min seguidos en Zona 2."),
+                                  ("Rodaje con progresivos", "47 min suaves y 6 progresivos de 20 s al final."),
+                                  ("Bici suave", "50 min en Zona 2."),
+                                  ("Natación con tempo", "15 min de bloque continuo a ritmo estable."),
+                                  ("Tirada larga", "75 min en Zona 2.")]},
+                  "en": {"note": "Profile: woman, 38 · triathlon · 6 days a week · week 2",
+                         "days": [("Bike with tempo", "20 min at tempo, steady, without pushing at the end."),
+                                  ("Continuous swim", "55 min non-stop in Zone 2."),
+                                  ("Run with strides", "47 easy minutes and 6 × 20 s strides at the end."),
+                                  ("Easy bike", "50 min in Zone 2."),
+                                  ("Swim with tempo", "15-min continuous block at a steady pace."),
+                                  ("Long run", "75 min in Zone 2.")]}}],
+    "10k": [{"src": ("10k", "10k"),
+             "es": {"note": "Perfil: hombre de 40 años · 10K · 4 días por semana · semana 2",
+                    "days": [("Rodaje suave y core", "4 bloques de 13 min en Zona 2 y dead bug al terminar."),
+                             ("Calidad: ritmo sostenido", "25 min continuos en Zona 3."),
+                             ("Calidad: umbral", "15 min en Zona 4 y 2 bloques más: vuelve, más contenido, tras el cansancio."),
+                             ("Tirada larga", "5 bloques de 14 min. Termina sintiendo que podrías seguir.")]},
+             "en": {"note": "Profile: man, 40 · 10K · 4 days a week · week 2",
+                    "days": [("Easy run and core", "4 × 13 min in Zone 2, dead bugs at the end."),
+                             ("Quality: steady pace", "25 min continuous in Zone 3."),
+                             ("Quality: threshold", "15 min in Zone 4 and 2 more blocks: back, more contained, after the tiredness."),
+                             ("Long run", "5 × 14 min blocks. Finish feeling you could keep going.")]}}],
+    "maraton": [{"src": ("maraton", "maraton"),
+                 "es": {"tab": "Maratón", "note": "Perfil: hombre de 45 años · maratón · 5 días por semana · semana 2",
+                        "days": [("Series cortas", "11 × 90 s fuertes pero controladas, recuperando 90 s."),
+                                 ("Rodaje suave y core", "4 bloques en Zona 2; core: dead bug, plancha y hollow hold."),
+                                 ("Series de 2 minutos", "7 × 2 min con el mismo esfuerzo en todas."),
+                                 ("Tirada larga", "86 min en Zona 2, por bloques."),
+                                 ("Rodaje de recuperación", "Muy suave, para soltar piernas.")]},
+                 "en": {"tab": "Marathon", "note": "Profile: man, 45 · marathon · 5 days a week · week 2",
+                        "days": [("Short intervals", "11 × 90 s, hard but controlled, 90 s easy between."),
+                                 ("Easy run and core", "4 Zone 2 blocks; core: dead bug, plank and hollow hold."),
+                                 ("2-minute intervals", "7 × 2 min at the same effort."),
+                                 ("Long run", "86 min in Zone 2, in blocks."),
+                                 ("Recovery run", "Very easy, to loosen the legs.")]}},
+                {"src": ("maraton", "media"),
+                 "es": {"tab": "Media maratón", "note": "Perfil: mujer de 33 años · media maratón de 2:05 a 1:55 · 4 días por semana · semana 2",
+                        "days": [("Fartlek por sensaciones", "6 cambios de 2 min fuertes, sin parar."),
+                                 ("Cuestas en tierra", "7 cuestas de 90 s con zancada corta y firme."),
+                                 ("Rodaje continuo suave", "50 min en Zona 2, pudiendo hablar todo el rato."),
+                                 ("Tirada larga", "75 min suaves y constantes.")]},
+                 "en": {"tab": "Half marathon", "note": "Profile: woman, 33 · half marathon from 2:05 to 1:55 · 4 days a week · week 2",
+                        "days": [("Fartlek by feel", "6 hard 2-minute surges, without stopping."),
+                                 ("Hill repeats on trail", "7 × 90 s hills with a short, firm stride."),
+                                 ("Easy continuous run", "50 min in Zone 2, able to talk the whole time."),
+                                 ("Long run", "75 easy, even minutes.")]}}],
+    "fuerza": [{"src": ("fuerza", "fuerza"),
+                "es": {"note": "Perfil: mujer de 27 años · powerlifting · 4 días · semana de descarga tras una semana al límite",
+                       "days": [("Sentadilla y banca", "Descarga: deja 2-3 repeticiones en reserva."),
+                                ("Banca con pausa y tirón", "Pausa controlada en el pecho, sin llegar al fallo."),
+                                ("Peso muerto y pierna", "Series técnicas y limpias, con margen."),
+                                ("Press militar y pierna unilateral", "Pierna controlada y hombro estable.")]},
+                "en": {"note": "Profile: woman, 27 · powerlifting · 4 days · deload week after a week at her limit",
+                       "days": [("Squat and bench", "Deload: leave 2-3 reps in reserve."),
+                                ("Paused bench and pull", "Controlled pause on the chest, never to failure."),
+                                ("Deadlift and legs", "Clean, technical sets with room to spare."),
+                                ("Military press and single-leg work", "Controlled legs and stable shoulders.")]}}],
+}
+DIAS = {"es": ["LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB", "DOM"], "en": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]}
+DIAS_1 = {"es": "LMXJVSD", "en": "MTWTFSS"}
+DIA_N = {"Lunes": 0, "Martes": 1, "Miércoles": 2, "Jueves": 3, "Viernes": 4, "Sábado": 5, "Domingo": 6}
+WK = {
+    "es": {"mod": {"running": "Carrera", "cycling": "Bici", "swimming": "Natación", "gym": "Fuerza"}, "zone": "Zona",
+           "sessions": "sesiones", "more": "+{n} ejercicios más", "rep": "rep.", "rest": "Descanso",
+           "legend": "Intensidad", "strength": "Fuerza", "prof": "Intensidad de la sesión por tramos"},
+    "en": {"mod": {"running": "Run", "cycling": "Bike", "swimming": "Swim", "gym": "Strength"}, "zone": "Zone",
+           "sessions": "sessions", "more": "+{n} more exercises", "rep": "reps", "rest": "Rest",
+           "legend": "Intensity", "strength": "Strength", "prof": "Session intensity by segment"},
 }
 
 
@@ -505,6 +509,88 @@ def faq_items(c, k):
         q, a = f
         out.append((q, {"taper": k["faq_taper"], "watch": k["faq_watch"]}.get(a, a)))
     return out
+
+
+def dose(e, w):
+    if e["seg"]:
+        return f'{e["sets"]} × {e["seg"]} s' if e["sets"] > 1 else f'{e["seg"]} s'
+    return f'{e["sets"]}×{e["reps"]}' if e["sets"] > 1 else f'{e["reps"]} {w["rep"]}'
+
+
+def week_html(slug, lang):
+    """Semana real: resumen (sesiones, tiempo y barra por día) y una tarjeta por
+    sesión. Cardio: gráfica de intensidad por tramos. Gimnasio: ejercicios con foto."""
+    w = WK[lang]
+    variants = WEEKS[slug]
+    out = ['    <div class="wk" data-wk>']
+    if len(variants) > 1:
+        out.append('      <div class="wk-tabs" role="tablist">' + "".join(
+            f'<button type="button" role="tab" id="wk-tab-{i}" aria-controls="wk-panel-{i}" aria-selected="{str(i == 0).lower()}"'
+            + ("" if i == 0 else ' tabindex="-1"') + f'>{esc(v[lang]["tab"])}</button>'
+            for i, v in enumerate(variants)) + '</div>')
+    for vi, v in enumerate(variants):
+        sem = SEMANAS[v["src"][0]][v["src"][1]]
+        t = v[lang]
+        dias = sem["dias"]
+        assert len(dias) == len(t["days"]), (slug, len(dias), len(t["days"]))
+        total = sum(d["min"] for d in dias)
+        hm = f'{total // 60} h {total % 60} min' if total % 60 else f'{total // 60} h'
+        by_day = {DIA_N[d["dia"]]: d for d in dias}
+        top = max(d["min"] for d in dias)
+
+        def zmax(d):
+            return max((z for _, z, _ in d["tramos"]), default=2) if d["tipo"] == "cardio" else 0
+        strip = []
+        for i in range(7):
+            d = by_day.get(i)
+            if d:
+                cls = f'z{zmax(d)}' if d["tipo"] == "cardio" else "gym"
+                strip.append(f'<span class="wk-strip__d"><i class="{cls}" style="--h:{round(d["min"] / top * 100)}%"></i><b>{DIAS_1[lang][i]}</b></span>')
+            else:
+                strip.append(f'<span class="wk-strip__d is-rest"><i></i><b>{DIAS_1[lang][i]}</b></span>')
+        legend = []
+        if any(d["tipo"] == "cardio" for d in dias):
+            legend.append(f'<span>{esc(w["legend"])} <i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i> Z1–Z4</span>')
+        if any(d["tipo"] != "cardio" for d in dias):
+            legend.append(f'<span><i class="gym"></i>{esc(w["strength"])}</span>')
+        cards = []
+        for di, (d, (title, summ)) in enumerate(zip(dias, t["days"])):
+            day = DIAS[lang][DIA_N[d["dia"]]]
+            if d["tipo"] == "cardio":
+                mod = w["mod"].get(d["modalidad"], w["mod"]["running"])
+                chip = f'{mod} · {w["zone"]} {zmax(d)}'
+                segs = "".join(f'<i class="z{z}" style="--g:{sec}"></i>' for sec, z, _ in d["tramos"])
+                body = f'<div class="wk-prof" role="img" aria-label="{esc(w["prof"])}: {esc(summ)}">{segs}</div>'
+                kind = "cardio"
+            else:
+                chip = w["mod"]["gym"]
+                exs = d["ejercicios"]
+                pick = v.get("picks", {}).get(di)
+                shown = [next(e for e in exs if e["id"] == i) for i in pick] if pick else exs[:4]
+                rows = "".join(
+                    f'<li><img src="/assets/ej/c-{e["id"]}-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async">'
+                    f'<span><b>{esc(e[lang])}</b><small>{esc(dose(e, w))}</small></span></li>' for e in shown)
+                more = len(exs) - len(shown)
+                body = f'<ul class="wk-ex">{rows}</ul>' + (f'<p class="wk-more">{esc(w["more"].format(n=more))}</p>' if more > 0 else "")
+                kind = "gym"
+            cards.append(
+                f'        <li class="wk-day wk-day--{kind}">'
+                f'<div class="wk-day__head"><span class="wk-day__d">{day}</span>'
+                f'<div class="wk-day__t"><span class="wk-chip">{esc(chip)}</span><b>{esc(title)}</b></div>'
+                f'<span class="wk-day__min">{d["min"]}<small>min</small></span></div>'
+                f'{body}<p class="wk-day__sum">{esc(summ)}</p></li>')
+        hidden = "" if vi == 0 else " hidden"
+        role = f' role="tabpanel" id="wk-panel-{vi}" aria-labelledby="wk-tab-{vi}"' if len(variants) > 1 else ""
+        out.append(f'      <div class="wk-panel" data-anim{role}{hidden}>')
+        out.append(f'        <p class="wk-who">{esc(t["note"])}</p>')
+        out.append('        <div class="wk-sum">'
+                   f'<p class="wk-stats"><b>{len(dias)}</b> {esc(w["sessions"])} · <b>{hm}</b></p>'
+                   f'<div class="wk-strip" aria-hidden="true">{"".join(strip)}</div>'
+                   f'<p class="wk-legend" aria-hidden="true">{"".join(legend)}</p></div>')
+        out.append('        <ol class="wk-days">\n' + "\n".join(cards) + '\n        </ol>')
+        out.append('      </div>')
+    out.append('    </div>')
+    return "\n".join(out)
 
 
 def viz_html(kind, k):
@@ -614,27 +700,13 @@ def sections(slug, c, k):
   </div>
 </section>
 '''
-    # Semana real generada por la app: los días y, si hay, los ejercicios con su imagen
-    parts = []
-    if "days" in c:
-        parts.append('    <ol class="race-format race-format--days" data-reveal-stagger>\n' + "\n".join(
-            f'      <li><span class="race-format__n">{esc(d)}</span><span><b>{esc(t)}</b>' + (f'<small>{esc(sub)}</small>' if sub else "")
-            + f'</span><span class="race-format__d">{esc(dur)}</span></li>'
-            for d, t, sub, dur in c["days"]) + "\n    </ol>")
-    if "cards" in c:
-        if c.get("cards_title"):
-            parts.append(f'    <h3 class="race-week__t" data-reveal>{esc(c["cards_title"])}</h3>')
-        parts.append('    <div class="race-week" data-reveal-stagger>\n' + "\n".join(
-            f'      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/{s}.jpg" alt="{esc(n)}" width="640" height="360" loading="lazy" decoding="async"></div>'
-            f'<div class="demo-ex__body"><span class="demo-ex__tag">{esc(tag)}</span><div class="demo-ex__name">{esc(n)}</div><div class="demo-ex__meta">{esc(m)}</div></div></div>'
-            for s, tag, n, m in c["cards"]) + "\n    </div>")
-    body = "\n".join(parts)
+    body = week_html(slug, lang)
     wk = f'''<section id="semana" class="sec">
   <div class="max-w-page pad-x">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">{esc(c["week_eyebrow"])}</p>
       <h2 class="t-h2">{c["week_h2"]}</h2>
-      <p class="t-lead">{esc(c.get("week_note", k["week_note"]))}</p>
+      <p class="t-lead">{esc(c.get("week_lead", k["week_note"]))}</p>
     </div>
 {body}
   </div>

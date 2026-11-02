@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro14">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro13" defer></script>
+<script src="/app.js?v=claro14" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -279,22 +279,19 @@
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">A real week</p>
       <h2 class="t-h2">What <span class="accent">a week looks like.</span></h2>
-      <p class="t-lead">The deload week 2trAIn generated for a 27-year-old powerlifter after a week at her limit. Yours comes from your history, your goal and your equipment.</p>
+      <p class="t-lead">Session by session, exactly as 2trAIn generated it. Yours comes from your history, your goal and your equipment.</p>
     </div>
-    <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">MON</span><span><b>Squat and bench</b><small>Leave 2-3 reps in reserve</small></span><span class="race-format__d">85 min</span></li>
-      <li><span class="race-format__n">TUE</span><span><b>Paused bench and pull</b><small>Controlled pause on the chest, never to failure</small></span><span class="race-format__d">76 min</span></li>
-      <li><span class="race-format__n">THU</span><span><b>Deadlift and legs</b><small>Clean, technical sets with room to spare</small></span><span class="race-format__d">80 min</span></li>
-      <li><span class="race-format__n">SAT</span><span><b>Military press and single-leg work</b><small>Controlled legs and stable shoulders</small></span><span class="race-format__d">76 min</span></li>
-    </ol>
-    <h3 class="race-week__t" data-reveal>That week&#x27;s main lifts</h3>
-    <div class="race-week" data-reveal-stagger>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-47108.jpg" alt="Barbell low-bar squat" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Monday</span><div class="demo-ex__name">Barbell low-bar squat</div><div class="demo-ex__meta">4×5</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-1476.jpg" alt="Barbell bench press" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Tuesday</span><div class="demo-ex__name">Barbell bench press</div><div class="demo-ex__meta">4×4 · paused</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-339.jpg" alt="Chin-up" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Tuesday</span><div class="demo-ex__name">Chin-up</div><div class="demo-ex__meta">3×8</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-1483.jpg" alt="Barbell deadlift" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Thursday</span><div class="demo-ex__name">Barbell deadlift</div><div class="demo-ex__meta">4×3</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-292.jpg" alt="Barbell hip thrust" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Thursday</span><div class="demo-ex__name">Barbell hip thrust</div><div class="demo-ex__meta">3×8</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-2593.jpg" alt="Barbell standing military press" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Saturday</span><div class="demo-ex__name">Barbell standing military press</div><div class="demo-ex__meta">4×6</div></div></div>
+    <div class="wk" data-wk>
+      <div class="wk-panel" data-anim>
+        <p class="wk-who">Profile: woman, 27 · powerlifting · 4 days · deload week after a week at her limit</p>
+        <div class="wk-sum"><p class="wk-stats"><b>4</b> sessions · <b>5 h 17 min</b></p><div class="wk-strip" aria-hidden="true"><span class="wk-strip__d"><i class="gym" style="--h:100%"></i><b>M</b></span><span class="wk-strip__d"><i class="gym" style="--h:89%"></i><b>T</b></span><span class="wk-strip__d is-rest"><i></i><b>W</b></span><span class="wk-strip__d"><i class="gym" style="--h:94%"></i><b>T</b></span><span class="wk-strip__d is-rest"><i></i><b>F</b></span><span class="wk-strip__d"><i class="gym" style="--h:89%"></i><b>S</b></span><span class="wk-strip__d is-rest"><i></i><b>S</b></span></div><p class="wk-legend" aria-hidden="true"><span><i class="gym"></i>Strength</span></p></div>
+        <ol class="wk-days">
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">MON</span><div class="wk-day__t"><span class="wk-chip">Strength</span><b>Squat and bench</b></div><span class="wk-day__min">85<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-47108-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell low bar squat</b><small>4×5</small></span></li><li><img src="/assets/ej/c-1476-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell bench press</b><small>3×5</small></span></li><li><img src="/assets/ej/c-1494-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell full squat</b><small>3×8</small></span></li><li><img src="/assets/ej/c-3462-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Dumbbell romanian deadlift</b><small>3×10</small></span></li></ul><p class="wk-more">+3 more exercises</p><p class="wk-day__sum">Deload: leave 2-3 reps in reserve.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">TUE</span><div class="wk-day__t"><span class="wk-chip">Strength</span><b>Paused bench and pull</b></div><span class="wk-day__min">76<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-1476-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell bench press</b><small>4×4</small></span></li><li><img src="/assets/ej/c-339-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Chin-up</b><small>3×8</small></span></li><li><img src="/assets/ej/c-47666-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Cable seated row</b><small>3×10</small></span></li><li><img src="/assets/ej/c-117-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Dumbbell bench press</b><small>3×10</small></span></li></ul><p class="wk-more">+3 more exercises</p><p class="wk-day__sum">Controlled pause on the chest, never to failure.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">THU</span><div class="wk-day__t"><span class="wk-chip">Strength</span><b>Deadlift and legs</b></div><span class="wk-day__min">80<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-1483-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell deadlift</b><small>4×3</small></span></li><li><img src="/assets/ej/c-1493-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell front squat</b><small>3×6</small></span></li><li><img src="/assets/ej/c-292-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell hip thrust</b><small>3×8</small></span></li><li><img src="/assets/ej/c-500731-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Lying leg curl machine</b><small>3×10</small></span></li></ul><p class="wk-more">+2 more exercises</p><p class="wk-day__sum">Clean, technical sets with room to spare.</p></li>
+        <li class="wk-day wk-day--gym"><div class="wk-day__head"><span class="wk-day__d">SAT</span><div class="wk-day__t"><span class="wk-chip">Strength</span><b>Military press and single-leg work</b></div><span class="wk-day__min">76<small>min</small></span></div><ul class="wk-ex"><li><img src="/assets/ej/c-2593-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell standing military press</b><small>4×6</small></span></li><li><img src="/assets/ej/c-4763-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Bulgarian split squat</b><small>3×8</small></span></li><li><img src="/assets/ej/c-86-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Cable pulldown</b><small>3×8</small></span></li><li><img src="/assets/ej/c-1536-th.jpg" alt="" width="240" height="160" loading="lazy" decoding="async"><span><b>Barbell romanian deadlift</b><small>3×8</small></span></li></ul><p class="wk-more">+3 more exercises</p><p class="wk-day__sum">Controlled legs and stable shoulders.</p></li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>

@@ -1,0 +1,1825 @@
+{
+ "hyrox": {
+  "hyrox": {
+   "perfil": "e6",
+   "nombre": "Hombre de 29, Hyrox",
+   "semana": 1,
+   "mensaje": "Semana con tres días de fuerza, una carrera con ritmo el miércoles y la tirada larga del viernes con prueba de ritmo suave. Pierna y tirón pesan más que el empuje, y los gestos de la prueba aparecen en cada sesión de gimnasio.",
+   "variacion": null,
+   "cardio": {
+    "cardio_modalities": [
+     "running"
+    ],
+    "cardio_days_per_week": 2,
+    "target_event": "hyrox",
+    "event_date": "2027-03-14",
+    "current_best_time": null,
+    "target_time": null
+   },
+   "dias": [
+    {
+     "dia": "Lunes",
+     "tipo": "gym",
+     "titulo": "Pierna y tirón con AMRAP",
+     "min": 64,
+     "notas": "",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "1494",
+       "es": "Sentadilla completa con barra",
+       "en": "Barbell full squat",
+       "sets": 4,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1494_bd28a1f8.mp4"
+      },
+      {
+       "id": "339",
+       "es": "Dominada",
+       "en": "Chin-up",
+       "sets": 4,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_339_fc508d9a.mp4"
+      },
+      {
+       "id": "1536",
+       "es": "Peso muerto rumano con barra",
+       "en": "Barbell romanian deadlift",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1536_c169213c.mp4"
+      },
+      {
+       "id": "1631",
+       "es": "Remo bajo sentado en polea",
+       "en": "Cable low seated row",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1631_7f142b8b.mp4"
+      },
+      {
+       "id": "1832",
+       "es": "Zancada atrás con mancuernas",
+       "en": "Dumbbell rear lunge",
+       "sets": 2,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1832_b25d66a4.mp4"
+      },
+      {
+       "id": "500349",
+       "es": "Paseo del granjero con mancuernas",
+       "en": "Dumbbell farmer walks",
+       "sets": 2,
+       "reps": 1,
+       "seg": 40,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500349_b1483f32.mp4"
+      },
+      {
+       "id": "4536",
+       "es": "Thruster con barra",
+       "en": "Barbell thruster",
+       "sets": 1,
+       "reps": 10,
+       "seg": null,
+       "bloque": "final",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_4536_43c266df.mp4"
+      },
+      {
+       "id": "500472",
+       "es": "Remoergómetro a ritmo normal",
+       "en": "Gym rowing machine normal speed",
+       "sets": 1,
+       "reps": 1,
+       "seg": 60,
+       "bloque": "final",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500472_a62bd7ba.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Martes",
+     "tipo": "gym",
+     "titulo": "Empuje, remo y trineo",
+     "min": 64,
+     "notas": "",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "1476",
+       "es": "Press de banca con barra",
+       "en": "Barbell bench press",
+       "sets": 4,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1476_c282ced6.mp4"
+      },
+      {
+       "id": "2593",
+       "es": "Press militar de pie con barra",
+       "en": "Barbell standing military press",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_2593_2bfcb84c.mp4"
+      },
+      {
+       "id": "4",
+       "es": "Remo con torso inclinado",
+       "en": "Barbell bent over row",
+       "sets": 4,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_4_ad8466f1.mp4"
+      },
+      {
+       "id": "1505",
+       "es": "Zancada con barra",
+       "en": "Barbell lunge",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1505_c2bf3743.mp4"
+      },
+      {
+       "id": "88",
+       "es": "Extensión de tríceps en polea",
+       "en": "Cable pushdown",
+       "sets": 2,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_88_2a989cdc.mp4"
+      },
+      {
+       "id": "2165",
+       "es": "Plancha lateral",
+       "en": "Side plank",
+       "sets": 2,
+       "reps": 1,
+       "seg": 40,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_2165_303a60f5.mp4"
+      },
+      {
+       "id": "500523",
+       "es": "Arrastre de trineo con saco pesado",
+       "en": "Heavy bag sled drag",
+       "sets": 1,
+       "reps": 1,
+       "seg": 40,
+       "bloque": "final",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500523_0d366b3f.mp4"
+      },
+      {
+       "id": "47985",
+       "es": "Golpe con balón medicinal",
+       "en": "Ball slams",
+       "sets": 1,
+       "reps": 6,
+       "seg": null,
+       "bloque": "final",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_47985_7168f79f.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Miércoles",
+     "tipo": "cardio",
+     "titulo": "Carrera de ritmo",
+     "min": 60,
+     "notas": "",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       600,
+       1,
+       "warm"
+      ],
+      [
+       600,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       600,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       600,
+       4,
+       "work"
+      ],
+      [
+       720,
+       2,
+       "easy"
+      ],
+      [
+       240,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Viernes",
+     "tipo": "cardio",
+     "titulo": "Tirada larga con prueba de ritmo",
+     "min": 70,
+     "notas": "",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       300,
+       1,
+       "warm"
+      ],
+      [
+       1800,
+       2,
+       "steady"
+      ],
+      [
+       1800,
+       2,
+       "steady"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Sábado",
+     "tipo": "gym",
+     "titulo": "Gestos de prueba y AMRAP",
+     "min": 65,
+     "notas": "",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "1483",
+       "es": "Peso muerto con barra",
+       "en": "Barbell deadlift",
+       "sets": 4,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1483_5e226a49.mp4"
+      },
+      {
+       "id": "501359",
+       "es": "Dominada",
+       "en": "Chin up (isometric and negative)",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_501359_79a69a4c.mp4"
+      },
+      {
+       "id": "1493",
+       "es": "Sentadilla frontal con barra",
+       "en": "Barbell front squat",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1493_4e2ffc84.mp4"
+      },
+      {
+       "id": "500961",
+       "es": "Remo sentado en polea con barra V",
+       "en": "Seated cable row v bar machine",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500961_03c551a1.mp4"
+      },
+      {
+       "id": "1855",
+       "es": "Press de hombro sentado con mancuernas",
+       "en": "Dumbbell seated shoulder press",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1855_959f2fb5.mp4"
+      },
+      {
+       "id": "500222",
+       "es": "Press Pallof en polea",
+       "en": "Cable core palloff press",
+       "sets": 2,
+       "reps": 1,
+       "seg": 30,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500222_f2567bf4.mp4"
+      },
+      {
+       "id": "3520",
+       "es": "Sentadilla goblet con mancuerna",
+       "en": "Dumbbell goblet squat",
+       "sets": 1,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_3520_b8b37585.mp4"
+      },
+      {
+       "id": "500524",
+       "es": "Arrastre de trineo con saco pesado",
+       "en": "Heavy bag sled drag",
+       "sets": 1,
+       "reps": 1,
+       "seg": 30,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500524_b0e600c9.mp4"
+      },
+      {
+       "id": "293",
+       "es": "Burpee",
+       "en": "Burpee",
+       "sets": 1,
+       "reps": 1,
+       "seg": 40,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_293_8c143bcf.mp4"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "triatlon": {
+  "triatlon": {
+   "perfil": "e9",
+   "nombre": "Mujer de 38, triatlón",
+   "semana": 2,
+   "mensaje": "Semana de seis sesiones que reparte natación, bici y carrera, con dos toques de ritmo continuo, un rodaje con progresivos y la tirada larga el domingo. El viernes descansas para asimilar la carga.",
+   "variacion": "Hizo todo con margen (RPE 6).",
+   "cardio": {
+    "cardio_modalities": [
+     "swimming",
+     "cycling",
+     "running"
+    ],
+    "cardio_days_per_week": 6,
+    "target_event": "triathlonOlympic",
+    "event_date": "2027-06-06",
+    "current_best_time": null,
+    "target_time": null
+   },
+   "dias": [
+    {
+     "dia": "Lunes",
+     "tipo": "cardio",
+     "titulo": "Bici con tempo",
+     "min": 60,
+     "notas": "",
+     "zona": 3,
+     "modalidad": "cycling",
+     "tramos": [
+      [
+       600,
+       1,
+       "warm"
+      ],
+      [
+       1200,
+       3,
+       "work"
+      ],
+      [
+       1500,
+       2,
+       "easy"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Martes",
+     "tipo": "cardio",
+     "titulo": "Natación continua",
+     "min": 60,
+     "notas": "",
+     "zona": 2,
+     "modalidad": "swimming",
+     "tramos": [
+      [
+       3300,
+       2,
+       "steady"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Miércoles",
+     "tipo": "cardio",
+     "titulo": "Rodaje con progresivos",
+     "min": 63,
+     "notas": "",
+     "zona": 3,
+     "modalidad": "running",
+     "tramos": [
+      [
+       300,
+       1,
+       "warm"
+      ],
+      [
+       2820,
+       2,
+       "easy"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       40,
+       1,
+       "rec"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       40,
+       1,
+       "rec"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       40,
+       1,
+       "rec"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       40,
+       1,
+       "rec"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       40,
+       1,
+       "rec"
+      ],
+      [
+       20,
+       4,
+       "work"
+      ],
+      [
+       340,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Jueves",
+     "tipo": "cardio",
+     "titulo": "Bici suave",
+     "min": 60,
+     "notas": "",
+     "zona": 2,
+     "modalidad": "cycling",
+     "tramos": [
+      [
+       300,
+       1,
+       "warm"
+      ],
+      [
+       3000,
+       2,
+       "steady"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Sábado",
+     "tipo": "cardio",
+     "titulo": "Natación con tempo",
+     "min": 60,
+     "notas": "",
+     "zona": 3,
+     "modalidad": "swimming",
+     "tramos": [
+      [
+       600,
+       1,
+       "warm"
+      ],
+      [
+       900,
+       3,
+       "work"
+      ],
+      [
+       1800,
+       2,
+       "easy"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Domingo",
+     "tipo": "cardio",
+     "titulo": "Tirada larga",
+     "min": 85,
+     "notas": "",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       300,
+       1,
+       "warm"
+      ],
+      [
+       4500,
+       2,
+       "steady"
+      ],
+      [
+       300,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    }
+   ]
+  }
+ },
+ "10k": {
+  "10k": {
+   "perfil": "e18",
+   "nombre": "Hombre de 40, 10k",
+   "semana": 2,
+   "mensaje": "Semana de cuatro carreras: rodaje el lunes, ritmo sostenido el miércoles, umbral más contenido el viernes y tirada larga el domingo.",
+   "variacion": "Saltó la sesión de cardio más intensa (cansancio); el resto, RPE 6.",
+   "cardio": {
+    "cardio_modalities": [
+     "running"
+    ],
+    "cardio_days_per_week": 4,
+    "target_event": "tenK",
+    "event_date": "2027-02-21",
+    "current_best_time": "52:00",
+    "target_time": "48:00"
+   },
+   "dias": [
+    {
+     "dia": "Lunes",
+     "tipo": "cardio",
+     "titulo": "Rodaje suave y core",
+     "min": 60,
+     "notas": "Rodaje fácil y core al terminar.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ]
+     ],
+     "core": [
+      {
+       "id": "1727",
+       "es": "Dead bug",
+       "en": "Dead bug",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "final",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1727_ca306c4c.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Miércoles",
+     "tipo": "cardio",
+     "titulo": "Calidad: ritmo sostenido",
+     "min": 60,
+     "notas": "Mantén el esfuerzo estable.",
+     "zona": 3,
+     "modalidad": "running",
+     "tramos": [
+      [
+       600,
+       1,
+       "warm"
+      ],
+      [
+       1500,
+       3,
+       "work"
+      ],
+      [
+       900,
+       2,
+       "easy"
+      ],
+      [
+       600,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Viernes",
+     "tipo": "cardio",
+     "titulo": "Calidad: umbral",
+     "min": 60,
+     "notas": "Semana de vuelta tras el cansancio: controla el esfuerzo.",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       900,
+       1,
+       "warm"
+      ],
+      [
+       900,
+       4,
+       "work"
+      ],
+      [
+       570,
+       4,
+       "steady"
+      ],
+      [
+       60,
+       1,
+       "rec"
+      ],
+      [
+       570,
+       4,
+       "steady"
+      ],
+      [
+       600,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Domingo",
+     "tipo": "cardio",
+     "titulo": "Tirada larga",
+     "min": 78,
+     "notas": "Termina sintiendo que podrías seguir.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       840,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       840,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       840,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       840,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       840,
+       2,
+       "steady"
+      ]
+     ],
+     "core": []
+    }
+   ]
+  }
+ },
+ "maraton": {
+  "maraton": {
+   "perfil": "e8",
+   "nombre": "Hombre de 45, maratón",
+   "semana": 2,
+   "mensaje": "Semana con series cortas el lunes y el jueves, rodajes suaves el martes y el domingo, y la tirada larga el sábado. El miércoles y el viernes descansas.",
+   "variacion": "Saltó la tirada larga (viaje); el resto, RPE 6.",
+   "cardio": {
+    "cardio_modalities": [
+     "running"
+    ],
+    "cardio_days_per_week": 5,
+    "target_event": "marathon",
+    "event_date": "2027-04-25",
+    "current_best_time": "3:45:00",
+    "target_time": "3:30:00"
+   },
+   "dias": [
+    {
+     "dia": "Lunes",
+     "tipo": "cardio",
+     "titulo": "Series cortas",
+     "min": 60,
+     "notas": "Series fuertes pero controladas, recupera bien entre cada una.",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       720,
+       1,
+       "warm"
+      ],
+      [
+       390,
+       2,
+       "easy"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       90,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       600,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Martes",
+     "tipo": "cardio",
+     "titulo": "Rodaje suave y core",
+     "min": 60,
+     "notas": "Rodaje cómodo, puedes hablar todo el rato. Core al terminar.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ]
+     ],
+     "core": [
+      {
+       "id": "1727",
+       "es": "Dead bug",
+       "en": "Dead bug",
+       "sets": 2,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1727_ca306c4c.mp4"
+      },
+      {
+       "id": "500801",
+       "es": "Plancha sobre codos",
+       "en": "Plank on elbows",
+       "sets": 2,
+       "reps": 1,
+       "seg": 30,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500801_ebbad464.mp4"
+      },
+      {
+       "id": "2651",
+       "es": "Hollow hold",
+       "en": "Hollow hold",
+       "sets": 2,
+       "reps": 1,
+       "seg": 20,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_2651_5aea062b.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Jueves",
+     "tipo": "cardio",
+     "titulo": "Series de 2 minutos",
+     "min": 60,
+     "notas": "Mantén el mismo esfuerzo en todas las series.",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       720,
+       1,
+       "warm"
+      ],
+      [
+       720,
+       2,
+       "easy"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       600,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Sábado",
+     "tipo": "cardio",
+     "titulo": "Tirada larga",
+     "min": 86,
+     "notas": "Ritmo fácil y constante, sin forzar.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       930,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       930,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       930,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       930,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       930,
+       2,
+       "steady"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Domingo",
+     "tipo": "cardio",
+     "titulo": "Rodaje de recuperación",
+     "min": 60,
+     "notas": "Muy suave, para soltar las piernas.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       810,
+       2,
+       "steady"
+      ]
+     ],
+     "core": []
+    }
+   ]
+  },
+  "media": {
+   "perfil": "e19",
+   "nombre": "Mujer de 33, media maratón",
+   "semana": 2,
+   "mensaje": "Semana de cuatro salidas: fartlek el martes, cuestas en tierra el jueves, rodaje suave el sábado y tirada larga el domingo. Subimos un poco la carga respecto a la semana pasada manteniendo la mayoría del volumen fácil.",
+   "variacion": "Hizo todo con margen (RPE 6).",
+   "cardio": {
+    "cardio_modalities": [
+     "running"
+    ],
+    "cardio_days_per_week": 4,
+    "target_event": "halfMarathon",
+    "event_date": "2027-03-28",
+    "current_best_time": "2:05:00",
+    "target_time": "1:55:00"
+   },
+   "dias": [
+    {
+     "dia": "Martes",
+     "tipo": "cardio",
+     "titulo": "Fartlek por sensaciones",
+     "min": 50,
+     "notas": "Cambios de ritmo por sensaciones, sin parar. Recupera trotando suave.",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       720,
+       1,
+       "warm"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       120,
+       4,
+       "work"
+      ],
+      [
+       480,
+       2,
+       "easy"
+      ],
+      [
+       480,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Jueves",
+     "tipo": "cardio",
+     "titulo": "Cuestas en tierra",
+     "min": 50,
+     "notas": "Busca un camino de tierra con cuesta. Sube fuerte y baja trotando.",
+     "zona": 4,
+     "modalidad": "running",
+     "tramos": [
+      [
+       720,
+       1,
+       "warm"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       120,
+       1,
+       "rec"
+      ],
+      [
+       90,
+       4,
+       "work"
+      ],
+      [
+       450,
+       2,
+       "easy"
+      ],
+      [
+       480,
+       1,
+       "cool"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Sábado",
+     "tipo": "cardio",
+     "titulo": "Rodaje continuo suave",
+     "min": 50,
+     "notas": "Ritmo cómodo y constante, que puedas hablar todo el rato.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       3000,
+       2,
+       "steady"
+      ]
+     ],
+     "core": []
+    },
+    {
+     "dia": "Domingo",
+     "tipo": "cardio",
+     "titulo": "Tirada larga",
+     "min": 75,
+     "notas": "Tirada larga suave y constante. Hidrátate y disfruta.",
+     "zona": 2,
+     "modalidad": "running",
+     "tramos": [
+      [
+       4500,
+       2,
+       "steady"
+      ]
+     ],
+     "core": []
+    }
+   ]
+  }
+ },
+ "fuerza": {
+  "fuerza": {
+   "perfil": "e7",
+   "nombre": "Mujer de 27, powerlifting",
+   "semana": 2,
+   "mensaje": "Semana de descarga: mantienes los cuatro días de fuerza con menos series y más margen, para recuperar tras una semana muy exigente. Cada día tiene su foco: sentadilla, banca, peso muerto y press.",
+   "variacion": "Lo hizo todo, pero al límite (RPE 9).",
+   "cardio": null,
+   "dias": [
+    {
+     "dia": "Lunes",
+     "tipo": "gym",
+     "titulo": "Sentadilla y banca",
+     "min": 85,
+     "notas": "Semana de descarga ligera: deja 2-3 repeticiones en reserva.",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "47108",
+       "es": "Sentadilla con barra baja",
+       "en": "Barbell low bar squat",
+       "sets": 4,
+       "reps": 5,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_47108_9a8bb908.mp4"
+      },
+      {
+       "id": "1476",
+       "es": "Press de banca con barra",
+       "en": "Barbell bench press",
+       "sets": 3,
+       "reps": 5,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1476_c282ced6.mp4"
+      },
+      {
+       "id": "1494",
+       "es": "Sentadilla completa con barra",
+       "en": "Barbell full squat",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1494_bd28a1f8.mp4"
+      },
+      {
+       "id": "3462",
+       "es": "Peso muerto rumano con mancuernas",
+       "en": "Dumbbell romanian deadlift",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_3462_59db5d55.mp4"
+      },
+      {
+       "id": "500976",
+       "es": "Curl femoral sentado en máquina",
+       "en": "Seated leg curl machine",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500976_a0f5507c.mp4"
+      },
+      {
+       "id": "4",
+       "es": "Remo con torso inclinado",
+       "en": "Barbell bent over row",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_4_ad8466f1.mp4"
+      },
+      {
+       "id": "500525",
+       "es": "Plancha alta",
+       "en": "High plank",
+       "sets": 3,
+       "reps": 1,
+       "seg": 40,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500525_24f552c7.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Martes",
+     "tipo": "gym",
+     "titulo": "Banca con pausa y tirón",
+     "min": 76,
+     "notas": "Pausa controlada en el pecho. Sin llegar al fallo.",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "1476",
+       "es": "Press de banca con barra",
+       "en": "Barbell bench press",
+       "sets": 4,
+       "reps": 4,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1476_c282ced6.mp4"
+      },
+      {
+       "id": "339",
+       "es": "Dominada",
+       "en": "Chin-up",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_339_fc508d9a.mp4"
+      },
+      {
+       "id": "47666",
+       "es": "Remo sentado con polea",
+       "en": "Cable seated row",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_47666_22782277.mp4"
+      },
+      {
+       "id": "117",
+       "es": "Press de banca con mancuernas",
+       "en": "Dumbbell bench press",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_117_ac7e3df0.mp4"
+      },
+      {
+       "id": "1629",
+       "es": "Elevación lateral en polea",
+       "en": "Cable lateral raise",
+       "sets": 2,
+       "reps": 12,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1629_3d93bcbf.mp4"
+      },
+      {
+       "id": "1511",
+       "es": "Press francés tumbado con barra",
+       "en": "Barbell lying triceps skull crushers",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1511_1ee96478.mp4"
+      },
+      {
+       "id": "1666",
+       "es": "Elevación trasero lateral sentada con polea",
+       "en": "Cable seated rear lateral raise",
+       "sets": 3,
+       "reps": 12,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1666_bfb41e9c.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Jueves",
+     "tipo": "gym",
+     "titulo": "Peso muerto y pierna",
+     "min": 80,
+     "notas": "Series técnicas y limpias, con margen.",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "1483",
+       "es": "Peso muerto con barra",
+       "en": "Barbell deadlift",
+       "sets": 4,
+       "reps": 3,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1483_5e226a49.mp4"
+      },
+      {
+       "id": "1493",
+       "es": "Sentadilla frontal con barra",
+       "en": "Barbell front squat",
+       "sets": 3,
+       "reps": 6,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1493_4e2ffc84.mp4"
+      },
+      {
+       "id": "292",
+       "es": "Hip thrust con barra",
+       "en": "Barbell hip thrust",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_292_70844b5f.mp4"
+      },
+      {
+       "id": "500731",
+       "es": "Curl femoral tumbado en máquina",
+       "en": "Lying leg curl machine",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500731_d652c779.mp4"
+      },
+      {
+       "id": "4943",
+       "es": "Elevación de gemelo a una pierna de pie con mancuerna",
+       "en": "Dumbbell standing single leg calf raise",
+       "sets": 3,
+       "reps": 12,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_4943_b04d2033.mp4"
+      },
+      {
+       "id": "2165",
+       "es": "Plancha lateral",
+       "en": "Side plank",
+       "sets": 3,
+       "reps": 1,
+       "seg": 30,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_2165_303a60f5.mp4"
+      }
+     ]
+    },
+    {
+     "dia": "Sábado",
+     "tipo": "gym",
+     "titulo": "Press militar y pierna unilateral",
+     "min": 76,
+     "notas": "Pierna unilateral controlada y hombro estable.",
+     "zona": null,
+     "modalidad": null,
+     "ejercicios": [
+      {
+       "id": "2593",
+       "es": "Press militar de pie con barra",
+       "en": "Barbell standing military press",
+       "sets": 4,
+       "reps": 6,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_2593_2bfcb84c.mp4"
+      },
+      {
+       "id": "4763",
+       "es": "Sentadilla búlgara dividida",
+       "en": "Bulgarian split squat",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_4763_21a58837.mp4"
+      },
+      {
+       "id": "86",
+       "es": "Jalón",
+       "en": "Cable pulldown",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_86_42556f48.mp4"
+      },
+      {
+       "id": "1536",
+       "es": "Peso muerto rumano con barra",
+       "en": "Barbell romanian deadlift",
+       "sets": 3,
+       "reps": 8,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_1536_c169213c.mp4"
+      },
+      {
+       "id": "500961",
+       "es": "Remo sentado en polea con barra V",
+       "en": "Seated cable row v bar machine",
+       "sets": 3,
+       "reps": 10,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500961_03c551a1.mp4"
+      },
+      {
+       "id": "74",
+       "es": "Elevación lateral",
+       "en": "Dumbbell lateral raise",
+       "sets": 3,
+       "reps": 12,
+       "seg": null,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_74_a2359919.mp4"
+      },
+      {
+       "id": "500222",
+       "es": "Press Pallof en polea",
+       "en": "Cable core palloff press",
+       "sets": 3,
+       "reps": 1,
+       "seg": 30,
+       "bloque": "fuerza",
+       "poster": "https://cdn.2trainapp.com/v1/2train/ex_500222_f2567bf4.mp4"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
