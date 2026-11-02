@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro12">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro12" defer></script>
+<script src="/app.js?v=claro13" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -217,19 +217,19 @@
             <div class="app-ui__head">
               <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
               <div>
-                <div class="app-ui__kicker">Semana 6 · Construcción</div>
-                <div class="app-ui__title">Camino a HYROX</div>
+                <div class="app-ui__kicker">Martes · Fuerza</div>
+                <div class="app-ui__title">Empuje, remo y trineo</div>
               </div>
             </div>
             <div class="app-ui__why">
               <b>Por qué esta semana</b>
-              <span>Te quedan 9 semanas. Subo la carrera en Zona 2, sumo estaciones y mantengo un día de fuerza para no perder lo ganado.</span>
+              <span>Pierna y tirón pesan más que el empuje, y los gestos de la prueba aparecen en cada sesión de gimnasio.</span>
             </div>
             <div class="app-ui__list">
-              <div class="app-ex"><img src="/assets/ej/ski-erg.jpg" alt="" width="640" height="360" decoding="async"><div><b>Tracción básica en ski erg</b><span>1000 m · ritmo controlado</span></div></div>
-              <div class="app-ex"><img src="/assets/ej/empuje-trineo.jpg" alt="" width="640" height="360" decoding="async"><div><b>Empuje de trineo</b><span>6×20 m · carga media</span></div></div>
-              <div class="app-ex"><img src="/assets/ej/paseo-granjero.jpg" alt="" width="640" height="360" decoding="async"><div><b>Paseo del granjero con mancuernas</b><span>5×40 m · agarre fuerte</span></div></div>
-              <div class="app-ex"><img src="/assets/ej/sentadilla-balon.jpg" alt="" width="640" height="360" decoding="async"><div><b>Sentadilla frontal con balón medicinal</b><span>4×15 · 6/9 kg</span></div></div>
+              <div class="app-ex"><img src="/assets/ej/c-1476-th.jpg" alt="" width="240" height="160" decoding="async"><div><b>Press de banca con barra</b><span>4×8</span></div></div>
+              <div class="app-ex"><img src="/assets/ej/c-4-th.jpg" alt="" width="240" height="160" decoding="async"><div><b>Remo con torso inclinado</b><span>4×8</span></div></div>
+              <div class="app-ex"><img src="/assets/ej/c-500523-th.jpg" alt="" width="240" height="160" decoding="async"><div><b>Arrastre de trineo con saco pesado</b><span>40 s · final</span></div></div>
+              <div class="app-ex"><img src="/assets/ej/c-1505-th.jpg" alt="" width="240" height="160" decoding="async"><div><b>Zancada con barra</b><span>3×10</span></div></div>
             </div>
             <span class="app-ui__cta">Empezar sesión</span>
           </div>
@@ -290,17 +290,25 @@
 <section id="semana" class="sec">
   <div class="max-w-page pad-x">
     <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">Una semana tipo</p>
+      <p class="eyebrow">Una semana real</p>
       <h2 class="t-h2">Así se ve <span class="accent">una semana.</span></h2>
-      <p class="t-lead">Orientativa: la tuya sale de tu historial y de tu fecha.</p>
+      <p class="t-lead">La que 2trAIn generó para un usuario de 29 años con HYROX en marzo, 5 días por semana. La tuya sale de tu historial y de tu fecha.</p>
     </div>
+    <ol class="race-format race-format--days" data-reveal-stagger>
+      <li><span class="race-format__n">LUN</span><span><b>Pierna y tirón con AMRAP</b><small>Sentadilla, dominada, peso muerto rumano y granjero</small></span><span class="race-format__d">64 min</span></li>
+      <li><span class="race-format__n">MAR</span><span><b>Empuje, remo y trineo</b><small>Press de banca, remo, zancada y arrastre de trineo</small></span><span class="race-format__d">64 min</span></li>
+      <li><span class="race-format__n">MIÉ</span><span><b>Carrera de ritmo</b><small>3 bloques firmes de 10 min</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">VIE</span><span><b>Tirada larga con prueba de ritmo</b><small>30 min de prueba suave y 30 min más</small></span><span class="race-format__d">70 min</span></li>
+      <li><span class="race-format__n">SÁB</span><span><b>Gestos de prueba y AMRAP</b><small>Peso muerto, sentadilla frontal, trineo y burpees</small></span><span class="race-format__d">65 min</span></li>
+    </ol>
+    <h3 class="race-week__t" data-reveal>Algunos ejercicios de esa semana</h3>
     <div class="race-week" data-reveal-stagger>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/ski-erg.jpg" alt="Tracción básica en ski erg" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Estación</span><div class="demo-ex__name">Tracción básica en ski erg</div><div class="demo-ex__meta">1000 m · ritmo controlado</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/empuje-trineo.jpg" alt="Empuje de trineo" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Estación</span><div class="demo-ex__name">Empuje de trineo</div><div class="demo-ex__meta">6×20 m · carga media</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/paseo-granjero.jpg" alt="Paseo del granjero con mancuernas" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Estación</span><div class="demo-ex__name">Paseo del granjero con mancuernas</div><div class="demo-ex__meta">5×40 m · agarre fuerte</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/sentadilla-balon.jpg" alt="Sentadilla frontal con balón medicinal" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Fuerza</span><div class="demo-ex__name">Sentadilla frontal con balón medicinal</div><div class="demo-ex__meta">4×15 · 6/9 kg</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/zancada-mancuernas.jpg" alt="Zancada con mancuernas" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Fuerza</span><div class="demo-ex__name">Zancada con mancuernas</div><div class="demo-ex__meta">4×20 m · alternas</div></div></div>
-      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/burpee.jpg" alt="Burpee" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Estación</span><div class="demo-ex__name">Burpee</div><div class="demo-ex__meta">4×8 · estación</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-1494.jpg" alt="Sentadilla completa con barra" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Lunes</span><div class="demo-ex__name">Sentadilla completa con barra</div><div class="demo-ex__meta">4×8</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-500349.jpg" alt="Paseo del granjero con mancuernas" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Lunes</span><div class="demo-ex__name">Paseo del granjero con mancuernas</div><div class="demo-ex__meta">2 × 40 s</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-500472.jpg" alt="Remoergómetro a ritmo normal" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Lunes · final</span><div class="demo-ex__name">Remoergómetro a ritmo normal</div><div class="demo-ex__meta">60 s</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-500523.jpg" alt="Arrastre de trineo con saco pesado" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Martes · final</span><div class="demo-ex__name">Arrastre de trineo con saco pesado</div><div class="demo-ex__meta">40 s</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-47985.jpg" alt="Golpe con balón medicinal" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Martes · final</span><div class="demo-ex__name">Golpe con balón medicinal</div><div class="demo-ex__meta">6 rep.</div></div></div>
+      <div class="demo-ex"><div class="demo-ex__media"><img src="/assets/ej/c-293.jpg" alt="Burpee" width="640" height="360" loading="lazy" decoding="async"></div><div class="demo-ex__body"><span class="demo-ex__tag">Sábado</span><div class="demo-ex__name">Burpee</div><div class="demo-ex__meta">40 s</div></div></div>
     </div>
   </div>
 </section>

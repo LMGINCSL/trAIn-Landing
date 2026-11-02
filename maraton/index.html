@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro12">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro12" defer></script>
+<script src="/app.js?v=claro13" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -209,19 +209,19 @@
             <div class="app-ui__head">
               <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
               <div>
-                <div class="app-ui__kicker">Semana 10 · Construcción</div>
+                <div class="app-ui__kicker">Semana 2 · Base</div>
                 <div class="app-ui__title">Camino al maratón</div>
               </div>
             </div>
             <div class="app-ui__why">
               <b>Por qué esta semana</b>
-              <span>Me dijiste que el domingo te pesaron las piernas: bajo el volumen del martes y mantengo los ritmos del jueves.</span>
+              <span>Te saltaste la tirada larga por un viaje: vuelve el sábado tal cual, y el lunes y el jueves suman una serie más.</span>
             </div>
             <div class="app-ui__list">
-              <div class="app-ex"><span class="app-ex__day">MAR</span><div><b>Rodaje</b><span>50 min · Zona 2</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">JUE</span><div><b>Ritmos</b><span>3×3 km · ritmo maratón</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">VIE</span><div><b>Fuerza</b><span>40 min · pierna y core</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">DOM</span><div><b>Tirada larga</b><span>26 km · suave</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">LUN</span><div><b>Series cortas</b><span>60 min · 11 × 90 s</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">MAR</span><div><b>Rodaje suave y core</b><span>60 min · Zona 2</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">JUE</span><div><b>Series de 2 minutos</b><span>60 min · 7 series</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">SÁB</span><div><b>Tirada larga</b><span>86 min · Zona 2</span></div></div>
             </div>
             <span class="app-ui__cta">Empezar sesión</span>
           </div>
@@ -275,17 +275,18 @@
 <section id="semana" class="sec">
   <div class="max-w-page pad-x">
     <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">Una semana tipo</p>
+      <p class="eyebrow">Una semana real</p>
       <h2 class="t-h2">Así se ve <span class="accent">una semana.</span></h2>
-      <p class="t-lead">Orientativa: la tuya sale de tu historial y de tu fecha.</p>
+      <p class="t-lead">La segunda semana que 2trAIn generó para un corredor de 45 años que prepara un maratón con 5 días. La tuya sale de tu historial y de tu fecha.</p>
     </div>
     <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">MAR</span><span><b>Rodaje</b><small>Zona 2</small></span><span class="race-format__d">50 min</span></li>
-      <li><span class="race-format__n">MIÉ</span><span><b>Fuerza</b><small>Pierna y core</small></span><span class="race-format__d">40 min</span></li>
-      <li><span class="race-format__n">JUE</span><span><b>Ritmos</b><small>3×3 km a ritmo maratón</small></span><span class="race-format__d">60 min</span></li>
-      <li><span class="race-format__n">VIE</span><span><b>Descanso</b><small>O movilidad suave</small></span><span class="race-format__d">—</span></li>
-      <li><span class="race-format__n">SÁB</span><span><b>Rodaje suave</b><small>Para soltar</small></span><span class="race-format__d">30 min</span></li>
-      <li><span class="race-format__n">DOM</span><span><b>Tirada larga</b><small>Suave</small></span><span class="race-format__d">26 km</span></li>
+      <li><span class="race-format__n">LUN</span><span><b>Series cortas</b><small>11 × 90 s fuertes pero controladas</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">MAR</span><span><b>Rodaje suave y core</b><small>Zona 2 por bloques, core al terminar</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">MIÉ</span><span><b>Descanso</b></span><span class="race-format__d">—</span></li>
+      <li><span class="race-format__n">JUE</span><span><b>Series de 2 minutos</b><small>7 series con el mismo esfuerzo</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">VIE</span><span><b>Descanso</b></span><span class="race-format__d">—</span></li>
+      <li><span class="race-format__n">SÁB</span><span><b>Tirada larga</b><small>Zona 2 por bloques</small></span><span class="race-format__d">86 min</span></li>
+      <li><span class="race-format__n">DOM</span><span><b>Rodaje de recuperación</b><small>Zona 2, muy suave</small></span><span class="race-format__d">60 min</span></li>
     </ol>
   </div>
 </section>

@@ -37,10 +37,10 @@
 
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__appReady)document.documentElement.classList.remove('js');},4000);</script>
 <link rel="stylesheet" href="/dist/tailwind.css">
-<link rel="stylesheet" href="/assets/css/landing.css?v=claro12">
+<link rel="stylesheet" href="/assets/css/landing.css?v=claro13">
 <script src="/assets/js/gsap.min.js" defer></script>
 <script src="/assets/js/ScrollTrigger.min.js" defer></script>
-<script src="/app.js?v=claro12" defer></script>
+<script src="/app.js?v=claro13" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -209,19 +209,19 @@
             <div class="app-ui__head">
               <span class="app-ui__ava"><img src="/assets/hexagono.svg" alt="" width="20" height="20"></span>
               <div>
-                <div class="app-ui__kicker">Semana 5 · Base</div>
+                <div class="app-ui__kicker">Semana 2 · Base</div>
                 <div class="app-ui__title">Camino al triatlón</div>
               </div>
             </div>
             <div class="app-ui__why">
               <b>Por qué esta semana</b>
-              <span>Vienes de correr: subo la bici en Zona 2, sumo técnica de natación y dejo un día de fuerza.</span>
+              <span>Hiciste la semana pasada con margen: entra un bloque de tempo en bici y otro en natación, y la tirada larga pasa de 75 a 85 min.</span>
             </div>
             <div class="app-ui__list">
-              <div class="app-ex"><span class="app-ex__day">LUN</span><div><b>Natación · técnica</b><span>40 min · Zona 2</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">MAR</span><div><b>Bici · base</b><span>75 min · Zona 2</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">JUE</span><div><b>Carrera · ritmos</b><span>45 min · 4×5 min</span></div></div>
-              <div class="app-ex"><span class="app-ex__day">SÁB</span><div><b>Bici y carrera</b><span>90 + 20 min</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">LUN</span><div><b>Bici con tempo</b><span>60 min · 20 min a tempo</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">MAR</span><div><b>Natación continua</b><span>60 min · Zona 2</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">MIÉ</span><div><b>Rodaje con progresivos</b><span>63 min · 6 progresivos</span></div></div>
+              <div class="app-ex"><span class="app-ex__day">DOM</span><div><b>Tirada larga</b><span>85 min · Zona 2</span></div></div>
             </div>
             <span class="app-ui__cta">Empezar sesión</span>
           </div>
@@ -268,7 +268,7 @@
     </div>
     <div class="race-tiles" data-reveal-stagger>
       <div class="race-tile"><h3>Periodizado hasta el día D</h3><p>Base, construcción y afinado. La última semana baja el volumen para que llegues fresco a la salida.</p><span class="viz" aria-hidden="true"><span class="viz__plan"><span class="viz__now">Hoy</span><span class="viz__track"><i style="--w:45%;--i:0"></i><i style="--w:35%;--i:1"></i><i style="--w:20%;--i:2"></i></span><span class="viz__phases"><b style="--w:45%">Base</b><b style="--w:35%">Construcción</b><b style="--w:20%">Afinado</b></span><span class="viz__flag"><svg viewBox="0 0 24 24" fill="none"><path d="M5 21V4m0 0h11l-2 4 2 4H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tu carrera</span></span><span class="viz__cap">Periodizado hacia el día de la carrera</span></span></div>
-      <div class="race-tile"><h3>Natación, bici y carrera</h3><p>Las tres repartidas según dónde estás más flojo, con un día de fuerza para sostenerlo todo.</p></div>
+      <div class="race-tile"><h3>Natación, bici y carrera</h3><p>Las tres repartidas en tus días, con descanso para asimilar la carga.</p></div>
       <div class="race-tile"><h3>Se ajusta cada semana</h3><p>Lo que entrenas y lo que le cuentas reescriben la semana siguiente. Cada cambio llega con su porqué.</p></div>
       <div class="race-tile"><h3>Encaja en tu semana</h3><p>Le dices cuántos días entrenas y el plan reparte las sesiones en esos días.</p></div>
     </div>
@@ -278,17 +278,18 @@
 <section id="semana" class="sec">
   <div class="max-w-page pad-x">
     <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">Una semana tipo</p>
+      <p class="eyebrow">Una semana real</p>
       <h2 class="t-h2">Así se ve <span class="accent">una semana.</span></h2>
-      <p class="t-lead">Orientativa: la tuya sale de tu historial y de tu fecha.</p>
+      <p class="t-lead">La segunda semana que 2trAIn generó para una triatleta de 38 años que entrena 6 días. La tuya sale de tu historial y de tu fecha.</p>
     </div>
     <ol class="race-format race-format--days" data-reveal-stagger>
-      <li><span class="race-format__n">LUN</span><span><b>Natación técnica</b><small>Técnica y Zona 2</small></span><span class="race-format__d">40 min</span></li>
-      <li><span class="race-format__n">MAR</span><span><b>Fuerza</b><small>Pierna y core</small></span><span class="race-format__d">45 min</span></li>
-      <li><span class="race-format__n">MIÉ</span><span><b>Bici</b><small>Base en Zona 2</small></span><span class="race-format__d">75 min</span></li>
-      <li><span class="race-format__n">JUE</span><span><b>Carrera</b><small>Series cortas</small></span><span class="race-format__d">45 min</span></li>
-      <li><span class="race-format__n">SÁB</span><span><b>Bici y carrera</b><small>Una detrás de otra</small></span><span class="race-format__d">90 + 20 min</span></li>
-      <li><span class="race-format__n">DOM</span><span><b>Descanso</b><small>O movilidad suave</small></span><span class="race-format__d">—</span></li>
+      <li><span class="race-format__n">LUN</span><span><b>Bici con tempo</b><small>20 min continuos y estables, sin apretar al final</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">MAR</span><span><b>Natación continua</b><small>Zona 2</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">MIÉ</span><span><b>Rodaje con progresivos</b><small>6 progresivos cortos al final</small></span><span class="race-format__d">63 min</span></li>
+      <li><span class="race-format__n">JUE</span><span><b>Bici suave</b><small>Zona 2</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">VIE</span><span><b>Descanso</b><small>Para asimilar la carga</small></span><span class="race-format__d">—</span></li>
+      <li><span class="race-format__n">SÁB</span><span><b>Natación con tempo</b><small>15 min de bloque continuo, ritmo estable</small></span><span class="race-format__d">60 min</span></li>
+      <li><span class="race-format__n">DOM</span><span><b>Tirada larga</b><small>Zona 2</small></span><span class="race-format__d">85 min</span></li>
     </ol>
   </div>
 </section>

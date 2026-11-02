@@ -282,7 +282,9 @@ function autoCarousel(el, opts) {
 
   // ===== Por qué: el móvil queda fijo y su pantalla cambia con cada paso =====
   // Escritorio: ScrollTrigger activa el paso que llega al centro y el móvil
-  // enseña su pantalla. ≤860px: galería automática con puntos.
+  // enseña su pantalla. ≤860px: un solo móvil entero; la pantalla y el texto
+  // cambian solos cada pocos segundos mientras se ve, y deslizar el dedo sobre
+  // el móvil o tocar un punto cambia de paso (desde ahí manda la persona).
   (function() {
     var stage = document.querySelector('.reels');
     if (!stage) return;
@@ -291,20 +293,48 @@ function autoCarousel(el, opts) {
     if (!steps.length || !phone) return;
 
     if (window.matchMedia('(max-width: 860px)').matches) {
-      var grid = stage.querySelector('.reels__grid');
-      var screens = stage.querySelectorAll('.scr');
-      // Galería automática: una pantalla cada pocos segundos, con puntos debajo
-      autoCarousel(grid, { item: '.scr', delay: 6000, dotsIn: stage.querySelector('.reels__nav') });
-      // Cada pantalla se reproduce mientras está a la vista en la galería
-      screens.forEach(function(sc, idx) {
-        var tlm = screenTimeline(sc, idx);
-        if (!tlm || !('IntersectionObserver' in window)) return;
-        var io = new IntersectionObserver(function(entries) {
-          if (entries[0].isIntersecting) tlm.play(); else tlm.pause();
-        }, { threshold: 0.55 });
-        io.observe(sc);
+      stage.classList.add('js-active');
+      var tlsM = Array.prototype.map.call(stage.querySelectorAll('.scr'), function(sc, idx) { return screenTimeline(sc, idx); });
+      var cur = -1, timer = null, inView = false, manual = reduceMotion;
+      var dots = document.createElement('div');
+      dots.className = 'cdots';
+      steps.forEach(function(s, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', (isEn ? 'Show step ' : 'Ver paso ') + (i + 1));
+        b.addEventListener('click', function() { manual = true; show(i); sync(); });
+        dots.appendChild(b);
       });
-      steps.forEach(function(s) { s.classList.add('on'); });
+      stage.querySelector('.reels__nav').appendChild(dots);
+      function show(i) {
+        i = (i + steps.length) % steps.length;
+        if (i === cur) return;
+        cur = i;
+        phone.setAttribute('data-screen', String(i));
+        steps.forEach(function(s, idx) { s.classList.toggle('on', idx === i); });
+        Array.prototype.forEach.call(dots.children, function(b, idx) { b.setAttribute('aria-current', String(idx === i)); });
+        tlsM.forEach(function(tl, idx) { if (!tl) return; if (idx === i && inView) tl.restart(); else tl.pause(); });
+      }
+      function sync() {
+        clearInterval(timer);
+        timer = null;
+        var tl = tlsM[cur];
+        if (tl) { if (inView) tl.play(); else tl.pause(); }
+        if (!manual && inView && !document.hidden) timer = setInterval(function() { show(cur + 1); }, 6500);
+      }
+      show(0);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(e) { inView = e[0].isIntersecting; sync(); }, { threshold: 0.45 }).observe(phone);
+      } else { inView = true; sync(); }
+      document.addEventListener('visibilitychange', sync);
+      var x0 = null, y0 = 0;
+      phone.addEventListener('touchstart', function(e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+      phone.addEventListener('touchend', function(e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+        x0 = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { manual = true; show(cur + (dx < 0 ? 1 : -1)); sync(); }
+      }, { passive: true });
       return;
     }
 

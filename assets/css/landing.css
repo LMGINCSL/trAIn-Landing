@@ -254,6 +254,8 @@ img, video { max-width: 100%; }
 .tabbar span { display: grid; justify-items: center; gap: 2px; font-size: 11px; font-weight: 500; color: var(--muted); }
 .tabbar span.is-on { color: var(--accent-text); }
 .tabbar svg { width: 20px; height: 20px; }
+/* Móvil pequeño: las esquinas redondeadas de la pantalla no muerden las etiquetas */
+@container (max-width: 262px) { .tabbar { padding: 7px 14px 20px; } .tabbar span { font-size: 10px; } .tabbar svg { width: 18px; height: 18px; } }
 @media (max-width: 767px) { .app-ui { --px: 13px; --pb: 14px; padding-top: 48px; gap: 10px; } .app-ui__title { font-size: 17px; } .app-ex img, .app-ex .app-ex__day { width: 50px; height: 34px; } }
 /* En pantallas estrechas (portátiles bajos, móviles) el texto parte en más
    líneas: se enseñan tres ejercicios para que el botón quepa entero. */
@@ -427,25 +429,24 @@ img, video { max-width: 100%; }
   .reels__grid { gap: 40px; grid-template-columns: .9fr 1.1fr; }
 }
 @media (max-width: 860px) {
-  /* Galería horizontal: cada pantalla sobre su texto, una por tarjeta, con
-     scroll-snap. Los contenedores pasan a display:contents para colocar
-     pantallas y textos en la misma rejilla. */
-  .reels__grid { grid-auto-flow: column; grid-template-columns: none; grid-template-rows: auto auto; grid-auto-columns: min(80%, 320px); column-gap: 16px; row-gap: 0; overflow: hidden; touch-action: pan-y; margin: 0 calc(-1 * var(--gut)); padding: 4px var(--gut) 28px; scroll-padding: 0 var(--gut); }
-  .reels__phone-col, .reels__phone, .reels__phone .phone-screen, .reels__steps { display: contents; }
-  .reels__phone .phone-screen::before { display: none; }
-  .reels .scr { position: relative; inset: auto; height: 540px; padding-top: 22px; border-radius: 30px; background: #fff; box-shadow: 0 0 0 1px var(--line-soft), var(--shadow-card); opacity: 1; transform: none; scroll-snap-align: start; }
-  .reels .scr .app-ui__status { display: none; }
-  .reels .scr-0 { grid-column: 1; grid-row: 1; }
-  .reels .scr-1 { grid-column: 2; grid-row: 1; }
-  .reels .scr-2 { grid-column: 3; grid-row: 1; }
-  .reels__step { min-height: 0; max-width: none; justify-content: flex-start; gap: 10px; padding: 22px 2px 0; opacity: 1 !important; }
-  .reels__step .t-h2 { font-size: 30px; }
-  .reels__step .t-lead { font-size: 16px; }
-  .reels__step[data-step="0"] { grid-column: 1; grid-row: 2; }
-  .reels__step[data-step="1"] { grid-column: 2; grid-row: 2; }
-  .reels__step[data-step="2"] { grid-column: 3; grid-row: 2; }
-  .reels__nav { display: flex; justify-content: center; margin-top: 4px; }
+  /* Un solo móvil, entero y centrado: nada de galería lateral con un móvil
+     cortado asomando. Arriba el texto del paso; las pantallas se cruzan dentro
+     del móvil (solas, deslizando o con los puntos). Los tres textos ocupan la
+     misma celda, así la altura no salta al cambiar. */
+  .reels__grid { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .reels__steps { order: -1; display: grid; }
+  .reels.js-active .reels__step { grid-area: 1 / 1; }
+  .reels__step { min-height: 0; max-width: 560px; margin: 0 auto; justify-content: flex-start; align-items: center; gap: 10px; text-align: center; }
+  .reels__step .t-h2 { font-size: clamp(30px, 8.4vw, 40px); }
+  .reels__step .t-lead { font-size: 16px; max-width: 34ch; }
+  .reels.js-active .reels__step { opacity: 0; visibility: hidden; transition: opacity .45s var(--ease), visibility 0s .45s; }
+  .reels.js-active .reels__step.on { opacity: 1; visibility: visible; transition: opacity .45s var(--ease), visibility 0s; }
+  .reels__phone-col { position: static; height: auto; touch-action: pan-y; }
+  .reels__phone { width: min(262px, 72vw); }
+  .reels__nav { display: flex; justify-content: center; margin-top: 2px; }
+  .reels__nav .cdots { margin-top: 0; }
 }
+@media (max-width: 860px) and (min-width: 768px) { .reels__phone { width: 280px; } }
 .circ { width: 40px; height: 40px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--control); color: var(--fg); cursor: pointer; transition: background-color .2s, opacity .2s; }
 .circ:hover { background: #DCDCE1; }
 .circ:disabled { opacity: .4; cursor: default; }
@@ -527,7 +528,7 @@ img, video { max-width: 100%; }
 .demo-ex__body { padding: 10px 12px 13px; flex: 1; min-height: 0; }
 .demo-ex__tag { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
 .demo-ex--warm .demo-ex__tag { color: var(--accent-text); }
-.demo-ex__name { font-size: 14px; font-weight: 600; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.demo-ex__name { font-size: 14px; font-weight: 600; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .demo-ex__meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .demo-go { margin-top: 16px; width: 100%; }
 
@@ -597,6 +598,9 @@ img, video { max-width: 100%; }
 .race-week .demo-ex { width: auto; }
 .race-week .demo-ex__media { height: auto; aspect-ratio: 16 / 9; }
 .race-format--days .race-format__n { font-size: 11px; letter-spacing: 0.02em; }
+.race-week__t { max-width: 920px; margin: clamp(36px, 5vw, 56px) auto 16px; font-size: clamp(19px, 2vw, 22px); font-weight: 600; letter-spacing: -0.015em; text-align: center; }
+.race-format + .race-week { margin-top: 16px; }
+.race-week { max-width: 920px; margin-inline: auto; }
 .app-ex .app-ex__day { width: 58px; height: 38px; flex-shrink: 0; margin: 0; display: grid; place-items: center; border-radius: 9px; background: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; color: var(--accent-text); }
 .race-legal { max-width: 760px; margin: 0 auto; padding: 8px var(--gut) 40px; font-size: 13px; line-height: 1.5; color: var(--muted); text-align: center; }
 @media (max-width: 760px) {
