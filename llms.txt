@@ -1,8 +1,8 @@
 # 2trAIn
 
-> 2trAIn es una app de entrenamiento con IA. Crea tu plan de fuerza, de cardio o para preparar una prueba con fecha (Hyrox, triatlón, 10K, media maratón o maratón), lo reescribe cada semana con lo que entrenas y lo que le cuentas, y explica cada cambio con tus datos. Está en beta abierta: te apuntas con tu email y el acceso llega al momento, sin tarjeta.
+> 2trAIn es una app de entrenamiento con IA. Crea tu plan de fuerza, de cardio o para preparar una prueba con fecha (HYROX, triatlón, 10K, media maratón o maratón), lo reescribe cada semana con lo que entrenas y lo que le cuentas, y explica cada cambio con tus datos. Está en beta abierta: te apuntas con tu email y el acceso llega al momento, sin tarjeta.
 
-2trAIn is an AI training app. It builds your strength, cardio or race-prep plan (Hyrox, triathlon, 10K, half marathon or marathon), rewrites it every week from what you train and what you tell it, and explains every change with your data. Open beta: sign up with your email and get access right away, no card needed.
+2trAIn is an AI training app. It builds your strength, cardio or race-prep plan (HYROX, triathlon, 10K, half marathon or marathon), rewrites it every week from what you train and what you tell it, and explains every change with your data. Open beta: sign up with your email and get access right away, no card needed.
 
 ## Qué la hace distinta
 
@@ -18,7 +18,7 @@
 ## Para quién
 
 - Quien quiere ganar fuerza o músculo con un plan que progresa solo.
-- Quien prepara una prueba con fecha: Hyrox, triatlón, 10K, media maratón o maratón.
+- Quien prepara una prueba con fecha: HYROX, triatlón, 10K, media maratón o maratón.
 - Quien quiere mezclar fuerza y cardio en un mismo plan.
 - Quien vuelve a entrenar o quiere mantener la forma sin quemarse.
 
