@@ -1,6 +1,24 @@
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ydXpqdHFld2pha2Z3c2hmYWd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MjAyMzcsImV4cCI6MjA5NDQ5NjIzN30.GC0IRyXF1QppjbvQJNoYhe_FbWIAa6mjOZQkplrEbfM';
 const isEn = document.documentElement.lang === 'en';
 
+// Lo que no hace falta para el primer pintado (animaciones de scroll, móvil del
+// «porqué», objetivos, demo) se monta en tareas cortas cuando el navegador está
+// libre, en vez de en una sola tarea larga al cargar. Así la página responde antes.
+function idle(fn) {
+  if ('requestIdleCallback' in window) requestIdleCallback(fn, { timeout: 1200 });
+  else setTimeout(fn, 1);
+}
+
+// Las animaciones en bucle (pulsos, puntos, burbujas) solo corren en la sección
+// que se ve: fuera de pantalla se pausan y no gastan CPU.
+idle(function() {
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { e.target.classList.toggle('anim-off', !e.isIntersecting); });
+  }, { rootMargin: '120px 0px' });
+  document.querySelectorAll('main > section').forEach(function(sec) { io.observe(sec); });
+});
+
 // ===== Origen del alta: UTM, clic de anuncio y página de entrada =====
 // Se lee de la URL al cargar y viaja con el alta a join-waitlist. Solo se
 // guarda en el navegador (90 días, para no perderlo al cambiar de página) si
@@ -190,6 +208,7 @@ function autoCarousel(el, opts) {
   // Animaciones: calmadas y una sola vez. Funden y suben unos pocos píxeles;
   // sin rebotes ni escalas. El hero no se anima: su texto es el LCP y el móvil
   // tiene que verse en cuanto carga la página.
+  idle(function() {
   var startPos = isMobile ? 'top 90%' : 'top 82%';
   // [data-anim]: la sección se monta sola (gráficas, chips, semana) cuando
   // entra en pantalla. El CSS pinta el estado final con .is-in.
@@ -229,6 +248,7 @@ function autoCarousel(el, opts) {
         scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
   }
+  });
 
   // ===== Pantallas de «Por qué»: cada una es un pequeño vídeo en bucle =====
   // Se crean pausadas; las reproduce el bloque de abajo cuando su pantalla es
@@ -285,7 +305,7 @@ function autoCarousel(el, opts) {
   // enseña su pantalla. ≤860px: un solo móvil entero; la pantalla y el texto
   // cambian solos cada pocos segundos mientras se ve, y deslizar el dedo sobre
   // el móvil o tocar un punto cambia de paso (desde ahí manda la persona).
-  (function() {
+  idle(function() {
     var stage = document.querySelector('.reels');
     if (!stage) return;
     var phone = stage.querySelector('.reels__phone');
@@ -360,7 +380,7 @@ function autoCarousel(el, opts) {
     // La primera pantalla se monta en cuanto el móvil asoma, sin esperar al centro
     ScrollTrigger.create({ trigger: stage, start: 'top 60%', once: true, onEnter: function() { if (current === -1) activate(0); } });
     if (reduceMotion) activate(0);
-  })();
+  });
 
   // Semana real (páginas por objetivo): pestañas entre semanas (maratón / media).
   // El panel que se enseña vuelve a montar sus gráficas.
@@ -596,7 +616,7 @@ function autoCarousel(el, opts) {
 })();
 
 // ===== Objetivos: el selector cambia el plan orientativo y su gráfica =====
-(function() {
+idle(function() {
   var section = document.querySelector('#objetivos');
   if (!section) return;
   var tabs = Array.prototype.slice.call(section.querySelectorAll('.goal-opt'));
@@ -653,10 +673,10 @@ function autoCarousel(el, opts) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); select((i - 1 + tabs.length) % tabs.length, true); }
     });
   });
-})();
+});
 
 // ===== Demo "Míralo pensar": pensar → colapsar → generar (soporta varios escenarios) =====
-(function() {
+idle(function() {
   var section = document.querySelector('#demo');
   if (!section || typeof gsap === 'undefined') return;
 
@@ -900,7 +920,7 @@ function autoCarousel(el, opts) {
   } else {
     startWhenVisible();
   }
-})();
+});
 
 // ===== "Pruébalo ya mismo": en móvil va DESPUÉS del chat (primero ves la demo, luego la usas) =====
 (function() {
