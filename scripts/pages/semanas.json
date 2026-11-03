@@ -49,7 +49,7 @@
       {
        "id": "1536",
        "es": "Peso muerto rumano con barra",
-       "en": "Barbell romanian deadlift",
+       "en": "Barbell Romanian deadlift",
        "sets": 3,
        "reps": 8,
        "seg": null,
@@ -79,7 +79,7 @@
       {
        "id": "500349",
        "es": "Paseo del granjero con mancuernas",
-       "en": "Dumbbell farmer walks",
+       "en": "Dumbbell farmer walk",
        "sets": 2,
        "reps": 1,
        "seg": 40,
@@ -140,7 +140,7 @@
       {
        "id": "4",
        "es": "Remo con torso inclinado",
-       "en": "Barbell bent over row",
+       "en": "Barbell bent-over row",
        "sets": 4,
        "reps": 8,
        "seg": null,
@@ -180,7 +180,7 @@
       {
        "id": "500523",
        "es": "Arrastre de trineo con saco pesado",
-       "en": "Heavy bag sled drag",
+       "en": "Heavy sandbag sled drag",
        "sets": 1,
        "reps": 1,
        "seg": 40,
@@ -190,7 +190,7 @@
       {
        "id": "47985",
        "es": "Golpe con balón medicinal",
-       "en": "Ball slams",
+       "en": "Medicine ball slam",
        "sets": 1,
        "reps": 6,
        "seg": null,
@@ -365,7 +365,7 @@
       {
        "id": "500524",
        "es": "Arrastre de trineo con saco pesado",
-       "en": "Heavy bag sled drag",
+       "en": "Heavy sandbag sled drag",
        "sets": 1,
        "reps": 1,
        "seg": 30,
@@ -1517,7 +1517,7 @@
       {
        "id": "47108",
        "es": "Sentadilla con barra baja",
-       "en": "Barbell low bar squat",
+       "en": "Barbell low-bar squat",
        "sets": 4,
        "reps": 5,
        "seg": null,
@@ -1547,7 +1547,7 @@
       {
        "id": "3462",
        "es": "Peso muerto rumano con mancuernas",
-       "en": "Dumbbell romanian deadlift",
+       "en": "Dumbbell Romanian deadlift",
        "sets": 3,
        "reps": 10,
        "seg": null,
@@ -1567,7 +1567,7 @@
       {
        "id": "4",
        "es": "Remo con torso inclinado",
-       "en": "Barbell bent over row",
+       "en": "Barbell bent-over row",
        "sets": 3,
        "reps": 8,
        "seg": null,
@@ -1780,7 +1780,7 @@
       {
        "id": "1536",
        "es": "Peso muerto rumano con barra",
-       "en": "Barbell romanian deadlift",
+       "en": "Barbell Romanian deadlift",
        "sets": 3,
        "reps": 8,
        "seg": null,

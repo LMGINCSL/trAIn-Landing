@@ -60,15 +60,15 @@ POSTS = [
             "body": """
 <h2>What race day looks like</h2>
 <p>The format never changes: run 1 km, do a station, eight times over. The stations, in order, are SkiErg (1,000 m), sled push (50 m), sled pull (50 m), burpee broad jumps (80 m), rowing (1,000 m), farmers carry (200 m), sandbag lunges (100 m) and wall balls (100 reps). Weights depend on your division.</p>
-<p>That leaves three needs: an <strong>aerobic engine</strong> to string together 8 km while breaking rhythm every kilometre, <strong>strength</strong> to move the sled and hold your grip, and <strong>practice of the movements</strong> on tired legs.</p>
+<p>That leaves three needs: an <strong>aerobic engine</strong> to string together 8 km while breaking rhythm every kilometre, <strong>strength</strong> to move the sled and hold your grip, and <strong>practising the movements</strong> on tired legs.</p>
 <h2>The three pieces of a HYROX week</h2>
 <ul>
-<li><strong>Strength with legs and pulling first.</strong> Squats, deadlifts and rows carry the sled, the lunges and the farmers carry grip.</li>
-<li><strong>Two runs with different goals:</strong> a tempo run to get used to running uncomfortable, and a conversational long run to build your base.</li>
+<li><strong>Strength with legs and pulling first.</strong> Squats, deadlifts and rows are what drive the sled, the lunges and your grip on the farmers carry.</li>
+<li><strong>Two runs with different goals:</strong> a tempo run to get used to running while uncomfortable, and a conversational long run to build your base.</li>
 <li><strong>Race movements at the end of strength days:</strong> sled, farmers carry, burpees or the rower, in short blocks and already tired, like on race day.</li>
 </ul>
 <h2>A real week, day by day</h2>
-<p>This is the week 2trAIn generated for a 29-year-old profile coming from strength training, training 5 days, with a HYROX on March 14. Nothing touched up: these are the titles, times, segments and exercises the plan produced.</p>
+<p>This is the week 2trAIn generated for a 29-year-old profile coming from strength training, training 5 days, with a HYROX on 14 March. Nothing edited: these are the titles, times, segments and exercises the plan produced.</p>
 {{week}}
 <h2>Why it's built this way</h2>
 <p><strong>Three strength days, two running days.</strong> People coming from the gym usually have strength to spare and not much running, so running gets its own days instead of whatever is left over.</p>
@@ -88,7 +88,7 @@ POSTS = [
                     ("What if my gym has no sled or SkiErg?", "They're swapped for similar movements with the equipment you have: plate pushes and drags, rows, dumbbell lunges. 2trAIn remembers it for the following weeks."),
                     ("How many days a week do I need?", "You can prepare well with 3 or 4. This week uses 5 because the profile had them; with fewer days, strength and race movements share a session.")],
             "sources": [("Official HYROX format", "https://hyrox.com")],
-            "cta": ("Want your own week toward your date?", "Tell it your HYROX date and the plan is built up to that day, rewritten every week from what you do.", "/en/hyrox/", "See how 2trAIn prepares HYROX"),
+            "cta": ("Want your own week towards your date?", "Tell it your HYROX date and the plan is built up to that day, rewritten every week from what you do.", "/en/hyrox/", "See how 2trAIn prepares HYROX"),
         },
     },
     {
@@ -136,7 +136,7 @@ POSTS = [
             "lead": "Most of the kilometres in a marathon plan are easy, and that's no accident. Here are two real weeks, one for a marathon and one for a half, with every session drawn by zone and explained.",
             "body": """
 <h2>The rule that keeps coming up: almost everything easy</h2>
-<p>Studies on how well-trained endurance runners train agree on a pattern: around 80% of sessions are low intensity and the rest are quality. It's known as polarised training, or the 80/20 rule. Running easy most of the time builds your aerobic base without piling up fatigue, and leaves legs for intervals that are actually good.</p>
+<p>Studies on how well-trained endurance runners train agree on a pattern: around 80% of sessions are low intensity and the rest are quality. It's known as polarised training, or the 80/20 rule. Running easy most of the time builds your aerobic base without piling up fatigue, and leaves you fresh enough for intervals that count.</p>
 <p>In practice, a marathon or half marathon week has four kinds of session:</p>
 <ul>
 <li><strong>Easy runs (Zone 2):</strong> conversational pace. Most of the week.</li>
@@ -150,7 +150,7 @@ POSTS = [
 <h2>What these weeks show</h2>
 <p><strong>Only two quality days.</strong> Both weeks have two hard sessions (intervals, fartlek or hills) and the rest is easy. Look at the strip at the top: dark days are few.</p>
 <p><strong>Intervals are short and many.</strong> 11 × 90 seconds or 7 × 2 minutes, always with easy recovery between. It's easier to hold good effort over short reps than one long one.</p>
-<p><strong>The long run is split into blocks.</strong> 86 minutes in 15-minute segments with 2 easy minutes between. Time to drink, check how you feel and not drift too fast.</p>
+<p><strong>The long run is split into blocks.</strong> 86 minutes in 15-minute segments with 2 easy minutes between. Time to drink, check how you feel and avoid creeping too fast.</p>
 <p><strong>Miss a session and it gets moved, not stacked.</strong> The marathon runner skipped the previous week's long run because of a trip. The plan didn't double it: it kept Saturday's long run as it was and added one rep to Monday and Thursday.</p>
 <p><strong>A half isn't a scaled-down marathon.</strong> Its week is shorter (3 h 45 min vs 5 h 26 min) and swaps intervals for fartlek and trail hills, which work pace and leg strength with less impact.</p>
 <h2>The last weeks: the taper</h2>
@@ -256,7 +256,7 @@ INDEX = {
     "en": {"title": "Training blog: real plans, session by session · 2trAIn",
            "desc": "Training guides with real weeks generated by 2trAIn: HYROX, marathon and half, strength. Every session drawn and explained.",
            "eyebrow": "Blog", "h1": 'Real plans, <span class="accent">explained.</span>',
-           "lead": "Guides to train better, with weeks 2trAIn generated as they came out: session by session, with their why.",
+           "lead": "Guides to help you train better, using real weeks exactly as 2trAIn generated them, session by session, with the reasoning behind each.",
            "read": "Read", "min": "min read", "crumb": "Blog"},
 }
 UI = {

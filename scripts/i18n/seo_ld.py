@@ -46,7 +46,7 @@ T = {
         "app": "AI training app for strength, cardio and race prep (Hyrox, triathlon, 10K, half marathon and marathon). It builds the plan from your history, rewrites it every week from what you train, choose and tell it, and explains every change with your data.",
         "sub": "AI personal training",
         "features": [
-            "Strength, cardio or race-prep plans toward a date (Hyrox, triathlon, 10K, half marathon, marathon)",
+            "Strength, cardio or race-prep plans towards a date (Hyrox, triathlon, 10K, half marathon, marathon)",
             "The plan is rewritten every week from what you train and what you tell it",
             "Every change in volume or intensity comes explained with your data",
             "A periodisation and accumulated-fatigue engine decides; the language model only explains",
@@ -64,7 +64,7 @@ graph = [
     {"@type": "Organization", "@id": BASE + "#organization", "name": "2trAIn", "alternateName": ["2train", "2Train", "2trAIn app"],
      "legalName": "LMGINC SL", "taxID": "B93905438", "url": BASE, "logo": BASE + "android-chrome-512x512.png",
      "description": T["org"], "email": "contact@2trainapp.com",
-     "address": {"@type": "PostalAddress", "streetAddress": "Calle Lagasca 95", "postalCode": "28001", "addressLocality": "Madrid", "addressCountry": "ES"},
+     "address": {"@type": "PostalAddress", "streetAddress": "Calle Lagasca 95", "postalCode": "28006", "addressLocality": "Madrid", "addressCountry": "ES"},
      "sameAs": ["https://www.instagram.com/2trainapp/"]},
     {"@type": "WebSite", "@id": url + "#website", "name": "2trAIn", "url": url, "inLanguage": lang, "publisher": {"@id": BASE + "#organization"}},
     {"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": T["page"], "inLanguage": lang, "isPartOf": {"@id": url + "#website"},
