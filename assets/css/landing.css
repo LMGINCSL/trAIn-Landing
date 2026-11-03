@@ -192,7 +192,7 @@ img, video { max-width: 100%; }
    escritorio va a la derecha y se dimensiona para caber en la primera
    pantalla aunque el portátil sea bajo: el alto del móvil es el ancho de
    pantalla × 19,5/9 más el marco, así que el ancho sale del alto libre. */
-.hero { position: relative; overflow: hidden; text-align: center; padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(36px, 5vw, 56px)); padding-bottom: clamp(64px, 8vw, 96px); background: var(--bg); }
+.hero { position: relative; overflow-x: clip; overflow-y: visible; text-align: center; padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + clamp(36px, 5vw, 56px)); padding-bottom: clamp(64px, 8vw, 96px); background: var(--bg); }
 .hero__grid { display: grid; justify-items: center; gap: clamp(48px, 7vw, 64px); }
 .hero__copy { display: grid; justify-items: center; width: 100%; }
 .hero__title { margin: 18px 0 0; max-width: 11ch; }
@@ -540,7 +540,8 @@ img, video { max-width: 100%; }
   .demo-bubble, .demo-reason { max-width: 94%; }
   .demo-chat--seq { min-height: 0; }
   .demo-chat { padding: 16px; border-radius: 22px; }
-  .demo-head__cta { margin-top: 4px; justify-self: center; }
+  /* La tarjeta de la demo ya lleva su «Unirme a la beta»: aquí no se repite. */
+  .demo-head__cta { display: none; }
 }
 
 /* ── Carrusel automático: puntos que marcan la tarjeta y sirven para saltar ── */
@@ -551,7 +552,7 @@ img, video { max-width: 100%; }
 .cdots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 
 /* ── Lo que la hace distinta: burbujas que flotan, con el catálogo alrededor ── */
-.sec--nums { overflow: hidden; }
+.sec--nums { overflow-x: clip; overflow-y: visible; }
 .bubbles { position: relative; height: clamp(520px, 46vw, 620px); max-width: 1000px; margin: 0 auto; }
 .bb { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); border-radius: 50%; display: grid; place-items: center; align-content: center; text-align: center; animation: bob 7s ease-in-out infinite; animation-delay: var(--d, 0s); transition: opacity .6s var(--ease), scale .8s cubic-bezier(.2, .8, .2, 1.15); transition-delay: calc(var(--i, 0) * 70ms); }
 @keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
