@@ -29,3 +29,6 @@ SESION-PENDIENTE.md
 .impeccable/config.local.json
 .impeccable/hook.cache.json
 .impeccable/live/
+
+# Restos de pruebas con Playwright
+.playwright-cli/

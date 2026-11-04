@@ -43,6 +43,9 @@ async function rateLimitOrReject(supabase: any, req: Request, isEn: boolean, cor
     )
   }
   await supabase.from('signup_log').insert({ ip })
+  // La política de privacidad promete borrar la IP a los 7 días: cada intento
+  // limpia lo que haya pasado de ese plazo (el rate-limit solo mira la última hora).
+  await supabase.from('signup_log').delete().lt('created_at', new Date(Date.now() - 7 * 864e5).toISOString())
   return null
 }
 

@@ -461,6 +461,8 @@ PAIRS = [
     ('<!-- Estado éxito -->', '<!-- Success state -->'),
     ('Reserva tu plaza', 'Reserve your spot'),
     ('Sin tarjeta &middot; Sin spam &middot; Cancela cuando quieras', 'No card &middot; No spam &middot; Leave anytime'),
+    ('Usamos tu email para enviarte el acceso a la beta. LMGINC SL es la responsable; puedes ejercer tus derechos en contact@2trainapp.com. Más en la <a href="/privacidad">política de privacidad</a>.',
+     'We use your email to send you beta access. LMGINC SL is the data controller; you can exercise your rights at contact@2trainapp.com. More in our <a href="/en/privacy/">privacy policy</a>.'),
     ('Estás dentro.', "You're in."),
     ('<span class="ms-badge" id="ms-badge-2">Ventajas exclusivas</span>', '<span class="ms-badge" id="ms-badge-2">Exclusive perks</span>'),
     ('PLAZAS WAVE 1', 'WAVE 1 SPOTS'),
