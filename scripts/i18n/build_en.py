@@ -349,7 +349,7 @@ PAIRS = [
     ('Dolor reportado: <strong>hombro derecho en press vertical.</strong>', 'Reported pain: <strong>right shoulder on the overhead press.</strong>'),
     ('Press militar y fondos estresan el manguito → <strong>los retiro hoy.</strong>', 'Overhead press and dips stress the cuff → <strong>I remove them today.</strong>'),
     ('Mantengo el estímulo de empuje con <strong>ángulos seguros</strong> para el hombro.', 'I keep the push stimulus with <strong>shoulder-safe angles.</strong>'),
-    ('Añado <strong>activación de manguito rotador</strong> antes de empezar para prevenir.', 'I add <strong>rotator cuff activation</strong> before starting to prevent injury.'),
+    ('Añado <strong>activación de manguito rotador</strong> como calentamiento.', 'I add <strong>rotator cuff activation</strong> as a warm-up.'),
     ('Hecho. Quito el press vertical y los fondos para no forzar el hombro, y empezamos con un <strong>calentamiento del manguito</strong>. Sesión de hoy 👇',
      "Done. I'm dropping the overhead press and the dips so we don't strain the shoulder, and we'll start with a <strong>rotator cuff warm-up</strong>. Today's session 👇"),
     ('Sesión de hoy · empuje sin forzar el hombro', "Today's session · push without straining the shoulder"),
