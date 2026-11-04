@@ -449,6 +449,8 @@ PAIRS = [
     ('<h3>Contacto</h3>', '<h3>Contact</h3>'),
     ('<a href="/privacidad">Privacidad</a>', '<a href="/en/privacy/">Privacy</a>'),
     ('<a href="/terminos">Términos</a>', '<a href="/en/terms/">Terms</a>'),
+    ('<a href="/cookies">Cookies</a>', '<a href="/en/cookies/">Cookies</a>'),
+    ('<a href="#" data-cookie-open>Preferencias de cookies</a>', '<a href="#" data-cookie-open>Cookie preferences</a>'),
     ('<a href="/aviso-legal">Aviso legal</a>', '<a href="/en/legal-notice/">Legal notice</a>'),
     ('<a href="/soporte">Soporte</a>', '<a href="/en/support/">Support</a>'),
     ('Calle Lagasca 95, 28006 Madrid</span>', 'Calle Lagasca 95, 28006 Madrid, Spain</span>'),
@@ -482,7 +484,7 @@ PAIRS = [
     # Cookies
     ('<!-- Aviso de cookies -->', '<!-- Cookie notice -->'),
     ('aria-label="Aviso de cookies"', 'aria-label="Cookie notice"'),
-    ('Si aceptas, recordamos de qué campaña llegaste para saber qué funciona. Sin herramientas de terceros.', 'If you accept, we remember which campaign brought you here so we know what works. No third-party tools.'),
+    ('Si aceptas, recordamos de qué campaña llegaste para saber qué funciona. Sin herramientas de terceros. <a href="/cookies">Más información</a>', 'If you accept, we remember which campaign brought you here so we know what works. No third-party tools. <a href="/en/cookies/">Learn more</a>'),
     ('>Rechazar</button>', '>Reject</button>'),
     ('>Aceptar</button>', '>Accept</button>'),
     # Comentarios de sección restantes

@@ -326,6 +326,8 @@
         <ul>
           <li><a href="/en/privacy/">Privacy</a></li>
           <li><a href="/en/terms/">Terms</a></li>
+          <li><a href="/en/cookies/">Cookies</a></li>
+          <li><a href="#" data-cookie-open>Cookie preferences</a></li>
           <li><a href="/en/legal-notice/">Legal notice</a></li>
         </ul>
       </div>
@@ -399,7 +401,7 @@
 
 <!-- Cookie notice -->
 <div id="cookie-banner" class="cookie" role="region" aria-label="Cookie notice">
-  <p>If you accept, we remember which campaign brought you here so we know what works. No third-party tools.</p>
+  <p>If you accept, we remember which campaign brought you here so we know what works. No third-party tools. <a href="/en/cookies/">Learn more</a></p>
   <div class="cookie__actions">
     <button id="cookie-reject" type="button" class="btn btn--sm btn--ghost">Reject</button>
     <button id="cookie-accept" type="button" class="btn btn--sm">Accept</button>
@@ -412,7 +414,8 @@
   var banner = document.getElementById('cookie-banner');
   if (!getCookie('cookie_consent')) { banner.style.display = 'flex'; }
   document.getElementById('cookie-accept').addEventListener('click', function() { setCookie('cookie_consent','accepted',365); banner.style.display='none'; });
-  document.getElementById('cookie-reject').addEventListener('click', function() { setCookie('cookie_consent','rejected',365); banner.style.display='none'; });
+  document.getElementById('cookie-reject').addEventListener('click', function() { setCookie('cookie_consent','rejected',365); try { localStorage.removeItem('2t_attr'); } catch (e) {} banner.style.display='none'; });
+  document.querySelectorAll('[data-cookie-open]').forEach(function(a) { a.addEventListener('click', function(e) { e.preventDefault(); banner.style.display='flex'; }); });
 })();
 </script>
 </body>
