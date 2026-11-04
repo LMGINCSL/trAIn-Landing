@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="Prepara tu 10K con un plan que va hacia tu fecha: rodajes, series y fuerza, ajustado cada semana a tu ritmo y con cada cambio explicado. Beta abierta." />
 <meta name="twitter:image" content="https://2trainapp.com/og-image.png" />
 <meta property="og:locale" content="es_ES" />
-<meta property="og:locale:alternate" content="en_GB" />
+<meta property="og:locale:alternate" content="en_US" />
 <meta property="og:image:alt" content="2trAIn — el coach con IA que se acuerda de ti" />
 <meta name="author" content="2trAIn" />
 <link rel="manifest" href="/site.webmanifest">
@@ -405,6 +405,8 @@
         <ul>
           <li><a href="/privacidad">Privacidad</a></li>
           <li><a href="/terminos">Términos</a></li>
+          <li><a href="/cookies">Cookies</a></li>
+          <li><a href="#" data-cookie-open>Preferencias de cookies</a></li>
           <li><a href="/aviso-legal">Aviso legal</a></li>
         </ul>
       </div>
@@ -478,7 +480,7 @@
 
 <!-- Aviso de cookies -->
 <div id="cookie-banner" class="cookie" role="region" aria-label="Aviso de cookies">
-  <p>Usamos cookies de analítica para mejorar la app. Puedes aceptarlas o rechazarlas.</p>
+  <p>Si aceptas, recordamos de qué campaña llegaste para saber qué funciona. Sin herramientas de terceros. <a href="/cookies">Más información</a></p>
   <div class="cookie__actions">
     <button id="cookie-reject" type="button" class="btn btn--sm btn--ghost">Rechazar</button>
     <button id="cookie-accept" type="button" class="btn btn--sm">Aceptar</button>
@@ -491,7 +493,8 @@
   var banner = document.getElementById('cookie-banner');
   if (!getCookie('cookie_consent')) { banner.style.display = 'flex'; }
   document.getElementById('cookie-accept').addEventListener('click', function() { setCookie('cookie_consent','accepted',365); banner.style.display='none'; });
-  document.getElementById('cookie-reject').addEventListener('click', function() { setCookie('cookie_consent','rejected',365); banner.style.display='none'; });
+  document.getElementById('cookie-reject').addEventListener('click', function() { setCookie('cookie_consent','rejected',365); try { localStorage.removeItem('2t_attr'); } catch (e) {} banner.style.display='none'; });
+  document.querySelectorAll('[data-cookie-open]').forEach(function(a) { a.addEventListener('click', function(e) { e.preventDefault(); banner.style.display='flex'; }); });
 })();
 </script>
 </body>

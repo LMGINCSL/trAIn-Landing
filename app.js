@@ -631,7 +631,7 @@ idle(function() {
   var copy = en ? {
     fuerza: 'Push, pull and leg blocks with weekly load progression. Every change in volume or intensity, <strong>explained with your data</strong>.',
     cardio: 'Zone 2 base, controlled intensity days and recovery built in. Conditioning that <strong>fits your week</strong>, not random HIIT.',
-    prueba: 'Toward your race day: specific strength, cardio and event stations, periodised to the date, with <strong>taper when it matters</strong>.',
+    prueba: 'Toward your race day: specific strength, cardio and event stations, periodized to the date, with <strong>taper when it matters</strong>.',
     mantener: 'Sustainable frequency to stay in shape or ease back in. Enough stimulus to progress, <strong>without burning out</strong>.'
   } : {
     fuerza: 'Bloques de empuje, tirón y pierna con progresión de carga. Cada cambio de volumen o intensidad, <strong>explicado con tus datos</strong>.',
@@ -714,7 +714,7 @@ idle(function() {
       'Reading your goal and date…',
       'Checking strength vs cardio base…',
       'Building hybrid weekly blocks…',
-      'Periodizing towards race day…',
+      'Periodizing toward race day…',
       'Keeping one strength day…'
     ] : [
       'Leyendo objetivo y fecha…',
