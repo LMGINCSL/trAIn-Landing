@@ -31,3 +31,6 @@ package-lock.json
 .env.*
 caps/
 email-preview*.html
+
+# Restos de pruebas con Playwright
+.playwright-cli/
