@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="only light" />
+<meta name="theme-color" content="#FFFFFF" />
+<title>Nueva contraseña · 2trAIn</title>
+<meta name="description" content="Elige una contraseña nueva para tu cuenta de 2trAIn." />
+<!-- El enlace lleva un token de un solo uso: ni se indexa ni se manda en el Referer. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32">
+<link rel="icon" href="/favicon.png">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2" crossorigin>
+<link rel="stylesheet" href="/dist/tailwind.css">
+<style>
+  @font-face {
+    font-family: 'TT Firs Neue';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/assets/fonts/tt-firs-neue/tt-firs-neue-latin-normal.woff2') format('woff2');
+  }
+  :root {
+    --bg: #FFFFFF; --bg-2: #F5F5F7;
+    --fg: #1D1D1F; --muted: #6E6E73; --muted-2: #6E6E73;
+    --line: #D2D2D7; --line-2: #C7C7CC;
+    --accent: #2A6FDB; --accent-text: #2563D0;
+    --error: #C0392B;
+  color-scheme: only light;
+  }
+  html, body { background: var(--bg); color: var(--fg); font-family: 'TT Firs Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  ::selection { background: rgba(42, 111, 219, 0.2); color: var(--fg); }
+  .hover-fg:hover { color: var(--fg) !important; }
+  .badge { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted-2); }
+  .texto { color: var(--muted); font-size: 0.9375rem; line-height: 1.7; }
+  .texto a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
+  .etiqueta { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--fg); margin-bottom: 0.4rem; }
+  .campo { width: 100%; font: inherit; font-size: 1rem; color: var(--fg); background: var(--bg); border: 1px solid var(--line-2); border-radius: 12px; padding: 0.75rem 0.9rem; outline: none; transition: border-color .15s, box-shadow .15s; }
+  .campo:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(42, 111, 219, 0.18); }
+  .campo[aria-invalid="true"] { border-color: var(--error); }
+  .boton { width: 100%; font: inherit; font-size: 0.9375rem; font-weight: 600; color: #FFFFFF; background: var(--accent); border: 0; border-radius: 12px; padding: 0.85rem 1rem; cursor: pointer; transition: opacity .15s; }
+  .boton:hover { opacity: .92; }
+  .boton:disabled { opacity: .55; cursor: default; }
+  .aviso { font-size: 0.8125rem; line-height: 1.5; margin-top: 0.4rem; }
+  .aviso-error { color: var(--error); }
+  .aviso-ayuda { color: var(--muted-2); }
+  .caja { background: var(--bg-2); border-radius: 16px; padding: 1.25rem 1.25rem; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav style="border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.8); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);" class="sticky top-0 z-50">
+  <div class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <picture><img src="/assets/logo-texto-claro.png" alt="2trAIn logo" style="height:20px;width:auto;"></picture>
+    </a>
+    <a href="/" style="color: var(--muted); font-size: 0.8125rem;" class="hover-fg transition-colors flex items-center gap-1.5">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      <span data-t="volver">Volver al inicio</span>
+    </a>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="max-w-md mx-auto px-6 py-16 pb-24">
+  <div class="mb-10">
+    <span class="badge" data-t="badge">Tu cuenta</span>
+    <h1 id="titulo" style="font-size: 2rem; font-weight: 600; letter-spacing: -0.025em; margin-top: 0.75rem; color: var(--fg);" data-t="titulo">Nueva contraseña</h1>
+    <p id="subtitulo" style="color: var(--muted-2); font-size: 0.875rem; margin-top: 0.5rem;" data-t="subtitulo">Elige una contraseña para entrar en 2trAIn.</p>
+  </div>
+
+  <!-- Formulario -->
+  <form id="formulario" class="space-y-4" novalidate>
+    <div>
+      <label class="etiqueta" for="clave" data-t="clave">Contraseña nueva</label>
+      <input class="campo" id="clave" name="clave" type="password" autocomplete="new-password" minlength="8" required aria-describedby="clave-ayuda">
+      <p id="clave-ayuda" class="aviso aviso-ayuda" data-t="ayuda">Mínimo 8 caracteres.</p>
+    </div>
+    <div>
+      <label class="etiqueta" for="repetir" data-t="repetir">Repite la contraseña</label>
+      <input class="campo" id="repetir" name="repetir" type="password" autocomplete="new-password" required aria-describedby="repetir-error">
+      <p id="repetir-error" class="aviso aviso-error" role="alert" hidden></p>
+    </div>
+    <p id="error-general" class="aviso aviso-error" role="alert" hidden></p>
+    <div class="mt-6">
+      <button class="boton" id="enviar" type="submit" data-t="guardar">Guardar contraseña</button>
+    </div>
+  </form>
+
+  <!-- Hecho -->
+  <div id="hecho" class="caja texto" hidden>
+    <p><strong style="color: var(--fg);" data-t="hecho-titulo">Contraseña cambiada.</strong></p>
+    <p data-t="hecho-texto">Vuelve a la app de 2trAIn y entra con tu email y la contraseña nueva.</p>
+  </div>
+
+  <!-- Enlace caducado o sin token -->
+  <div id="caducado" class="caja texto" hidden>
+    <p><strong style="color: var(--fg);" data-t="caducado-titulo">Este enlace ya no vale.</strong></p>
+    <p data-t="caducado-texto">Caduca a los 30 minutos y solo se puede usar una vez. Pide otro desde la app: en la pantalla de entrar, «¿Olvidaste tu contraseña?».</p>
+  </div>
+
+  <p class="texto" style="font-size: 0.8125rem; margin-top: 2.5rem;">
+    <span data-t="ayuda-soporte">¿Problemas?</span> <a href="mailto:contact@2trainapp.com">contact@2trainapp.com</a>
+  </p>
+</main>
+
+<!-- FOOTER -->
+<footer style="border-top: 1px solid var(--line); padding: 32px 0;">
+  <div class="max-w-3xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-4" style="font-size: 0.75rem; color: var(--muted-2);">
+    <div>© 2026 LMGINC SL · CIF B93905438 · Calle Lagasca 95, 28006 Madrid</div>
+    <div class="flex flex-wrap" style="gap: 8px 20px;">
+      <a href="/privacidad" style="color: var(--accent-text);" data-t="privacidad">Privacidad</a>
+      <a href="/terminos" class="hover-fg transition-colors" data-t="terminos">Términos</a>
+      <a href="/soporte" class="hover-fg transition-colors" data-t="soporte">Soporte</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // El correo de «He olvidado mi contraseña» trae aquí: /reset-password?token=…
+  // (PASSWORD_RESET_URL_BASE en el backend). La página llama directamente a la
+  // API de producción; el CORS de la API y el CSP de vercel.json lo permiten.
+  var API = 'https://api.2trainapp.com';
+
+  var en = (navigator.language || '').toLowerCase().indexOf('es') !== 0;
+  var T = {
+    volver: 'Back to home', badge: 'Your account', titulo: 'New password',
+    subtitulo: 'Choose a password to sign in to 2trAIn.',
+    clave: 'New password', ayuda: 'At least 8 characters.', repetir: 'Repeat the password',
+    guardar: 'Save password', 'hecho-titulo': 'Password changed.',
+    'hecho-texto': 'Go back to the 2trAIn app and sign in with your email and the new password.',
+    'caducado-titulo': 'This link is no longer valid.',
+    'caducado-texto': 'It expires after 30 minutes and works only once. Ask for a new one from the app: on the sign-in screen, “Forgot your password?”.',
+    'ayuda-soporte': 'Trouble?', privacidad: 'Privacy', terminos: 'Terms', soporte: 'Support'
+  };
+  var M = en ? {
+    corta: 'It needs at least 8 characters.',
+    distintas: 'The passwords don’t match.',
+    larga: 'It’s too long. Use a shorter one.',
+    red: 'We couldn’t connect. Check your connection and try again.',
+    muchos: 'Too many attempts. Wait a few minutes and try again.',
+    otro: 'Something went wrong. Try again in a moment.',
+    guardando: 'Saving…'
+  } : {
+    corta: 'Tiene que tener al menos 8 caracteres.',
+    distintas: 'Las contraseñas no coinciden.',
+    larga: 'Es demasiado larga. Usa una más corta.',
+    red: 'No hemos podido conectar. Revisa la conexión y vuelve a probar.',
+    muchos: 'Demasiados intentos. Espera unos minutos y vuelve a probar.',
+    otro: 'Algo ha fallado. Vuelve a probar en un momento.',
+    guardando: 'Guardando…'
+  };
+  if (en) {
+    document.documentElement.lang = 'en';
+    document.title = 'New password · 2trAIn';
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      var k = el.getAttribute('data-t');
+      if (T[k]) el.textContent = T[k];
+    });
+  }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('formulario'), clave = $('clave'), repetir = $('repetir');
+  var errRepetir = $('repetir-error'), errGeneral = $('error-general'), boton = $('enviar');
+  var textoBoton = boton.textContent;
+
+  // Se lee el token y se quita de la barra de direcciones (y del historial).
+  var token = new URLSearchParams(location.search).get('token') || '';
+  if (token) history.replaceState(null, '', location.pathname);
+
+  function mostrar(id) {
+    form.hidden = true;
+    $('subtitulo').hidden = true;
+    $(id).hidden = false;
+  }
+  if (!token) { mostrar('caducado'); return; }
+
+  function error(el, campo, texto) {
+    el.textContent = texto; el.hidden = !texto;
+    if (campo) campo.setAttribute('aria-invalid', texto ? 'true' : 'false');
+  }
+  function bytes(s) { return new TextEncoder().encode(s).length; }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    error(errGeneral, null, ''); error(errRepetir, repetir, ''); clave.setAttribute('aria-invalid', 'false');
+    var v = clave.value;
+    if (v.length < 8) { error(errGeneral, clave, M.corta); clave.focus(); return; }
+    if (bytes(v) > 72) { error(errGeneral, clave, M.larga); clave.focus(); return; }
+    if (v !== repetir.value) { error(errRepetir, repetir, M.distintas); repetir.focus(); return; }
+
+    boton.disabled = true; boton.textContent = M.guardando;
+    fetch(API + '/auth/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, new_password: v }),
+      credentials: 'omit',
+      referrerPolicy: 'no-referrer'
+    }).then(function (r) {
+      if (r.ok) { mostrar('hecho'); return; }
+      if (r.status === 429) { error(errGeneral, null, M.muchos); return; }
+      if (r.status === 422) { error(errGeneral, clave, M.corta); return; }
+      if (r.status === 400) {
+        return r.json().catch(function () { return {}; }).then(function (b) {
+          var larga = Array.isArray(b.detail) && b.detail.some(function (d) { return d && d.type === 'contrasena_demasiado_larga'; });
+          if (larga) error(errGeneral, clave, M.larga); else mostrar('caducado');
+        });
+      }
+      error(errGeneral, null, M.otro);
+    }).catch(function () {
+      error(errGeneral, null, M.red);
+    }).then(function () {
+      boton.disabled = false; boton.textContent = textoBoton;
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
