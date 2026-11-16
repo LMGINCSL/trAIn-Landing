@@ -1,0 +1,182 @@
+{
+  "$schema": "../repo-config.schema.json",
+  "git": {
+    "activo": true,
+    "rama_principal": "main",
+    "push": "ask",
+    "commit_en_principal": "ask",
+    "pr_create": "ask",
+    "pr_merge": "deny"
+  },
+  "reglas_bash": [
+    {
+      "id": "comun.env-real",
+      "decision": "deny",
+      "regex": "(?:^|[\\s/\\\\'\"=<>(])\\.env(?:rc)?(?!(?:\\.[\\w-]+)*\\.(?:example|sample|template|dist|defaults?)(?=$|[\\s'\"|;&)<>]))(?:\\.[\\w-]+)*(?=$|[\\s'\"|;&)<>])",
+      "motivo": "lee o escribe un fichero .env real (secretos). Usa .env.example o pide el dato a la persona.",
+      "ficheros": [
+        ".env",
+        ".env.*",
+        ".envrc"
+      ],
+      "ficheros_excepto": [
+        ".env.{example,sample,template,dist,default,defaults}",
+        ".env.*.{example,sample,template}"
+      ]
+    },
+    {
+      "id": "comun.gcloud-deploy",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "\\bgcloud(?:\\.cmd)?\\s+.*\\bdeploy\\b",
+      "motivo": "gcloud ... deploy despliega en la nube real. Lo ejecuta una persona fuera de la sesion."
+    },
+    {
+      "id": "comun.gcloud-run-escribe",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "\\bgcloud\\s+(?:(?:alpha|beta)\\s+)?run\\s+(?:services|jobs|multi-region-services|domain-mappings)\\s+(?:replace|update|update-traffic|delete|execute|set-iam-policy|add-iam-policy-binding|remove-iam-policy-binding)\\b",
+      "motivo": "gcloud run que cambia un servicio o un job real. Lo ejecuta una persona fuera de la sesion."
+    },
+    {
+      "id": "comun.vercel-pide",
+      "decision": "ask",
+      "ambito": "segmento",
+      "regex": "(?:^|[\\s/])vercel(?:\\.cmd)?\\s+(?:pull|link|login|logout|env\\s+(?:ls|pull))\\b",
+      "motivo": "vercel pull/link/env trae configuracion o variables del proyecto real."
+    },
+    {
+      "id": "comun.vercel",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "(?:^|[\\s/])vercel(?:\\.cmd)?(?:\\s|$)",
+      "salvo": [
+        "(?:^|[\\s/])vercel(?:\\.cmd)?\\s+(?:--version|-v|--help|-h|help|whoami|ls|list|inspect|logs|dev|build)(?:\\s|$)",
+        "(?:^|[\\s/])vercel(?:\\.cmd)?\\s+(?:pull|link|login|logout|env\\s+(?:ls|pull))\\b"
+      ],
+      "motivo": "vercel sin subcomando de lectura despliega (o cambia el proyecto real). Lo ejecuta una persona."
+    },
+    {
+      "id": "comun.terraform-escribe",
+      "decision": "deny",
+      "regex": "\\b(?:terraform|tofu)(?:\\.exe)?\\s+(?:apply|destroy|import|taint|untaint|force-unlock|state\\s+(?:rm|mv|push|replace-provider)|workspace\\s+delete)\\b",
+      "motivo": "terraform que escribe en infraestructura o en su estado real (apply, destroy, import, state rm/mv/push, taint...)."
+    },
+    {
+      "id": "comun.terraform-plan",
+      "decision": "ask",
+      "regex": "\\b(?:terraform|tofu)(?:\\.exe)?\\s+plan\\b",
+      "motivo": "terraform plan lee el estado real de la infraestructura."
+    },
+    {
+      "id": "comun.supabase-escribe",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "\\bsupabase\\s+(?:functions\\s+deploy|db\\s+push|secrets\\s+set|db\\s+reset\\b.*--linked)\\b",
+      "motivo": "supabase que despliega funciones o escribe en la base de datos o los secretos del proyecto real."
+    },
+    {
+      "id": "comun.firebase-deploy",
+      "decision": "deny",
+      "regex": "\\bfirebase\\s+(?:deploy|hosting:channel:deploy|functions:delete|firestore:delete|database:(?:set|push|update|remove)|remoteconfig:rollback|apphosting:rollouts:create)\\b",
+      "motivo": "firebase que publica o borra en el proyecto real (deploy, functions:delete, database:set...).",
+      "ambito": "segmento"
+    },
+    {
+      "id": "comun.netlify-deploy",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "(?:^|[\\s/])netlify(?:\\.cmd)?\\s+(?:deploy|sites:delete|env:set|env:unset|env:import|functions:invoke)\\b",
+      "motivo": "netlify que publica o cambia el sitio real (deploy, env:set, sites:delete). Lo ejecuta una persona."
+    },
+    {
+      "id": "comun.fly-deploy",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "(?:^|[\\s/])fly(?:\\.exe)?\\s+(?:deploy|launch|destroy|apps\\s+destroy|secrets\\s+(?:set|unset|import)|scale\\s+\\w+|machine\\s+(?:run|destroy|update)|releases\\s+rollback)\\b",
+      "motivo": "fly (flyctl) que despliega o cambia una app real. Lo ejecuta una persona."
+    },
+    {
+      "id": "comun.docker-push",
+      "decision": "deny",
+      "regex": "\\b(?:docker|podman)(?:\\.exe)?\\s+(?:image\\s+)?push\\b|\\b(?:docker|podman)\\s+(?:buildx\\s+)?(?:build|bake)\\b.*\\s--push\\b|\\b(?:docker|podman)\\s+buildx\\s+(?:build|bake)\\b.*--output[=\\s]\\S*type=registry|\\bdocker(?:-|\\s+)compose\\b.*\\spush\\b",
+      "motivo": "publica una imagen en un registro (docker/podman push, buildx --push, compose push).",
+      "ambito": "segmento"
+    },
+    {
+      "id": "comun.kubectl-escribe",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "\\bkubectl(?:\\.exe)?\\s+(?:apply|create|delete|replace|patch|edit|scale|set|label|annotate|drain|cordon|uncordon|taint|rollout\\s+(?:restart|undo|pause|resume))\\b",
+      "motivo": "kubectl que cambia un cluster real. Lo ejecuta una persona."
+    },
+    {
+      "id": "comun.publicar-paquete",
+      "decision": "deny",
+      "regex": "\\b(?:(?:npm|pnpm|yarn|bun)\\s+publish|yarn\\s+npm\\s+publish|(?:flutter|dart)\\s+pub\\s+publish|twine\\s+upload|(?:uv|poetry|hatch|flit|pdm)\\s+publish|gem\\s+push|cargo\\s+publish)\\b",
+      "motivo": "publica un paquete en un registro publico."
+    },
+    {
+      "id": "comun.gh-workflow-deploy",
+      "decision": "deny",
+      "ambito": "segmento",
+      "regex": "\\bgh\\s+workflow\\s+run\\b.*deploy",
+      "motivo": "lanzaria un workflow de despliegue."
+    },
+    {
+      "id": "comun.gh-workflow-run",
+      "decision": "ask",
+      "ambito": "segmento",
+      "regex": "\\bgh\\s+workflow\\s+run\\b",
+      "motivo": "gh workflow run lanza un workflow en GitHub; no se ve si despliega. Pide permiso."
+    },
+    {
+      "id": "comun.gh-release",
+      "decision": "ask",
+      "ambito": "segmento",
+      "regex": "\\bgh\\s+release\\s+(?:create|upload|edit|delete|delete-asset)\\b",
+      "motivo": "gh release publica o cambia una release en GitHub (puede disparar un despliegue). Pide permiso."
+    }
+  ],
+  "rutas_protegidas": [
+    {
+      "id": "comun.env-real",
+      "glob": "**/.env{,.*,rc}",
+      "modo": "deny",
+      "excepto": [
+        "**/.env.{example,sample,template,dist,default,defaults}",
+        "**/.env.*.{example,sample,template}"
+      ],
+      "motivo": "es un fichero .env real (secretos); se edita a mano fuera de la sesion. Usa .env.example.",
+      "comandos": true
+    },
+    {
+      "id": "comun.lockfile",
+      "glob": "**/{package-lock.json,pnpm-lock.yaml,yarn.lock,pubspec.lock,poetry.lock,uv.lock,Pipfile.lock}",
+      "modo": "deny",
+      "motivo": "el lockfile solo lo cambia el gestor de paquetes (npm install, flutter pub get, uv lock...), no una edicion a mano."
+    },
+    {
+      "id": "comun.config-claude",
+      "glob": "{.claude/settings*.json,.claude/repo-config*.json,.claude/repo-config.schema.json,.claude/hooks/**,.mcp.json}",
+      "modo": "ask",
+      "motivo": "cambia la configuracion de Claude Code, sus permisos, sus servidores MCP o los guards del repo; la revisa una persona.",
+      "comandos": true
+    },
+    {
+      "id": "comun.git-ejecutable",
+      "glob": "**/.git/{hooks,hooks/**,config,info/attributes}",
+      "modo": "deny",
+      "motivo": "son los hooks y la configuracion de git: git los ejecuta en el siguiente commit o status (y un alias o un remote.*.push rodea la politica de git). Los cambia una persona.",
+      "comandos": true
+    },
+    {
+      "id": "comun.git-interno",
+      "glob": "**/.git{,/**}",
+      "modo": "ask",
+      "motivo": "es la carpeta interna de git (historia, indice, refs); se cambia con comandos de git, no a mano.",
+      "comandos": true
+    }
+  ],
+  "reglas_contenido": []
+}

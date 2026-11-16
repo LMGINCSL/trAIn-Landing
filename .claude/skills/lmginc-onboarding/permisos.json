@@ -1,0 +1,43 @@
+{
+  "version_cuestionario": 2,
+  "descripcion": "Respuestas de las rondas GitHub y Comandos que se convierten en permisos del dispositivo (~/.claude/settings.json). Solo listas ask y deny: restringen, nunca abren lo que la regla del equipo no permite. Cada comando se escribe en las cuatro formas de 'formas'. 'opcion' es la etiqueta sin '(Recomendado)'; 'cuando' dice si la regla se aplica si la opción se elige o si no se elige.",
+  "formas": ["Bash({c})", "Bash({c} *)", "PowerShell({c})", "PowerShell({c} *)"],
+  "reglas": [
+    {"pregunta": "quien-abre-pr", "opcion": "Lo abro yo", "cuando": "elegida", "lista": "deny",
+     "comandos": ["gh pr create"]},
+
+    {"pregunta": "subir-ramas", "opcion": "No, las subo yo", "cuando": "elegida", "lista": "deny",
+     "comandos": ["git push"]},
+
+    {"pregunta": "github-extra", "opcion": "Comentar en PR e issues", "cuando": "elegida", "lista": "ask",
+     "comandos": ["gh pr comment", "gh pr review", "gh issue comment"]},
+    {"pregunta": "github-extra", "opcion": "Comentar en PR e issues", "cuando": "no elegida", "lista": "deny",
+     "comandos": ["gh pr comment", "gh pr review", "gh issue comment"]},
+    {"pregunta": "github-extra", "opcion": "Crear y editar issues", "cuando": "elegida", "lista": "ask",
+     "comandos": ["gh issue create", "gh issue edit", "gh issue close", "gh issue reopen"]},
+    {"pregunta": "github-extra", "opcion": "Crear y editar issues", "cuando": "no elegida", "lista": "deny",
+     "comandos": ["gh issue create", "gh issue edit", "gh issue close", "gh issue reopen"]},
+    {"pregunta": "github-extra", "opcion": "Relanzar la CI", "cuando": "elegida", "lista": "ask",
+     "comandos": ["gh run rerun", "gh workflow run"]},
+    {"pregunta": "github-extra", "opcion": "Relanzar la CI", "cuando": "no elegida", "lista": "deny",
+     "comandos": ["gh run rerun", "gh workflow run"]},
+
+    {"pregunta": "sin-preguntar", "opcion": "Solo lectura", "cuando": "elegida", "lista": "ask",
+     "comandos": ["pytest", "python -m pytest", "python3 -m pytest", "py -m pytest", "ruff",
+                  "npm test", "npm run", "pnpm test", "pnpm run", "yarn test", "yarn run", "npx",
+                  "flutter test", "flutter analyze", "dart analyze", "dart test", "dart run", "make"]},
+
+    {"pregunta": "pedir-siempre", "opcion": "Instalar o actualizar dependencias", "cuando": "elegida", "lista": "ask",
+     "comandos": ["npm install", "npm i", "npm ci", "npm update", "npm uninstall",
+                  "pnpm add", "pnpm install", "pnpm update", "pnpm remove",
+                  "yarn add", "yarn install", "yarn upgrade", "yarn remove",
+                  "pip install", "pip uninstall", "python -m pip", "python3 -m pip", "py -m pip",
+                  "uv add", "uv remove", "uv pip", "uv sync",
+                  "flutter pub add", "flutter pub get", "flutter pub upgrade", "flutter pub remove",
+                  "dart pub add", "dart pub get", "dart pub upgrade", "dart pub remove"]},
+    {"pregunta": "pedir-siempre", "opcion": "Borrar ficheros o carpetas", "cuando": "elegida", "lista": "ask",
+     "comandos": ["rm", "rmdir", "del", "erase", "rd", "Remove-Item", "git rm", "git clean"]},
+    {"pregunta": "pedir-siempre", "opcion": "Hacer commits", "cuando": "elegida", "lista": "ask",
+     "comandos": ["git commit"]}
+  ]
+}

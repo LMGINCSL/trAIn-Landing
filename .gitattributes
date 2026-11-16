@@ -1,0 +1,7 @@
+# >>> claude-code (kit comun LMGINC) >>>
+# Los hooks se ejecutan con sh: con CRLF fallan en Windows ("$'\r': command not found").
+.claude/**/*.sh text eol=lf
+.claude/**/*.py text eol=lf
+.claude/**/*.mjs text eol=lf
+.claude/**/*.json text eol=lf
+# <<< claude-code (kit comun LMGINC) <<<

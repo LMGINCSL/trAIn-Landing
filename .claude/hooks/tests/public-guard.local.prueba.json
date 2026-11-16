@@ -1,0 +1,6 @@
+{
+  "descripcion": "Lista local de terminos internos FICTICIA para los casos de casos.json (LMGINC_PUBLIC_GUARD_LOCAL). La de verdad vive fuera del repo, en ~/.claude/lmginc/public-guard.local.json.",
+  "terminos": ["termino-interno-de-prueba"],
+  "regex": [],
+  "emails_publicos_extra": []
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "./repo-config.schema.json",
+  "repo": "trAIn-Landing",
+  "producto": "2trAIn (web publica)",
+  "git": {"rama_principal": "main"},
+  "publico": true,
+  "rutas_protegidas": [
+    {
+      "id": "migraciones-aplicadas",
+      "glob": "supabase/migrations/**",
+      "modo": "deny_existentes",
+      "comandos": true,
+      "motivo": "migracion ya aplicada en la base de datos de produccion: no se edita ni se borra; se crea una nueva supabase/migrations/YYYYMMDDHHMMSS_<nombre>.sql (ver .claude/rules/supabase.md)."
+    }
+  ]
+}
