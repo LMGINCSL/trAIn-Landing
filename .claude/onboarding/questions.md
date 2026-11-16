@@ -44,7 +44,7 @@ pregunta: ¿Cómo vas a comprobar los cambios en el navegador?
 seccion: Calidad
 multiSelect: no
 opciones:
-- Servidor local a 375 y 1440 px (Recomendado): py -m http.server 8000, con la consola abierta y sin enviar el formulario de alta.
+- Servidor local a 375 y 1440 px (Recomendado): py -m http.server 8000 --bind 127.0.0.1, con la consola abierta y sin enviar el formulario de alta.
 - Solo revisando el diff: no hay tests, así que los fallos visuales no se detectarán.
 
 # Ronda 2: Entrega

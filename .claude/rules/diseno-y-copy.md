@@ -41,5 +41,5 @@ atrás que describe `PRODUCT.md` ya no existe en la web: no es autoridad sobre e
 - **JS:** vanilla, sin módulos, con `defer`. Respeta `prefers-reduced-motion` y pausa lo que no se ve.
 - **Accesibilidad:** `alt` en las imágenes con contenido (`alt=""` en las decorativas), `aria-label`
   en los controles sin texto y foco visible.
-- **Comprobar en el navegador** a 375 px y 1440 px (`py -m http.server 8000`), con
+- **Comprobar en el navegador** a 375 px y 1440 px (`py -m http.server 8000 --bind 127.0.0.1`), con
   `prefers-reduced-motion` y la consola abierta (errores de CSP). Sin enviar el formulario de alta.

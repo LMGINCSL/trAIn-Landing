@@ -27,8 +27,8 @@ Vercel publica la raíz tal cual, sin build. El alta (Supabase `join-waitlist` +
   `py -3 -I -B -X utf8 scripts/i18n/seo_ld.py index.html es` →
   `py -3 -I -B -X utf8 scripts/i18n/build_en.py . scripts/i18n/en-head.html` →
   `py -3 -I -B -X utf8 scripts/pages/build_race.py .` → `py -3 -I -B -X utf8 scripts/blog/build_blog.py .`
-- Local: `py -m http.server 8000` y revisar a 375 y 1440 px con la consola abierta (CSP). **No
-  envíes el formulario**: llama a la función de producción y manda un email real.
+- Local: `py -m http.server 8000 --bind 127.0.0.1` y revisar a 375 y 1440 px con la consola (CSP).
+  **No envíes el formulario**: llama a la función de producción y manda un email real.
 - Remotion: `cd remotion && npm ci`; `npx tsc --noEmit` da 1 error conocido (`src/kit.tsx:44`).
 - Nunca: `scripts/send_email_previews.py` (envía emails reales), `supabase` deploy/db/link/secrets ni
   `vercel` (están en `deny`).
