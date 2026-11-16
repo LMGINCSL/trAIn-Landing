@@ -1,0 +1,13 @@
+# Segunda capa opcional del guard de repo publico (.claude/hooks/public_guard.py la llama si
+# gitleaks esta en el PATH). Reglas por defecto de gitleaks + una excepcion: la clave anon de
+# Supabase de app.js, publica por diseno (role=anon). Se excluye por ruta y regla; su valor no
+# se copia aqui. Este fichero no se publica en la web (.vercelignore).
+title = "trAIn-Landing"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Clave anon publica de Supabase (role=anon) en app.js"
+targetRules = ["jwt"]
+paths = ['''^app\.js$''']

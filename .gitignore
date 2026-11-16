@@ -17,6 +17,7 @@ supabase/.temp/
 # Capturas de prueba de fuentes (artefactos locales)
 caps/
 email-preview*.html
+scripts/send_email_previews.result.json
 SESION-PENDIENTE.md
 .vercel
 .env*

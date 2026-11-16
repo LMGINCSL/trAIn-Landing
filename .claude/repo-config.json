@@ -1,0 +1,7 @@
+{
+  "$schema": "./repo-config.schema.json",
+  "repo": "trAIn-Landing",
+  "producto": "2trAIn (web publica)",
+  "git": {"rama_principal": "main"},
+  "publico": true
+}

@@ -1,0 +1,30 @@
+{
+  "descripcion": "Datos del guard de repo publico (public_guard.py). Solo direcciones y dominios que ya son publicos en la web o que son ejemplos. Los emails personales NUNCA se listan aqui: se deniegan por defecto. Los terminos internos viven fuera del repo, en ~/.claude/lmginc/public-guard.local.json.",
+  "emails": {
+    "dominios": ["2trainapp.com", "example.com", "example.org", "example.net", "test.local", "users.noreply.github.com"],
+    "direcciones": ["noreply@anthropic.com", "tu@email.com", "you@email.com", "contacto@dominio.com"],
+    "extensiones_que_no_son_email": ["png", "jpg", "jpeg", "webp", "avif", "gif", "svg", "ico", "mp4", "webm", "css", "js", "mjs", "json", "html", "md", "txt", "woff", "woff2"]
+  },
+  "autores": {
+    "dominios": ["users.noreply.github.com", "2trainapp.com"],
+    "motivo": "El email de autor y de committer de cada commit queda publico en GitHub."
+  },
+  "excepciones": [
+    {"glob": "assets/js/*.min.js", "ignorar": ["emails"], "motivo": "Cabecera de licencia de GSAP vendorizado."},
+    {"glob": ".gitignore", "ignorar": ["rutas"], "motivo": "Patrones de ficheros, no rutas de una maquina."},
+    {"glob": ".vercelignore", "ignorar": ["rutas"], "motivo": "Patrones de ficheros, no rutas de una maquina."},
+    {"glob": ".claude/hooks/public_guard.py", "ignorar": ["rutas", "emails"], "motivo": "El propio guard describe los patrones que busca."}
+  ],
+  "ficheros_prohibidos": [
+    ".env", "**/.env", ".env.*", "**/.env.*", "*.key", "**/*.key", "*.pem", "**/*.pem", "*.p12", "**/*.p12",
+    "*.pfx", "**/*.pfx", "*.secret", "**/*.secret", "**/id_rsa*", "**/id_ed25519*",
+    "CLAUDE.local.md", "**/CLAUDE.local.md", ".claude/settings.local.json", ".claude/context/**",
+    "SESION-PENDIENTE.md", "email-preview*.html", "**/email-preview*.html", "scripts/send_email_previews.result.json"
+  ],
+  "ficheros_permitidos": [".env.example", "**/.env.example"],
+  "publicacion_esperada": [
+    "**/*.html", "assets/**", "dist/**", "app.js", "favicon.ico", "favicon.png", "apple-touch-icon.png",
+    "android-chrome-*.png", "robots.txt", "sitemap.xml", "llms.txt", "og-image.png", "site.webmanifest", "vercel.json"
+  ],
+  "dominio_publicado": "https://2trainapp.com/"
+}
