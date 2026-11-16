@@ -1,16 +1,20 @@
 ---
-version_cuestionario: 1
-fecha: 2026-11-11
+version_cuestionario: 2
+fecha: 2026-11-15
 ---
 
 # Preguntas comunes del onboarding LMGINC
 
-Cinco rondas. Cada ronda es UNA llamada a AskUserQuestion con sus preguntas en este orden
+Siete rondas. Cada ronda es UNA llamada a AskUserQuestion con sus preguntas en este orden
 (1 a 4 por llamada). Las opciones se copian tal cual: la primera es la recomendada.
 La herramienta añade sola la opción «Other» para texto libre; no se escribe aquí.
 `seccion` es la sección del perfil donde se guarda la respuesta.
 Si cambia algo de este fichero que altere el significado de una respuesta, se sube
 `version_cuestionario` (el hook avisa entonces de que el perfil es antiguo).
+
+Las rondas de GitHub y de comandos se traducen además en permisos del dispositivo
+(`permisos.json`). Esos permisos solo restringen: nunca dan a Claude algo que la regla del
+equipo no le dé ya.
 
 # Ronda 1: Comunicación
 
@@ -85,17 +89,61 @@ opciones:
 - El convencional que use el repo (Recomendado): sigue el estilo que ya tiene el historial.
 - Mensaje libre en español: una línea clara en español, sin prefijos.
 
+# Ronda 4: GitHub
+
 ## quien-abre-pr
 header: PR
-pregunta: ¿Quién abre los pull requests?
-seccion: Git
+pregunta: ¿Quién abre los pull requests (el merge lo hace siempre una persona)?
+seccion: GitHub
 multiSelect: no
 opciones:
-- Claude, pidiéndome permiso (Recomendado): Claude prepara el PR y pregunta antes de abrirlo.
-- Lo abro yo: Claude deja la rama lista y me da el texto del PR.
-- Claude directamente: lo abre sin preguntar, si la regla del repo lo permite.
+- Claude, pidiéndome permiso (Recomendado): prepara la rama, el título y la descripción, y pregunta antes de abrirlo.
+- Lo abro yo: Claude deja la rama lista y te da el texto del PR; no ejecuta gh pr create.
 
-# Ronda 4: Calidad
+## subir-ramas
+header: Push
+pregunta: ¿Puede Claude subir ramas de trabajo a GitHub (git push)?
+seccion: GitHub
+multiSelect: no
+opciones:
+- Sí, pidiéndome permiso cada vez (Recomendado): solo ramas de trabajo; a la principal y con --force, nunca.
+- No, las subo yo: Claude deja los commits hechos y te dice qué rama subir.
+
+## github-extra
+header: GitHub
+pregunta: Además de los PR, ¿qué más puede hacer Claude en GitHub, siempre pidiéndote permiso?
+seccion: GitHub
+multiSelect: sí
+opciones:
+- Nada más (Recomendado): solo consultar PR, issues y el estado de la CI, sin cambiar nada.
+- Comentar en PR e issues: gh pr comment, gh pr review y gh issue comment.
+- Crear y editar issues: gh issue create, edit y close.
+- Relanzar la CI: gh run rerun y gh workflow run.
+
+# Ronda 5: Comandos
+
+## sin-preguntar
+header: Libres
+pregunta: ¿Qué puede ejecutar Claude sin preguntarte, dentro de lo que el repo permite?
+seccion: Comandos
+multiSelect: no
+opciones:
+- Lectura y comprobaciones (Recomendado): leer, buscar, git status, diff y log, tests, lint y build del repo.
+- Solo lectura: también los tests, el lint y el build te los pregunta antes.
+- Todo lo que el repo permite: sin preguntas extra; los límites los ponen las reglas del equipo.
+
+## pedir-siempre
+header: Siempre
+pregunta: ¿Qué quieres que Claude te pregunte siempre, aunque el repo lo deje hacer?
+seccion: Comandos
+multiSelect: sí
+opciones:
+- Instalar o actualizar dependencias (Recomendado): npm, pnpm, yarn, pip, uv, flutter pub y dart pub.
+- Borrar ficheros o carpetas: rm, rmdir, del, Remove-Item, git rm y git clean.
+- Hacer commits: git commit, también en una rama de trabajo.
+- Nada más: me valen las reglas del equipo.
+
+# Ronda 6: Calidad
 
 ## tests
 header: Tests
@@ -117,7 +165,7 @@ opciones:
 - Comentarios línea a línea: cada observación junto a su línea.
 - Resumen breve con lo grave: solo lo importante, en pocas líneas.
 
-# Ronda 5: Manías
+# Ronda 7: Manías
 
 ## manias
 header: Manías

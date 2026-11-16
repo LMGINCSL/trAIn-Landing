@@ -10,7 +10,7 @@
 # POSIX sh puro (sin jq, sin python). Nunca sale con 2: nunca bloquea el arranque.
 # El mismo fichero vive en el plugin (hooks/) y, como respaldo sin plugin, en .claude/hooks/.
 
-VERSION_DEFECTO=1
+VERSION_DEFECTO=2
 
 # Consumir el JSON del evento (no se necesita). Si stdin es una terminal, no esperar.
 if [ ! -t 0 ]; then cat >/dev/null 2>&1; fi

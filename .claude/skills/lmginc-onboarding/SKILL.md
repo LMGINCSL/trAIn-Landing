@@ -1,6 +1,6 @@
 ---
 name: lmginc-onboarding
-description: Cuestionario de onboarding personal de LMGINC. Crea o rehace el perfil personal (~/.claude/lmginc/profile.md) y responde las preguntas propias del repo (CLAUDE.local.md). Úsala cuando falte el perfil o lo indique el aviso de inicio de sesión.
+description: Cuestionario de onboarding personal de LMGINC. Crea o rehace el perfil personal (~/.claude/lmginc/profile.md), aplica en el dispositivo los permisos que salen de las respuestas de GitHub y comandos, y responde las preguntas propias del repo (CLAUDE.local.md). Úsala cuando falte el perfil o lo indique el aviso de inicio de sesión.
 argument-hint: "[rehacer|repo]"
 allowed-tools:
   - Read
@@ -15,15 +15,16 @@ Corre en la sesión principal (usa AskUserQuestion, que no existe en subagentes)
 hacen con AskUserQuestion, nunca como texto en el chat.
 
 Ficheros de esta skill (léelos con Read antes de empezar):
-- `${CLAUDE_SKILL_DIR}/preguntas-comunes.md`: las 5 rondas comunes y `version_cuestionario`.
+- `${CLAUDE_SKILL_DIR}/preguntas-comunes.md`: las 7 rondas comunes y `version_cuestionario`.
 - `${CLAUDE_SKILL_DIR}/plantilla-perfil.md`: la forma del perfil.
+- `${CLAUDE_SKILL_DIR}/permisos.json`: qué respuestas se convierten en permisos del dispositivo.
 
 ## 1. Elegir el modo
 
 `$ARGUMENTS` es uno de:
 - vacío: si `~/.claude/lmginc/profile.md` no existe, rondas comunes y después preguntas del repo.
   Si existe y su `version_cuestionario` es la actual, solo las preguntas del repo, y solo si
-  faltan (paso 4). Si todo está hecho, dilo en una línea y recuerda que existe el modo `rehacer`.
+  faltan (paso 5). Si todo está hecho, dilo en una línea y recuerda que existe el modo `rehacer`.
 - `rehacer`: rondas comunes otra vez. Antes de escribir, copia el perfil existente a
   `~/.claude/lmginc/profile.prev.md` (se sobrescribe la copia anterior). Después, preguntas del repo
   solo si faltan.
@@ -51,9 +52,39 @@ Escribe `~/.claude/lmginc/profile.md` siguiendo `plantilla-perfil.md`:
 - `version_cuestionario`: el de `preguntas-comunes.md`; `fecha`: hoy en `AAAA-MM-DD`.
 - La cláusula de precedencia va al principio, literal.
 - Cada respuesta en su sección: la etiqueta elegida sin «(Recomendado)», o el texto libre.
+- La sección «Permisos aplicados en este dispositivo» se rellena en el paso 4; mientras tanto,
+  `- ninguno` entre sus dos marcas.
 - Nada más: ni nombres de repos, ni datos del equipo, ni secretos.
 
-## 4. Preguntas del repo
+## 4. Permisos del dispositivo
+
+Las respuestas de las rondas GitHub y Comandos se convierten en reglas de permisos con
+`permisos.json`:
+1. Para cada entrada de `reglas`, mira la respuesta a `pregunta`. Con `cuando: "elegida"`, la entrada
+   vale si la persona eligió la opción `opcion` (comparada sin «(Recomendado)»); con
+   `cuando: "no elegida"`, si no la eligió. Si la respuesta a esa pregunta es solo texto libre, esa
+   pregunta no da reglas: dilo al final.
+2. Cada comando de `comandos` da una regla por cada patrón de `formas`, cambiando `{c}` por el
+   comando. Van a la lista `lista` (`ask` o `deny`). Quita las repetidas.
+3. Si no sale ninguna regla, el paso termina aquí.
+4. Si salen reglas, pregunta con AskUserQuestion (header «Permisos») si se aplican. Di cuántas
+   reglas son y un resumen en una línea de qué cambia. Opciones, en este orden:
+   - «Aplicarlas en este dispositivo (Recomendado)»: se escriben en `~/.claude/settings.json` y
+     valen en todos los proyectos de este dispositivo.
+   - «Solo guardarlas en el perfil»: Claude las sigue como preferencia, sin bloqueo técnico.
+5. Si se aplican, edita `~/.claude/settings.json` (créalo con `{}` si no existe):
+   - En modo `rehacer`, quita primero de `permissions.ask` y `permissions.deny` las reglas que lista
+     el perfil anterior entre las marcas `lmginc-permisos`. No quites ninguna otra.
+   - Añade las nuevas al final de `permissions.ask` o `permissions.deny`, sin duplicar las que ya
+     estén. No toques `allow` ni ninguna otra clave. El JSON tiene que seguir siendo válido.
+   - Claude Code pedirá permiso para editar el fichero: es lo esperado.
+6. Escribe en el perfil, entre las marcas `lmginc-permisos`, una línea por regla escrita
+   (`- ask: …` o `- deny: …`), o `- ninguno` si no se escribió ninguna.
+
+Estas reglas solo restringen. Claude Code evalúa primero `deny`, después `ask` y por último `allow`,
+así que una regla del dispositivo nunca abre lo que el equipo pide preguntar o prohíbe.
+
+## 5. Preguntas del repo
 
 Si existe `.claude/onboarding/questions.md` en la raíz del repo (`git rev-parse --show-toplevel`):
 1. Léelo. Su frontmatter da `version`. Mismo formato que las rondas comunes; agrupa las preguntas
@@ -78,12 +109,14 @@ Si existe `.claude/onboarding/questions.md` en la raíz del repo (`git rev-parse
 
 Si el repo no tiene `questions.md`, no hay nada que hacer en este paso.
 
-## 5. Cerrar
+## 6. Cerrar
 
-En 3 a 5 líneas: qué ficheros se escribieron, que las preferencias se aplican desde la próxima
-sesión (o tras `/clear`), y que el `CLAUDE.md` del repo importa el perfil con
-`@~/.claude/lmginc/profile.md`: la primera vez Claude Code pide aprobar ese import externo; si se
-rechaza, no vuelve a preguntar y el perfil no se carga en este repo.
+En 3 a 6 líneas: qué ficheros se escribieron, cuántas reglas de permisos se aplicaron (o que se
+guardaron solo como preferencia), que las preferencias se aplican desde la próxima sesión (o tras
+`/clear`), y que el `CLAUDE.md` del repo importa el perfil con `@~/.claude/lmginc/profile.md`: la
+primera vez Claude Code pide aprobar ese import externo; si se rechaza, no vuelve a preguntar y el
+perfil no se carga en este repo.
 
-Si una respuesta choca con una regla del equipo (por ejemplo, «Claude directamente» abre PR pero el
-repo pide permiso para `gh pr create`), dilo ahora: gana la regla del equipo.
+Si una respuesta choca con una regla del equipo (por ejemplo, «Todo lo que el repo permite» no
+quita las preguntas que el repo ya hace, como `git push` o `gh pr create`), dilo ahora: gana la regla
+del equipo.
