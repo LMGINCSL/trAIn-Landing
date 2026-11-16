@@ -6,35 +6,101 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "$schema": {"type": "string"},
-    "repo": {"type": "string", "description": "Nombre corto del repo. Da el prefijo de los motivos: [guard <repo>]."},
-    "producto": {"type": "string"},
+    "$schema": {
+      "type": "string"
+    },
+    "repo": {
+      "type": "string",
+      "description": "Nombre corto del repo. Da el prefijo de los motivos: [guard <repo>]."
+    },
+    "producto": {
+      "type": "string"
+    },
     "upstream": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "additionalProperties": false,
       "properties": {
-        "nombre": {"type": "string"},
-        "ruta": {"type": "string", "description": "Clon local, relativo a la raiz (../<repo>)"}
+        "nombre": {
+          "type": "string"
+        },
+        "ruta": {
+          "type": "string",
+          "description": "Clon local, relativo a la raiz (../<repo>)"
+        }
       },
-      "required": ["nombre", "ruta"]
+      "required": [
+        "nombre",
+        "ruta"
+      ]
     },
-    "hermanos": {"type": "array", "items": {"type": "string"}, "description": "Repos al lado en los que no se commitea desde aqui"},
-    "consumidores": {"type": "array", "items": {"type": "string"}, "description": "A quien avisar de un cambio de contrato"},
+    "hermanos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Repos al lado en los que no se commitea desde aqui"
+    },
+    "consumidores": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "A quien avisar de un cambio de contrato"
+    },
     "prod": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "proyectos_gcp": {"type": "array", "items": {"type": "string"}},
-        "servicios": {"type": "array", "items": {"type": "string"}}
+        "proyectos_gcp": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "servicios": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
-    "rutas_protegidas": {"type": "array", "items": {"$ref": "#/$defs/ruta"}},
-    "reglas_bash": {"type": "array", "items": {"$ref": "#/$defs/regla_bash"}},
-    "reglas_contenido": {"type": "array", "items": {"$ref": "#/$defs/regla_contenido"}},
-    "requiere_env": {"type": "array", "items": {"$ref": "#/$defs/requiere_env"}, "description": "Kit. Comandos que exigen variables de entorno con un valor permitido: en el propio comando (VAR=valor cmd, env VAR=valor), exportadas antes en el mismo comando (export, $env:VAR=) o en el entorno. Lista con id."},
+    "rutas_protegidas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ruta"
+      }
+    },
+    "reglas_bash": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/regla_bash"
+      }
+    },
+    "reglas_contenido": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/regla_contenido"
+      }
+    },
+    "requiere_env": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requiere_env"
+      },
+      "description": "Kit. Comandos que exigen variables de entorno con un valor permitido: en el propio comando (VAR=valor cmd, env VAR=valor), exportadas antes en el mismo comando (export, $env:VAR=) o en el entorno. Lista con id."
+    },
     "quitar": {
       "type": "object",
-      "additionalProperties": {"type": "array", "items": {"type": "string"}},
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
       "description": "{\"lista\": [ids o cadenas]}: elimina entradas de capas anteriores."
     },
     "git": {
@@ -42,19 +108,46 @@
       "additionalProperties": false,
       "description": "Kit. Politica C-4 que aplica guard_core segun la rama actual. Lo que falte toma el valor por defecto.",
       "properties": {
-        "activo": {"type": "boolean"},
+        "activo": {
+          "type": "boolean"
+        },
         "rama_principal": {
           "anyOf": [
-            {"type": "string", "minLength": 1},
-            {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           ],
           "description": "main por defecto. Push a ella: deny. Commit en ella: commit_en_principal."
         },
-        "ramas_protegidas": {"type": "array", "items": {"type": "string", "minLength": 1}, "description": "Otras ramas con push en deny (p. ej. una linea de produccion); el commit en ellas no pregunta."},
-        "push": {"$ref": "#/$defs/decision_git"},
-        "commit_en_principal": {"$ref": "#/$defs/decision_git"},
-        "pr_create": {"$ref": "#/$defs/decision_git"},
-        "pr_merge": {"$ref": "#/$defs/decision_git"}
+        "ramas_protegidas": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Otras ramas con push en deny (p. ej. una linea de produccion); el commit en ellas no pregunta."
+        },
+        "push": {
+          "$ref": "#/$defs/decision_git"
+        },
+        "commit_en_principal": {
+          "$ref": "#/$defs/decision_git"
+        },
+        "pr_create": {
+          "$ref": "#/$defs/decision_git"
+        },
+        "pr_merge": {
+          "$ref": "#/$defs/decision_git"
+        }
       }
     },
     "tests": {
@@ -62,11 +155,20 @@
       "additionalProperties": false,
       "description": "Kit. Lo usa el subagente test-runner.",
       "properties": {
-        "comando": {"type": "string", "minLength": 1},
-        "comando_rapido": {"type": "string", "minLength": 1}
+        "comando": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comando_rapido": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
-    "publico": {"type": "boolean", "description": "Kit. Repo publico: el verificador exige que .claude/context/repo-profile.md quede ignorado."},
+    "publico": {
+      "type": "boolean",
+      "description": "Kit. Repo publico: el verificador exige que .claude/context/repo-profile.md quede ignorado."
+    },
     "okf": {
       "type": "object",
       "additionalProperties": false,
@@ -74,17 +176,29 @@
       "properties": {
         "estados": {
           "type": "object",
-          "additionalProperties": {"enum": ["draft", "stable", "deprecated"]},
+          "additionalProperties": {
+            "enum": [
+              "draft",
+              "stable",
+              "deprecated"
+            ]
+          },
           "description": "Estados propios del repo y su equivalente del estandar, p. ej. {\"publicado\": \"stable\", \"borrador\": \"draft\"}."
         },
         "ignorar": {
           "type": "array",
-          "items": {"type": "string", "minLength": 1},
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "description": "Globs relativos a la raiz del bundle que okf_check no valida (logs o indices generados)."
         },
         "campos_indice": {
           "type": "array",
-          "items": {"type": "string", "minLength": 1},
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "description": "Claves admitidas en el frontmatter de los index.md (el estandar no admite ninguna salvo okf_version en la raiz)."
         }
       }
@@ -93,78 +207,250 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "claude_md_max_lineas": {"type": "integer", "minimum": 1},
-        "claude_md_max_bytes": {"type": "integer", "minimum": 1}
+        "claude_md_max_lineas": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "claude_md_max_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
       }
     }
   },
   "$defs": {
-    "decision": {"enum": ["deny", "ask"]},
-    "decision_git": {"enum": ["deny", "ask", "ninguna"]},
-    "texto": {"type": "string", "minLength": 1},
+    "decision": {
+      "enum": [
+        "deny",
+        "ask"
+      ]
+    },
+    "decision_git": {
+      "enum": [
+        "deny",
+        "ask",
+        "ninguna"
+      ]
+    },
+    "texto": {
+      "type": "string",
+      "minLength": 1
+    },
     "entorno": {
       "type": "object",
-      "propertyNames": {"pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
-      "additionalProperties": {"type": "string", "minLength": 1}
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "ruta": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "glob", "modo", "motivo"],
+      "required": [
+        "id",
+        "glob",
+        "modo",
+        "motivo"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/texto"},
-        "glob": {"type": "string", "minLength": 1, "description": "Relativo a la raiz, con /. ** cualquier profundidad, * dentro de una carpeta, {a,b} alternativas. Sin distinguir mayusculas."},
-        "modo": {"enum": ["deny", "deny_existentes", "ask"], "description": "deny_existentes: se pueden crear ficheros nuevos"},
-        "excepto": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Globs que quedan fuera (p. ej. **/.env.example)."},
-        "comandos": {"type": "boolean", "description": "Kit. true: tambien protege la ruta de las escrituras por Bash o PowerShell (redirecciones, cp, mv, rm, tee, sed -i, Set-Content...), no solo de Edit/Write. La capa comun lo pone en .env y en la configuracion de Claude."},
-        "motivo": {"$ref": "#/$defs/texto"}
+        "id": {
+          "$ref": "#/$defs/texto"
+        },
+        "glob": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relativo a la raiz, con /. ** cualquier profundidad, * dentro de una carpeta, {a,b} alternativas. Sin distinguir mayusculas."
+        },
+        "modo": {
+          "enum": [
+            "deny",
+            "deny_existentes",
+            "ask"
+          ],
+          "description": "deny_existentes: se pueden crear ficheros nuevos"
+        },
+        "excepto": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Kit. Globs que quedan fuera (p. ej. **/.env.example)."
+        },
+        "comandos": {
+          "type": "boolean",
+          "description": "Kit. true: tambien protege la ruta de las escrituras por Bash o PowerShell (redirecciones, cp, mv, rm, tee, sed -i, Set-Content...), no solo de Edit/Write. La capa comun lo pone en .env y en la configuracion de Claude."
+        },
+        "motivo": {
+          "$ref": "#/$defs/texto"
+        }
       }
     },
     "regla_bash": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "regex", "decision", "motivo"],
+      "required": [
+        "id",
+        "regex",
+        "decision",
+        "motivo"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/texto"},
-        "regex": {"type": "string", "minLength": 1, "description": "Sin distinguir mayusculas; se aplica a Bash y a PowerShell. Subconjunto comun de Python y JavaScript."},
-        "decision": {"$ref": "#/$defs/decision"},
-        "motivo": {"$ref": "#/$defs/texto"},
-        "ambito": {"enum": ["comando", "segmento"], "description": "Kit. comando (defecto): el comando entero. segmento: cada trozo entre && || ; | y saltos de linea."},
-        "y": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Regex que tambien tienen que casar."},
-        "salvo": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Si casa alguna, la regla no aplica."},
-        "entorno_falta": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica si alguna variable (del comando o del entorno) no casa entera con su regex."},
-        "entorno_es": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica solo si todas las variables casan enteras con su regex."},
-        "distinguir_mayusculas": {"type": "boolean"},
-        "ficheros": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Globs de NOMBRE de fichero (sin carpeta): la regla aplica tambien si un argumento o una redireccion del comando nombra uno de ellos, o lleva un comodin del shell (*, ?, [..]) que puede expandirse a uno (p. ej. .env*, .e?v)."},
-        "ficheros_excepto": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Nombres que no cuentan (p. ej. .env.example)."}
+        "id": {
+          "$ref": "#/$defs/texto"
+        },
+        "regex": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Sin distinguir mayusculas; se aplica a Bash y a PowerShell. Subconjunto comun de Python y JavaScript."
+        },
+        "decision": {
+          "$ref": "#/$defs/decision"
+        },
+        "motivo": {
+          "$ref": "#/$defs/texto"
+        },
+        "ambito": {
+          "enum": [
+            "comando",
+            "segmento"
+          ],
+          "description": "Kit. comando (defecto): el comando entero. segmento: cada trozo entre && || ; | y saltos de linea."
+        },
+        "y": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Kit. Regex que tambien tienen que casar."
+        },
+        "salvo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Kit. Si casa alguna, la regla no aplica."
+        },
+        "entorno_falta": {
+          "$ref": "#/$defs/entorno",
+          "description": "Kit. Aplica si alguna variable (del comando o del entorno) no casa entera con su regex."
+        },
+        "entorno_es": {
+          "$ref": "#/$defs/entorno",
+          "description": "Kit. Aplica solo si todas las variables casan enteras con su regex."
+        },
+        "distinguir_mayusculas": {
+          "type": "boolean"
+        },
+        "ficheros": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Kit. Globs de NOMBRE de fichero (sin carpeta): la regla aplica tambien si un argumento o una redireccion del comando nombra uno de ellos, o lleva un comodin del shell (*, ?, [..]) que puede expandirse a uno (p. ej. .env*, .e?v)."
+        },
+        "ficheros_excepto": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Kit. Nombres que no cuentan (p. ej. .env.example)."
+        },
+        "opciones_con_valor": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^--?[A-Za-z0-9][A-Za-z0-9_.-]*$"
+          },
+          "description": "Kit (ronda 2, REAUD-02). Opciones del programa que llevan el valor en el siguiente token (p. ej. --currency): con esta lista la regla se evalua sobre cada comando simple con esos valores tapados (tambien --opcion=v, -cv, abreviaturas de argparse, argumentos con espacios y lo que va detras de --), asi 'y' y 'salvo' no ven un '--dry-run' que es el valor de otra opcion. Si 'salvo' casa pero hay un argumento calculado, pregunta."
+        }
       }
     },
     "requiere_env": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "regex", "variables", "decision", "motivo"],
+      "required": [
+        "id",
+        "regex",
+        "variables",
+        "decision",
+        "motivo"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/texto"},
-        "regex": {"type": "string", "minLength": 1, "description": "Sin distinguir mayusculas; se prueba en cada comando simple ya normalizado (sin comillas ni escapes) y en cada trozo del texto."},
-        "variables": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}},
-        "valores_permitidos": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Regex que el valor tiene que casar entero. '@hosts_locales' = localhost, 127.x.x.x, [::1] o 0.0.0.0 con puerto y ruta opcionales. Sin la lista, basta un valor no vacio."},
-        "decision": {"$ref": "#/$defs/decision"},
-        "motivo": {"$ref": "#/$defs/texto"},
-        "aviso_inicio": {"type": "string", "minLength": 1, "description": "Familia webapp: si alguna variable falta al empezar la sesion, su hook SessionStart imprime este aviso."}
+        "id": {
+          "$ref": "#/$defs/texto"
+        },
+        "regex": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Sin distinguir mayusculas; se prueba en cada comando simple ya normalizado (sin comillas ni escapes) y en cada trozo del texto."
+        },
+        "variables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          }
+        },
+        "valores_permitidos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/texto"
+          },
+          "description": "Regex que el valor tiene que casar entero. '@hosts_locales' = localhost, 127.x.x.x, [::1] o 0.0.0.0 con puerto y ruta opcionales. Sin la lista, basta un valor no vacio."
+        },
+        "decision": {
+          "$ref": "#/$defs/decision"
+        },
+        "motivo": {
+          "$ref": "#/$defs/texto"
+        },
+        "aviso_inicio": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Familia webapp: si alguna variable falta al empezar la sesion, su hook SessionStart imprime este aviso."
+        }
       }
     },
     "regla_contenido": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "glob", "regex", "decision", "motivo"],
+      "required": [
+        "id",
+        "glob",
+        "regex",
+        "decision",
+        "motivo"
+      ],
       "properties": {
-        "id": {"$ref": "#/$defs/texto"},
-        "glob": {"type": "string", "minLength": 1},
-        "regex": {"type": "string", "minLength": 1, "description": "Sobre el texto que la edicion ANADE (lo que ya estaba no cuenta)."},
-        "excepto_si": {"type": "string", "description": "Regex sobre el grupo (?P<obj>) (o la coincidencia entera) que hace valida la coincidencia"},
-        "decision": {"$ref": "#/$defs/decision"},
-        "motivo": {"$ref": "#/$defs/texto"},
-        "distinguir_mayusculas": {"type": "boolean"}
+        "id": {
+          "$ref": "#/$defs/texto"
+        },
+        "glob": {
+          "type": "string",
+          "minLength": 1
+        },
+        "regex": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Sobre el texto que la edicion ANADE (lo que ya estaba no cuenta)."
+        },
+        "excepto_si": {
+          "type": "string",
+          "description": "Regex sobre el grupo (?P<obj>) (o la coincidencia entera) que hace valida la coincidencia"
+        },
+        "decision": {
+          "$ref": "#/$defs/decision"
+        },
+        "motivo": {
+          "$ref": "#/$defs/texto"
+        },
+        "distinguir_mayusculas": {
+          "type": "boolean"
+        }
       }
     }
   }

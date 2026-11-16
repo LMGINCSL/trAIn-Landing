@@ -39,7 +39,7 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from repo_config import ConfigError, cargar  # noqa: E402
 
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 PESO = {"ask": 1, "deny": 2}
 RX = re.ASCII  # \w, \b, \d y \s en ASCII, como JavaScript sin la bandera u
 SEGMENTOS = re.compile(r"\s*(?:&&|\|\||;|\|&?|(?<![<>&|])&(?![>&])|\n)\s*")
@@ -131,8 +131,7 @@ def glob_re(glob):
     return re.compile("^" + _glob_parte(glob) + "$", re.I | re.S)
 
 
-def glob_shell_re(patron):
-    """Comodin del shell (*, ?, [..]) en un nombre de fichero -> regex anclada."""
+def _shell_parte(patron):
     out, i = "", 0
     while i < len(patron):
         c = patron[i]
@@ -150,7 +149,59 @@ def glob_shell_re(patron):
         else:
             out += re.escape(c) if c not in "/" else "/"
         i += 1
-    return re.compile("^" + out + "$", re.I | re.S)
+    return out
+
+
+def glob_shell_re(patron):
+    """Comodin del shell (*, ?, [..]) en un nombre de fichero -> regex anclada."""
+    return re.compile("^" + _shell_parte(patron) + "$", re.I | re.S)
+
+
+COMODIN = re.compile(r"[*?\[]")
+PUNTO_PUNTO = re.compile(r"(?:^|[/\\])\.\.(?:[/\\]|$)")
+
+
+def patron_ruta_re(rel, ocultos=False):
+    """Ruta relativa con comodines -> regex anclada, carpeta a carpeta. Como en bash, un comodin al principio de
+    una parte no casa con un nombre que empieza por '.' (salvo ocultos=True: PowerShell)."""
+    partes = []
+    for p in rel.split("/"):
+        r = _shell_parte(p)
+        partes.append(("(?!\\.)" + r) if (not ocultos and p[:1] in ("*", "?", "[")) else r)
+    return re.compile("^" + "/".join(partes) + "$", re.I | re.S)
+
+
+def expandir_comodin(patron, cwd, ocultos=False, limite=200):
+    """Expande un comodin del shell (*, ?, [..]) contra el disco, carpeta a carpeta, como bash sin globstar (un
+    nombre que empieza por '.' solo si la parte del patron lo pone, salvo ocultos=True). Devuelve las rutas tal
+    como las escribiria el shell, ordenadas; [] si no casa nada."""
+    p = (patron or "").replace("\\", "/")
+    if p.startswith("~/"):
+        p = os.path.expanduser("~").replace("\\", "/") + p[1:]
+    m = re.match(r"^(?:[A-Za-z]:)?/", p)
+    if m:
+        actuales = [(m.group(0), m.group(0))]
+        p = p[m.end():]
+    else:
+        actuales = [((cwd or ".").replace("\\", "/").rstrip("/") + "/", "")]
+    for parte in [x for x in p.split("/") if x]:
+        nuevos = []
+        for disco, visto in actuales:
+            if not COMODIN.search(parte):
+                nuevos.append((disco + parte + "/", visto + parte + "/"))
+                continue
+            try:
+                nombres = sorted(os.listdir(disco))
+                rx = glob_shell_re(parte)
+            except (OSError, re.error):
+                continue
+            for nombre in nombres:
+                if nombre.startswith(".") and not parte.startswith(".") and not ocultos:
+                    continue
+                if rx.match(nombre):
+                    nuevos.append((disco + nombre + "/", visto + nombre + "/"))
+        actuales = nuevos[:limite]
+    return sorted(v[:-1] for d, v in actuales if v and os.path.exists(d[:-1]))
 
 
 def _muestras(globs, excepto):
@@ -170,6 +221,25 @@ def _expandir(glob):
     if i < 0 or j < 0:
         return [glob]
     return [x for alt in glob[i + 1:j].split(",") for x in _expandir(glob[:i] + alt + glob[j + 1:])]
+
+
+def _muestras_ruta(glob, excepto):
+    """Rutas de ejemplo que casan con el glob de una ruta protegida, y sus carpetas (marcadas con True), para saber
+    si un destino con comodin puede caer en ella."""
+    out = []
+    for g in _expandir(glob):
+        for relleno in ("", "x"):
+            m = g.replace("**/", "").replace("**", "x").replace("*", relleno).replace("?", "x")
+            if not m or any(e.match(m) for e in excepto):
+                continue
+            if (m, False) not in out:
+                out.append((m, False))
+            partes = m.split("/")
+            for k in range(1, len(partes)):
+                c = "/".join(partes[:k])
+                if (c, True) not in out and (c, False) not in out:
+                    out.append((c, True))
+    return out
 
 
 def _prefijos(glob):
@@ -208,7 +278,8 @@ def compilar(cfg):
             "salvo": [_re(p, d, donde) for p in r.get("salvo") or []],
             "entorno_falta": r.get("entorno_falta") or {}, "entorno_es": r.get("entorno_es") or {}, "motivo": r["motivo"],
             "ficheros": ficheros, "ficheros_excepto": excepto,
-            "muestras": _muestras(r.get("ficheros") or [], excepto)})
+            "muestras": _muestras(r.get("ficheros") or [], excepto),
+            "opciones_con_valor": list(r.get("opciones_con_valor") or [])})
     for r in cfg.get("requiere_env") or []:
         donde = f"regla {r.get('id')}"
         permitidos = [HOSTS_LOCALES if p == "@hosts_locales" else p for p in r.get("valores_permitidos") or []]
@@ -216,9 +287,11 @@ def compilar(cfg):
             "id": r["id"], "decision": r["decision"], "motivo": r["motivo"], "variables": list(r["variables"]),
             "regex": _re(r["regex"], False, donde), "permitidos": [_re(p, False, donde) for p in permitidos]})
     for r in cfg.get("rutas_protegidas") or []:
+        excepto = [glob_re(g) for g in r.get("excepto") or []]
         out["rutas"].append({"id": r["id"], "modo": r["modo"], "glob": glob_re(r["glob"]),
-                             "excepto": [glob_re(g) for g in r.get("excepto") or []], "motivo": r["motivo"],
-                             "prefijos": _prefijos(r["glob"]), "comandos": bool(r.get("comandos"))})
+                             "excepto": excepto, "motivo": r["motivo"],
+                             "prefijos": _prefijos(r["glob"]), "comandos": bool(r.get("comandos")),
+                             "muestras": _muestras_ruta(r["glob"], excepto)})
     for r in cfg.get("reglas_contenido") or []:
         donde = f"regla {r.get('id')}"
         out["contenido"].append({
@@ -807,11 +880,40 @@ SHELLS = {"bash", "sh", "zsh", "dash", "ksh", "fish", "ash", "mksh"}
 POWERSHELL = {"powershell", "pwsh"}
 PALABRAS_CLAVE = {"{", "}", "!", "then", "do", "else", "elif", "if", "while", "until", "fi", "done", "esac", "foreach",
                   "for", "try", "finally", "elseif"}
-ALIAS_EXE = {"firebase-tools": "firebase", "podman": "podman", "docker-compose": "docker-compose"}
+ALIAS_EXE = {"firebase-tools": "firebase", "podman": "podman", "docker-compose": "docker-compose",
+             # binarios cortos de las mismas CLI (REAUD-07): vc es el alias que instala el paquete vercel
+             "vc": "vercel", "ntl": "netlify", "netlify-cli": "netlify", "flyctl": "fly"}
 EXTENSIONES = re.compile(r"\.(?:exe|cmd|bat|ps1|com)$", re.I)
-CONFIG_PELIGROSA = re.compile(r"^(?:alias\.|core\.|diff\.external$|uploadpack\.|receivepack\.|protocol\.|filter\.|"
-                              r"include\.|includeif\.|sequence\.editor$|remote\..*\.(?:push|mirror|uploadpack|receivepack)$)"
-                              r"|\.(?:command|helper|program|textconv|driver|sshcommand)$", re.I)
+# Claves de git que ejecutan un programa o cambian el destino del push (con -c y con git config).
+CONFIG_PELIGROSA = re.compile(r"^(?:alias\.|core\.(?!(?:quotepath|autocrlf|safecrlf)$)|diff\.external$|uploadpack\.|"
+                              r"receivepack\.|protocol\.|filter\.|include\.|includeif\.|sequence\.editor$|"
+                              r"interactive\.difffilter$|remote\..*\.(?:push|mirror|uploadpack|receivepack)$)"
+                              r"|\.(?:command|helper|program|textconv|driver|sshcommand|cmd|defaultkeycommand)$", re.I)
+# Ademas, escritas de forma persistente (git config): push.*, credential.*, core.* y la URL de un remoto (REAUD-03).
+CONFIG_PELIGROSA_PERSISTENTE = re.compile(r"^(?:push\.|credential\.|core\.(?!(?:quotepath|autocrlf|safecrlf)$)|"
+                                          r"remote\..*\.(?:url|pushurl)$)", re.I)
+# Solo presentacion: con -c no tienen opinion (REAUD-09). pager.* y core.pager, solo con un valor booleano o cat.
+CONFIG_PRESENTACION = re.compile(r"^(?:color\.|column\.|log\.|advice\.|i18n\.|diff\.|core\.(?:quotepath|autocrlf|safecrlf)$)",
+                                 re.I)
+BOOLEANOS = ("true", "false", "yes", "no", "on", "off", "1", "0", "")
+SECCION_PELIGROSA = re.compile(r"^(?:alias|core|include|includeif|push|credential|remote|url|filter|protocol|uploadpack|"
+                               r"receivepack|pager|sequence|gpg|diff|merge|interactive)(?:\.|\s|$)", re.I)
+# Subcomandos de git (git help -a, 2.53) y lfs. Otro nombre puede ser un alias de la configuracion -> ask.
+GIT_CONOCIDOS = frozenset((
+    "add am annotate apply archive askpass backfill bisect blame branch bugreport bundle cat-file check-attr check-ignore "
+    "check-mailmap check-ref-format checkout checkout-index cherry cherry-pick citool clean clone column commit "
+    "commit-graph commit-tree config count-objects credential credential-cache credential-manager credential-store "
+    "cvsexportcommit cvsimport cvsserver daemon describe diagnose diff diff-files diff-index diff-pairs diff-tree "
+    "difftool fast-export fast-import fetch fetch-pack filter-branch fmt-merge-msg for-each-ref for-each-repo "
+    "format-patch fsck gc get-tar-commit-id gitk grep gui hash-object help hook http-backend imap-send index-pack init "
+    "instaweb interpret-trailers last-modified lfs log ls-files ls-remote ls-tree mailinfo mailsplit maintenance merge "
+    "merge-base merge-file merge-index merge-one-file merge-tree mergetool mktag mktree multi-pack-index mv name-rev "
+    "notes p4 pack-objects pack-redundant pack-refs patch-id prune prune-packed pull push quiltimport range-diff "
+    "read-tree rebase reflog refs remote repack replace replay repo request-pull rerere reset restore rev-list rev-parse "
+    "revert rm scalar send-email send-pack sh-i18n sh-setup shortlog show show-branch show-index show-ref "
+    "sparse-checkout stash status stripspace submodule survey svn switch symbolic-ref tag unpack-file unpack-objects "
+    "update-git-for-windows update-index update-ref update-server-info var verify-commit verify-pack verify-tag version "
+    "whatchanged worktree write-tree archimport").split())
 GIT_SALIDA = {"log", "diff", "show", "format-patch", "whatchanged", "diff-tree", "diff-index", "diff-files",
               "range-diff", "stash", "cherry", "shortlog", "reflog"}
 GIT_REMOTO = {"fetch", "pull", "clone", "ls-remote", "archive", "submodule", "remote"}
@@ -850,9 +952,62 @@ ESCRIBE_PS = {
     "move": (("path", "literalpath", "destination"), (0, 1)),
     "rename-item": (("path", "literalpath"), (0,)), "rni": (("path", "literalpath"), (0,)), "ren": (("path", "literalpath"), (0,)),
     "tee-object": (("filepath", "literalpath"), (0,)), "set-itemproperty": (("path", "literalpath"), (0,)),
+    "expand-archive": (("destinationpath",), (1,)), "compress-archive": (("destinationpath",), (1,)),
 }
 PS_VALORES = ("value", "encoding", "itemtype", "type", "filter", "include", "exclude", "credential", "stream",
               "delimiter", "width", "inputobject", "newname", "variable", "target")
+
+# Destinos de escritura de curl, wget, rsync y tar (REAUD-05). Opciones cortas de curl/wget que llevan valor:
+# en un grupo (-sSo F, -qO F) la primera de ellas se come el resto del grupo o el siguiente token.
+CURL_CORTAS_VALOR = "AbcCdDeEFHKmoPQrTtuUwxXyYz"
+CURL_LARGAS_ESCRIBE = ("--output", "--dump-header", "--cookie-jar", "--trace", "--trace-ascii", "--stderr", "--libcurl",
+                       "--etag-save", "--hsts", "--alt-svc")
+CURL_LARGAS_VALOR = CURL_LARGAS_ESCRIBE + (
+    "--output-dir", "--url", "--data", "--data-raw", "--data-binary", "--data-urlencode", "--data-ascii", "--json",
+    "--header", "--user", "--user-agent", "--referer", "--request", "--form", "--form-string", "--cookie", "--cacert",
+    "--capath", "--cert", "--key", "--proxy", "--proxy-user", "--max-time", "--connect-timeout", "--retry",
+    "--retry-delay", "--retry-max-time", "--config", "--write-out", "--upload-file", "--range", "--variable", "--resolve",
+    "--connect-to", "--etag-compare", "--time-cond", "--oauth2-bearer", "--interface", "--limit-rate", "--max-filesize",
+    "--continue-at", "--quote", "--netrc-file", "--unix-socket", "--aws-sigv4", "--expect100-timeout")
+WGET_CORTAS_VALOR = "eoaiBtOwQTPUDRAIXl"
+WGET_LARGAS_ESCRIBE = ("--output-document", "--output-file", "--append-output", "--save-cookies")
+WGET_LARGAS_VALOR = WGET_LARGAS_ESCRIBE + (
+    "--directory-prefix", "--input-file", "--base", "--tries", "--wait", "--quota", "--timeout", "--user-agent",
+    "--domains", "--reject", "--accept", "--include-directories", "--exclude-directories", "--level", "--execute",
+    "--header", "--user", "--password", "--http-user", "--http-password", "--post-data", "--post-file", "--body-data",
+    "--body-file", "--method", "--load-cookies", "--referer", "--ca-certificate", "--certificate", "--private-key",
+    "--limit-rate", "--waitretry", "--cut-dirs", "--default-page", "--config", "--bind-address")
+RSYNC_CON_VALOR = ("-f", "--filter", "--exclude", "--include", "--exclude-from", "--include-from", "--files-from", "-T",
+                   "--temp-dir", "-B", "--block-size", "--backup-dir", "--suffix", "--port", "--password-file", "--chmod",
+                   "--chown", "--partial-dir", "--compare-dest", "--link-dest", "--copy-dest", "-M", "--remote-option",
+                   "--rsync-path", "--timeout", "--contimeout", "--max-size", "--min-size", "--bwlimit", "--out-format",
+                   "--skip-compress", "--usermap", "--groupmap", "--address", "--iconv", "--max-delete", "--info", "--debug")
+TAR_EJECUTA = ("--use-compress-program", "--to-command", "--info-script", "--new-volume-script", "--rsh-command",
+               "--checkpoint-action", "--rmt-command")
+TAR_LARGAS_VALOR = TAR_EJECUTA + ("--file", "--directory", "--exclude", "--exclude-from", "--files-from", "--transform",
+                                  "--xform", "--owner", "--group", "--mode", "--mtime", "--newer", "--after-date",
+                                  "--newer-mtime", "--blocking-factor", "--record-size", "--label", "--format", "--suffix",
+                                  "--listed-incremental", "--strip-components")
+# Herramientas con su propia lectura de destinos (sin la regla generica de -o/--output).
+SALIDA_PROPIA = frozenset(("curl", "wget", "git", "tar", "bsdtar", "gtar", "unzip", "7z", "7za", "7zr", "7zz", "rsync", "dd"))
+# Herramientas en las que -o no es un fichero de salida.
+SIN_O_DE_SALIDA = frozenset(("ls", "dir", "grep", "egrep", "fgrep", "rg", "ag", "ack", "ps", "mount", "ssh", "scp", "sftp",
+                             "ssh-keygen", "find", "gh", "sed", "awk", "gawk", "xargs", "jq", "yq", "cut", "pgrep", "pkill",
+                             "lsof", "netstat", "ss", "du", "df", "stat", "file", "less", "more", "cat", "head", "tail",
+                             "mvn", "gradle", "gradlew", "bash", "sh", "zsh", "set"))
+# Metodos .NET que escriben, borran o mueven ficheros, y que argumentos son destinos (REAUD-05).
+NET_ESCRIBE = {
+    "file": {"writealltext": (0,), "writeallbytes": (0,), "writealllines": (0,), "appendalltext": (0,),
+             "appendalllines": (0,), "appendtext": (0,), "create": (0,), "createtext": (0,), "openwrite": (0,),
+             "open": (0,), "delete": (0,), "setattributes": (0,), "writealltextasync": (0,), "writeallbytesasync": (0,),
+             "writealllinesasync": (0,), "appendalltextasync": (0,), "appendalllinesasync": (0,), "copy": (1,),
+             "move": (0, 1), "replace": (0, 1, 2), "createsymboliclink": (0,), "encrypt": (0,), "decrypt": (0,)},
+    "directory": {"delete": (0,), "createdirectory": (0,), "move": (0, 1), "createsymboliclink": (0,)},
+    "streamwriter": {"new": (0,)}, "filestream": {"new": (0,)},
+}
+NET_LLAMADA = re.compile(r"\[\s*(?:System\.)?IO\.(File|Directory|StreamWriter|FileStream)\s*\]\s*::\s*([A-Za-z]+)\s*\(|"
+                         r"\bNew-Object\s+(?:-TypeName\s+)?(?:System\.)?IO\.(StreamWriter|FileStream)\b\s*(?:-ArgumentList\s*)?\(",
+                         re.I | RX)
 
 
 def nombre_exe(s):
@@ -886,6 +1041,55 @@ def larga(tok, nombres, minimo=4):
     return None
 
 
+def clasificar_config(clave, valor, persistente):
+    """Clave de git -> 'peligrosa' (ejecuta un programa o cambia el destino del push), 'inocua' (solo
+    presentacion: color, columnas, log, diff, core.quotepath...) u 'otra'."""
+    c, v = clave.lower(), (valor or "").strip().lower()
+    if c.startswith("pager.") or c == "core.pager":
+        if v in BOOLEANOS or (c == "core.pager" and v == "cat"):
+            return "peligrosa" if persistente and c == "core.pager" else "inocua"
+        return "peligrosa"
+    if CONFIG_PELIGROSA.search(c):
+        return "peligrosa"
+    if c == "push.default" and v in ("matching", "upstream", "tracking"):
+        return "peligrosa"
+    if persistente and CONFIG_PELIGROSA_PERSISTENTE.search(c):
+        return "peligrosa"
+    return "inocua" if CONFIG_PRESENTACION.search(c) else "otra"
+
+
+def partir_argumentos(t):
+    """Argumentos de una llamada a un metodo de PowerShell ('a', "b", (x, y)) partidos por las comas de primer nivel."""
+    out, prof, cur, i, n = [], 0, "", 0, len(t)
+    while i < n:
+        c = t[i]
+        if c in "'\"":
+            j = i + 1
+            while j < n:
+                if t[j] == c:
+                    if j + 1 < n and t[j + 1] == c:
+                        j += 2
+                        continue
+                    break
+                j += 2 if (c == '"' and t[j] == "`") else 1
+            cur += t[i:j + 1]
+            i = j + 1
+            continue
+        if c in "([{":
+            prof += 1
+        elif c in ")]}":
+            prof -= 1
+        elif c == "," and prof == 0:
+            out.append(cur.strip())
+            cur, i = "", i + 1
+            continue
+        cur += c
+        i += 1
+    if cur.strip():
+        out.append(cur.strip())
+    return out
+
+
 def _ps_param(a):
     """'-Destination' / '-dest' -> 'dest' (sin guion, en minusculas, sin ':valor')."""
     return a[1:].split(":", 1)[0].lower() if a.startswith("-") and len(a) > 1 else None
@@ -906,8 +1110,10 @@ class Analisis:
         self.raiz, self.cwd, self.rama, self.reglas = raiz, cwd, rama, reglas
         self.simples, self.segmentos, self.candidatos, self.construcciones = [], [], [], []
         self.destinos, self.argumentos = [], []
+        self.extracciones = []  # carpetas donde se extrae un archivo (tar -x, unzip, 7z x): contenido desconocido
         self.vars, self.exportadas, self.ramas = {}, {}, {}
         self.ultimo = None
+        self.entrada_desconocida = None  # comando que recibe argumentos que el guard no ve (xargs, find -exec {})
 
     # ---------------------------------------------------- utilidades
     def construccion(self, tipo):
@@ -958,12 +1164,35 @@ class Analisis:
         rel = rel.replace("\\", "/")
         return rel if _es_absoluta(rel) else (base or "").replace("\\", "/").rstrip("/") + "/" + rel
 
+    def metodos_net(self, texto):
+        """[IO.File]::WriteAllText('ruta', ...), Copy, Move, Delete, [IO.Directory]::..., StreamWriter y FileStream:
+        los argumentos que son destino cuentan como escrituras del comando (REAUD-05)."""
+        for m in NET_LLAMADA.finditer(texto):
+            clase = (m.group(1) or m.group(3) or "").lower()
+            indices = NET_ESCRIBE.get(clase, {}).get((m.group(2) or "new").lower())
+            if not indices:
+                continue
+            fin = buscar_cierre(texto, m.end(), "(", ")", "ps")
+            argumentos = partir_argumentos(texto[m.end():fin])
+            for k in indices:
+                if k >= len(argumentos):
+                    continue
+                trozos = Troceador(argumentos[k], "ps").trocear()
+                toks = trozos[0]["tk"] if len(trozos) == 1 and not trozos[0]["subs"] else []
+                if len(toks) == 1:
+                    r = self.resolver(toks[0])
+                    self._destino(r["s"], r["din"], ps=True)
+                else:
+                    self._destino(argumentos[k], True, ps=True)
+
     # ---------------------------------------------------- recorrido
     def analizar(self, texto, modo, prof):
         if prof > PROF_MAX:
             self.construccion("anidamiento demasiado profundo")
             return
         tuberia = False
+        if modo == "ps":
+            self.metodos_net(texto)
         for seg in Troceador(texto, modo).trocear():
             self.segmentos.append(seg["texto"].strip())
             self.segmento(seg, modo, prof, tuberia)
@@ -1040,10 +1269,13 @@ class Analisis:
             if j is None:
                 return
             if j < len(args):
-                if exe in ("env", "xargs"):
-                    self.construccion(f"{exe} con un comando")
+                if exe == "env":
+                    self.construccion("env con un comando")
                 self.registrar(exe, args, entorno, exe_tok["s"])
-                self.simple(args[j:], [], modo, prof, stdin, tuberia, False)
+                if exe == "xargs":
+                    self.xargs(args, j, modo, prof, stdin, tuberia)
+                else:
+                    self.simple(args[j:], [], modo, prof, stdin, tuberia, False)
                 return
         if exe in EJECUTORES or (args and (exe, args[0]["s"].lower()) in SUBEJECUTORES):
             j = self.saltar_ejecutor(exe, args, modo, prof)
@@ -1064,9 +1296,42 @@ class Analisis:
     def registrar(self, exe, args, entorno, original=None):
         """Comando simple ya normalizado (exe sin ruta ni extension); y tal cual, si el exe llevaba ruta."""
         resto = [t["s"] for t in args]
-        self.simples.append({"texto": " ".join([exe] + resto), "entorno": self.entorno_con(entorno), "exe": exe})
+        self.simples.append({"texto": " ".join([exe] + resto), "entorno": self.entorno_con(entorno), "exe": exe,
+                             "programa": exe, "args": list(args)})
         if original and original != exe:
-            self.simples.append({"texto": " ".join([original] + resto), "entorno": self.entorno_con(entorno), "exe": exe})
+            self.simples.append({"texto": " ".join([original] + resto), "entorno": self.entorno_con(entorno), "exe": exe,
+                                 "programa": original, "args": list(args)})
+        expandidos = self.expandir_args(args)
+        if expandidos is not None:
+            self.simples.append({"texto": " ".join([exe] + [t["s"] for t in expandidos]), "entorno": self.entorno_con(entorno),
+                                 "exe": exe, "programa": exe, "args": expandidos, "variante": "comodines"})
+
+    def expandir_args(self, args):
+        """Variante del comando con los comodines del shell expandidos contra el disco (como bash) y las rutas con
+        '..' normalizadas, para que las reglas vean la ruta real ('test/../integration_tes?/x' ->
+        'integration_test/x'; REAUD-01). None si no cambia nada. Un comodin que no casa con nada llega tal cual
+        al programa (bash sin nullglob), que es lo que ya ven las reglas."""
+        out, cambia = [], False
+        for t in args:
+            s = t["s"]
+            if t["din"]:
+                out.append(t)
+                continue
+            m = re.match(r"^(--?[\w.-]+=)(.*)$", s, re.S | RX)
+            pref, valor = (m.group(1), m.group(2)) if m else ("", s)
+            if t.get("g") and COMODIN.search(valor):
+                rutas = expandir_comodin(valor, self.cwd)
+                if rutas:
+                    out += [dict(t, s=pref + (normalizar_ruta(r, self.raiz, self.cwd) if PUNTO_PUNTO.search(r) else r), g=False)
+                            for r in rutas]
+                    cambia = True
+                    continue
+            elif PUNTO_PUNTO.search(valor):
+                out.append(dict(t, s=pref + normalizar_ruta(valor, self.raiz, self.cwd)))
+                cambia = True
+                continue
+            out.append(t)
+        return out if cambia else None
 
     def saltar_envoltorio(self, exe, args, entorno, modo, prof):
         """Indice del comando envuelto dentro de args, o None si el envoltorio no ejecuta nada."""
@@ -1094,6 +1359,49 @@ class Analisis:
                 return j + 1
             return j
         return j
+
+    def xargs(self, args, j, modo, prof, stdin, tuberia):
+        """xargs CMD: si se sabe lo que llega por la entrada (echo/printf en la tuberia o <<<), se analiza el comando
+        con esos argumentos; si no, el motivo dice lo que se ejecutaria (REAUD-12)."""
+        interior = args[j:]
+        reemplazo, de_fichero, k = None, False, 0
+        while k < j:
+            s = args[k]["s"]
+            if s in ("-I", "--replace") and k + 1 < j:
+                reemplazo, k = args[k + 1]["s"], k + 2
+                continue
+            if s.startswith("-I") and len(s) > 2:
+                reemplazo = s[2:]
+            elif s == "-i" or s == "--replace":
+                reemplazo = "{}"
+            elif s.startswith("-i") or s.startswith("--replace="):
+                reemplazo = s.split("=", 1)[1] if "=" in s else s[2:]
+            elif s in ("-a", "--arg-file") or s.startswith("--arg-file=") or (s.startswith("-a") and len(s) > 2):
+                de_fichero = True
+            k += 1
+        palabras = None
+        if not de_fichero:
+            if stdin is not None:
+                palabras = stdin.split()
+            elif tuberia and self.ultimo and self.ultimo[0] in ("echo", "printf", "write-output", "write-host") \
+                    and not any(t["din"] for t in self.ultimo[1]):
+                texto = " ".join(t["s"] for t in self.ultimo[1] if not (self.ultimo[0] == "echo" and t["s"] in ("-n", "-e")))
+                palabras = re.sub(r"\\[ntr]", " ", texto).split()
+        texto_cmd = " ".join(t["s"] for t in interior)
+        if palabras is None:
+            self.construccion(f"xargs ejecutaria '{texto_cmd} <argumentos de la entrada>'")
+            antes = self.entrada_desconocida
+            self.entrada_desconocida = f"xargs ejecutaria '{texto_cmd} <argumentos de la entrada>'"
+            self.simple(interior, [], modo, prof, stdin, tuberia, False)
+            self.entrada_desconocida = antes
+            return
+        self.construccion("xargs con un comando")
+        nuevo = {"g": False, "din": False, "var": False}
+        if reemplazo:
+            for w in palabras[:20]:
+                self.simple([dict(t, s=t["s"].replace(reemplazo, w)) for t in interior], [], modo, prof, stdin, tuberia, False)
+        else:
+            self.simple(interior + [dict(nuevo, s=w) for w in palabras[:50]], [], modo, prof, stdin, tuberia, False)
 
     def saltar_ejecutor(self, exe, args, modo, prof):
         j = 0 if exe in EJECUTORES else 1
@@ -1150,7 +1458,13 @@ class Analisis:
             for j, a in enumerate(args):
                 if a["s"] in ("-exec", "-execdir", "-ok", "-okdir"):
                     fin = next((x for x in range(j + 1, len(args)) if args[x]["s"] in (";", "+")), len(args))
-                    self.simple(args[j + 1:fin], [], "bash", prof + 1, None, False, False)
+                    interior = args[j + 1:fin]
+                    antes = self.entrada_desconocida
+                    if any("{}" in x["s"] for x in interior):
+                        self.entrada_desconocida = (f"find {a['s']} ejecutaria '{' '.join(x['s'] for x in interior)}' "
+                                                    "con cada fichero que encuentre")
+                    self.simple(interior, [], "bash", prof + 1, None, False, False)
+                    self.entrada_desconocida = antes
         elif exe == "git":
             self.git(args, modo)
         elif exe == "gh":
@@ -1335,18 +1649,252 @@ class Analisis:
         elif exe == "dd":
             anadir([{"s": a["s"][3:], "din": a["din"]} for a in args if a["s"].startswith("of=")])
         elif exe in ("curl", "wget"):
-            cortas = ("-o",) if exe == "curl" else ("-O",)
-            for j, a in enumerate(args):
-                if (a["s"] in cortas or a["s"] in ("--output", "--output-document")) and j + 1 < len(args):
-                    anadir([args[j + 1]])
-                elif re.match(r"^--output(?:-document)?=", a["s"]):
-                    anadir([{"s": a["s"].split("=", 1)[1], "din": a["din"]}])
+            self.descarga(exe, args)
+        elif exe == "rsync":
+            self.rsync(args)
+        elif exe in ("tar", "bsdtar", "gtar"):
+            self.tar(args)
+        elif exe == "unzip":
+            self.unzip(args)
+        elif exe in ("7z", "7za", "7zr", "7zz"):
+            self.siete_z(args)
+        if exe not in SALIDA_PROPIA:
+            self.salida_generica(exe, args)
+
+    # destinos de herramientas de descarga, copia y archivo (REAUD-05, REAUD-06)
+    def _destino(self, s, din, cwd=None, ps=False):
+        self.destinos.append(({"s": s, "din": din, "ps": ps}, cwd or self.cwd))
+
+    def _carpeta_extraida(self, tok, cwd=None):
+        """Carpeta donde se extrae un archivo de contenido desconocido: cuenta si es o contiene una ruta protegida
+        (tambien la raiz del repo)."""
+        self.extracciones.append((tok, cwd or self.cwd))
+
+    def descarga(self, exe, args):
+        """curl -o/-D/-c/--output... (tambien agrupadas: -sSo, -sSoFICHERO), -O con el nombre de la URL y
+        --output-dir; wget -O/-o/-a, -P y el nombre de la URL por defecto."""
+        if exe == "curl":
+            cortas_valor, escribe_cortas = CURL_CORTAS_VALOR, "oDc"
+            largas_valor, escribe_largas, dir_largas = CURL_LARGAS_VALOR, CURL_LARGAS_ESCRIBE, ("--output-dir",)
+        else:
+            cortas_valor, escribe_cortas = WGET_CORTAS_VALOR, "Ooa"
+            largas_valor, escribe_largas, dir_largas = WGET_LARGAS_VALOR, WGET_LARGAS_ESCRIBE, ("--directory-prefix",)
+        salidas, urls, carpeta, remoto, cabecera, recursivo, j = [], [], None, exe == "wget", False, False, 0
+        while j < len(args):
+            a = args[j]
+            s = a["s"]
+            if s.startswith("--") and len(s) > 2:
+                nombre, igual, val = s.partition("=")
+                nombre = nombre.lower()
+                lleva = bool(igual) or nombre in largas_valor
+                v = {"s": val, "din": a["din"]} if igual else (args[j + 1] if lleva and j + 1 < len(args) else None)
+                if v is not None and nombre in escribe_largas:
+                    salidas.append(v)
+                elif v is not None and nombre in dir_largas:
+                    carpeta = v
+                elif v is not None and nombre == "--url":
+                    urls.append(v)
+                elif nombre in ("--remote-name", "--remote-name-all"):
+                    remoto = True
+                elif nombre == "--remote-header-name":
+                    cabecera = True
+                elif nombre in ("--recursive", "--mirror"):
+                    recursivo = True
+                j += 1 if (igual or not lleva) else 2
+                continue
+            if s.startswith("-") and len(s) > 1:
+                if exe == "wget" and s.startswith("-n"):
+                    j += 1
+                    continue
+                k, salto = 1, 1
+                while k < len(s):
+                    letra = s[k]
+                    if letra in cortas_valor:
+                        resto = s[k + 1:]
+                        v = {"s": resto, "din": a["din"]} if resto else (args[j + 1] if j + 1 < len(args) else None)
+                        salto = 1 if resto else 2
+                        if v is not None and letra in escribe_cortas:
+                            salidas.append(v)
+                        elif v is not None and letra == "P" and exe == "wget":
+                            carpeta = v
+                        break
+                    if letra == "O" and exe == "curl":
+                        remoto = True
+                    elif letra == "J" and exe == "curl":
+                        cabecera = True
+                    elif letra in "rm" and exe == "wget":
+                        recursivo = True
+                    k += 1
+                j += salto
+                continue
+            urls.append(a)
+            j += 1
+        if exe == "wget" and self._wget_documento(args):
+            remoto = False
+        base = self.cwd if carpeta is None else self.unir(self.cwd, carpeta["s"])
+        if carpeta is not None and carpeta["din"]:
+            self._destino(carpeta["s"], True)
+        for v in salidas:
+            if v["s"] != "-":
+                self._destino(v["s"], v["din"], base if exe == "curl" else self.cwd)
+        if remoto or cabecera:
+            for u in urls:
+                nombre = re.sub(r"[?#][\s\S]*", "", u["s"]).rstrip("/").split("/")[-1] if "/" in u["s"] else ""
+                if cabecera or recursivo or not nombre or u["din"]:
+                    self._destino(".", False, base)
+                else:
+                    self._destino(nombre, False, base)
+
+    def _wget_documento(self, args):
+        """wget con -O/--output-document: el nombre de la URL ya no cuenta."""
+        for a in args:
+            s = a["s"]
+            if s.startswith("--output-document") or (s.startswith("-") and not s.startswith("--")
+                                                      and not s.startswith("-n") and "O" in s[1:]):
+                return True
+        return False
+
+    def rsync(self, args):
+        pos, j = [], 0
+        while j < len(args):
+            a = args[j]
+            s = a["s"]
+            nombre = s.split("=", 1)[0]
+            if nombre in ("-e", "--rsh"):
+                v = s.split("=", 1)[1] if "=" in s else (args[j + 1]["s"] if j + 1 < len(args) else "")
+                self.construccion("rsync -e")
+                self.analizar(v, "bash", 1)
+                j += 1 if "=" in s else 2
+                continue
+            if nombre == "--log-file" or nombre == "--write-batch" or nombre == "--only-write-batch":
+                v = {"s": s.split("=", 1)[1], "din": a["din"]} if "=" in s else (args[j + 1] if j + 1 < len(args) else None)
+                if v is not None:
+                    self._destino(v["s"], v["din"])
+                j += 1 if "=" in s else 2
+                continue
+            if s.startswith("-") and len(s) > 1:
+                j += 2 if (nombre in RSYNC_CON_VALOR and "=" not in s) else 1
+                continue
+            pos.append(a)
+            j += 1
+        if len(pos) >= 2 and not re.match(r"^(?:[^/\\:]{2,}:|[^/\\]*::|rsync://)", pos[-1]["s"]):
+            self._destino(pos[-1]["s"], pos[-1]["din"])
+
+    def tar(self, args):
+        modo, ficheros, carpeta, a_salida, j = "", [], None, False, 0
+        letras_valor = "fCbTXgKNVLIF"
+        primera = True
+        while j < len(args):
+            a = args[j]
+            s = a["s"]
+            if s.startswith("--") and len(s) > 2:
+                nombre, igual, val = s.partition("=")
+                lleva = bool(igual) or nombre in TAR_LARGAS_VALOR
+                v = {"s": val, "din": a["din"]} if igual else (args[j + 1] if lleva and j + 1 < len(args) else None)
+                if nombre in ("--extract", "--get"):
+                    modo = "x"
+                elif nombre in ("--create", "--append", "--update", "--catenate", "--concatenate"):
+                    modo = "c"
+                elif nombre in ("--list", "--diff", "--compare", "--test-label"):
+                    modo = modo or "t"
+                elif nombre in ("--to-stdout",):
+                    a_salida = True
+                elif nombre == "--file" and v is not None:
+                    ficheros.append(v)
+                elif nombre == "--directory" and v is not None:
+                    carpeta = v
+                elif nombre in TAR_EJECUTA:
+                    self.construccion(f"tar {nombre}")
+                j += 1 if (igual or not lleva) else 2
+                continue
+            if (s.startswith("-") and len(s) > 1) or (primera and re.match(r"^[A-Za-z]+$", s) and not s.startswith("-")):
+                letras = s[1:] if s.startswith("-") else s
+                pendientes = []
+                for k, letra in enumerate(letras):
+                    if letra in "xcrutAd":
+                        modo = "x" if letra == "x" else ("c" if letra in "cruA" else (modo or "t"))
+                    elif letra == "O":
+                        a_salida = True
+                    elif letra in letras_valor:
+                        if s.startswith("-") and k + 1 < len(letras):
+                            pendientes.append((letra, {"s": letras[k + 1:], "din": a["din"]}))
+                            break
+                        pendientes.append((letra, None))
+                        if s.startswith("-"):
+                            break
+                j += 1
+                for letra, v in pendientes:
+                    if v is None:
+                        v = args[j] if j < len(args) else None
+                        j += 1
+                    if v is None:
+                        continue
+                    if letra == "f":
+                        ficheros.append(v)
+                    elif letra == "C":
+                        carpeta = v
+                    elif letra in "IF":
+                        self.construccion(f"tar -{letra}")
+                primera = False
+                continue
+            primera = False
+            j += 1
+        if modo == "c":
+            for v in ficheros:
+                if v["s"] != "-":
+                    self._destino(v["s"], v["din"])
+        elif modo == "x" and not a_salida:
+            self._carpeta_extraida(carpeta or {"s": ".", "din": False})
+
+    def unzip(self, args):
+        carpeta, j, lee = None, 0, False
+        while j < len(args):
+            s = args[j]["s"]
+            if s == "-d":
+                carpeta = args[j + 1] if j + 1 < len(args) else None
+                j += 2
+                continue
+            if s.startswith("-d") and len(s) > 2:
+                carpeta = {"s": s[2:], "din": args[j]["din"]}
+            elif s.startswith("-") and re.search(r"[ltvpzcZ]", s[1:]):
+                lee = True
+            j += 1
+        if not lee:
+            self._carpeta_extraida(carpeta or {"s": ".", "din": False})
+
+    def siete_z(self, args):
+        pos = [a for a in args if not a["s"].startswith("-")]
+        carpeta = next(({"s": a["s"][2:], "din": a["din"]} for a in args if a["s"].lower().startswith("-o")), None)
+        if not pos:
+            return
+        orden = pos[0]["s"].lower()
+        if orden in ("x", "e") and not any(a["s"].lower() == "-so" for a in args):
+            self._carpeta_extraida(carpeta or {"s": ".", "din": False})
+        elif orden in ("a", "u", "d", "rn") and len(pos) > 1:
+            self._destino(pos[1]["s"], pos[1]["din"])
+
+    def salida_generica(self, exe, args):
+        """-o FICHERO, --output, --outputFile (tambien --outputFile.json=), --output-file, --out-file, --outFile,
+        --outDir... de cualquier herramienta (npx eslint -o, vitest --outputFile, tsc --outFile): solo cuentan si
+        caen en una ruta protegida con comandos=true (REAUD-06)."""
+        for j, a in enumerate(args):
+            s = a["s"]
+            if s == "-o" and exe not in SIN_O_DE_SALIDA and j + 1 < len(args) and not args[j + 1]["s"].startswith("-"):
+                self._destino(args[j + 1]["s"], args[j + 1]["din"])
+                continue
+            m = re.match(r"^--(output|outputfile|output-file|out-file|outfile|out|output-dir|outdir|out-dir|"
+                         r"output-directory)(?:\.[\w-]+)?(?:=(.*))?$", s, re.I | re.S | RX)
+            if m:
+                if m.group(2) is not None:
+                    self._destino(m.group(2), a["din"])
+                elif j + 1 < len(args) and not args[j + 1]["s"].startswith("-"):
+                    self._destino(args[j + 1]["s"], args[j + 1]["din"])
 
     def escrituras_ps(self, exe, args):
         alias = {"rm": "remove-item", "mv": "move-item", "cp": "copy-item"}
         nombres, posiciones = ESCRIBE_PS[alias.get(exe, exe)]
         conocidos = tuple(nombres) + PS_VALORES + ("path", "literalpath", "filepath", "destination", "name")
-        pos, j = [], 0
+        pos, nombrados, j = [], [], 0
         while j < len(args):
             a = args[j]
             p = _ps_param(a["s"])
@@ -1364,16 +1912,29 @@ class Analisis:
                 else:
                     break
                 if nombre in nombres:
-                    self.destinos.append((valor, self.cwd))
+                    nombrados.append((nombre, valor))
                 continue
             pos.append(a)
             j += 1
+        destinos = list(nombrados)
         for p in posiciones:
             if p == -1:
-                for a in pos:
-                    self.destinos.append((a, self.cwd))
+                destinos += [("", a) for a in pos]
             elif p < len(pos):
-                self.destinos.append((pos[p], self.cwd))
+                destinos.append(("", pos[p]))
+        base = alias.get(exe, exe)
+        if base in ("new-item", "ni"):
+            nombre = next((v for n, v in destinos if n == "name"), None)
+            carpeta = next((v for n, v in destinos if n != "name"), None)
+            if nombre is not None and carpeta is not None:
+                destinos = [("", {"s": carpeta["s"].rstrip("/\\") + "/" + nombre["s"], "din": carpeta["din"] or nombre["din"]})]
+        for _, v in destinos:
+            if base == "expand-archive":
+                self._carpeta_extraida(v)
+            else:
+                self._destino(v["s"], v["din"], ps=True)
+        if base == "expand-archive" and not destinos:
+            self._carpeta_extraida({"s": ".", "din": False})
 
     # ---------------------------------------------------- git y gh
     def git(self, args, modo):
@@ -1396,6 +1957,23 @@ class Analisis:
             return
         sub = args[j]["s"].lower() if j < len(args) else ""
         resto = args[j + 1:]
+        if j < len(args) and args[j]["din"]:
+            self.candidatos.append(("ask", f"git {args[j]['s']}: subcomando calculado; no puedo comprobarlo, pide permiso.",
+                                    "git.subcomando-desconocido"))
+        elif sub and sub not in GIT_CONOCIDOS:
+            self.candidatos.append(("ask", f"git {args[j]['s']}: no es un subcomando de git (puede ser un alias de la "
+                                           "configuracion, que ejecuta otra cosa); pide permiso.", "git.subcomando-desconocido"))
+        if sub == "config":
+            self.git_config(resto)
+        elif sub == "remote" and resto and resto[0]["s"].lower() in ("set-url", "add"):
+            if resto[0]["s"].lower() == "set-url":
+                self.candidatos.append(("deny", "git remote set-url cambia la URL de un remoto (a donde van los push): la "
+                                                "cambia una persona.", "git.config-peligrosa"))
+            else:
+                self.candidatos.append(("ask", "git remote add anade un remoto a la configuracion de git; pide permiso.",
+                                        "git.config-escribe"))
+        elif sub in ("checkout", "restore", "mv", "rm", "apply"):
+            self.git_destinos(sub, resto, self.cwd if dir_git is None else self.unir(self.cwd, dir_git))
         if sub == "push":
             r = self.push(resto, git, dir_git)
             if r:
@@ -1450,13 +2028,128 @@ class Analisis:
                                                 "git.salida-a-fichero"))
                         self.destinos.append((destino, self.cwd))
 
+    def git_destinos(self, sub, args, cwd):
+        """Ficheros de trabajo que reescriben git checkout [<rev>] -- rutas, restore, mv, rm y apply --directory
+        (REAUD-05). restore --staged y rm --cached solo tocan el indice: no cuentan."""
+        con_valor = {"checkout": ("-b", "-B", "--orphan", "--conflict", "--pathspec-from-file"),
+                     "restore": ("-s", "--source", "--conflict", "--pathspec-from-file"),
+                     "rm": ("--pathspec-from-file",), "mv": (),
+                     "apply": ("--directory", "--exclude", "--include", "-p", "-C", "--whitespace", "--build-fake-ancestor")}[sub]
+        antes, despues, banderas, j, separador = [], [], set(), 0, False
+        while j < len(args):
+            a = args[j]
+            s = a["s"]
+            if separador:
+                despues.append(a)
+            elif s == "--":
+                separador = True
+            elif s.startswith("-") and len(s) > 1:
+                nombre = s.split("=", 1)[0]
+                if sub == "apply" and nombre == "--directory":
+                    v = {"s": s.split("=", 1)[1], "din": a["din"]} if "=" in s else (args[j + 1] if j + 1 < len(args) else None)
+                    if v is not None:
+                        self.destinos.append((v, cwd))
+                if nombre in con_valor and "=" not in s:
+                    j += 2
+                    continue
+                if not s.startswith("--"):
+                    banderas.update("-" + x for x in s[1:])
+                banderas.add(nombre)
+            else:
+                antes.append(a)
+            j += 1
+        if sub == "apply":
+            return
+        if sub == "restore" and banderas & {"-S", "--staged"} and not banderas & {"-W", "--worktree"}:
+            return
+        if sub == "rm" and "--cached" in banderas:
+            return
+        if sub == "checkout":
+            # 'git checkout X' sin '--' es casi siempre cambiar de rama: X solo cuenta si existe como ruta
+            rutas = despues if separador else (antes[1:] if len(antes) >= 2 else [
+                a for a in antes if not a["din"] and os.path.exists(absoluta_de(normalizar_ruta(a["s"], self.raiz, cwd),
+                                                                                 self.raiz))])
+        else:
+            rutas = antes + despues
+        for a in rutas:
+            self.destinos.append((a, cwd))
+
     def config_git(self, v):
         clave, _, valor = v["s"].partition("=")
         if v["din"]:
             self.candidatos.append(("ask", "git -c con un valor calculado: no puedo comprobarlo; pide permiso.", "git.config"))
-        elif CONFIG_PELIGROSA.search(clave) or (clave.lower() == "push.default" and valor.lower() == "matching"):
+        elif clasificar_config(clave, valor, False) == "peligrosa":
             self.candidatos.append(("deny", f"git -c {clave}: puede ejecutar comandos o cambiar el destino del push.",
                                     "git.config-peligrosa"))
+
+    def git_config(self, args):
+        """git config (forma clasica y subcomandos get/set/unset/list/edit/...): la escritura persistente de
+        una clave peligrosa se deniega, cualquier otra escritura pregunta y la lectura no tiene opinion."""
+        con_valor = ("-f", "--file", "--blob", "--type", "--default", "--comment", "--value", "--url")
+        pos, banderas, fichero, j = [], set(), None, 0
+        while j < len(args):
+            a = args[j]
+            s = a["s"]
+            if s.startswith("-") and len(s) > 1:
+                nombre = s.split("=", 1)[0]
+                if nombre in con_valor:
+                    v = {"s": s.split("=", 1)[1], "din": a["din"]} if "=" in s else (args[j + 1] if j + 1 < len(args) else None)
+                    if nombre in ("-f", "--file") and v is not None:
+                        fichero = v
+                    j += 1 if "=" in s else 2
+                    continue
+                banderas.add(nombre)
+                j += 1
+                continue
+            pos.append(a)
+            j += 1
+        accion, clave, valor = "leer", None, None
+        nuevos = {"get": "leer", "list": "leer", "set": "escribir", "unset": "borrar", "edit": "editar",
+                  "rename-section": "renombrar", "remove-section": "borrar"}
+        if pos and pos[0]["s"].lower() in nuevos and not pos[0]["din"]:
+            accion = nuevos[pos[0]["s"].lower()]
+            pos = pos[1:]
+        elif banderas & {"--get", "--get-all", "--get-regexp", "--get-urlmatch", "-l", "--list", "--get-color",
+                         "--get-colorbool"}:
+            accion = "leer"
+        elif banderas & {"-e", "--edit"}:
+            accion = "editar"
+        elif banderas & {"--unset", "--unset-all", "--remove-section"}:
+            accion = "borrar"
+        elif "--rename-section" in banderas:
+            accion = "renombrar"
+        elif banderas & {"--add", "--replace-all"} or len(pos) >= 2:
+            accion = "escribir"
+        if accion == "leer":
+            return
+        if fichero is not None:
+            self.destinos.append((fichero, self.cwd))
+        if accion == "editar":
+            self.candidatos.append(("ask", "git config --edit abre la configuracion de git en un editor: puede escribir "
+                                           "cualquier clave (alias, hooks, push); pide permiso.", "git.config-escribe"))
+            return
+        if any(p["din"] for p in pos[:2]):
+            self.candidatos.append(("ask", "git config con una clave o un valor calculado: no puedo comprobarlo; pide permiso.",
+                                    "git.config-escribe"))
+            return
+        clave = pos[0]["s"] if pos else ""
+        valor = pos[1]["s"] if len(pos) > 1 else ""
+        if accion == "renombrar":
+            if any(SECCION_PELIGROSA.match(p["s"]) for p in pos[:2]):
+                self.candidatos.append(("deny", f"git config --rename-section {clave}: crea o mueve una seccion que ejecuta "
+                                                "comandos o cambia el destino del push.", "git.config-peligrosa"))
+            else:
+                self.candidatos.append(("ask", f"git config --rename-section {clave}: cambia la configuracion de git; "
+                                               "pide permiso.", "git.config-escribe"))
+            return
+        if accion == "escribir" and clasificar_config(clave, valor, True) == "peligrosa":
+            self.candidatos.append(("deny", f"git config {clave}: configuracion persistente que puede ejecutar comandos o "
+                                            "cambiar el destino del push (alias, core, push, remotos, credenciales, "
+                                            "include). La cambia una persona.", "git.config-peligrosa"))
+            return
+        verbo = "borra" if accion == "borrar" else "escribe"
+        self.candidatos.append(("ask", f"git config {verbo} {clave or 'una clave'} en la configuracion de git; pide permiso.",
+                                "git.config-escribe"))
 
     def cambio_rama(self, sub, args, dir_git):
         nueva, cambia, descarta, j, pos = None, False, False, 0, []
@@ -1562,6 +2255,9 @@ class Analisis:
                     "git.push-principal")
         if git["push"] == "ninguna":
             return None
+        if self.entrada_desconocida:
+            return (git["push"], f"{self.entrada_desconocida}: el destino del push no se ve y puede ser la rama "
+                                 "principal; pide permiso.", "git.push")
         if din:
             return git["push"], "git push con un destino calculado: no puedo comprobarlo; pide permiso.", "git.push"
         if any(d is None for d in destinos):
@@ -1582,23 +2278,100 @@ class Analisis:
             elif accion == "create" and git["pr_create"] != "ninguna":
                 self.candidatos.append((git["pr_create"], "gh pr create: abrir un PR pide permiso.", "gh.pr-create"))
         elif cmd == "api":
-            textos = [a["s"] for a in args[p + 1:]]
-            todo = " ".join(textos)
-            metodo, escribe = "GET", False
-            for k, s in enumerate(textos):
-                if s in ("-X", "--method") and k + 1 < len(textos):
-                    metodo = textos[k + 1].upper()
-                elif s.startswith("--method="):
-                    metodo = s.split("=", 1)[1].upper()
-                elif re.match(r"^-X[A-Za-z]+$", s):
-                    metodo = s[2:].upper()
-                elif s in ("-f", "-F", "--field", "--raw-field", "--input") or re.match(r"^--(?:raw-)?field=", s):
-                    escribe = True
-            if (re.search(r"/pulls/[^/\s]+/merge\b", todo) and metodo != "GET") or re.search(r"mergePullRequest", todo):
-                if git["pr_merge"] != "ninguna":
-                    self.candidatos.append((git["pr_merge"], "gh api que mergea un PR: el merge lo hace una persona.", "gh.pr-merge"))
-            elif metodo != "GET" or escribe:
-                self.candidatos.append(("ask", "gh api que escribe en GitHub: pide permiso.", "gh.api-escribe"))
+            self.gh_api(args[p + 1:], git)
+
+    def gh_api(self, resto, git):
+        """gh api: mergear un PR o una rama en la principal (/merges, mergeBranch), mover o borrar su ref, escribir
+        un commit en ella (/contents) o quitarle la proteccion -> deny; si no se ve la rama -> ask con el motivo
+        (REAUD-12); cualquier otra escritura -> ask."""
+        todo = " ".join(a["s"] for a in resto)
+        metodo, escribe, oculto, campos, endpoint, k = None, False, False, {}, "", 0
+        while k < len(resto):
+            s, din = resto[k]["s"], resto[k]["din"]
+            sig = resto[k + 1] if k + 1 < len(resto) else None
+            campo, din_c = None, din
+            if s in ("-X", "--method") and sig is not None:
+                metodo, k = sig["s"].upper(), k + 2
+                continue
+            if s.startswith("--method=") or re.match(r"^-X[A-Za-z]+$", s):
+                metodo, k = (s.split("=", 1)[1] if "=" in s else s[2:]).upper(), k + 1
+                continue
+            if s in ("-f", "-F", "--field", "--raw-field") and sig is not None:
+                campo, din_c, k = sig["s"], sig["din"], k + 2
+            elif re.match(r"^--(?:raw-)?field=", s):
+                campo, k = s.split("=", 1)[1], k + 1
+            elif re.match(r"^-[fF].", s, re.S):
+                campo, k = s[2:], k + 1
+            elif s == "--input" or s.startswith("--input="):
+                escribe, oculto, k = True, True, k + (1 if "=" in s else 2)
+                continue
+            elif s in ("-H", "--header", "-q", "--jq", "-t", "--template", "--hostname", "--cache", "-p", "--preview") \
+                    and sig is not None:
+                k += 2
+                continue
+            elif s.startswith("-"):
+                k += 1
+                continue
+            else:
+                if not endpoint:
+                    endpoint = s
+                    oculto = oculto or din
+                k += 1
+                continue
+            escribe = True
+            nombre, _, valor = campo.partition("=")
+            campos[nombre.lower()] = None if (din_c or (s in ("-F", "--field") and valor.startswith("@"))) else valor
+        metodo = metodo or ("POST" if escribe else "GET")
+        protegidas = git["rama_principal"] + git["ramas_protegidas"]
+
+        def protegida(v):
+            return v is not None and re.sub(r"^(?:refs/)?heads/", "", v, flags=re.I).lower() in protegidas
+
+        ep = endpoint.split("?", 1)[0].rstrip("/")
+        merge_pr = git["pr_merge"] if git["pr_merge"] != "ninguna" else None
+        m_ref = re.search(r"/git/refs/heads/(.+)$", ep, re.I | re.S)
+        m_prot = re.search(r"/branches/([^/]+)/protection\b", ep, re.I)
+        if (re.search(r"/pulls/[^/\s]+/merge\b", todo) and metodo != "GET") or re.search(r"mergePullRequest|mergeBranch", todo):
+            if merge_pr:
+                self.candidatos.append((merge_pr, "gh api que mergea un PR o una rama: el merge lo hace una persona.",
+                                        "gh.pr-merge"))
+        elif re.search(r"(?:^|/)merges$", ep, re.I) and metodo != "GET":
+            base, cabeza = campos.get("base"), campos.get("head") or "una rama"
+            if oculto or base is None:
+                self.candidatos.append(("ask", f"gh api {endpoint} mergea una rama en otra y no veo en cual (--input o un "
+                                               "valor calculado): puede ser la rama principal; pide permiso.", "gh.merge-rama"))
+            elif protegida(base) and merge_pr:
+                self.candidatos.append((merge_pr, f"gh api {endpoint} con base={base}: mergea {cabeza} directamente en la "
+                                                  "rama principal, sin PR. El merge lo hace una persona.", "gh.merge-rama"))
+            else:
+                self.candidatos.append(("ask", f"gh api {endpoint}: mergea {cabeza} en {base}; pide permiso.", "gh.merge-rama"))
+        elif re.search(r"/git/refs\b", ep, re.I) and metodo != "GET":
+            rama = m_ref.group(1) if m_ref else campos.get("ref")
+            if protegida(rama):
+                self.candidatos.append(("deny", f"gh api {endpoint}: crea, mueve o borra la rama {rama} (equivale a un push "
+                                                "a la rama principal).", "git.push-principal"))
+            else:
+                self.candidatos.append(("ask", f"gh api {endpoint}: cambia una rama ({rama or 'que no veo'}) en GitHub; "
+                                               "pide permiso.", "gh.api-escribe"))
+        elif re.search(r"/contents/", ep, re.I) and metodo in ("PUT", "DELETE"):
+            rama = campos.get("branch", "") if "branch" in campos or not oculto else None
+            if rama == "" or protegida(rama):
+                self.candidatos.append(("deny", f"gh api {endpoint}: escribe un commit en la rama "
+                                                f"{rama or 'por defecto (la principal)'} sin PR.", "git.push-principal"))
+            else:
+                self.candidatos.append(("ask", f"gh api {endpoint}: escribe un commit en {rama or 'una rama que no veo'}; "
+                                               "pide permiso.", "gh.api-escribe"))
+        elif m_prot and metodo != "GET" and protegida(m_prot.group(1)):
+            self.candidatos.append(("deny", f"gh api {endpoint}: cambia la proteccion de la rama principal.",
+                                    "gh.proteccion"))
+        elif re.search(r"\b(?:createCommitOnBranch|updateRefs?|deleteRef)\b", todo):
+            if any(re.search(r"(?<![\w./-])(?:refs/heads/)?" + re.escape(r) + r"(?![\w./-])", todo, re.I) for r in protegidas):
+                self.candidatos.append(("deny", "gh api graphql que escribe en la rama principal (commit o ref).",
+                                        "git.push-principal"))
+            else:
+                self.candidatos.append(("ask", "gh api graphql que escribe ramas en GitHub; pide permiso.", "gh.api-escribe"))
+        elif metodo != "GET" or escribe:
+            self.candidatos.append(("ask", "gh api que escribe en GitHub: pide permiso.", "gh.api-escribe"))
 
     # ---------------------------------------------------- reglas sobre lo analizado
     def toca_ficheros(self, r):
@@ -1719,6 +2492,125 @@ def ruta_protegida(rel, absoluta, reglas, sufijo="", carpeta=False):
     return candidatos
 
 
+def comodin_protegido(patron, raiz, cwd, reglas, ocultos):
+    """Destino de un comando con comodin (REAUD-01/05): cuenta lo que casa en el disco y cualquier ruta protegida
+    (con comandos=true) con la que podria casar aunque aun no exista. Nunca se da por inocuo."""
+    out = []
+    sufijo = f" (escritura desde un comando, por el comodin {patron})"
+    carpeta, _, nombre = patron.replace("\\", "/").rpartition("/")
+    if carpeta and nombre and not COMODIN.search(nombre):
+        rutas = [c + "/" + nombre for c in expandir_comodin(carpeta, cwd, ocultos)]  # el fichero aun puede no existir
+    else:
+        rutas = expandir_comodin(patron, cwd, ocultos)
+    for ruta in rutas:
+        rel = normalizar_ruta(ruta, raiz, cwd)
+        out += ruta_protegida(rel, absoluta_de(rel, raiz), reglas, sufijo, True)
+    rel = normalizar_ruta(patron, raiz, cwd)
+    if _es_absoluta(rel):
+        return out
+    try:
+        rx = patron_ruta_re(rel, ocultos)
+    except re.error:
+        return out + [("ask", f"{patron}: destino con un comodin que el guard no entiende; pide permiso.", "comun.comodin")]
+    for r in reglas["rutas"]:
+        if not r["comandos"]:
+            continue
+        for m, carpeta in r["muestras"]:
+            if rx.match(m):
+                modo = "ask" if carpeta or r["modo"] == "deny_existentes" else r["modo"]
+                out.append((modo, f"{patron}: el comodin puede caer en {m}: {r['motivo']}{sufijo}", r["id"]))
+                break
+    return out
+
+
+def _contiene(rel, r):
+    """La carpeta rel es, o contiene, una ruta de la regla r (la raiz del repo lo contiene todo)."""
+    if not rel:
+        return True
+    if r["glob"].match(rel) and not any(g.match(rel) for g in r["excepto"]):
+        return True
+    if _es_absoluta(rel):
+        return False
+    pref = rel.lower().rstrip("/") + "/"
+    return any(p.startswith(pref) for p in r["prefijos"]) or any(
+        m.lower() == rel.lower() or m.lower().startswith(pref) for m, _ in r["muestras"])
+
+
+def _regla_con_valores(r, a):
+    """Regla con opciones_con_valor (REAUD-02): se evalua sobre cada comando simple con los valores de esas opciones
+    tapados ('--currency \\ --dry-run' -> '--currency __valor__'), y los argumentos con espacios o calculados
+    tambien, asi 'y' y 'salvo' no ven un --dry-run que no llega como opcion. Si 'salvo' casa pero hay un argumento
+    calculado (podria ser una opcion que se come el siguiente), pregunta."""
+    for s in a.simples:
+        if "args" in s:
+            texto, dudoso = texto_canonico(s.get("programa", s["exe"]), s["args"], r["opciones_con_valor"])
+        else:
+            texto, dudoso = s["texto"], True
+        for t in variantes(texto):
+            if not r["regex"].search(t) or not all(y.search(t) for y in r["y"]):
+                continue
+            aplica, faltan = _entorno(r, s["entorno"])
+            if not aplica:
+                continue
+            if any(x.search(t) for x in r["salvo"]):
+                if dudoso:
+                    return [("ask", f"{r['motivo']} (hay un argumento calculado: no puedo saber si la opcion que lo evita "
+                                    "llega como opcion; pide permiso)", r["id"])]
+                break
+            motivo = r["motivo"] + (f" (falta: {', '.join(faltan)})" if faltan else "")
+            if any(x.search(s["texto"]) for x in r["salvo"]):
+                motivo += " (la opcion que lo evitaria es aqui el valor de otra opcion o no llega como opcion)"
+            return [(r["decision"], motivo, r["id"])]
+    return []
+
+
+def texto_canonico(exe, args, opciones_con_valor):
+    """'python x.py a --currency \\ --dry-run' -> ('python x.py a --currency __valor__', dudoso). Tapa el valor de
+    cada opcion de la lista (tambien abreviada como argparse, '--opcion=v', '-c v', '-cv' y '-xc v'), los argumentos
+    con espacios o vacios (__arg__), lo que va detras de '--' con forma de opcion (__arg__) y los calculados
+    (__dinamico__, que hacen la decision dudosa)."""
+    ov = list(opciones_con_valor)
+    largas = [o for o in ov if o.startswith("--")]
+    out, j, fin, dudoso = [exe], 0, False, False
+    while j < len(args):
+        a = args[j]
+        s = a["s"]
+        j += 1
+        if a["din"]:
+            out.append("__dinamico__")
+            dudoso = True
+        elif not s or re.search(r"\s", s):
+            out.append("__arg__")
+        elif fin:
+            out.append("__arg__" if s.startswith("-") else s)
+        elif s == "--":
+            fin = True
+            out.append(s)
+        elif s.startswith("--"):
+            nombre, igual, _ = s.partition("=")
+            if nombre in ov or (len(nombre) > 2 and any(o.startswith(nombre) for o in largas)):
+                out.append(nombre + "=__valor__" if igual else nombre)
+                if not igual and j < len(args):
+                    out.append("__valor__")
+                    j += 1
+            else:
+                out.append(s)
+        elif s.startswith("-") and len(s) > 1:
+            k = next((k for k in range(1, len(s)) if "-" + s[k] in ov), None)
+            if k is None:
+                out.append(s)
+            elif k + 1 < len(s):
+                out.append(s[:k + 1] + "__valor__")
+            else:
+                out.append(s)
+                if j < len(args):
+                    out.append("__valor__")
+                    j += 1
+        else:
+            out.append(s)
+    return " ".join(out), dudoso
+
+
 def absoluta_de(rel, raiz):
     return rel if _es_absoluta(rel) else os.path.join(raiz, *rel.split("/")) if rel else raiz
 
@@ -1738,6 +2630,9 @@ def decidir_comando(cmd, reglas, rama, raiz=None, cwd=None, modo="bash"):
     textos_segmento = [(s, global_env) for s in segmentos(crudo)] + [(s, global_env) for s in a.segmentos if s]
     textos_segmento += [(s["texto"], s["entorno"]) for s in a.simples]
     for r in reglas["bash"]:
+        if r["opciones_con_valor"]:
+            candidatos += _regla_con_valores(r, a)
+            continue
         for texto, env in (textos_comando if r["ambito"] == "comando" else textos_segmento):
             hecho = False
             for t in variantes(texto):
@@ -1774,6 +2669,16 @@ def decidir_comando(cmd, reglas, rama, raiz=None, cwd=None, modo="bash"):
             continue
         rel = normalizar_ruta(tok["s"], raiz, dcwd)
         candidatos += ruta_protegida(rel, absoluta_de(rel, raiz), reglas, " (escritura desde un comando)", True)
+        if COMODIN.search(tok["s"]):
+            candidatos += comodin_protegido(tok["s"], raiz, dcwd, reglas, bool(tok.get("ps")))
+    for tok, dcwd in a.extracciones:
+        if tok.get("din"):
+            continue
+        rel = normalizar_ruta(tok["s"], raiz, dcwd)
+        r = next((r for r in reglas["rutas"] if r["comandos"] and _contiene(rel, r)), None)
+        if r is not None:
+            candidatos.append(("ask", f"{rel or '.'}: extrae un archivo cuyo contenido el guard no ve en una carpeta con "
+                                      f"rutas protegidas ({r['id']}: {r['motivo']}); pide permiso.", r["id"]))
     if a.construcciones:
         candidatos.append(("ask", f"{a.construcciones[0]}: ejecuta un comando dentro de otro y el guard no puede "
                                   "comprobarlo entero; pide permiso.", "comun.construccion"))
