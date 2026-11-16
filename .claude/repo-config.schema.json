@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "repo-config.schema.json",
+  "title": "Configuracion de Claude Code del repo (kit comun LMGINC)",
+  "description": "Esquema de .claude/repo-config.json, .claude/repo-config.fork.json y .claude/hooks/guard-comun.json. Nucleo comun de la decision C-6 mas las claves del kit (git, tests, publico, verificador) y campos opcionales de reglas que usa guard_core. Cada familia de repos anade en SU copia solo sus claves (migraciones, webapp_dir, submodulo, api_urls, requiere_env, fragmentos_obligatorios, generados, contratos). Fusion: escalares y objetos simples gana la capa; listas de cadenas, union; listas de objetos con id, por id; quitar elimina.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "repo": {"type": "string", "description": "Nombre corto del repo. Da el prefijo de los motivos: [guard <repo>]."},
+    "producto": {"type": "string"},
+    "upstream": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "nombre": {"type": "string"},
+        "ruta": {"type": "string", "description": "Clon local, relativo a la raiz (../<repo>)"}
+      },
+      "required": ["nombre", "ruta"]
+    },
+    "hermanos": {"type": "array", "items": {"type": "string"}, "description": "Repos al lado en los que no se commitea desde aqui"},
+    "consumidores": {"type": "array", "items": {"type": "string"}, "description": "A quien avisar de un cambio de contrato"},
+    "prod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proyectos_gcp": {"type": "array", "items": {"type": "string"}},
+        "servicios": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "rutas_protegidas": {"type": "array", "items": {"$ref": "#/$defs/ruta"}},
+    "reglas_bash": {"type": "array", "items": {"$ref": "#/$defs/regla_bash"}},
+    "reglas_contenido": {"type": "array", "items": {"$ref": "#/$defs/regla_contenido"}},
+    "quitar": {
+      "type": "object",
+      "additionalProperties": {"type": "array", "items": {"type": "string"}},
+      "description": "{\"lista\": [ids o cadenas]}: elimina entradas de capas anteriores."
+    },
+    "git": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Kit. Politica C-4 que aplica guard_core segun la rama actual. Lo que falte toma el valor por defecto.",
+      "properties": {
+        "activo": {"type": "boolean"},
+        "rama_principal": {
+          "anyOf": [
+            {"type": "string", "minLength": 1},
+            {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+          ],
+          "description": "main por defecto. Push a ella: deny. Commit en ella: commit_en_principal."
+        },
+        "ramas_protegidas": {"type": "array", "items": {"type": "string", "minLength": 1}, "description": "Otras ramas con push en deny (p. ej. una linea de produccion); el commit en ellas no pregunta."},
+        "push": {"$ref": "#/$defs/decision_git"},
+        "commit_en_principal": {"$ref": "#/$defs/decision_git"},
+        "pr_create": {"$ref": "#/$defs/decision_git"},
+        "pr_merge": {"$ref": "#/$defs/decision_git"}
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Kit. Lo usa el subagente test-runner.",
+      "properties": {
+        "comando": {"type": "string", "minLength": 1},
+        "comando_rapido": {"type": "string", "minLength": 1}
+      }
+    },
+    "publico": {"type": "boolean", "description": "Kit. Repo publico: el verificador exige que .claude/context/repo-profile.md quede ignorado."},
+    "okf": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Kit. Ajustes de la skill okf (okf_check.py) para los bundles OKF de este repo. Sin esta clave, okf_check aplica el estandar OKF v0.2 y las convenciones LMGINC tal cual.",
+      "properties": {
+        "estados": {
+          "type": "object",
+          "additionalProperties": {"enum": ["draft", "stable", "deprecated"]},
+          "description": "Estados propios del repo y su equivalente del estandar, p. ej. {\"publicado\": \"stable\", \"borrador\": \"draft\"}."
+        },
+        "ignorar": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "description": "Globs relativos a la raiz del bundle que okf_check no valida (logs o indices generados)."
+        },
+        "campos_indice": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "description": "Claves admitidas en el frontmatter de los index.md (el estandar no admite ninguna salvo okf_version en la raiz)."
+        }
+      }
+    },
+    "verificador": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claude_md_max_lineas": {"type": "integer", "minimum": 1},
+        "claude_md_max_bytes": {"type": "integer", "minimum": 1}
+      }
+    }
+  },
+  "$defs": {
+    "decision": {"enum": ["deny", "ask"]},
+    "decision_git": {"enum": ["deny", "ask", "ninguna"]},
+    "texto": {"type": "string", "minLength": 1},
+    "entorno": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "ruta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "glob", "modo", "motivo"],
+      "properties": {
+        "id": {"$ref": "#/$defs/texto"},
+        "glob": {"type": "string", "minLength": 1, "description": "Relativo a la raiz, con /. ** cualquier profundidad, * dentro de una carpeta, {a,b} alternativas. Sin distinguir mayusculas."},
+        "modo": {"enum": ["deny", "deny_existentes", "ask"], "description": "deny_existentes: se pueden crear ficheros nuevos"},
+        "excepto": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Globs que quedan fuera (p. ej. **/.env.example)."},
+        "motivo": {"$ref": "#/$defs/texto"}
+      }
+    },
+    "regla_bash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "regex", "decision", "motivo"],
+      "properties": {
+        "id": {"$ref": "#/$defs/texto"},
+        "regex": {"type": "string", "minLength": 1, "description": "Sin distinguir mayusculas; se aplica a Bash y a PowerShell. Subconjunto comun de Python y JavaScript."},
+        "decision": {"$ref": "#/$defs/decision"},
+        "motivo": {"$ref": "#/$defs/texto"},
+        "ambito": {"enum": ["comando", "segmento"], "description": "Kit. comando (defecto): el comando entero. segmento: cada trozo entre && || ; | y saltos de linea."},
+        "y": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Regex que tambien tienen que casar."},
+        "salvo": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Si casa alguna, la regla no aplica."},
+        "entorno_falta": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica si alguna variable (del comando o del entorno) no casa entera con su regex."},
+        "entorno_es": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica solo si todas las variables casan enteras con su regex."},
+        "distinguir_mayusculas": {"type": "boolean"}
+      }
+    },
+    "regla_contenido": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "glob", "regex", "decision", "motivo"],
+      "properties": {
+        "id": {"$ref": "#/$defs/texto"},
+        "glob": {"type": "string", "minLength": 1},
+        "regex": {"type": "string", "minLength": 1, "description": "Sobre el texto que la edicion ANADE (lo que ya estaba no cuenta)."},
+        "excepto_si": {"type": "string", "description": "Regex sobre el grupo (?P<obj>) (o la coincidencia entera) que hace valida la coincidencia"},
+        "decision": {"$ref": "#/$defs/decision"},
+        "motivo": {"$ref": "#/$defs/texto"},
+        "distinguir_mayusculas": {"type": "boolean"}
+      }
+    }
+  }
+}
