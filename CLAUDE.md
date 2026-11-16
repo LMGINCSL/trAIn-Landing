@@ -52,6 +52,13 @@ en la home, par nuevo. Detalle en `.claude/rules/paginas-generadas.md`.
 - Históricos, no son backlog: `MEJORAS-PENDIENTES.md` y `guia_landing_beta.md`.
 - `.impeccable/` configura Impeccable, la herramienta de diseño del equipo.
 
+## Papel en LMGINC
+- **Qué es:** la web pública de **2trAIn** en `2trainapp.com` (ES y EN), servicio de LMGINC SL (`aviso-legal/`). Su trabajo es captar el email para la beta (`PRODUCT.md`).
+- **Depende de:** Supabase (Edge Function `join-waitlist` y `supabase/migrations/`), Resend para el email y Vercel para publicar.
+- **Dependen de él:** las apps enlazan sus páginas legales; `app/privacidad/` y `app/eliminar-cuenta/` son de la app «2trAIn Cliente» y deben coincidir con la versión publicada en `4trainers.2trainapp.com`.
+- **Ojo:** este repo es **público**: nada interno en commits, páginas ni configuración.
+- **Más:** `PRODUCT.md`, `DESIGN.md` y `supabase/functions/join-waitlist/index.ts`.
+
 ## Git
 - Una rama corta por tarea desde `main` y un PR para integrarla. Un push a `main` publica la web.
 - Prohibido: `git push` a `main`, `git push --force` y `gh pr merge`.
