@@ -8,8 +8,12 @@
       "Bash(git show *)",
       "Bash(git branch --show-current)",
       "Bash(git switch -c *)",
-      "Bash(git checkout -b *)",
-      "Bash(git fetch *)",
+      "Bash(git fetch)",
+      "Bash(git fetch origin)",
+      "Bash(git fetch --prune)",
+      "Bash(git fetch origin --prune)",
+      "Bash(git fetch --all --prune)",
+      "Bash(git fetch --tags)",
       "Bash(git stash *)",
       "Bash(git ls-files *)",
       "Bash(git check-ignore *)",
@@ -28,8 +32,12 @@
       "PowerShell(git show *)",
       "PowerShell(git branch --show-current)",
       "PowerShell(git switch -c *)",
-      "PowerShell(git checkout -b *)",
-      "PowerShell(git fetch *)",
+      "PowerShell(git fetch)",
+      "PowerShell(git fetch origin)",
+      "PowerShell(git fetch --prune)",
+      "PowerShell(git fetch origin --prune)",
+      "PowerShell(git fetch --all --prune)",
+      "PowerShell(git fetch --tags)",
       "PowerShell(git stash *)",
       "PowerShell(git ls-files *)",
       "PowerShell(git check-ignore *)",
@@ -75,7 +83,25 @@
       "Edit(/en/marathon/**)",
       "Edit(/en/strength/**)",
       "Edit(/blog/**)",
-      "Edit(/en/blog/**)"
+      "Edit(/en/blog/**)",
+      "Bash(git * --out*)",
+      "PowerShell(git * --out*)",
+      "Bash(git diff --no-index *)",
+      "PowerShell(git diff --no-index *)",
+      "Bash(git checkout -f*)",
+      "PowerShell(git checkout -f*)",
+      "Bash(git checkout * -f*)",
+      "PowerShell(git checkout * -f*)",
+      "Bash(git checkout * --force*)",
+      "PowerShell(git checkout * --force*)",
+      "Bash(git switch -f*)",
+      "PowerShell(git switch -f*)",
+      "Bash(git switch * -f*)",
+      "PowerShell(git switch * -f*)",
+      "Bash(git switch * --force*)",
+      "PowerShell(git switch * --force*)",
+      "Bash(git switch * --discard*)",
+      "PowerShell(git switch * --discard*)"
     ],
     "deny": [
       "Bash(git push --force *)",
@@ -171,7 +197,15 @@
       "Edit(./.env.dev)",
       "Edit(./**/.env.dev)",
       "Edit(./.env.test)",
-      "Edit(./**/.env.test)"
+      "Edit(./**/.env.test)",
+      "Bash(git * --upload-pack*)",
+      "PowerShell(git * --upload-pack*)",
+      "Bash(git * --receive-pack*)",
+      "PowerShell(git * --receive-pack*)",
+      "Bash(git -c alias.*)",
+      "PowerShell(git -c alias.*)",
+      "Bash(git -c core.*)",
+      "PowerShell(git -c core.*)"
     ]
   },
   "hooks": {
@@ -194,15 +228,13 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(git *)",
-            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/py.sh\" \"${CLAUDE_PROJECT_DIR}/.claude/hooks/public_guard.py\" pre-git",
-            "timeout": 30,
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/py.sh\" \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_core.py\"",
+            "timeout": 15,
             "onFailure": "block",
-            "statusMessage": "guard de repo publico"
+            "statusMessage": "guard del repo"
           },
           {
             "type": "command",
-            "if": "PowerShell(git *)",
             "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/py.sh\" \"${CLAUDE_PROJECT_DIR}/.claude/hooks/public_guard.py\" pre-git",
             "timeout": 30,
             "onFailure": "block",
@@ -213,6 +245,13 @@
       {
         "matcher": "Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/py.sh\" \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_core.py\"",
+            "timeout": 15,
+            "onFailure": "block",
+            "statusMessage": "guard del repo"
+          },
           {
             "type": "command",
             "command": "sh \"${CLAUDE_PROJECT_DIR}/.claude/hooks/py.sh\" \"${CLAUDE_PROJECT_DIR}/.claude/hooks/public_guard.py\" pre-edit",

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "repo-config.schema.json",
   "title": "Configuracion de Claude Code del repo (kit comun LMGINC)",
-  "description": "Esquema de .claude/repo-config.json, .claude/repo-config.fork.json y .claude/hooks/guard-comun.json. Nucleo comun de la decision C-6 mas las claves del kit (git, tests, publico, verificador) y campos opcionales de reglas que usa guard_core. Cada familia de repos anade en SU copia solo sus claves (migraciones, webapp_dir, submodulo, api_urls, requiere_env, fragmentos_obligatorios, generados, contratos). Fusion: escalares y objetos simples gana la capa; listas de cadenas, union; listas de objetos con id, por id; quitar elimina.",
+  "description": "Esquema de .claude/repo-config.json, .claude/repo-config.fork.json y .claude/hooks/guard-comun.json. Nucleo comun de la decision C-6 mas las claves del kit (git, tests, publico, verificador) y campos opcionales de reglas que usa guard_core. Cada familia de repos anade en SU copia solo sus claves (migraciones, webapp_dir, submodulo, api_urls, fragmentos_obligatorios, generados, contratos). requiere_env es del kit desde guard_core 2.0. Fusion: escalares y objetos simples gana la capa; listas de cadenas, union; listas de objetos con id, por id; quitar elimina.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -31,6 +31,7 @@
     "rutas_protegidas": {"type": "array", "items": {"$ref": "#/$defs/ruta"}},
     "reglas_bash": {"type": "array", "items": {"$ref": "#/$defs/regla_bash"}},
     "reglas_contenido": {"type": "array", "items": {"$ref": "#/$defs/regla_contenido"}},
+    "requiere_env": {"type": "array", "items": {"$ref": "#/$defs/requiere_env"}, "description": "Kit. Comandos que exigen variables de entorno con un valor permitido: en el propio comando (VAR=valor cmd, env VAR=valor), exportadas antes en el mismo comando (export, $env:VAR=) o en el entorno. Lista con id."},
     "quitar": {
       "type": "object",
       "additionalProperties": {"type": "array", "items": {"type": "string"}},
@@ -115,6 +116,7 @@
         "glob": {"type": "string", "minLength": 1, "description": "Relativo a la raiz, con /. ** cualquier profundidad, * dentro de una carpeta, {a,b} alternativas. Sin distinguir mayusculas."},
         "modo": {"enum": ["deny", "deny_existentes", "ask"], "description": "deny_existentes: se pueden crear ficheros nuevos"},
         "excepto": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Globs que quedan fuera (p. ej. **/.env.example)."},
+        "comandos": {"type": "boolean", "description": "Kit. true: tambien protege la ruta de las escrituras por Bash o PowerShell (redirecciones, cp, mv, rm, tee, sed -i, Set-Content...), no solo de Edit/Write. La capa comun lo pone en .env y en la configuracion de Claude."},
         "motivo": {"$ref": "#/$defs/texto"}
       }
     },
@@ -132,7 +134,23 @@
         "salvo": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Si casa alguna, la regla no aplica."},
         "entorno_falta": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica si alguna variable (del comando o del entorno) no casa entera con su regex."},
         "entorno_es": {"$ref": "#/$defs/entorno", "description": "Kit. Aplica solo si todas las variables casan enteras con su regex."},
-        "distinguir_mayusculas": {"type": "boolean"}
+        "distinguir_mayusculas": {"type": "boolean"},
+        "ficheros": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Globs de NOMBRE de fichero (sin carpeta): la regla aplica tambien si un argumento o una redireccion del comando nombra uno de ellos, o lleva un comodin del shell (*, ?, [..]) que puede expandirse a uno (p. ej. .env*, .e?v)."},
+        "ficheros_excepto": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Kit. Nombres que no cuentan (p. ej. .env.example)."}
+      }
+    },
+    "requiere_env": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "regex", "variables", "decision", "motivo"],
+      "properties": {
+        "id": {"$ref": "#/$defs/texto"},
+        "regex": {"type": "string", "minLength": 1, "description": "Sin distinguir mayusculas; se prueba en cada comando simple ya normalizado (sin comillas ni escapes) y en cada trozo del texto."},
+        "variables": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}},
+        "valores_permitidos": {"type": "array", "items": {"$ref": "#/$defs/texto"}, "description": "Regex que el valor tiene que casar entero. '@hosts_locales' = localhost, 127.x.x.x, [::1] o 0.0.0.0 con puerto y ruta opcionales. Sin la lista, basta un valor no vacio."},
+        "decision": {"$ref": "#/$defs/decision"},
+        "motivo": {"$ref": "#/$defs/texto"},
+        "aviso_inicio": {"type": "string", "minLength": 1, "description": "Familia webapp: si alguna variable falta al empezar la sesion, su hook SessionStart imprime este aviso."}
       }
     },
     "regla_contenido": {
