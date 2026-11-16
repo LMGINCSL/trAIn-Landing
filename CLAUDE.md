@@ -65,6 +65,16 @@ en la home, par nuevo. Detalle en `.claude/rules/paginas-generadas.md`.
 `landing-reviewer` (revisa el diff antes del commit; solo informa) y hook Stop (generadas, paridad
 ES/EN, `?v=` y ficheros que se publicarían).
 
+# Compact instructions
+Al compactar, conserva:
+- la tarea en curso y su criterio de terminado;
+- los ficheros tocados y por qué;
+- los comandos de prueba ejecutados con su resultado (comando y recuento);
+- las decisiones tomadas y lo que queda pendiente.
+- Sin suite: la prueba es la salida de los 4 scripts (avisos fuera de la línea base: `pares sin uso` ≠ 172 o
+  restos distintos de 'Versión en español') y lo revisado en el navegador.
+- Qué cambios ES siguen sin su EN, si el `?v=` está subido y si hay ficheros nuevos fuera de `.vercelignore`.
+
 ## Perfil personal
 Preferencias de quien trabaja en esta sesión (fuera del repo; no anulan las reglas del equipo):
 @~/.claude/lmginc/profile.md

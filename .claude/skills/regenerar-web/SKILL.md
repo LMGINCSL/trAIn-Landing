@@ -11,6 +11,8 @@ allowed-tools:
   - Bash(git diff *)
   - Read
   - Grep
+model: sonnet
+effort: low
 ---
 
 # Regenerar la web
