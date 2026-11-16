@@ -32,5 +32,20 @@ package-lock.json
 caps/
 email-preview*.html
 
-# Restos de pruebas con Playwright
+# Ficheros de repo que no son web (dotfiles de git y caches)
+.gitignore
+.gitattributes
+.vercelignore
+.gitleaks.toml
+.gitleaksignore
+__pycache__/
+
+# Capturas y estado de Playwright CLI (ya se colaron una vez)
 .playwright-cli/
+
+# >>> claude-code (kit comun LMGINC) >>>
+# La configuracion de Claude no se publica en el dominio.
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+# <<< claude-code (kit comun LMGINC) <<<

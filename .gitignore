@@ -14,9 +14,6 @@ supabase/.temp/
 # Vercel CLI local state
 .vercel/
 
-# Claude Code local config
-.claude/
-
 # Capturas de prueba de fuentes (artefactos locales)
 caps/
 email-preview*.html
@@ -30,8 +27,41 @@ SESION-PENDIENTE.md
 .impeccable/hook.cache.json
 .impeccable/live/
 
-# Restos de pruebas con Playwright
+# Caches de Python (los scripts de scripts/ las crean al importarse entre si)
+__pycache__/
+
+# Capturas y estado de Playwright CLI: no son configuracion
 .playwright-cli/
+
+# >>> claude-code (kit comun LMGINC) >>>
+# Solo se versiona la configuracion de equipo de .claude/; lo personal y lo generado, no.
+# Si el .gitignore ya tenia una linea ".claude/" o "/.claude", hay que QUITARLA: un directorio
+# ignorado entero no se puede reabrir con "!".
+# Repo PUBLICO: solo se reabre lo que usa este repo. Ni context/ (el perfil queda local, C-13),
+# ni agent-memory/ (K21), ni workflows/ o loop.md: todo lo versionado aqui se lee en GitHub.
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
+!.claude/rules/
+!.claude/skills/
+!.claude/agents/
+!.claude/onboarding/
+!.claude/repo-config.json
+!.claude/repo-config.fork.json
+!.claude/repo-config.schema.json
+# Personal o generado
+.claude/settings.local.json
+.claude/agent-memory-local/
+.claude/worktrees/
+.claude/hooks/__pycache__/
+CLAUDE.local.md
+graphify-out/
+# <<< claude-code (kit comun LMGINC) <<<
+
+# >>> claude-code repo publico >>>
+# En un repo publico el perfil del analisis no se versiona (C4).
+.claude/context/repo-profile.md
+# <<< claude-code repo publico <<<
 
 # Informe legal interno (no público)
 LEGAL-PENDIENTE.md
