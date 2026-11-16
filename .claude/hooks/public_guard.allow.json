@@ -6,8 +6,8 @@
     "extensiones_que_no_son_email": ["png", "jpg", "jpeg", "webp", "avif", "gif", "svg", "ico", "mp4", "webm", "css", "js", "mjs", "json", "html", "md", "txt", "woff", "woff2"]
   },
   "autores": {
-    "dominios": ["users.noreply.github.com", "2trainapp.com"],
-    "motivo": "El email de autor y de committer de cada commit queda publico en GitHub."
+    "dominios": ["users.noreply.github.com"],
+    "motivo": "El email de autor y de committer de cada commit queda publico en GitHub: solo el noreply de GitHub pasa sin preguntar; cualquier otro, tambien el del dominio de la empresa, pregunta."
   },
   "excepciones": [
     {"glob": "assets/js/*.min.js", "ignorar": ["emails"], "motivo": "Cabecera de licencia de GSAP vendorizado."},

@@ -10,10 +10,11 @@ Vercel publica la raíz tal cual, sin build. El alta (Supabase `join-waitlist` +
   rutas de tu máquina, ni emails personales, ni nombres de otros repos o personas, ni `.env`.
 - Fichero nuevo fuera de las páginas: `git ls-files -c -o -i --exclude-from=.vercelignore -- <ruta>`
   lo imprime si Vercel lo excluye; si no imprime nada, se publicará.
-- `public_guard.py` revisa cada `git commit` y `git push` (deniega secretos, `.env`, rutas locales y
-  emails fuera de `.claude/hooks/public_guard.allow.json`; pregunta si el autor no es el noreply de
-  GitHub o si Vercel publicaría un fichero nuevo) y avisa tras cada edición. Los términos internos
-  se leen de `~/.claude/lmginc/public-guard.local.json`, fuera del repo.
+- `public_guard.py` revisa cada `git commit` y `git push`, también envueltos o por alias (deniega
+  secretos, `.env`, rutas locales y emails fuera de `.claude/hooks/public_guard.allow.json`; pregunta
+  si el autor no es el noreply de GitHub, si Vercel publicaría un fichero nuevo o si no puede ver
+  lo que se commitea) y avisa tras cada edición. Los términos internos se leen de
+  `~/.claude/lmginc/public-guard.local.json`, fuera del repo; si falta, commit y push preguntan.
 
 ## Requisitos
 - En Windows, Git for Windows (Git Bash): los hooks de Claude Code de este repo se ejecutan con `sh` (C-2).
@@ -63,8 +64,8 @@ en la home, par nuevo. Detalle en `.claude/rules/paginas-generadas.md`.
 - Una rama corta por tarea desde `main` y un PR para integrarla. Un push a `main` publica la web.
 - Prohibido: `git push` a `main`, `git push --force` y `gh pr merge`.
 - Con permiso, siempre: `git add`, `git commit`, `git push` de una rama de trabajo y `gh pr create`.
-  Aquí no hay guard de comandos que distinga la rama, así que `git commit` pregunta también fuera
-  de `main`: manda esto sobre `.claude/rules/git.md`.
+  Repo público: `git commit` pregunta también fuera de `main` (lo pide `settings.json`); manda esto
+  sobre `.claude/rules/git.md`. `guard_core.py` aplica la política git común a cualquier forma del comando.
 - Firma con el noreply de GitHub. Si una preferencia personal choca con esto, gana esta regla y se avisa.
 
 ## Piezas

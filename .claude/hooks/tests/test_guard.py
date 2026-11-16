@@ -39,8 +39,24 @@ BASH = git_bash()
 T = tempfile.mkdtemp(prefix="ltr-guard-")
 D = os.path.join(T, "repo")
 HOME = os.path.join(T, "home")
-os.makedirs(HOME)
+LISTA = os.path.join(HOME, ".claude", "lmginc", "public-guard.local.json")
+os.makedirs(os.path.dirname(LISTA))
 fallos = []
+
+
+def lista_local(datos):
+    """Lista local de terminos internos del HOME de prueba (None la quita)."""
+    if datos is None:
+        if os.path.exists(LISTA):
+            os.remove(LISTA)
+        return
+    with open(LISTA, "w", encoding="utf-8") as f:
+        json.dump(datos, f)
+
+
+TERM = "Termino" + "DePrueba"  # construido: este fichero tambien se commitea en la copia de prueba
+NEUTRA = {"terminos": [TERM], "regex": []}
+lista_local(NEUTRA)
 
 
 def sh(args, cwd=D, check=True):
@@ -188,9 +204,7 @@ check("commit -a con ruta en un modificado: deny", d == "deny" and "index.html" 
 g("checkout", "-q", "--", "index.html")
 
 # 7. terminos internos desde el fichero personal
-os.makedirs(os.path.join(HOME, ".claude", "lmginc"))
-with open(os.path.join(HOME, ".claude", "lmginc", "public-guard.local.json"), "w", encoding="utf-8") as f:
-    json.dump({"terminos": ["RepoSecreto", "TERMX"], "regex": ["interno-[0-9]+"]}, f)
+lista_local({"terminos": ["RepoSecreto", "TERMX"], "regex": ["interno-[0-9]+"]})
 escribir("blog/index.html", open(os.path.join(D, "blog/index.html"), encoding="utf-8").read() + "<!-- ver RepoSecreto -->\n")
 g("add", "blog/index.html")
 d, m, _ = pre(NOREPLY)
@@ -198,9 +212,15 @@ check("termino interno de la lista local: deny", d == "deny" and "interno" in m 
 d, m, _ = pre("git -c user.email=1+t@users.noreply.github.com commit -m 'ver interno-42'")
 check("regex interna en el mensaje: deny", d == "deny", m)
 g("checkout", "-q", "HEAD", "--", "blog/index.html")
-os.remove(os.path.join(HOME, ".claude", "lmginc", "public-guard.local.json"))
+lista_local(None)
 d, m, _ = pre("git -c user.email=1+t@users.noreply.github.com commit -m 'ver RepoSecreto'")
-check("sin fichero personal: solo reglas genericas", d is None, m)
+check("sin fichero personal y sin nada que commitear: sin opinion", d is None, m)
+escribir("blog/index.html", open(os.path.join(D, "blog/index.html"), encoding="utf-8").read() + "<!-- cambio -->\n")
+g("add", "blog/index.html")
+d, m, _ = pre(NOREPLY)
+check("sin fichero personal y con cambios: ask (falta la lista local)", d == "ask" and "lista local" in m, m)
+g("checkout", "-q", "HEAD", "--", "blog/index.html")
+lista_local(NEUTRA)
 
 # 8. push: revisa los commits sin publicar
 escribir("legal.txt", "a " + "persona" + "@" + "yahoo.es\n")
@@ -217,12 +237,119 @@ check("push con autor personal: ask con motivo", d == "ask" and "email de autor"
 g("reset", "-q", "--hard", "HEAD~1")
 # push limpio de una rama: ask -> caso ltr-16 de casos.json
 
+# 8b. variantes de la auditoria: un remoto bare de verdad y un commit con un termino interno sin publicar
+REMOTO = os.path.join(T, "remoto.git")
+sh(["git", "init", "-q", "--bare", REMOTO], cwd=T)
+g("remote", "add", "origin", REMOTO)
+g("push", "-q", "origin", "main")
+g("fetch", "-q", "origin")
+escribir("assets/nota.txt", "ver " + TERM + "\n")
+g("add", "assets/nota.txt")
+g("commit", "-q", "-m", "nota")
+MALO = g("rev-parse", "HEAD").strip()
+d, m, _ = pre("git push origin trabajo")
+check("push contra remoto real con termino interno: deny", d == "deny" and "assets/nota.txt" in m, m)
+g("fetch", "-q", ".", "trabajo:refs/remotes/origin/escondida")
+d, m, _ = pre("git push origin trabajo")
+check("ref remota falsa (fetch . x:refs/remotes/origin/y): sigue deny", d == "deny" and "assets/nota.txt" in m, m)
+g("update-ref", "-d", "refs/remotes/origin/escondida")
+for envuelto in ["(git push origin trabajo)", "true & git push origin trabajo", "if true; then git push origin trabajo; fi",
+                 "timeout 60 git push origin trabajo", "env -u X git push origin trabajo", "cmd /c git push origin trabajo",
+                 'sh -c "git push origin trabajo"', "git -c alias.p=push p origin trabajo", "G=git; $G push origin trabajo"]:
+    d, m, _ = pre(envuelto)
+    check(f"envoltorio '{envuelto}': deny", d == "deny" and "assets/nota.txt" in m, m)
+g("config", "alias.sube", "push")
+d, m, _ = pre("git sube origin trabajo")
+check("alias de la config del repo (git sube = push): deny", d == "deny", m)
+g("config", "alias.sh1", "!git push")
+d, m, _ = pre("git sh1 origin trabajo")
+check("alias de shell: ask", d == "ask" and "alias" in m, m)
+g("config", "--unset", "alias.sube")
+g("config", "--unset", "alias.sh1")
+d, m, _ = pre("git push origin trabajo", "PowerShell")
+check("PowerShell: deny", d == "deny", m)
+WT = os.path.join(T, "wt")
+g("worktree", "add", "-q", "-b", "otra", WT, "trabajo")
+d, m, _ = pre("git -C ../wt push origin otra")
+check("git -C a un worktree del mismo repo: deny", d == "deny" and "assets/nota.txt" in m, m)
+rc, out, err, _ = hook("public_guard.py", "pre-git", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "cwd": T,
+                                                      "tool_input": {"command": f'git --git-dir="{D}/.git" push origin trabajo'}})
+check("--git-dir desde fuera del repo: deny", out and json.loads(out)["hookSpecificOutput"]["permissionDecision"] == "deny", out + err)
+g("worktree", "remove", "--force", WT)
+g("switch", "-q", "main")
+g("tag", "-a", "v9", "-m", "etiqueta", MALO)
+d, m, _ = pre("git push origin --tags")
+check("--tags con una etiqueta sobre el commit interno: deny", d == "deny" and "assets/nota.txt" in m, m)
+g("tag", "-d", "v9")
+g("tag", "-a", "v8", "-m", "ver " + TERM, "main")
+d, m, _ = pre("git push --follow-tags origin trabajo")
+check("--follow-tags: revisa tambien el mensaje de la etiqueta", d == "deny" and "etiqueta" in m, m)
+d, m, _ = pre("git push origin refs/tags/v8")
+check("refs/tags/x: revisa la etiqueta", d == "deny" and "etiqueta" in m, m)
+g("tag", "-d", "v8")
+d, m, _ = pre("git push origin @")
+check("git push origin @ estando en main: deny", d == "deny" and "main" in m, m)
+g("switch", "-q", "trabajo")
+g("reset", "-q", "--hard", "HEAD~1")
+
+# 8c. commits que el guard no ve antes de que ocurran o que llegan por otra via
+d, m, _ = pre('echo "ver ' + TERM + '" > assets/n.txt && git add assets/n.txt && ' + NOREPLY)
+check("escribe un fichero y commitea en el mismo comando: ask", d == "ask" and "escribe ficheros" in m, m)
+d, m, _ = pre("echo x >> robots.txt && git -c user.email=1+t@users.noreply.github.com commit -am nota")
+check("echo >> fichero && commit -am: ask", d == "ask" and "escribe ficheros" in m, m)
+NR = "git -c user.email=1+t@users.noreply.github.com commit --allow-empty"
+d, m, _ = pre(NR + ' -m nota --trailer "Ref: ' + TERM + '"')
+check("--trailer con termino interno: deny", d == "deny", m)
+d, m, _ = pre(NR + ' -m nota --trailer "Reviewed-by: X <persona@correo' + '.es>"')
+check("--trailer con email personal: deny", d == "deny" and "email" in m, m)
+d, m, _ = pre("export GIT_AUTHOR_EMAIL=persona@correo" + ".es; " + NR + " -m nota")
+check("export GIT_AUTHOR_EMAIL personal: ask", d == "ask" and "email de autor" in m, m)
+d, m, _ = pre("git config user.email persona@correo" + ".es && git commit --allow-empty -m x")
+check("git config user.email personal && commit: ask", d == "ask" and "email de autor" in m, m)
+d, m, _ = pre(NR + ' -m "$(printf "%s" ' + TERM + ')"')
+check("mensaje calculado con $(...): ask", d == "ask" and "calculado" in m, m)
+d, m, _ = pre(NR + " -F - <<EOF\nver " + TERM + "\nEOF")
+check("mensaje por -F - con heredoc: se revisa (deny)", d == "deny", m)
+d, m, _ = pre(NR + " -m \"$(cat <<'EOF'\nver " + TERM + "\nEOF\n)\"")
+check("mensaje con $(cat <<'EOF'): se revisa (deny)", d == "deny", m)
+d, m, _ = pre(NR + " -m \"$(cat <<'EOF'\nArregla el pie\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\"")
+check("mensaje limpio con $(cat <<'EOF'): sin opinion", d is None, m)
+d, m, _ = pre("git -c alias.ci=commit -c user.email=1+t@users.noreply.github.com ci --allow-empty -m 'ver " + TERM + "'")
+check("alias en linea de commit: deny", d == "deny", m)
+d, m, _ = pre("git apply --cached ../p.patch && " + NOREPLY)
+check("git apply --cached && commit: ask", d == "ask" and "indice" in m, m)
+d, m, _ = pre("git am ../parche.mbox")
+check("git am: ask", d == "ask" and "git am" in m, m)
+d, m, _ = pre("git -c user.email=equipo@2trainapp" + ".com commit --allow-empty -m x")
+check("autor del dominio de la empresa: ask (solo el noreply pasa)", d == "ask" and "email de autor" in m, m)
+lista_local(None)
+d, m, _ = pre("git push origin trabajo")
+check("push sin lista local: ask que lo dice", d == "ask" and "lista local" in m, m)
+lista_local(NEUTRA)
+
 # 9. post-edit
 def edit(modo, rel, tool="Write", content="x"):
     return hook("public_guard.py", modo, {"hook_event_name": "PreToolUse" if modo == "pre-edit" else "PostToolUse",
                                           "tool_name": tool, "tool_input": {"file_path": os.path.join(D, rel), "content": content}})
 
 # pre-edit de migraciones (existente: deny; nueva: sin opinion) -> casos ltr-34 a ltr-36 de casos.json
+# Aqui, las formas de ruta que el caso de casos.json no puede escribir (prefijos \\?\ y UNC administrativo).
+escribir("supabase/migrations/20260101000000_x.sql", "select 1;\n")
+MIG = os.path.join(D, "supabase", "migrations", "20260101000000_x.sql")
+if os.name == "nt":
+    for forma in ["\\\\?\\" + MIG, "\\\\?\\" + MIG.replace("/", "\\"),
+                  "\\\\localhost\\" + MIG[0].lower() + "$" + MIG[2:].replace("/", "\\")]:
+        rc, out, err, _ = hook("public_guard.py", "pre-edit", {"hook_event_name": "PreToolUse", "tool_name": "Edit",
+                                                               "tool_input": {"file_path": forma, "old_string": "1", "new_string": "2"}})
+        check(f"pre-edit migracion por {forma[:12]}...: deny", '"deny"' in out, out + err)
+# guard_core (repo-config: migraciones-aplicadas, deny_existentes con comandos=true): borrarla o pisarla por comando
+for cmd in ["rm supabase/migrations/20260101000000_x.sql", "echo x > supabase/migrations/20260101000000_x.sql"]:
+    rc, out, err, _ = hook("guard_core.py", "", {"hook_event_name": "PreToolUse", "tool_name": "Bash", "tool_input": {"command": cmd}})
+    check(f"guard_core '{cmd[:40]}': deny", '"deny"' in out, out + err)
+rc, out, err, _ = hook("guard_core.py", "", {"hook_event_name": "PreToolUse", "tool_name": "Bash",
+                                             "tool_input": {"command": "echo x > supabase/migrations/20990101000000_nueva.sql"}})
+check("guard_core: crear una migracion nueva por comando: sin opinion", not out, out + err)
+os.remove(MIG)
 escribir("privacidad/index.html", open(os.path.join(D, "privacidad/index.html"), encoding="utf-8").read() + "<p>" + "x" + "@" + "gmail.com</p>\n")
 rc, out, err, _ = edit("post-edit", "privacidad/index.html")
 check("post-edit: email personal -> aviso por stderr y exit 2", rc == 2 and "privacidad/index.html" in err and "email" in err, f"rc={rc} {err}")
