@@ -9,10 +9,12 @@ los escenarios que necesitan un arbol con cambios (contenido preparado, push de 
 hook Stop). Los valores sensibles de prueba se construyen en tiempo de ejecucion para que este fichero
 no contenga ninguno literal: el repo es publico.
 """
+import atexit
 import base64
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -37,6 +39,16 @@ def git_bash():
 
 BASH = git_bash()
 T = tempfile.mkdtemp(prefix="ltr-guard-")
+
+
+def _borrar_solo_lectura(funcion, ruta, _exc):
+    """git deja sus objetos de solo lectura: en Windows rmtree no los borra sin quitarles el atributo."""
+    os.chmod(ruta, stat.S_IWRITE)
+    funcion(ruta)
+
+
+# La copia temporal se borra siempre, tambien si una prueba revienta.
+atexit.register(lambda: shutil.rmtree(T, onerror=_borrar_solo_lectura) if os.path.isdir(T) else None)
 D = os.path.join(T, "repo")
 HOME = os.path.join(T, "home")
 LISTA = os.path.join(HOME, ".claude", "lmginc", "public-guard.local.json")
@@ -399,6 +411,5 @@ r, _ = stop()
 check("stop: fichero nuevo que Vercel publicaria -> block", r and "tmp-captura.yml" in r["reason"], str(r))
 os.remove(os.path.join(D, "tmp-captura.yml"))
 
-shutil.rmtree(T, ignore_errors=True)
 print(f"\n{len(fallos)} fallos")
 sys.exit(1 if fallos else 0)
