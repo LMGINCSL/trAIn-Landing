@@ -22,6 +22,8 @@ for m in re.finditer(r'<div class="faq-item"[^>]*>\s*<button[^>]*class="faq-q"[^
 assert len(faq) >= 9, len(faq)
 
 BASE = "https://2trainapp.com/"
+# Fichas de la app en las tiendas (las mismas que enlazan las insignias y el banner de app.js)
+STORES = ["https://apps.apple.com/app/id6809469225", "https://play.google.com/store/apps/details?id=com.twotrain.two_train"]
 url = BASE if lang == "es" else BASE + "en/"
 T = {
     "es": {
@@ -66,13 +68,14 @@ graph = [
      "description": T["org"], "email": "contact@2trainapp.com",
      "address": {"@type": "PostalAddress", "streetAddress": "Calle Lagasca 95", "postalCode": "28006", "addressLocality": "Madrid", "addressCountry": "ES"},
      "sameAs": ["https://www.instagram.com/2trainapp/"]},
-    {"@type": "WebSite", "@id": url + "#website", "name": "2trAIn", "url": url, "inLanguage": lang, "publisher": {"@id": BASE + "#organization"}},
+    {"@type": "WebSite", "@id": url + "#website", "name": "2trAIn", "alternateName": ["2train", "2Train"], "url": url, "inLanguage": lang, "publisher": {"@id": BASE + "#organization"}},
     {"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": T["page"], "inLanguage": lang, "isPartOf": {"@id": url + "#website"},
      "about": {"@id": BASE + "#app"}, "primaryImageOfPage": BASE + "og-image.png"},
     {"@type": "MobileApplication", "@id": BASE + "#app", "name": "2trAIn", "alternateName": "2train", "url": url,
      "applicationCategory": "HealthApplication", "applicationSubCategory": T["sub"], "operatingSystem": "iOS, Android",
      "inLanguage": ["es", "en"], "description": T["app"], "featureList": T["features"], "isAccessibleForFree": True,
      "image": BASE + "og-image.png", "publisher": {"@id": BASE + "#organization"},
+     "installUrl": STORES[0], "downloadUrl": STORES, "sameAs": STORES,
      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR", "category": "beta"}},
     {"@type": "FAQPage", "@id": url + "#faq", "mainEntity": faq},
 ]

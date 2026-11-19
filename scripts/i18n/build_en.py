@@ -492,6 +492,10 @@ PAIRS = [
     # Comentarios de sección restantes
     ('<!-- Menú móvil -->', '<!-- Mobile menu -->'),
     ('<!-- HERO · el producto delante -->', '<!-- HERO · the product up front -->'),
+    # Insignias de las tiendas (hero y pie)
+    ('<div class="stores" aria-label="Descarga la app">', '<div class="stores" aria-label="Get the app">'),
+    ('src="/assets/img/tiendas/app-store-es.svg" alt="Descárgalo en el App Store"', 'src="/assets/img/tiendas/app-store-en.svg" alt="Download on the App Store"'),
+    ('src="/assets/img/tiendas/google-play-es.png" alt="Disponible en Google Play"', 'src="/assets/img/tiendas/google-play-en.png" alt="Get it on Google Play"'),
 ]
 
 missing = []
