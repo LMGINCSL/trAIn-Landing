@@ -853,3 +853,33 @@ img, video { max-width: 100%; }
   .prose { font-size: 17px; line-height: 1.65; }
 }
 .wk-link { max-width: 920px; margin: 22px auto 0; text-align: center; }
+
+/* ===== Tiendas: insignias oficiales de App Store y Google Play =====
+   Misma altura para las dos (normas de Apple y Google). En un iPhone solo se ve
+   la de Apple y en Android solo la de Google (clase que pone app.js en <html>). */
+.stores { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; }
+.hero__cta .stores { justify-content: center; }
+.stores a { display: block; line-height: 0; border-radius: 8px; transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.stores a:hover { opacity: .85; }
+.stores a:active { transform: scale(.98); }
+.stores a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stores img, .footer-brand .stores img { display: block; height: 40px; width: auto; margin: 0; }
+.footer-brand .stores { margin-top: 16px; }
+.footer-brand .stores img { height: 36px; }
+.is-ios .stores__play, .is-android .stores__ios { display: none; }
+
+/* ===== Banner de la app en móvil =====
+   En iPhone con Safari lo pinta el sistema (meta apple-itunes-app). Este cubre
+   Android y los navegadores de iPhone que no son Safari. Flota como el aviso de
+   cookies y nunca a la vez que él. */
+.appbar { position: fixed; z-index: 490; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: max(12px, env(safe-area-inset-bottom, 0px)); max-width: 520px; margin: 0 auto; display: flex; align-items: center; gap: 10px; padding: 10px 12px 10px 6px; border-radius: 20px; background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); box-shadow: 0 0 0 1px var(--line-soft), var(--shadow-card); transform: translateY(calc(100% + 28px)); opacity: 0; transition: transform .45s var(--ease), opacity .3s var(--ease); }
+.appbar.is-on { transform: none; opacity: 1; }
+.appbar[hidden] { display: none; }
+.appbar__x { flex: none; width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; }
+.appbar__x:focus-visible, .appbar__go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.appbar__ico { flex: none; width: 46px; height: 46px; border-radius: 11px; box-shadow: 0 0 0 1px var(--line-soft); }
+.appbar__t { flex: 1; min-width: 0; display: grid; gap: 1px; line-height: 1.25; }
+.appbar__t b { font-size: 15px; font-weight: 600; color: var(--fg); }
+.appbar__t span { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.appbar__go { flex: none; padding: 7px 15px; border-radius: var(--r-pill); background: var(--control); color: var(--accent-text); font-size: 14px; font-weight: 600; text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { .appbar { transition: none; } }

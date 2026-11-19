@@ -940,3 +940,71 @@ idle(function() {
   if (mq.addEventListener) mq.addEventListener('change', place);
   else if (mq.addListener) mq.addListener(place);
 })();
+
+// ===== La app en el móvil: insignias y banner =====
+// En iPhone con Safari el banner lo pinta el sistema (meta apple-itunes-app del
+// <head>). Aquí se cubre lo que el sistema no hace: Android y los navegadores de
+// iPhone que no son Safari (Chrome, Firefox, el navegador de Instagram…). Además,
+// en un móvil solo se enseña la insignia de su tienda. Cerrar el banner vale para
+// esta visita; si se aceptaron las cookies, se recuerda 30 días.
+(function() {
+  var APP = {
+    name: '2trAIn',
+    ios: 'https://apps.apple.com/app/id6809469225',
+    android: 'https://play.google.com/store/apps/details?id=com.twotrain.two_train',
+    icon: '/apple-touch-icon.png'
+  };
+  var ua = navigator.userAgent || '';
+  var android = /Android/i.test(ua);
+  var ios = /iPhone|iPod|iPad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (android) document.documentElement.classList.add('is-android');
+  else if (ios) document.documentElement.classList.add('is-ios');
+  var iosSinBanner = ios && (/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua) || !/Safari\//.test(ua));
+  if (!android && !iosSinBanner) return;
+  if (navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)) return;
+  var KEY = '2t_appbar';
+  try { if (sessionStorage.getItem(KEY)) return; } catch (_) {}
+  try { var t = +localStorage.getItem(KEY); if (t && Date.now() - t < 30 * 864e5) return; } catch (_) {}
+
+  var L = isEn
+    ? { store: android ? 'Free · Google Play' : 'Free · App Store', go: android ? 'Install' : 'Get', close: 'Close', label: 'Get the 2trAIn app' }
+    : { store: android ? 'Gratis · Google Play' : 'Gratis · App Store', go: android ? 'Instalar' : 'Obtener', close: 'Cerrar', label: 'Descarga la app de 2trAIn' };
+  var bar = document.createElement('aside');
+  bar.className = 'appbar';
+  bar.setAttribute('aria-label', L.label);
+  bar.hidden = true;
+  bar.innerHTML =
+    '<button type="button" class="appbar__x" aria-label="' + L.close + '"><svg width="12" height="12" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>' +
+    '<img class="appbar__ico" src="' + APP.icon + '" alt="" width="46" height="46">' +
+    '<div class="appbar__t"><b>' + APP.name + '</b><span>' + L.store + '</span></div>' +
+    '<a class="appbar__go" href="' + (android ? APP.android : APP.ios) + '">' + L.go + '</a>';
+  document.body.appendChild(bar);
+
+  function cookieOpen() {
+    var c = document.getElementById('cookie-banner');
+    return !!c && !c.hidden && getComputedStyle(c).display !== 'none';
+  }
+  function show() {
+    if (cookieOpen() || !bar.hidden) return;
+    bar.hidden = false;
+    void bar.offsetWidth; // fuerza el pintado oculto para que la transición arranque
+    bar.classList.add('is-on');
+  }
+  function close() {
+    bar.classList.remove('is-on');
+    setTimeout(function() { bar.hidden = true; }, 450);
+    try { sessionStorage.setItem(KEY, '1'); } catch (_) {}
+    if (/(?:^|; )cookie_consent=accepted/.test(document.cookie)) { try { localStorage.setItem(KEY, String(Date.now())); } catch (_) {} }
+  }
+  bar.querySelector('.appbar__x').addEventListener('click', close);
+  // Ir a la tienda también cuenta como «ya lo he visto».
+  bar.querySelector('.appbar__go').addEventListener('click', function() { try { sessionStorage.setItem(KEY, '1'); } catch (_) {} });
+
+  // Nunca a la vez que el aviso de cookies: si está abierto, espera a que se cierre.
+  var cookie = document.getElementById('cookie-banner');
+  if (cookie && 'MutationObserver' in window) {
+    new MutationObserver(function() { if (!cookieOpen()) setTimeout(show, 600); })
+      .observe(cookie, { attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
+  }
+  setTimeout(show, 1500);
+})();
